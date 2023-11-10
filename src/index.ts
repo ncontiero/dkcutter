@@ -6,9 +6,10 @@ import { Command } from "commander";
 import { z } from "zod";
 
 import { getTemplate } from "@/helpers/getTemplate";
+import { getConfig } from "@/helpers/getConfig";
+import { getContext } from "@/helpers/getContext";
 import { handleError } from "@/utils/handleError";
 import { CONFIG_FILE_NAME, PKG_ROOT, PKG_TEMPLATE } from "@/consts";
-import { getConfig } from "./helpers/getConfig";
 
 process.on("SIGINT", handleError);
 process.on("SIGTERM", handleError);
@@ -54,9 +55,10 @@ async function main() {
   const config = await getConfig(isLocalProject ? cwd : PKG_ROOT);
   if (!config)
     throw new Error("Invalid configuration found. Please try again.");
-  fs.removeSync(path.join(PKG_ROOT, CONFIG_FILE_NAME));
+  !isLocalProject && fs.removeSync(path.join(PKG_ROOT, CONFIG_FILE_NAME));
+  const ctx = await getContext({ config, program });
 
-  console.log(config);
+  console.log(ctx);
 }
 
 main().catch(handleError);
