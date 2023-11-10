@@ -5,7 +5,9 @@ import fs from "fs-extra";
 import { Command } from "commander";
 import { z } from "zod";
 
+import { getTemplate } from "@/helpers/getTemplate";
 import { handleError } from "@/utils/handleError";
+import { CONFIG_FILE_NAME, PKG_ROOT, PKG_TEMPLATE } from "@/consts";
 
 process.on("SIGINT", handleError);
 process.on("SIGTERM", handleError);
@@ -39,14 +41,16 @@ async function main() {
   }
 
   const args = program.args;
-  const isLocalProject = args[0].startsWith(".");
+  const isLocalProject = args[0]?.startsWith(".") || false;
   if (!args[0]) {
     program.help();
   } else if (z.string().url().safeParse(args[0]).success) {
-    console.log("TODO: Implement remote templates");
+    await getTemplate({ url: args[0], outputDir: PKG_TEMPLATE });
   } else if (!isLocalProject) {
     throw new Error("Invalid template. Please specify a valid url or path!");
   }
+
+  fs.removeSync(path.join(PKG_ROOT, CONFIG_FILE_NAME));
 
   console.log(options);
   console.log(isLocalProject);

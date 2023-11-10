@@ -91,6 +91,7 @@ out
 .nuxt
 dist
 template
+dkcutter.json
 
 # Gatsby files
 .cache/
