@@ -1,0 +1,26 @@
+# Config for Dependabot updates. See Documentation here:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  # Update GitHub actions in workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "update"
+    commit-message:
+      include: scope
+      prefix: update
+
+  # Update npm packages
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "update"
+    commit-message:
+      include: scope
+      prefix: update

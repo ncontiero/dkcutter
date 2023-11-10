@@ -1,0 +1,32 @@
+name: CI
+
+on: pull_request
+
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  check-code:
+    name: Check Code - CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          cache: "pnpm"
+          node-version: "18"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Check code
+        run: pnpm check
