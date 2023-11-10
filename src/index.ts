@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import path from "node:path";
+import fs from "fs-extra";
 import { Command } from "commander";
 import { z } from "zod";
 
@@ -31,6 +32,11 @@ async function main() {
 
   const options = optionsSchema.parse(program.opts());
   const cwd = path.resolve(options.cwd);
+
+  // Ensure target directory exists.
+  if (!fs.existsSync(cwd)) {
+    throw new Error(`The path ${cwd} does not exist. Please try again.`);
+  }
 
   const args = program.args;
   const isLocalProject = args[0].startsWith(".");
