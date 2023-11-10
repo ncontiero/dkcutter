@@ -2,12 +2,14 @@
 
 import path from "node:path";
 import fs from "fs-extra";
+import ora from "ora";
 import { Command } from "commander";
 import { z } from "zod";
 
 import { getTemplate } from "@/helpers/getTemplate";
 import { getConfig } from "@/helpers/getConfig";
 import { getContext } from "@/helpers/getContext";
+import { createProject } from "@/helpers/createProjects";
 import { handleError } from "@/utils/handleError";
 import { CONFIG_FILE_NAME, PKG_ROOT, PKG_TEMPLATE } from "@/consts";
 
@@ -58,7 +60,13 @@ async function main() {
   !isLocalProject && fs.removeSync(path.join(PKG_ROOT, CONFIG_FILE_NAME));
   const ctx = await getContext({ config, program });
 
-  console.log(ctx);
+  const spinner = ora("\nCreating project...").start();
+  await createProject(
+    ctx,
+    isLocalProject ? path.join(cwd, "template") : PKG_TEMPLATE,
+    cwd,
+  );
+  spinner.succeed("Project created!");
 }
 
 main().catch(handleError);
