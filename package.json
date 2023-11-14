@@ -44,12 +44,12 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
-    "@dkshs/changelog-github": "^1.0.2",
-    "@dkshs/eslint-config": "^1.4.0",
-    "@types/fs-extra": "^11.0.4",
+    "@dkshs/changelog-github": "1.0.2",
+    "@dkshs/eslint-config": "1.4.0",
+    "@types/fs-extra": "^11",
     "@types/node": "^20",
-    "@types/nunjucks": "^3.2.6",
-    "@types/prompts": "^2.4.8",
+    "@types/nunjucks": "^3",
+    "@types/prompts": "^2",
     "eslint": "^8",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2"
