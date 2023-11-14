@@ -1,5 +1,11 @@
 # dkcutter
 
+## 2.2.0
+
+### Minor Changes
+
+- [`801d975`](https://github.com/dkshs/dkcutter/commit/801d975b0e6f155894cae2b17f224f354b2d1e44) - feat: injecting global values that can be used in templates.
+
 ## 2.1.0
 
 ### Minor Changes
