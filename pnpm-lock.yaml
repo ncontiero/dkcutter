@@ -59,7 +59,7 @@ devDependencies:
     specifier: ^2
     version: 2.4.8
   '@types/which':
-    specifier: ^3.0.2
+    specifier: ^3
     version: 3.0.2
   eslint:
     specifier: ^8
