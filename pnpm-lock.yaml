@@ -61,6 +61,9 @@ devDependencies:
   tsup:
     specifier: ^7.2.0
     version: 7.2.0(typescript@5.2.2)
+  type-fest:
+    specifier: ^4.7.1
+    version: 4.7.1
   typescript:
     specifier: ^5.2.2
     version: 5.2.2
@@ -3983,6 +3986,11 @@ packages:
   /type-fest@0.8.1:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
+    dev: true
+
+  /type-fest@4.7.1:
+    resolution: {integrity: sha512-iWr8RUmzAJRfhZugX9O7nZE6pCxDU8CZ3QxsLuTnGcBLJpCaP2ll3s4eMTBoFnU/CeXY/5rfQSuAEsTGJO4y8A==}
+    engines: {node: '>=16'}
     dev: true
 
   /typed-array-buffer@1.0.0:

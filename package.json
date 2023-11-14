@@ -52,6 +52,7 @@
     "@types/prompts": "^2",
     "eslint": "^8",
     "tsup": "^7.2.0",
+    "type-fest": "^4.7.1",
     "typescript": "^5.2.2"
   },
   "publishConfig": {

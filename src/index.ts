@@ -12,6 +12,7 @@ import { getContext } from "@/helpers/getContext";
 import { createProject } from "@/helpers/createProjects";
 import { configureHooks, runHooks } from "@/helpers/runHooks";
 import { handleError } from "@/utils/handleError";
+import { getPackageInfo } from "@/utils/getPackageInfo";
 import { CONFIG_FILE_NAME, PKG_ROOT, PKG_TEMPLATE } from "@/consts";
 
 process.on("SIGINT", handleError);
@@ -23,10 +24,16 @@ const optionsSchema = z.object({
 });
 
 async function main() {
+  const { packageJson } = getPackageInfo(PKG_ROOT);
+
   const program = new Command()
     .name("dkcutter")
     .description("A command-line utility that creates projects from templates.")
-    .version("1.0.0", "-v, --version", "Display the version number.")
+    .version(
+      packageJson.version || "1.0.0",
+      "-v, --version",
+      "Display the version number.",
+    )
     .usage("template [options]")
     .option("-y, --default", "Use the template's default values.", false)
     .option(
@@ -45,7 +52,7 @@ async function main() {
     throw new Error(`The path ${cwd} does not exist. Please try again.`);
   }
 
-  const args = program.args;
+  const { args } = program;
   const isLocalProject = args[0]?.startsWith(".") || false;
   if (!args[0]) {
     program.help();
