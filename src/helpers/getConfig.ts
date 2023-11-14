@@ -7,20 +7,21 @@ const explorer = cosmiconfig("dkcutter", {
   searchPlaces: [CONFIG_FILE_NAME],
 });
 
-export const configSchema = z.record(
-  z
-    .object({
-      promptMessage: z.string().optional(),
-      validateRegex: z
-        .object({
-          regex: z.string().transform((regex) => new RegExp(regex)),
-          message: z.string().optional(),
-        })
-        .optional(),
-      value: z.string().or(z.boolean()),
-    })
-    .or(z.string().or(z.boolean())),
-);
+const configObjectSchema = z
+  .object({
+    promptMessage: z.string().optional(),
+    validateRegex: z
+      .object({
+        regex: z.string().transform((regex) => new RegExp(regex)),
+        message: z.string().optional(),
+      })
+      .optional(),
+    value: z.string().or(z.boolean()),
+  })
+  .or(z.string().or(z.boolean()));
+export const configSchema = z.record(configObjectSchema);
+
+export type ConfigObjectProps = z.infer<typeof configObjectSchema>;
 export type ConfigProps = z.infer<typeof configSchema>;
 export type ContextProps = {
   [K in keyof ConfigProps]: string | boolean;
@@ -37,7 +38,7 @@ export async function getConfig(cwd: string): Promise<ConfigProps | null> {
     return configSchema.parse(configResult.config);
   } catch (error) {
     throw new Error(
-      `Invalid configuration found in ${cwd}/${CONFIG_FILE_NAME}.`,
+      `Invalid configuration found in ${cwd}${CONFIG_FILE_NAME}.`,
     );
   }
 }

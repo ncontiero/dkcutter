@@ -24,7 +24,7 @@ export async function getTemplate({
     const spinner = ora("Downloading template...").start();
     const output = path.resolve(outputDir);
 
-    if (fs.pathExistsSync(output)) {
+    if (await fs.pathExists(output)) {
       spinner.stop();
       const { overwriteTemplate } = await prompts({
         type: "confirm",
@@ -39,7 +39,7 @@ export async function getTemplate({
     }
 
     spinner.start();
-    if (!isGitInstalled(process.cwd())) {
+    if (!isGitInstalled()) {
       throw new Error("Git is not installed");
     }
 
@@ -48,15 +48,15 @@ export async function getTemplate({
     const hooksFolder = path.join(cloneOutput, "hooks");
 
     await execa("git", ["clone", url, cloneOutput]);
-    if (fs.existsSync(hooksFolder)) {
-      fs.copySync(hooksFolder, path.join(PKG_ROOT, "hooks"));
+    if (await fs.exists(hooksFolder)) {
+      await fs.copy(hooksFolder, path.join(PKG_ROOT, "hooks"));
     }
-    fs.copyFileSync(
+    await fs.copyFile(
       path.join(cloneOutput, CONFIG_FILE_NAME),
       path.join(PKG_ROOT, CONFIG_FILE_NAME),
     );
-    fs.copySync(templateOutput, output);
-    fs.removeSync(cloneOutput);
+    await fs.copy(templateOutput, output);
+    await fs.remove(cloneOutput);
 
     spinner.succeed("Template downloaded successfully.");
   } catch (err) {

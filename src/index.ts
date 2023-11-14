@@ -54,22 +54,26 @@ async function main() {
 
   const { args } = program;
   const isLocalProject = args[0]?.startsWith(".") || false;
+  const templateFolder = isLocalProject
+    ? path.join(cwd, "template")
+    : PKG_TEMPLATE;
   if (!args[0]) {
     program.help();
   } else if (z.string().url().safeParse(args[0]).success) {
     await getTemplate({ url: args[0], outputDir: PKG_TEMPLATE });
   } else if (!isLocalProject) {
     throw new Error("Invalid template. Please specify a valid url or path!");
+  } else if (!fs.existsSync(templateFolder)) {
+    throw new Error("No template found. Please specify a valid url or path!");
   }
 
   const config = await getConfig(isLocalProject ? cwd : PKG_ROOT);
-  if (!config)
-    throw new Error("Invalid configuration found. Please try again.");
+  if (!config) throw new Error("No configuration found. Please try again.");
   !isLocalProject && fs.removeSync(path.join(PKG_ROOT, CONFIG_FILE_NAME));
-  const ctx = await getContext({ config, program });
+  const ctx = await getContext({ config, program, skip: options.default });
 
-  await configureHooks(ctx, isLocalProject ? cwd : PKG_ROOT);
-  await runHooks({ runHook: "preGenProject.js" });
+  configureHooks(ctx, isLocalProject ? cwd : PKG_ROOT);
+  runHooks({ runHook: "preGenProject.js" });
 
   const spinner = ora("\nCreating project...").start();
   await createProject(
@@ -78,7 +82,7 @@ async function main() {
     cwd,
   );
 
-  await runHooks({ runHook: "postGenProject.js" });
+  runHooks({ runHook: "postGenProject.js" });
   const hooksFolder = path.join(PKG_TEMPLATE, "hooks");
   fs.existsSync(hooksFolder) && fs.removeSync(hooksFolder);
   !isLocalProject && fs.removeSync(path.join(PKG_ROOT, "hooks"));

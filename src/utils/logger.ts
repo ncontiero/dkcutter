@@ -1,19 +1,13 @@
 import chalk from "chalk";
 
+export function createLogger(color: (text: string) => string) {
+  return (...args: unknown[]) => console.log(color(args.toString()));
+}
+
 export const logger = {
-  error(...args: unknown[]) {
-    console.log(chalk.red(...args));
-  },
-  warn(...args: unknown[]) {
-    console.log(chalk.yellow(...args));
-  },
-  info(...args: unknown[]) {
-    console.log(chalk.cyan(...args));
-  },
-  success(...args: unknown[]) {
-    console.log(chalk.green(...args));
-  },
-  break() {
-    console.log("");
-  },
+  error: createLogger(chalk.red),
+  warn: createLogger(chalk.yellow),
+  info: createLogger(chalk.cyan),
+  success: createLogger(chalk.green),
+  break: () => console.log(""),
 };

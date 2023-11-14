@@ -6,6 +6,8 @@ import nunjucks from "nunjucks";
 
 import { handleError } from "@/utils/handleError";
 
+const env = nunjucks.configure({ autoescape: true });
+
 export async function createProject(
   ctx: ContextProps,
   dir = path.join(process.cwd(), "template"),
@@ -16,30 +18,27 @@ export async function createProject(
     const outputFolder = path.resolve(output);
     const templatePath = path.resolve(dir);
 
-    nunjucks.configure({ autoescape: true });
+    const files = await fs.readdir(templatePath);
 
-    fs.readdirSync(templatePath).forEach((file) => {
+    for (const file of files) {
       if (ignorePatterns.some((pattern) => pattern.test(file))) {
-        return;
+        continue;
       }
 
       const filePath = path.join(templatePath, file);
-      const treatedName = nunjucks.renderString(file, ctx);
+      const treatedName = env.renderString(file, ctx);
       const outputFilePath = path.join(outputFolder, treatedName);
 
-      const itemStat = fs.lstatSync(path.resolve(filePath));
+      const itemStat = await fs.lstat(filePath);
 
       if (itemStat.isDirectory()) {
-        fs.mkdirSync(outputFilePath, { recursive: true });
-        createProject(ctx, filePath, outputFilePath);
+        await fs.mkdir(outputFilePath, { recursive: true });
+        await createProject(ctx, filePath, outputFilePath);
       } else if (itemStat.isFile()) {
-        const fileContent = fs.readFileSync(filePath, "utf-8");
-        fs.writeFileSync(
-          outputFilePath,
-          nunjucks.renderString(fileContent, ctx),
-        );
+        const fileContent = await fs.readFile(filePath, "utf-8");
+        await fs.writeFile(outputFilePath, env.renderString(fileContent, ctx));
       }
-    });
+    }
   } catch (err) {
     handleError(err);
   }

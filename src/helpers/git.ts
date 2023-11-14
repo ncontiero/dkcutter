@@ -1,10 +1,5 @@
-import { execSync } from "child_process";
+import which from "which";
 
-export function isGitInstalled(dir: string): boolean {
-  try {
-    execSync("git --version", { cwd: dir });
-    return true;
-  } catch (_e) {
-    return false;
-  }
+export function isGitInstalled(): boolean {
+  return !!which.sync("git", { nothrow: true });
 }

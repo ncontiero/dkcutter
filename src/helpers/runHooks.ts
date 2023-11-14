@@ -10,28 +10,27 @@ import { PKG_TEMPLATE } from "@/consts";
 
 const env = nunjucks.configure({ autoescape: true });
 
-export async function configureHooks(ctx: ContextProps, dir = process.cwd()) {
+export function configureHooks(ctx: ContextProps, dir = process.cwd()) {
   try {
     const supportedFiles = ["postGenProject.js", "preGenProject.js"];
     const hooksFolder = path.join(dir, "hooks");
-
     const hooksRenderedFolder = path.join(PKG_TEMPLATE, "hooks");
-    fs.existsSync(hooksRenderedFolder) && fs.removeSync(hooksRenderedFolder);
-    fs.mkdirSync(hooksRenderedFolder, { recursive: true });
 
-    supportedFiles.forEach((hook) => {
+    fs.ensureDirSync(hooksRenderedFolder);
+
+    for (const hook of supportedFiles) {
       const hookPath = path.join(hooksFolder, hook);
-
-      if (!fs.existsSync(hookPath)) return; // Skip hook if it doesn't exist.
-      if (fs.existsSync(path.join(hooksRenderedFolder, hook))) return; // Skip hook if it's already rendered.
-
       const renderedHookPath = path.join(hooksRenderedFolder, hook);
+
+      if (!fs.pathExistsSync(hookPath)) continue; // Skip hook if it doesn't exist.
+      if (fs.pathExistsSync(renderedHookPath)) continue; // Skip hook if it's already rendered.
+
       const hookContent = fs.readFileSync(hookPath, "utf-8");
       const renderedHookContent = env.renderString(hookContent, ctx);
 
       // Render hook with nunjucks.
       fs.writeFileSync(renderedHookPath, renderedHookContent);
-    });
+    }
   } catch (err) {
     handleError(err);
   }
@@ -42,7 +41,7 @@ interface RunHooks {
   runHook: "postGenProject.js" | "preGenProject.js";
 }
 
-export async function runHooks({ dir = process.cwd(), runHook }: RunHooks) {
+export function runHooks({ dir = process.cwd(), runHook }: RunHooks) {
   try {
     const hooksFolder = path.join(PKG_TEMPLATE, "hooks");
     const hookPath = path.join(hooksFolder, runHook);

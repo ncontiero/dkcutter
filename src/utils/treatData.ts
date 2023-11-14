@@ -3,13 +3,11 @@ import type { ContextProps } from "@/helpers/getConfig";
 import nunjucks from "nunjucks";
 
 export function treatData(data: ContextProps): ContextProps {
-  const processedData = { ...data };
-  Object.entries(data).map(([key, value]) => {
-    if (typeof value !== "string") {
-      return null;
+  const processedEntries = Object.entries(data).map(([key, value]) => {
+    if (typeof value === "string") {
+      return [key, nunjucks.renderString(value, data)];
     }
-    processedData[key] = nunjucks.renderString(value, data);
-    return null;
+    return [key, value];
   });
-  return processedData;
+  return Object.fromEntries(processedEntries);
 }
