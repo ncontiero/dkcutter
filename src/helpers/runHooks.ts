@@ -3,12 +3,10 @@ import type { ContextProps } from "./getConfig";
 import path from "node:path";
 import fs from "fs-extra";
 import { execaSync } from "execa";
-import nunjucks from "nunjucks";
 
 import { handleError } from "@/utils/handleError";
+import { renderer } from "@/utils/renderer";
 import { PKG_TEMPLATE } from "@/consts";
-
-const env = nunjucks.configure({ autoescape: true });
 
 export function configureHooks(ctx: ContextProps, dir = process.cwd()) {
   try {
@@ -26,7 +24,7 @@ export function configureHooks(ctx: ContextProps, dir = process.cwd()) {
       if (fs.pathExistsSync(renderedHookPath)) continue; // Skip hook if it's already rendered.
 
       const hookContent = fs.readFileSync(hookPath, "utf-8");
-      const renderedHookContent = env.renderString(hookContent, ctx);
+      const renderedHookContent = renderer.renderString(hookContent, ctx);
 
       // Render hook with nunjucks.
       fs.writeFileSync(renderedHookPath, renderedHookContent);

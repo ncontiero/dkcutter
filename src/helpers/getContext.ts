@@ -2,12 +2,12 @@ import type { Command } from "commander";
 import type { ConfigProps, ContextProps, ConfigObjectProps } from "./getConfig";
 
 import prompts from "prompts";
-import nunjucks from "nunjucks";
 import { z } from "zod";
 
 import { formatKeyMessage } from "@/utils/strings";
 import { handleError } from "@/utils/handleError";
 import { treatData } from "@/utils/treatData";
+import { renderer } from "@/utils/renderer";
 
 interface GetContext {
   program: Command;
@@ -40,7 +40,7 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
     name: key,
     message: objValues.promptMessage || formatKeyMessage(key),
     initial: (_, values) =>
-      isString ? nunjucks.renderString(value, values) : value,
+      isString ? renderer.renderString(value, values) : value,
     validate: (promptValue) =>
       typeof promptValue === "string" && validateRegex
         ? z.string().regex(validateRegex.regex).safeParse(promptValue).success

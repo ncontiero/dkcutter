@@ -2,11 +2,9 @@ import type { ContextProps } from "@/helpers/getConfig";
 
 import path from "node:path";
 import fs from "fs-extra";
-import nunjucks from "nunjucks";
 
+import { renderer } from "@/utils/renderer";
 import { handleError } from "@/utils/handleError";
-
-const env = nunjucks.configure({ autoescape: true });
 
 export async function createProject(
   ctx: ContextProps,
@@ -26,7 +24,7 @@ export async function createProject(
       }
 
       const filePath = path.join(templatePath, file);
-      const treatedName = env.renderString(file, ctx);
+      const treatedName = renderer.renderString(file, ctx);
       const outputFilePath = path.join(outputFolder, treatedName);
 
       const itemStat = await fs.lstat(filePath);
@@ -36,7 +34,10 @@ export async function createProject(
         await createProject(ctx, filePath, outputFilePath);
       } else if (itemStat.isFile()) {
         const fileContent = await fs.readFile(filePath, "utf-8");
-        await fs.writeFile(outputFilePath, env.renderString(fileContent, ctx));
+        await fs.writeFile(
+          outputFilePath,
+          renderer.renderString(fileContent, ctx),
+        );
       }
     }
   } catch (err) {
