@@ -10,9 +10,7 @@ export async function createProject(
   ctx: ContextProps,
   dir = path.join(process.cwd(), "template"),
   output = ".",
-  ignorePatterns: RegExp[] = [
-    /[A-Za-z0-9]+\.(png|jpg|jpeg|ico|svg|gif|webp)$/i,
-  ],
+  ignorePatterns: RegExp[] = [/(hooks|\.(png|jpg|jpeg|ico|svg|gif|webp))$/i],
 ) {
   try {
     const outputFolder = path.resolve(output);

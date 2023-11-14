@@ -45,8 +45,12 @@ export async function getTemplate({
 
     const cloneOutput = path.join(output, "output");
     const templateOutput = path.join(cloneOutput, templateFolder);
+    const hooksFolder = path.join(cloneOutput, "hooks");
 
     await execa("git", ["clone", url, cloneOutput]);
+    if (fs.existsSync(hooksFolder)) {
+      fs.copySync(hooksFolder, path.join(PKG_ROOT, "hooks"));
+    }
     fs.copyFileSync(
       path.join(cloneOutput, CONFIG_FILE_NAME),
       path.join(PKG_ROOT, CONFIG_FILE_NAME),

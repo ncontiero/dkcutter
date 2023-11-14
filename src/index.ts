@@ -10,6 +10,7 @@ import { getTemplate } from "@/helpers/getTemplate";
 import { getConfig } from "@/helpers/getConfig";
 import { getContext } from "@/helpers/getContext";
 import { createProject } from "@/helpers/createProjects";
+import { configureHooks, runHooks } from "@/helpers/runHooks";
 import { handleError } from "@/utils/handleError";
 import { CONFIG_FILE_NAME, PKG_ROOT, PKG_TEMPLATE } from "@/consts";
 
@@ -60,12 +61,21 @@ async function main() {
   !isLocalProject && fs.removeSync(path.join(PKG_ROOT, CONFIG_FILE_NAME));
   const ctx = await getContext({ config, program });
 
+  await configureHooks(ctx, isLocalProject ? cwd : PKG_ROOT);
+  await runHooks({ runHook: "preGenProject.js" });
+
   const spinner = ora("\nCreating project...").start();
   await createProject(
     ctx,
     isLocalProject ? path.join(cwd, "template") : PKG_TEMPLATE,
     cwd,
   );
+
+  await runHooks({ runHook: "postGenProject.js" });
+  const hooksFolder = path.join(PKG_TEMPLATE, "hooks");
+  fs.existsSync(hooksFolder) && fs.removeSync(hooksFolder);
+  !isLocalProject && fs.removeSync(path.join(PKG_ROOT, "hooks"));
+
   spinner.succeed("Project created!");
 }
 
