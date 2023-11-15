@@ -42,9 +42,11 @@ async function main() {
       process.cwd(),
     )
     .argument("[template]", "The url or path of the template.")
+    .allowUnknownOption(true)
     .parse(process.argv);
 
-  const options = optionsSchema.parse(program.opts());
+  const opts = program.opts();
+  const options = optionsSchema.parse(opts);
   const cwd = path.resolve(options.cwd);
 
   // Ensure target directory exists.

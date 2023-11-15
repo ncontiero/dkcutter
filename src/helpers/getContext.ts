@@ -56,18 +56,39 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
   } as prompts.PromptObject<keyof ConfigProps>;
 }
 
-export async function getContext({ config, skip = false }: GetContext) {
+function optionValueSchema(key: string, type: "<string>" | "[boolean]") {
+  return z
+    .string()
+    .optional()
+    .transform((val) =>
+      val === "false" || val === "true" ? val !== "false" : val,
+    )
+    .refine((val) => (type === "<string>" ? val : typeof val === "boolean"), {
+      message: `Enter a valid value in ${key}.`,
+      path: [key],
+    });
+}
+
+export async function getContext({
+  config,
+  program,
+  skip = false,
+}: GetContext) {
   const { internal: internalCtx, external: externalCtx } = returnObject(config);
   let context = { ...internalCtx, ...externalCtx };
 
-  // Object.entries(config).forEach(([key, value]) => {
-  //   if (key.startsWith("_")) return;
-  //   const description =
-  //     typeof value === "object" ? value.promptMessage : formatKeyMessage(key);
-  //   program.createArgument(`[${key}]`, description);
-  // });
+  Object.entries(context).forEach(([key, value]) => {
+    if (key.startsWith("_")) return;
+    const typeValue = typeof value === "string" ? "<string>" : "[boolean]";
+    program.option(`--${key} ${typeValue}`, formatKeyMessage(key), (value) =>
+      optionValueSchema(`--${key}`, typeValue).parse(value),
+    );
+  });
+  program.parse(process.argv);
 
-  // program.parse(process.argv);
+  const opts = program.opts();
+  prompts.override(opts);
+  context = { ...context, ...opts };
 
   try {
     if (skip) {
