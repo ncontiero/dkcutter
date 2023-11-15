@@ -31,14 +31,18 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
   if (typeof objValues !== "object" || key.startsWith("_")) {
     return { type: null, name: key };
   }
-  const { value, validateRegex } = objValues;
+  const { value, validateRegex, promptMessage } = objValues;
   const isBoolean = typeof value === "boolean";
   const isString = typeof value === "string";
+  const message = (_: unknown, values: prompts.Answers<string>) =>
+    promptMessage
+      ? renderer.renderString(promptMessage, values)
+      : formatKeyMessage(key);
 
   return {
     type: isBoolean ? "toggle" : "text",
     name: key,
-    message: objValues.promptMessage || formatKeyMessage(key),
+    message,
     initial: (_, values) =>
       isString ? renderer.renderString(value, values) : value,
     validate: (promptValue) =>
