@@ -22,6 +22,7 @@ const configObjectSchema = z
       .optional(),
     value: z.string().or(z.boolean()),
     choices: z.array(configChoiceSchema).optional(),
+    disabled: z.string().optional(),
   })
   .or(z.string().or(z.boolean()));
 export const configSchema = z.record(configObjectSchema);
