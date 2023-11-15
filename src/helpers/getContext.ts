@@ -1,5 +1,10 @@
 import type { Command } from "commander";
-import type { ConfigProps, ContextProps, ConfigObjectProps } from "./getConfig";
+import type {
+  ConfigProps,
+  ContextProps,
+  ConfigObjectProps,
+  ConfigChoiceProps,
+} from "./getConfig";
 
 import prompts from "prompts";
 import { z } from "zod";
@@ -31,7 +36,7 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
   if (typeof objValues !== "object" || key.startsWith("_")) {
     return { type: null, name: key };
   }
-  const { value, validateRegex, promptMessage } = objValues;
+  const { value, validateRegex, promptMessage, choices } = objValues;
   const isBoolean = typeof value === "boolean";
   const isString = typeof value === "string";
   const message = (_: unknown, values: prompts.Answers<string>) =>
@@ -40,11 +45,14 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
       : formatKeyMessage(key);
 
   return {
-    type: isBoolean ? "toggle" : "text",
+    type: choices ? "select" : isBoolean ? "toggle" : "text",
     name: key,
     message,
-    initial: (_, values) =>
-      isString ? renderer.renderString(value, values) : value,
+    choices,
+    initial: choices
+      ? choices.findIndex((choice) => choice.value === value)
+      : (_, values) =>
+          isString ? renderer.renderString(value, values) : value,
     validate: (promptValue) =>
       typeof promptValue === "string" && validateRegex
         ? z.string().regex(validateRegex.regex).safeParse(promptValue).success
@@ -56,17 +64,38 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
   } as prompts.PromptObject<keyof ConfigProps>;
 }
 
-function optionValueSchema(key: string, type: "<string>" | "[boolean]") {
+function optionValueSchema(
+  key: string,
+  type: "<string>" | "[boolean]",
+  regex?: RegExp,
+  choices?: ConfigChoiceProps[],
+) {
+  const err = {
+    message: `Enter a valid value in ${key}.`,
+    path: [key],
+  };
+
   return z
     .string()
     .optional()
+    .refine(
+      (val) =>
+        choices && val ? choices.find((choice) => choice.value === val) : true,
+      err,
+    )
+    .refine((val) => (regex && val ? regex.test(val) : true), err)
     .transform((val) =>
       val === "false" || val === "true" ? val !== "false" : val,
     )
-    .refine((val) => (type === "<string>" ? val : typeof val === "boolean"), {
-      message: `Enter a valid value in ${key}.`,
-      path: [key],
-    });
+    .refine(
+      (val) =>
+        type === "<string>"
+          ? typeof val === "string"
+            ? val
+            : false
+          : typeof val === "boolean",
+      err,
+    );
 }
 
 export async function getContext({
@@ -79,9 +108,16 @@ export async function getContext({
 
   Object.entries(context).forEach(([key, value]) => {
     if (key.startsWith("_")) return;
+    const configValue = config[key];
+    const regex =
+      typeof configValue === "object"
+        ? configValue.validateRegex?.regex
+        : undefined;
+    const choices =
+      typeof configValue === "object" ? configValue.choices : undefined;
     const typeValue = typeof value === "string" ? "<string>" : "[boolean]";
     program.option(`--${key} ${typeValue}`, formatKeyMessage(key), (value) =>
-      optionValueSchema(`--${key}`, typeValue).parse(value),
+      optionValueSchema(`--${key}`, typeValue, regex, choices).parse(value),
     );
   });
   program.parse(process.argv);
