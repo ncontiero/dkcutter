@@ -45,20 +45,21 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
       ? renderer.renderString(promptMessage, values)
       : formatKeyMessage(key);
 
-  function show(values: prompts.Answers<string>, disabled: string) {
+  const show = (values: prompts.Answers<string>, disabled: string) => {
     const condition = renderer.renderString(disabled, values);
-    if (condition === "false") return "toggle";
-    return null;
-  }
+    return condition === "false" ? "toggle" : null;
+  };
+  const getType = () => {
+    if (disabled)
+      return (_: unknown, values: prompts.Answers<string>) =>
+        show(values, disabled);
+    if (choices) return "select";
+    if (isBoolean) return "toggle";
+    return "text";
+  };
 
   return {
-    type: disabled
-      ? (_, values) => show(values, disabled)
-      : choices
-        ? "select"
-        : isBoolean
-          ? "toggle"
-          : "text",
+    type: getType(),
     name: key,
     message,
     choices,
@@ -87,28 +88,28 @@ function optionValueSchema(
     message: `Enter a valid value in ${key}.`,
     path: [key],
   };
+  const baseSchema = z.string().optional();
 
-  return z
-    .string()
-    .optional()
-    .refine(
-      (val) =>
-        choices && val ? choices.find((choice) => choice.value === val) : true,
-      err,
-    )
-    .refine((val) => (regex && val ? regex.test(val) : true), err)
-    .transform((val) =>
-      val === "false" || val === "true" ? val !== "false" : val,
-    )
-    .refine(
-      (val) =>
-        type === "<string>"
-          ? typeof val === "string"
-            ? val
-            : false
-          : typeof val === "boolean",
-      err,
-    );
+  const choiceSchema = choices
+    ? baseSchema.refine(
+        (val) => choices.some((choice) => choice.value === val),
+        err,
+      )
+    : baseSchema;
+
+  const regexSchema = regex
+    ? choiceSchema.refine((val) => (val ? regex.test(val) : true), err)
+    : choiceSchema;
+
+  const booleanTransform = regexSchema.transform((val) =>
+    val === "false" || val === "true" ? val !== "false" : val,
+  );
+
+  return booleanTransform.refine(
+    (val) =>
+      type === "<string>" ? typeof val === "string" : typeof val === "boolean",
+    err,
+  );
 }
 
 export async function getContext({
