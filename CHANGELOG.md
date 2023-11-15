@@ -1,5 +1,25 @@
 # dkcutter
 
+## 2.3.0
+
+### Minor Changes
+
+- [`3dc008f`](https://github.com/dkshs/dkcutter/commit/3dc008fae86ba04cd1be1e95d999f606007c950d) - feat: injecting `chalk` to the renderer.
+
+- [`8a68d1e`](https://github.com/dkshs/dkcutter/commit/8a68d1e8f8b237c43b44e44d2fa2ba1838b1db30) - feat: adding options to the cli by referencing the template options.
+
+- [`abcb440`](https://github.com/dkshs/dkcutter/commit/abcb44001cccaa307397da08c877f313a2ac529f) - feat: adding the possibility to add choices in the configuration.
+
+- [`f6a8657`](https://github.com/dkshs/dkcutter/commit/f6a8657c23ec1ba892f2af7db8578c4081d089cb) - feat: adding ability to disable options in a statistically and dynamic way.
+
+### Patch Changes
+
+- [`cda842f`](https://github.com/dkshs/dkcutter/commit/cda842f703c3180fe2e6d90cce5d61ec278d0d42) - feat: improved validation of cli options and `type` of prompts.
+
+- [`a387aab`](https://github.com/dkshs/dkcutter/commit/a387aab50eedb2b534d0668bd8dffb43eeaf9d69) - fix: improving data rendering in `treatData`.
+
+- [`4d907b9`](https://github.com/dkshs/dkcutter/commit/4d907b9396449d539dc16cf9e7fa0bb3248957bd) - feat: improving message rendering in prompts.
+
 ## 2.2.0
 
 ### Minor Changes
