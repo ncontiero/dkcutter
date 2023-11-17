@@ -9,7 +9,7 @@ import { z } from "zod";
 import { getTemplate } from "@/helpers/getTemplate";
 import { getConfig } from "@/helpers/getConfig";
 import { getContext } from "@/helpers/getContext";
-import { createProject } from "@/helpers/createProjects";
+import { structureRender } from "@/helpers/structureRender";
 import { configureHooks, runHooks } from "@/helpers/runHooks";
 import { handleError } from "@/utils/handleError";
 import { getPackageInfo } from "@/utils/getPackageInfo";
@@ -74,15 +74,11 @@ async function main() {
   !isLocalProject && fs.removeSync(path.join(PKG_ROOT, CONFIG_FILE_NAME));
   const ctx = await getContext({ config, program, skip: options.default });
 
-  configureHooks(ctx, isLocalProject ? cwd : PKG_ROOT);
+  await configureHooks(ctx, isLocalProject ? cwd : PKG_ROOT);
   runHooks({ runHook: "preGenProject.js" });
 
   const spinner = ora("\nCreating project...").start();
-  await createProject(
-    ctx,
-    isLocalProject ? path.join(cwd, "template") : PKG_TEMPLATE,
-    cwd,
-  );
+  await structureRender(ctx, templateFolder, cwd);
 
   runHooks({ runHook: "postGenProject.js" });
   const hooksFolder = path.join(PKG_TEMPLATE, "hooks");

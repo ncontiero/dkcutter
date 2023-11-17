@@ -6,7 +6,7 @@ import fs from "fs-extra";
 import { renderer } from "@/utils/renderer";
 import { handleError } from "@/utils/handleError";
 
-export async function createProject(
+export async function structureRender(
   ctx: ContextProps,
   dir = path.join(process.cwd(), "template"),
   output = ".",
@@ -31,7 +31,7 @@ export async function createProject(
 
       if (itemStat.isDirectory()) {
         await fs.mkdir(outputFilePath, { recursive: true });
-        await createProject(ctx, filePath, outputFilePath);
+        await structureRender(ctx, filePath, outputFilePath);
       } else if (itemStat.isFile()) {
         const fileContent = await fs.readFile(filePath, "utf-8");
         await fs.writeFile(
