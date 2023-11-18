@@ -1,5 +1,19 @@
 # dkcutter
 
+## 2.4.0
+
+### Minor Changes
+
+- [`2c06788`](https://github.com/dkshs/dkcutter/commit/2c06788a19eb16b7cb7b6031e6969ed5c8ac544e) - feat: adding documentation.
+
+- [`38d06af`](https://github.com/dkshs/dkcutter/commit/38d06af1ca655647ef1707b17a20a92f1d4f7123) - feat: improving hook rendering and changing the name of the `createProjects` function to `structureRender`.
+
+- [`3b9f137`](https://github.com/dkshs/dkcutter/commit/3b9f137a2a96f2f5846af0af997ef2bc37fe451b) - feat: adding ability to use simple values like `string`, `boolean` and `array`.
+
+### Patch Changes
+
+- [`3895d77`](https://github.com/dkshs/dkcutter/commit/3895d77576ce10ecebbeff2147495fe5b737edde) - update: description of `-y, --default` cli option.
+
 ## 2.3.0
 
 ### Minor Changes
