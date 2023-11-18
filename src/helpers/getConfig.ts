@@ -24,7 +24,7 @@ const configObjectSchema = z
     choices: z.array(configChoiceSchema).optional(),
     disabled: z.string().optional(),
   })
-  .or(z.string().or(z.boolean()));
+  .or(z.string().or(z.boolean()).or(z.array(z.string())));
 export const configSchema = z.record(configObjectSchema);
 
 export type ConfigChoiceProps = z.infer<typeof configChoiceSchema>;
@@ -45,7 +45,7 @@ export async function getConfig(cwd: string): Promise<ConfigProps | null> {
     return configSchema.parse(configResult.config);
   } catch (error) {
     throw new Error(
-      `Invalid configuration found in ${cwd}${CONFIG_FILE_NAME}.`,
+      `Invalid configuration found in ${cwd}/${CONFIG_FILE_NAME}.`,
     );
   }
 }

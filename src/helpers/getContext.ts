@@ -26,7 +26,12 @@ function returnObject(config: ConfigProps) {
   const external: ContextProps = {};
 
   Object.entries(config).forEach(([key, value]) => {
-    const newValue = typeof value === "object" ? value.value : value;
+    const isArray = Array.isArray(value);
+    const newValue = isArray
+      ? value[0]
+      : typeof value === "object"
+        ? value.value
+        : value;
     const target = key.startsWith("_") ? internal : external;
     target[key] = newValue;
   });
@@ -34,12 +39,18 @@ function returnObject(config: ConfigProps) {
 }
 
 function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
-  if (typeof objValues !== "object" || key.startsWith("_")) {
+  if (key.startsWith("_")) {
     return { type: null, name: key };
+  } else if (Array.isArray(objValues)) {
+    const choices = objValues.map((val) => ({ value: val }));
+    return createPromptObject([key, { value: objValues[0], choices }]);
+  } else if (typeof objValues !== "object") {
+    return createPromptObject([key, { value: objValues }]);
   }
   const { value, validateRegex, promptMessage, choices, disabled } = objValues;
   const isBoolean = typeof value === "boolean";
   const isString = typeof value === "string";
+  const isArray = Array.isArray(value);
   const message = (_: unknown, values: prompts.Answers<string>) =>
     promptMessage
       ? renderer.renderString(promptMessage, values)
@@ -53,7 +64,7 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
     if (disabled)
       return (_: unknown, values: prompts.Answers<string>) =>
         show(values, disabled);
-    if (choices) return "select";
+    if (choices || isArray) return "select";
     if (isBoolean) return "toggle";
     return "text";
   };
@@ -123,12 +134,16 @@ export async function getContext({
   Object.entries(context).forEach(([key, value]) => {
     if (key.startsWith("_")) return;
     const configValue = config[key];
+    const isArray = Array.isArray(configValue);
     const regex =
-      typeof configValue === "object"
+      !isArray && typeof configValue === "object"
         ? configValue.validateRegex?.regex
         : undefined;
-    const choices =
-      typeof configValue === "object" ? configValue.choices : undefined;
+    const choices = isArray
+      ? configValue.map((val) => ({ value: val }))
+      : typeof configValue === "object"
+        ? configValue.choices
+        : undefined;
     const flag = `--${key}`;
     const typeValue = typeof value === "string" ? "<string>" : "[boolean]";
     program.option(`${flag} ${typeValue}`, formatKeyMessage(key), (value) =>
@@ -141,7 +156,7 @@ export async function getContext({
   context = { ...context, ...opts };
   for (const key in opts) {
     const value = config[key];
-    if (typeof value === "object") {
+    if (typeof value === "object" && !Array.isArray(value)) {
       const disabled =
         value.disabled && renderer.renderString(value.disabled, context);
       if (disabled === "true") {
