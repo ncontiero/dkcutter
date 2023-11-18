@@ -34,8 +34,12 @@ async function main() {
       "-v, --version",
       "Display the version number.",
     )
-    .usage("template [options]")
-    .option("-y, --default", "Use the template's default values.", false)
+    .usage("[options] [template] [extra-context-options]...")
+    .option(
+      "-y, --default",
+      "Do not prompt for parameters and/or use the template's default values.",
+      false,
+    )
     .option(
       "-c, --cwd <cwd>",
       "The working directory. Defaults to the current directory.",
