@@ -20,7 +20,7 @@ const configObjectSchema = z
         message: z.string().optional(),
       })
       .optional(),
-    value: z.string().or(z.boolean()),
+    value: z.string().or(z.boolean()).or(z.array(z.string())),
     choices: z.array(configChoiceSchema).optional(),
     disabled: z.string().optional(),
   })

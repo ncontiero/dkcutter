@@ -30,7 +30,9 @@ function returnObject(config: ConfigProps) {
     const newValue = isArray
       ? value[0]
       : typeof value === "object"
-        ? value.value
+        ? Array.isArray(value.value)
+          ? value.value[0]
+          : value.value
         : value;
     const target = key.startsWith("_") ? internal : external;
     target[key] = newValue;
@@ -46,6 +48,9 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
     return createPromptObject([key, { value: objValues[0], choices }]);
   } else if (typeof objValues !== "object") {
     return createPromptObject([key, { value: objValues }]);
+  } else if (typeof objValues === "object" && Array.isArray(objValues.value)) {
+    const choices = objValues.value.map((val) => ({ value: val }));
+    return createPromptObject([key, { value: objValues.value[0], choices }]);
   }
   const { value, validateRegex, promptMessage, choices, disabled } = objValues;
   const isBoolean = typeof value === "boolean";
@@ -142,7 +147,9 @@ export async function getContext({
     const choices = isArray
       ? configValue.map((val) => ({ value: val }))
       : typeof configValue === "object"
-        ? configValue.choices
+        ? Array.isArray(configValue.value)
+          ? configValue.value.map((val) => ({ value: val }))
+          : configValue.choices
         : undefined;
     const flag = `--${key}`;
     const typeValue = typeof value === "string" ? "<string>" : "[boolean]";

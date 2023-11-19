@@ -49,7 +49,7 @@ Options that can be passed on the object are the following:
 
 ```json
 {
-  "value": "string | boolean",
+  "value": "string | boolean | string[]",
   "promptMessage": "string | undefined",
   "validateRegex": {
     "regex": "RegExp",
@@ -79,12 +79,7 @@ For example, if you provide the following choice variable in your `dkcutter.json
 {
   "license": {
     "promptMessage": "What license would you like to use?",
-    "value": "MIT",
-    "choices": [
-      { "value": "MIT" },
-      { "value": "BSD-3" },
-      { "value": "GNU GPL v3.0" }
-    ]
+    "value": ["MIT", "BSD-3", "GNU GPL v3.0"]
   }
 }
 ```
