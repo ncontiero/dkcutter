@@ -1,0 +1,141 @@
+# Variables using [`object`](./user_config.md#object)
+
+Objects are a more verbose and flexible way of writing prompts and variables.
+
+## Object - `value` property
+
+The object's `value` property contains the initial value of the variable and dkcutter detects the type to ask the value in the prompts. If the `object` is used, this property is mandatory, if not passed, an error will occur.
+
+The types [`string`](./user_config.md#string), [`boolean`](./user_config.md#boolean) and [`string[]`](./user_config.md#array) are supported. The [`string[]`](./user_config.md#array) type is a shorter form compared to using the [`choices`](#object---choices-property) property.
+
+## Object - `promptMessage` property
+
+The `promptMessage` property determines how the value will be asked. Example:
+
+```json
+{
+  "projectName": {
+    "value": "My Project",
+    "promptMessage": "What is the project name?"
+  }
+}
+```
+
+Output:
+
+```bash
+? What is the project name? › My Project
+```
+
+If the `promptMessage` property is not passed, the question will be asked as follows:
+
+```bash
+? Project name? › My Project
+```
+
+You can also use the [`chalk`](https://github.com/chalk/chalk) library to color questions:
+
+```json
+{
+  "projectName": {
+    "value": "My Project",
+    "promptMessage": "What is the {{ chalk.blue('project name') }}?"
+  }
+}
+```
+
+## Object - `validateRegex` property
+
+The property `validateRegex` must be an object that contains, obligatorily, the property `regex` and, optionally, the property `message`, which is the message that will be shown if the regex fails. See:
+
+```json
+{
+  "projectName": "My Project",
+  "projectSlug": {
+    "value": "{{ projectName|lower|replace(' ', '-')|trim }}",
+    "promptMessage": "What is the project slug?",
+    "validateRegex": {
+      "regex": "^[a-z0-9@][a-z0-9-_]*$",
+      "message": "Invalid project slug. Please enter a valid value."
+    }
+  }
+}
+```
+
+The `regex` property must be a string, as above, it will be converted to RegExp and will be validated in the prompts and in the `extra-context-options` options. In the example, in `value`, [Templates in Context Values](./templates_in_context.md#templates-in-context-values) was used.
+
+## Object - `choices` property
+
+The `choices` property can be used when you want to give choices and is a more verbose form when compared to the use of `array` in the [`value`](#object---value-property) or [`array`](./user_config.md#array) property, but can change the way it is shown in the prompts. See:
+
+```json
+{
+  "database": {
+    "promptMessage": "What database ORM would you like to use?",
+    "value": "none",
+    "choices": [
+      { "title": "None", "value": "none" },
+      { "title": "Prisma", "value": "prisma" }
+    ]
+  }
+}
+```
+
+This is a verbose form, but it can change what will appear through the `title` property and the value that will be inserted in the context is the `value` property. In some cases, this is not necessary, as in the example below:
+
+```json
+{
+  "license": {
+    "promptMessage": "What license would you like to use?",
+    "value": ["MIT", "BSD-3", "GNU GPL v3.0"]
+  }
+}
+```
+
+Or even simpler:
+
+```json
+{
+  "license": ["MIT", "BSD-3", "GNU GPL v3.0"]
+}
+```
+
+## Object - `disabled` property
+
+This property should be used when you want to disable a prompt statically or dynamically. When a prompt is recognized as deficient it will not be asked.
+
+### Disabling statically
+
+To statically disable it, you can use the value `"true"`. See:
+
+```json
+{
+  "license": {
+    "promptMessage": "What license would you like to use?",
+    "value": ["MIT", "BSD-3", "GNU GPL v3.0"],
+    "disabled": "true"
+  }
+}
+```
+
+The `license` key will not be asked and the default value will be used in the context.
+
+### Dynamically disabling
+
+Disabling dynamically can be useful for values that depend on others and template strings can be used. See:
+
+```json
+{
+  "useDocker": {
+    "promptMessage": "Do you want to use Docker?",
+    "value": false
+  },
+  "useDockerCompose": {
+    "disabled": "{% if not useDocker %}true{% else %}false{% endif %}",
+    "value": false,
+    "promptMessage": "Do you want to use Docker compose?"
+  }
+}
+```
+
+In the example above, if `useDocker` is answered with no, `useDockerCompose` will not be asked and will use the default value.
