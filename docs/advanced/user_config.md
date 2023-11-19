@@ -188,7 +188,7 @@ DKCutter allows the definition private variables by prepending an underscore to 
 ```json
 {
   "projectName": "Really cool project",
-  "_private": "{{ cookiecutter.projectName|lower }}"
+  "_private": "{{ projectName|lower }}"
 }
 ```
 
