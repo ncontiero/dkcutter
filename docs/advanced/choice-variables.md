@@ -4,7 +4,7 @@ Choice variables provide different choices when creating a project. Depending on
 
 ## Basic Usage
 
-The variables of choice should be an [`object`](./user_config.md#object) or [`array`](./user_config.md#array).
+The variables of choice should be an [`object`](./user-config.md#object) or [`array`](./user-config.md#array).
 
 For example, if you provide the following choice variable in your `dkcutter.json`:
 

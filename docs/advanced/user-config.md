@@ -24,7 +24,7 @@ You can pass [`string`](#string), [`boolean`](#boolean), [`array`](#array) or [`
 }
 ```
 
-[See for more information](./boolean_variables.md#boolean-variables)
+[See for more information](./boolean-variables.md#boolean-variables)
 
 #### Array
 
@@ -34,7 +34,7 @@ You can pass [`string`](#string), [`boolean`](#boolean), [`array`](#array) or [`
 }
 ```
 
-[See for more information](./choice_variables.md#choice-variables)
+[See for more information](./choice-variables.md#choice-variables)
 
 #### Object
 

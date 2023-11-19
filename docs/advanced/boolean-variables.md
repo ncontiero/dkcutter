@@ -4,7 +4,7 @@ Boolean variables are used for answering True/False questions.
 
 ## Basic Usage
 
-The variables of choice should be an [`boolean`](./user_config.md#boolean) or [`object`](./user_config.md#object).
+The variables of choice should be an [`boolean`](./user-config.md#boolean) or [`object`](./user-config.md#object).
 
 For example, if you provide the following choice variable in your `dkcutter.json`:
 

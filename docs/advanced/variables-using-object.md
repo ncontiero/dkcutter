@@ -1,4 +1,4 @@
-# Variables using [`object`](./user_config.md#object)
+# Variables using [`object`](./user-config.md#object)
 
 Objects are a more verbose and flexible way of writing prompts and variables.
 
@@ -6,7 +6,7 @@ Objects are a more verbose and flexible way of writing prompts and variables.
 
 The object's `value` property contains the initial value of the variable and dkcutter detects the type to ask the value in the prompts. If the `object` is used, this property is mandatory, if not passed, an error will occur.
 
-The types [`string`](./user_config.md#string), [`boolean`](./user_config.md#boolean) and [`string[]`](./user_config.md#array) are supported. The [`string[]`](./user_config.md#array) type is a shorter form compared to using the [`choices`](#object---choices-property) property.
+The types [`string`](./user-config.md#string), [`boolean`](./user-config.md#boolean) and [`string[]`](./user-config.md#array) are supported. The [`string[]`](./user-config.md#array) type is a shorter form compared to using the [`choices`](#object---choices-property) property.
 
 ## Object - `promptMessage` property
 
@@ -62,11 +62,11 @@ The property `validateRegex` must be an object that contains, obligatorily, the 
 }
 ```
 
-The `regex` property must be a string, as above, it will be converted to RegExp and will be validated in the prompts and in the `extra-context-options` options. In the example, in `value`, [Templates in Context Values](./templates_in_context.md#templates-in-context-values) was used.
+The `regex` property must be a string, as above, it will be converted to RegExp and will be validated in the prompts and in the `extra-context-options` options. In the example, in `value`, [Templates in Context Values](./templates-in-context.md#templates-in-context-values) was used.
 
 ## Object - `choices` property
 
-The `choices` property can be used when you want to give choices and is a more verbose form when compared to the use of `array` in the [`value`](#object---value-property) or [`array`](./user_config.md#array) property, but can change the way it is shown in the prompts. See:
+The `choices` property can be used when you want to give choices and is a more verbose form when compared to the use of `array` in the [`value`](#object---value-property) or [`array`](./user-config.md#array) property, but can change the way it is shown in the prompts. See:
 
 ```json
 {
