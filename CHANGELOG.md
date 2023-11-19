@@ -1,5 +1,11 @@
 # dkcutter
 
+## 2.5.0
+
+### Minor Changes
+
+- [`4a4c1e8`](https://github.com/dkshs/dkcutter/commit/4a4c1e8ca4f0c735dac0a37d0edc0ce44db8e513) - feat: adding ability to place choices in the `value` field within `dkcutter.json`.
+
 ## 2.4.0
 
 ### Minor Changes
