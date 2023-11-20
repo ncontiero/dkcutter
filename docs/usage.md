@@ -5,7 +5,7 @@
 First, clone a DKCutter project template:
 
 ```bash
-git clone https://github.com/dkshs/template.git
+git clone https://github.com/dkshs/dkcutter-nextjs.git
 ```
 
 ## Make your changes
@@ -29,7 +29,7 @@ npx dkcutter ./template
 To create a project from the template.git repo template:
 
 ```bash
-npx dkcutter https://github.com/dkshs/template.git
+npx dkcutter https://github.com/dkshs/dkcutter-nextjs.git
 ```
 
 You will be prompted to enter a bunch of project config values. (These are defined in the project’s `dkcutter.json`)

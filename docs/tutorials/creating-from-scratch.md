@@ -57,8 +57,8 @@ You can expect similar output:
 
 ```bash
 npx dkcutter .
-✔ What is the project name? … Cookiecutter Website Simple
-✔ What is the project slug? … cookiecutter-website-simple
+✔ Project name? … Cookiecutter Website Simple
+✔ Project slug? … cookiecutter-website-simple
 ✔ Project created!
 ```
 

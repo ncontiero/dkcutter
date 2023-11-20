@@ -35,5 +35,5 @@ The url or path of the template.
 You can specify options to cli that will override the values from `dkcutter.json`:
 
 ```bash
-npx dkcutter https://github.com/dkshs/template --projectName "My Name Project" -y
+npx dkcutter https://github.com/dkshs/dkcutter-nextjs --projectName "My Name Project" -y
 ```
