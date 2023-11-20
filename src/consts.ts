@@ -9,3 +9,7 @@ export const PKG_ROOT = path.join(distPath, "../");
 export const PKG_TEMPLATE = path.join(PKG_ROOT, "template");
 
 export const CONFIG_FILE_NAME = "dkcutter.json";
+
+// Hooks
+export const HOOKS_FOLDER = (dir: string = PKG_ROOT) => path.join(dir, "hooks");
+export const RENDERED_HOOKS_FOLDER = path.join(PKG_ROOT, "rendered-hooks");

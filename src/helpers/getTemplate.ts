@@ -7,7 +7,7 @@ import ora from "ora";
 
 import { handleError } from "@/utils/handleError";
 import { isGitInstalled } from "./git";
-import { PKG_ROOT, CONFIG_FILE_NAME } from "@/consts";
+import { PKG_ROOT, CONFIG_FILE_NAME, HOOKS_FOLDER } from "@/consts";
 
 interface GetTemplateProps {
   url: string;
@@ -45,11 +45,11 @@ export async function getTemplate({
 
     const cloneOutput = path.join(output, "output");
     const templateOutput = path.join(cloneOutput, templateFolder);
-    const hooksFolder = path.join(cloneOutput, "hooks");
+    const hooksFolder = HOOKS_FOLDER(cloneOutput);
 
     await execa("git", ["clone", url, cloneOutput]);
     if (await fs.exists(hooksFolder)) {
-      await fs.copy(hooksFolder, path.join(PKG_ROOT, "hooks"));
+      await fs.copy(hooksFolder, HOOKS_FOLDER());
     }
     await fs.copyFile(
       path.join(cloneOutput, CONFIG_FILE_NAME),

@@ -10,7 +10,7 @@ export async function structureRender(
   ctx: ContextProps,
   dir = path.join(process.cwd(), "template"),
   output = ".",
-  ignorePatterns: RegExp[] = [/(hooks|\.(png|jpg|jpeg|ico|svg|gif|webp))$/i],
+  ignorePatterns: RegExp[] = [/.(png|jpg|jpeg|ico|svg|gif|webp)$/i],
 ) {
   try {
     const outputFolder = path.resolve(output);

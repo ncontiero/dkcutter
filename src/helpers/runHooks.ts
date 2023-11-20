@@ -6,17 +6,16 @@ import { execaSync } from "execa";
 
 import { structureRender } from "./structureRender";
 import { handleError } from "@/utils/handleError";
-import { PKG_TEMPLATE } from "@/consts";
+import { HOOKS_FOLDER, RENDERED_HOOKS_FOLDER } from "@/consts";
 
 export async function configureHooks(ctx: ContextProps, dir = process.cwd()) {
   try {
-    const hooksFolder = path.join(dir, "hooks");
-    const hooksRenderedFolder = path.join(PKG_TEMPLATE, "hooks");
+    const hooksFolder = HOOKS_FOLDER(dir);
 
     if (!fs.existsSync(hooksFolder)) return;
-    fs.ensureDirSync(hooksRenderedFolder);
+    fs.ensureDirSync(RENDERED_HOOKS_FOLDER);
 
-    await structureRender(ctx, hooksFolder, hooksRenderedFolder);
+    await structureRender(ctx, hooksFolder, RENDERED_HOOKS_FOLDER);
   } catch (err) {
     handleError(err);
   }
@@ -29,10 +28,9 @@ interface RunHooks {
 
 export function runHooks({ dir = process.cwd(), runHook }: RunHooks) {
   try {
-    const hooksFolder = path.join(PKG_TEMPLATE, "hooks");
-    const hookPath = path.join(hooksFolder, runHook);
+    const hookPath = path.join(RENDERED_HOOKS_FOLDER, runHook);
 
-    if (!fs.existsSync(hooksFolder)) return;
+    if (!fs.existsSync(RENDERED_HOOKS_FOLDER)) return;
     if (!fs.existsSync(hookPath)) return;
 
     execaSync("node", [hookPath], { cwd: dir }); // Run hook.

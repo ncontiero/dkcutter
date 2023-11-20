@@ -13,7 +13,13 @@ import { structureRender } from "@/helpers/structureRender";
 import { configureHooks, runHooks } from "@/helpers/runHooks";
 import { handleError } from "@/utils/handleError";
 import { getPackageInfo } from "@/utils/getPackageInfo";
-import { CONFIG_FILE_NAME, PKG_ROOT, PKG_TEMPLATE } from "@/consts";
+import {
+  CONFIG_FILE_NAME,
+  HOOKS_FOLDER,
+  PKG_ROOT,
+  PKG_TEMPLATE,
+  RENDERED_HOOKS_FOLDER,
+} from "@/consts";
 
 process.on("SIGINT", handleError);
 process.on("SIGTERM", handleError);
@@ -78,16 +84,16 @@ async function main() {
   !isLocalProject && fs.removeSync(path.join(PKG_ROOT, CONFIG_FILE_NAME));
   const ctx = await getContext({ config, program, skip: options.default });
 
+  const spinner = ora("\nCreating project...").start();
+
   await configureHooks(ctx, isLocalProject ? cwd : PKG_ROOT);
   runHooks({ runHook: "preGenProject.js" });
 
-  const spinner = ora("\nCreating project...").start();
   await structureRender(ctx, templateFolder, cwd);
 
   runHooks({ runHook: "postGenProject.js" });
-  const hooksFolder = path.join(PKG_TEMPLATE, "hooks");
-  fs.existsSync(hooksFolder) && fs.removeSync(hooksFolder);
-  !isLocalProject && fs.removeSync(path.join(PKG_ROOT, "hooks"));
+  fs.existsSync(RENDERED_HOOKS_FOLDER) && fs.removeSync(RENDERED_HOOKS_FOLDER);
+  !isLocalProject && fs.removeSync(HOOKS_FOLDER());
 
   spinner.succeed("Project created!");
 }
