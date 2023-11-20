@@ -13,6 +13,7 @@ import { structureRender } from "@/helpers/structureRender";
 import { configureHooks, runHooks } from "@/helpers/runHooks";
 import { handleError } from "@/utils/handleError";
 import { getPackageInfo } from "@/utils/getPackageInfo";
+import { renderer } from "@/utils/renderer";
 import {
   CONFIG_FILE_NAME,
   HOOKS_FOLDER,
@@ -86,14 +87,23 @@ async function main() {
 
   const spinner = ora("\nCreating project...").start();
 
+  let generatedProjectRoot = fs.readdirSync(templateFolder)[0];
+  if (!generatedProjectRoot || !generatedProjectRoot.startsWith("{{")) {
+    throw new Error("No project found. Please try again.");
+  }
+  generatedProjectRoot = renderer.renderString(generatedProjectRoot, ctx);
+  generatedProjectRoot = path.resolve(generatedProjectRoot);
+  fs.ensureDirSync(generatedProjectRoot);
+
   await configureHooks(ctx, isLocalProject ? cwd : PKG_ROOT);
-  runHooks({ runHook: "preGenProject.js" });
+  runHooks({ runHook: "preGenProject.js", dir: generatedProjectRoot });
 
   await structureRender(ctx, templateFolder, cwd);
 
-  runHooks({ runHook: "postGenProject.js" });
+  runHooks({ runHook: "postGenProject.js", dir: generatedProjectRoot });
   fs.existsSync(RENDERED_HOOKS_FOLDER) && fs.removeSync(RENDERED_HOOKS_FOLDER);
   !isLocalProject && fs.removeSync(HOOKS_FOLDER());
+  !isLocalProject && fs.removeSync(templateFolder);
 
   spinner.succeed("Project created!");
 }
