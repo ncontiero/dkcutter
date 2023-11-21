@@ -25,7 +25,6 @@ export function runHooks({ dir = process.cwd(), runHook }: RunHooks) {
   try {
     const hookPath = path.join(RENDERED_HOOKS_FOLDER, runHook);
 
-    if (!fs.existsSync(RENDERED_HOOKS_FOLDER)) return;
     if (!fs.existsSync(hookPath)) return;
 
     execaSync("node", [hookPath], { cwd: dir }); // Run hook.

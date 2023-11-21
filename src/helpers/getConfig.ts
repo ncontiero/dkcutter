@@ -7,6 +7,11 @@ const explorer = cosmiconfig("dkcutter", {
   searchPlaces: [CONFIG_FILE_NAME],
 });
 
+const configObjectValueSchema = z.union([
+  z.string(),
+  z.boolean(),
+  z.array(z.string()),
+]);
 const configChoiceSchema = z.object({
   title: z.string().optional(),
   value: z.string(),
@@ -20,11 +25,11 @@ const configObjectSchema = z
         message: z.string().optional(),
       })
       .optional(),
-    value: z.string().or(z.boolean()).or(z.array(z.string())),
+    value: configObjectValueSchema,
     choices: z.array(configChoiceSchema).optional(),
     disabled: z.string().optional(),
   })
-  .or(z.string().or(z.boolean()).or(z.array(z.string())));
+  .or(configObjectValueSchema);
 export const configSchema = z.record(configObjectSchema);
 
 export type ConfigChoiceProps = z.infer<typeof configChoiceSchema>;

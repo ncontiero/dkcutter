@@ -24,18 +24,16 @@ function returnObject(config: ConfigProps) {
   const internal: ContextProps = {};
   const external: ContextProps = {};
 
-  Object.entries(config).forEach(([key, value]) => {
-    const isArray = Array.isArray(value);
-    const newValue = isArray
-      ? value[0]
-      : typeof value === "object"
-        ? Array.isArray(value.value)
-          ? value.value[0]
-          : value.value
-        : value;
+  for (const [key, value] of Object.entries(config)) {
     const target = key.startsWith("_") ? internal : external;
-    target[key] = newValue;
-  });
+    if (Array.isArray(value)) {
+      target[key] = value[0];
+    } else if (typeof value === "object") {
+      target[key] = Array.isArray(value.value) ? value.value[0] : value.value;
+    } else {
+      target[key] = value;
+    }
+  }
   return { internal, external };
 }
 

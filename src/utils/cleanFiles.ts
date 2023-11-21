@@ -3,7 +3,6 @@ import path from "node:path";
 
 import {
   CONFIG_FILE_NAME,
-  HOOKS_FOLDER,
   PKG_ROOT,
   PKG_TEMPLATE,
   RENDERED_HOOKS_FOLDER,
@@ -20,14 +19,14 @@ export function cleanFiles({
   templateFolder = PKG_TEMPLATE,
   isLocalProject = false,
 }: CleanFiles) {
-  if (generatedProjectRoot && fs.existsSync(generatedProjectRoot)) {
+  if (generatedProjectRoot) {
     fs.removeSync(generatedProjectRoot);
   }
 
-  // Config file
-  !isLocalProject && fs.removeSync(path.join(PKG_ROOT, CONFIG_FILE_NAME));
-  // Hooks
-  fs.existsSync(RENDERED_HOOKS_FOLDER) && fs.removeSync(RENDERED_HOOKS_FOLDER);
-  !isLocalProject && fs.existsSync(HOOKS_FOLDER());
-  !isLocalProject && fs.removeSync(templateFolder);
+  if (!isLocalProject) {
+    fs.removeSync(path.join(PKG_ROOT, CONFIG_FILE_NAME));
+    fs.removeSync(templateFolder);
+  }
+
+  fs.removeSync(RENDERED_HOOKS_FOLDER);
 }
