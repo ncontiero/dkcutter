@@ -5,7 +5,6 @@ import { execa } from "execa";
 import chalk from "chalk";
 import ora from "ora";
 
-import { handleError } from "@/utils/handleError";
 import { isGitInstalled } from "./git";
 import { PKG_ROOT, CONFIG_FILE_NAME, HOOKS_FOLDER } from "@/consts";
 
@@ -60,6 +59,11 @@ export async function getTemplate({
 
     spinner.succeed("Template downloaded successfully.");
   } catch (err) {
-    handleError(err);
+    const msg = "Failed to download template.";
+    if (err instanceof Error) {
+      throw new Error(`${msg}: ${err.message}`);
+    } else {
+      throw new Error(msg);
+    }
   }
 }

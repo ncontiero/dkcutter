@@ -10,7 +10,6 @@ import prompts from "prompts";
 import { z } from "zod";
 
 import { formatKeyMessage } from "@/utils/strings";
-import { handleError } from "@/utils/handleError";
 import { treatData } from "@/utils/treatData";
 import { renderer } from "@/utils/renderer";
 import { logger } from "@/utils/logger";
@@ -175,23 +174,19 @@ export async function getContext({
   }
   prompts.override(opts);
 
-  try {
-    if (skip) {
-      return treatData(context);
-    }
-    const answers = await prompts(
-      Object.entries(config).map(createPromptObject),
-      {
-        onCancel: () => {
-          throw new Error("\nInstallation aborted by user.");
-        },
-      },
-    );
-
-    context = { ...internalCtx, ...answers };
-  } catch (err) {
-    handleError(err);
+  if (skip) {
+    return treatData(context);
   }
+  const answers = await prompts(
+    Object.entries(config).map(createPromptObject),
+    {
+      onCancel: () => {
+        throw new Error("\nInstallation aborted by user.");
+      },
+    },
+  );
+
+  context = { ...internalCtx, ...answers };
 
   return treatData(context);
 }
