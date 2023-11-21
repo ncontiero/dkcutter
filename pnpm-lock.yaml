@@ -57,7 +57,7 @@ devDependencies:
     version: 3.2.6
   '@types/prompts':
     specifier: ^2
-    version: 2.4.8
+    version: 2.4.9
   '@types/which':
     specifier: ^3
     version: 3.0.2
@@ -822,8 +822,8 @@ packages:
     resolution: {integrity: sha512-pHiGtf83na1nCzliuAdq8GowYiXvH5l931xZ0YEHaLMNFgynpEqx+IPStlu7UaDkehfvl01e4x/9Tpwhy7Ue3w==}
     dev: true
 
-  /@types/prompts@2.4.8:
-    resolution: {integrity: sha512-fPOEzviubkEVCiLduO45h+zFHB0RZX8tFt3C783sO5cT7fUXf3EEECpD26djtYdh4Isa9Z9tasMQuZnYPtvYzw==}
+  /@types/prompts@2.4.9:
+    resolution: {integrity: sha512-qTxFi6Buiu8+50/+3DGIWLHM6QuWsEKugJnnP6iv2Mc4ncxE4A/OJkjuVOA+5X0X1S/nq5VJRa8Lu+nwcvbrKA==}
     dependencies:
       '@types/node': 20.9.2
       kleur: 3.0.3
