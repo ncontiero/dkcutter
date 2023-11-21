@@ -1,5 +1,19 @@
 # dkcutter
 
+## 2.6.0
+
+### Minor Changes
+
+- [`8b76c28`](https://github.com/dkshs/dkcutter/commit/8b76c28a93c989773a332cf15b4bc079f2513d0d) - feat: removing files in case of error and cleaning files when completing project generation.
+
+- [`76a9520`](https://github.com/dkshs/dkcutter/commit/76a9520bb2bef4019c8c35e4b67d98ea4d1c71da) - feat: running the hooks in the root folder of the generated project.
+
+### Patch Changes
+
+- [`fae311a`](https://github.com/dkshs/dkcutter/commit/fae311a517386d47f9d3c9d2c54b0ad812ea0499) - update: changing the rendered hooks folder and adding constants for the hooks.
+
+- [`5afb149`](https://github.com/dkshs/dkcutter/commit/5afb149da6f620e9dcf088eb9da0f0ae0ea5b63e) - update: improving some validations and codes.
+
 ## 2.5.0
 
 ### Minor Changes
