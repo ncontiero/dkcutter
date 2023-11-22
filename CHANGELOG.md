@@ -1,5 +1,11 @@
 # dkcutter
 
+## 2.7.0
+
+### Minor Changes
+
+- [`9bfb737`](https://github.com/dkshs/dkcutter/commit/9bfb7374cc9b93c525bcb758f118d89ddd42ee36) - feat: allowing spinners and prompts on hooks.
+
 ## 2.6.0
 
 ### Minor Changes
