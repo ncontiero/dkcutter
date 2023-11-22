@@ -27,7 +27,11 @@ export function runHooks({ dir = process.cwd(), runHook }: RunHooks) {
 
     if (!fs.existsSync(hookPath)) return;
 
-    execaSync("node", [hookPath], { cwd: dir }); // Run hook.
+    execaSync("node", [hookPath], {
+      cwd: dir,
+      stdout: "inherit",
+      stdin: "inherit",
+    }); // Run hook.
     fs.removeSync(hookPath); // Remove hook file from hooks folder.
   } catch (error) {
     const msg = `Failed to run hook: ${runHook}.`;

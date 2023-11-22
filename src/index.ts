@@ -99,7 +99,9 @@ async function main() {
 
     await structureRender(ctx, templateFolder, cwd);
 
+    spinner.stop();
     runHooks({ runHook: "postGenProject.js", dir: generatedProjectRoot });
+    spinner.start();
 
     cleanFiles({ isLocalProject, templateFolder });
 
