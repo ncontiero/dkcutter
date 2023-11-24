@@ -1,5 +1,11 @@
 # dkcutter
 
+## 2.7.1
+
+### Patch Changes
+
+- [`3347d72`](https://github.com/dkshs/dkcutter/commit/3347d72888bbe5631cec8f16984e5619f73940ff) - fix: adding validation for empty strings.
+
 ## 2.7.0
 
 ### Minor Changes
