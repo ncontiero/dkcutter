@@ -120,7 +120,9 @@ function optionValueSchema(
 
   return booleanTransform.refine(
     (val) =>
-      type === "<string>" ? typeof val === "string" : typeof val === "boolean",
+      type === "<string>"
+        ? typeof val === "string" && val.trim().length > 0
+        : typeof val === "boolean",
     err,
   );
 }
