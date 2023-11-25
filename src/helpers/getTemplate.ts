@@ -1,11 +1,10 @@
 import path from "node:path";
 import fs from "fs-extra";
-import prompts from "prompts";
 import { execa } from "execa";
-import { redBright, bold } from "colorette";
 import ora from "ora";
 
 import { isGitInstalled } from "./git";
+import { logger } from "@/utils/logger";
 import { PKG_ROOT, CONFIG_FILE_NAME, HOOKS_FOLDER } from "@/consts";
 
 interface GetTemplateProps {
@@ -20,24 +19,10 @@ export async function getTemplate({
   templateFolder = "template",
 }: GetTemplateProps) {
   try {
+    logger.break();
     const spinner = ora("Downloading template...").start();
     const output = path.resolve(outputDir);
 
-    if (await fs.pathExists(output)) {
-      spinner.stop();
-      const { overwriteTemplate } = await prompts({
-        type: "confirm",
-        name: "overwriteTemplate",
-        message: `${bold(
-          redBright("Warning:"),
-        )} Template already exists. Overwrite?`,
-      });
-      if (!overwriteTemplate) {
-        throw new Error("Creating template cancelled!");
-      }
-    }
-
-    spinner.start();
     if (!isGitInstalled()) {
       throw new Error("Git is not installed");
     }
@@ -57,11 +42,11 @@ export async function getTemplate({
     await fs.copy(templateOutput, output);
     await fs.remove(cloneOutput);
 
-    spinner.succeed("Template downloaded successfully.");
+    spinner.succeed("Template downloaded successfully.\n");
   } catch (err) {
     const msg = "Failed to download template.";
     if (err instanceof Error) {
-      throw new Error(`${msg}: ${err.message}`);
+      throw new Error(`${msg}\n${err.message}`);
     } else {
       throw new Error(msg);
     }
