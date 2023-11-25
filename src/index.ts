@@ -25,12 +25,14 @@ const optionsSchema = z.object({
   default: z.boolean(),
   output: z.string(),
   overwrite: z.boolean(),
+  keepProjectOnFailure: z.boolean(),
 });
 
 async function main() {
   let generatedProjectRoot;
   let isLocalProject = false;
   let templateFolder;
+  let keepProjectOnFailure = false;
 
   try {
     const { packageJson } = getPackageInfo(PKG_ROOT);
@@ -61,12 +63,18 @@ async function main() {
         "Overwrite the output directory if it already exists.",
         false,
       )
+      .option(
+        "-k, --keep-project-on-failure",
+        "Keep the generated project dir on failure.",
+        false,
+      )
       .argument("[template]", "The url or path of the template.")
       .allowUnknownOption(true)
       .parse(process.argv);
 
     const options = optionsSchema.parse(program.opts());
     const output = path.resolve(options.output);
+    keepProjectOnFailure = options.keepProjectOnFailure;
 
     if (!fs.existsSync(output)) {
       throw new Error(`Output path ${output} does not exist.`);
@@ -126,6 +134,10 @@ async function main() {
 
     spinner.succeed(colorize("success", "Project created!"));
   } catch (error) {
+    if (keepProjectOnFailure) {
+      generatedProjectRoot = undefined;
+      logger.warn("Project creation failed. Keeping project dir.");
+    }
     cleanFiles({ generatedProjectRoot, isLocalProject, templateFolder });
     handleError(error);
   }

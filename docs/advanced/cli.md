@@ -24,6 +24,10 @@ Where to output the generated project dir into. Defaults to the current director
 
 Overwrite the output directory if it already exists. (default: `false`)
 
+### `-k, --keep-project-on-failure`
+
+Keep the generated project dir on failure. (default: `false`)
+
 ### `-h, --help`
 
 display help for command.
