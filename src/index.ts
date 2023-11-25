@@ -23,6 +23,7 @@ process.on("SIGTERM", handleError);
 
 const optionsSchema = z.object({
   default: z.boolean(),
+  output: z.string(),
 });
 
 async function main() {
@@ -49,13 +50,23 @@ async function main() {
         "Do not prompt for parameters and/or use the template's default values.",
         false,
       )
+      .option(
+        "-o, --output <path>",
+        "Where to output the generated project dir into.",
+        process.cwd(),
+      )
       .argument("[template]", "The url or path of the template.")
       .allowUnknownOption(true)
       .parse(process.argv);
 
     const options = optionsSchema.parse(program.opts());
-    const { args } = program;
+    const output = path.resolve(options.output);
 
+    if (!fs.existsSync(output)) {
+      throw new Error(`Output path ${output} does not exist.`);
+    }
+
+    const { args } = program;
     if (!args[0]) program.help();
 
     isLocalProject = args[0].startsWith(".");
@@ -83,13 +94,13 @@ async function main() {
       throw new Error("No template project found. Please try again.");
     }
     generatedProjectRoot = renderer.renderString(generatedProjectRoot, ctx);
-    generatedProjectRoot = path.resolve(generatedProjectRoot);
+    generatedProjectRoot = path.resolve(output, generatedProjectRoot);
     fs.ensureDirSync(generatedProjectRoot);
 
     await configureHooks(ctx, projectRoot);
     runHooks({ runHook: "preGenProject", dir: generatedProjectRoot });
 
-    await structureRender(ctx, templateFolder, args[0]);
+    await structureRender(ctx, templateFolder, output);
 
     spinner.stop();
     runHooks({ runHook: "postGenProject", dir: generatedProjectRoot });

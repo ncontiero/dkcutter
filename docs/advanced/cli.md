@@ -16,6 +16,10 @@ Show the version and exit.
 
 Do not prompt for parameters and/or use the template's default values. (default: `false`)
 
+### `-o, --output <path>`
+
+Where to output the generated project dir into. Defaults to the current directory.
+
 ### `-h, --help`
 
 display help for command.
