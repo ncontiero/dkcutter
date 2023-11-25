@@ -3,6 +3,7 @@ import path from "node:path";
 
 import {
   CONFIG_FILE_NAME,
+  HOOKS_FOLDER,
   PKG_ROOT,
   PKG_TEMPLATE,
   RENDERED_HOOKS_FOLDER,
@@ -29,4 +30,5 @@ export function cleanFiles({
   }
 
   fs.removeSync(RENDERED_HOOKS_FOLDER);
+  fs.removeSync(HOOKS_FOLDER());
 }
