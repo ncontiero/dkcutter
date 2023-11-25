@@ -5,6 +5,7 @@ import fs from "fs-extra";
 import { execaSync } from "execa";
 
 import { structureRender } from "./structureRender";
+import { getUserPkgManager } from "@/utils/getUserPkgManager";
 import { HOOKS_FOLDER, PKG_ROOT, RENDERED_HOOKS_FOLDER } from "@/consts";
 
 export async function configureHooks(ctx: ContextProps, dir = process.cwd()) {
@@ -23,6 +24,7 @@ interface RunHooks {
 
 export function runHooks({ dir = process.cwd(), runHook }: RunHooks) {
   try {
+    const pkgManager = getUserPkgManager();
     const supportedHooks = [`${runHook}.js`, `${runHook}.ts`];
 
     const hookFile = supportedHooks.find((hook) =>
@@ -32,10 +34,13 @@ export function runHooks({ dir = process.cwd(), runHook }: RunHooks) {
 
     const hookPath = path.join(RENDERED_HOOKS_FOLDER, hookFile);
 
-    const isJs = hookFile.endsWith(".js");
+    const isBun = pkgManager === "bun";
+    const isTs = hookFile.endsWith(".ts");
     const tsx = path.join(PKG_ROOT, "node_modules", ".bin", "tsx");
+    const file = isBun ? "bun" : isTs ? tsx : "node";
+    const args = isBun ? ["run", hookPath] : [hookPath];
 
-    execaSync(isJs ? "node" : tsx, [hookPath], {
+    execaSync(file, args, {
       cwd: dir,
       stdout: "inherit",
       stdin: "inherit",
