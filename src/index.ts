@@ -95,12 +95,12 @@ async function main() {
     fs.ensureDirSync(generatedProjectRoot);
 
     await configureHooks(ctx, isLocalProject ? cwd : PKG_ROOT);
-    runHooks({ runHook: "preGenProject.js", dir: generatedProjectRoot });
+    runHooks({ runHook: "preGenProject", dir: generatedProjectRoot });
 
     await structureRender(ctx, templateFolder, cwd);
 
     spinner.stop();
-    runHooks({ runHook: "postGenProject.js", dir: generatedProjectRoot });
+    runHooks({ runHook: "postGenProject", dir: generatedProjectRoot });
     spinner.start();
 
     cleanFiles({ isLocalProject, templateFolder });

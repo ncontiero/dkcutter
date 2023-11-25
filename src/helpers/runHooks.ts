@@ -5,7 +5,7 @@ import fs from "fs-extra";
 import { execaSync } from "execa";
 
 import { structureRender } from "./structureRender";
-import { HOOKS_FOLDER, RENDERED_HOOKS_FOLDER } from "@/consts";
+import { HOOKS_FOLDER, PKG_ROOT, RENDERED_HOOKS_FOLDER } from "@/consts";
 
 export async function configureHooks(ctx: ContextProps, dir = process.cwd()) {
   const hooksFolder = HOOKS_FOLDER(dir);
@@ -18,16 +18,24 @@ export async function configureHooks(ctx: ContextProps, dir = process.cwd()) {
 
 interface RunHooks {
   dir?: string;
-  runHook: "postGenProject.js" | "preGenProject.js";
+  runHook: "postGenProject" | "preGenProject";
 }
 
 export function runHooks({ dir = process.cwd(), runHook }: RunHooks) {
   try {
-    const hookPath = path.join(RENDERED_HOOKS_FOLDER, runHook);
+    const supportedHooks = [`${runHook}.js`, `${runHook}.ts`];
 
-    if (!fs.existsSync(hookPath)) return;
+    const hookFile = supportedHooks.find((hook) =>
+      fs.existsSync(path.join(RENDERED_HOOKS_FOLDER, hook)),
+    );
+    if (!hookFile) return; // No hook found.
 
-    execaSync("node", [hookPath], {
+    const hookPath = path.join(RENDERED_HOOKS_FOLDER, hookFile);
+
+    const isJs = hookFile.endsWith(".js");
+    const tsx = path.join(PKG_ROOT, "node_modules", ".bin", "tsx");
+
+    execaSync(isJs ? "node" : tsx, [hookPath], {
       cwd: dir,
       stdout: "inherit",
       stdin: "inherit",

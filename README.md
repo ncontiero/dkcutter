@@ -20,7 +20,7 @@ It reads a settings file and interactively prompts the user whether or not to ch
 
 It then takes both and generates an output directory structure from them.
 
-Additionally, the model can provide code (Javascript) to be executed before and after generation (pre-generation and post-generation hooks).
+Additionally, the model can provide code (Javascript, Typescript) to be executed before and after generation (pre-generation and post-generation hooks).
 
 ### Input
 
@@ -31,8 +31,8 @@ dkcutter-something/
 ├── template/
 │   ├── {{projectSlug}}/    <------ Project template
 ├── hooks/                  <------ JavaScript to be executed before and after generation
-│   ├── preGenProject.js
-│   └── postGenProject.js
+│   ├── preGenProject.js    <------ can also be `.ts`
+│   └── postGenProject.js   <------ can also be `.ts`
 ├── blah.txt                <------ Non-templated files/dirs
 │                                   go outside
 │

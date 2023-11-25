@@ -1,6 +1,6 @@
 # Hooks
 
-DKCutter hooks are scripts executed at specific stages during the project generation process. They are Javascript, facilitating automated tasks like data validation, pre-processing, and post-processing. These hooks are instrumental in customizing the generated project structure and executing initial setup tasks.
+DKCutter hooks are scripts executed at specific stages during the project generation process. They can be Javascript or Typescript, facilitating automated tasks like data validation, pre-processing and post-processing. These hooks are critical for customizing the generated project structure and performing initial configuration tasks.
 
 ## Types of Hooks
 
@@ -13,7 +13,7 @@ DKCutter hooks are scripts executed at specific stages during the project genera
 
 Hooks are added to the `hooks/` folder of your template. Both Javascript are supported.
 
-### Structure
+### Javascript Hooks Structure
 
 ```bash
 dkcutter-something/
@@ -25,9 +25,21 @@ dkcutter-something/
 └── dkcutter.json
 ```
 
+### Typescript Hooks Structure
+
+```bash
+dkcutter-something/
+├── template
+│   ├── {{project_slug}}/
+├── hooks
+│   ├── preGenProject.ts
+│   └── postGenProject.ts
+└── dkcutter.json
+```
+
 ## Hook Execution
 
-Hooks should be robust and handle errors gracefully. If a hook exits with a non-zero status, project generation will stop and the generated directory may have inconsistencies.
+Hooks should be robust and handle errors gracefully. If a hook exits with a non-zero status, the project generation halts, and the generated directory is cleaned.
 
 ### Template Variables
 
