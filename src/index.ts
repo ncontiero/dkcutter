@@ -24,6 +24,7 @@ process.on("SIGTERM", handleError);
 const optionsSchema = z.object({
   default: z.boolean(),
   output: z.string(),
+  overwrite: z.boolean(),
 });
 
 async function main() {
@@ -54,6 +55,11 @@ async function main() {
         "-o, --output <path>",
         "Where to output the generated project dir into.",
         process.cwd(),
+      )
+      .option(
+        "-f, --overwrite",
+        "Overwrite the output directory if it already exists.",
+        false,
       )
       .argument("[template]", "The url or path of the template.")
       .allowUnknownOption(true)
@@ -95,6 +101,15 @@ async function main() {
     }
     generatedProjectRoot = renderer.renderString(generatedProjectRoot, ctx);
     generatedProjectRoot = path.resolve(output, generatedProjectRoot);
+    const generatedProjectRootExists = fs.existsSync(generatedProjectRoot);
+
+    if (generatedProjectRootExists && !options.overwrite) {
+      const path = generatedProjectRoot;
+      generatedProjectRoot = undefined;
+      throw new Error(`Project already exists at ${path}. Please try again.`);
+    } else if (generatedProjectRootExists && options.overwrite) {
+      fs.removeSync(generatedProjectRoot);
+    }
     fs.ensureDirSync(generatedProjectRoot);
 
     await configureHooks(ctx, projectRoot);

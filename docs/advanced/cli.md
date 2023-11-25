@@ -20,6 +20,10 @@ Do not prompt for parameters and/or use the template's default values. (default:
 
 Where to output the generated project dir into. Defaults to the current directory.
 
+### `-f, --overwrite`
+
+Overwrite the output directory if it already exists. (default: `false`)
+
 ### `-h, --help`
 
 display help for command.
