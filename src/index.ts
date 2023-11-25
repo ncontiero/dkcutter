@@ -22,7 +22,6 @@ process.on("SIGINT", handleError);
 process.on("SIGTERM", handleError);
 
 const optionsSchema = z.object({
-  cwd: z.string(),
   default: z.boolean(),
 });
 
@@ -50,30 +49,22 @@ async function main() {
         "Do not prompt for parameters and/or use the template's default values.",
         false,
       )
-      .option(
-        "-c, --cwd <cwd>",
-        "The working directory. Defaults to the current directory.",
-        process.cwd(),
-      )
       .argument("[template]", "The url or path of the template.")
       .allowUnknownOption(true)
       .parse(process.argv);
 
-    const opts = program.opts();
-    const options = optionsSchema.parse(opts);
-    const cwd = path.resolve(options.cwd);
-
-    // Ensure target directory exists.
-    if (!fs.existsSync(cwd)) {
-      throw new Error(`The path ${cwd} does not exist. Please try again.`);
-    }
-
+    const options = optionsSchema.parse(program.opts());
     const { args } = program;
-    isLocalProject = args[0]?.startsWith(".") || false;
-    templateFolder = isLocalProject ? path.join(cwd, "template") : PKG_TEMPLATE;
-    if (!args[0]) {
-      program.help();
-    } else if (z.string().url().safeParse(args[0]).success) {
+
+    if (!args[0]) program.help();
+
+    isLocalProject = args[0].startsWith(".");
+    templateFolder = isLocalProject
+      ? path.join(args[0], "template")
+      : PKG_TEMPLATE;
+    const projectRoot = isLocalProject ? args[0] : PKG_ROOT;
+
+    if (z.string().url().safeParse(args[0]).success) {
       await getTemplate({ url: args[0], outputDir: PKG_TEMPLATE });
     } else if (!isLocalProject) {
       throw new Error("Invalid template. Please specify a valid url or path!");
@@ -81,7 +72,7 @@ async function main() {
       throw new Error("No template found. Please specify a valid url or path!");
     }
 
-    const config = await getConfig(isLocalProject ? cwd : PKG_ROOT);
+    const config = await getConfig(projectRoot);
     if (!config) throw new Error("No configuration found. Please try again.");
     const ctx = await getContext({ config, program, skip: options.default });
 
@@ -89,16 +80,16 @@ async function main() {
 
     generatedProjectRoot = fs.readdirSync(templateFolder)[0];
     if (!generatedProjectRoot || !generatedProjectRoot.startsWith("{{")) {
-      throw new Error("No project found. Please try again.");
+      throw new Error("No template project found. Please try again.");
     }
     generatedProjectRoot = renderer.renderString(generatedProjectRoot, ctx);
     generatedProjectRoot = path.resolve(generatedProjectRoot);
     fs.ensureDirSync(generatedProjectRoot);
 
-    await configureHooks(ctx, isLocalProject ? cwd : PKG_ROOT);
+    await configureHooks(ctx, projectRoot);
     runHooks({ runHook: "preGenProject", dir: generatedProjectRoot });
 
-    await structureRender(ctx, templateFolder, cwd);
+    await structureRender(ctx, templateFolder, args[0]);
 
     spinner.stop();
     runHooks({ runHook: "postGenProject", dir: generatedProjectRoot });
