@@ -39,6 +39,7 @@ export function runHooks({ dir = process.cwd(), runHook }: RunHooks) {
       cwd: dir,
       stdout: "inherit",
       stdin: "inherit",
+      stderr: "inherit",
     }); // Run hook.
     fs.removeSync(hookPath); // Remove hook file from hooks folder.
   } catch (error) {
