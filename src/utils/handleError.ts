@@ -1,7 +1,7 @@
 import { logger } from "@/utils/logger";
 
 export function handleError(error: unknown) {
-  logger.error("Aborting installation...");
+  logger.error("\nAborting installation...");
 
   if (typeof error === "string") {
     logger.error(error);
