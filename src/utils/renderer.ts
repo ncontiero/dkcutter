@@ -1,5 +1,5 @@
 import nunjucks from "nunjucks";
-import chalk from "chalk";
+import * as colors from "colorette";
 
 import { getUserPkgManager } from "./getUserPkgManager";
 
@@ -10,4 +10,4 @@ const globals = {
 
 export const renderer = nunjucks.configure({ autoescape: true });
 renderer.addGlobal("dkcutter", globals);
-renderer.addGlobal("chalk", chalk);
+renderer.addGlobal("colors", colors);

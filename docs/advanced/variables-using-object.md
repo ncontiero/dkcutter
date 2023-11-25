@@ -33,13 +33,13 @@ If the `promptMessage` property is not passed, the question will be asked as fol
 ? Project name? › My Project
 ```
 
-You can also use the [`chalk`](https://github.com/chalk/chalk) library to color questions:
+You can also use the [`colorette`](https://github.com/jorgebucaran/colorette) library through the `colors` global variable to colorize questions:
 
 ```json
 {
   "projectName": {
     "value": "My Project",
-    "promptMessage": "What is the {{ chalk.blue('project name') }}?"
+    "promptMessage": "What is the {{ colors.blue('project name') }}?"
   }
 }
 ```

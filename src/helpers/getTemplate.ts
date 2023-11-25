@@ -2,7 +2,7 @@ import path from "node:path";
 import fs from "fs-extra";
 import prompts from "prompts";
 import { execa } from "execa";
-import chalk from "chalk";
+import { redBright, bold } from "colorette";
 import ora from "ora";
 
 import { isGitInstalled } from "./git";
@@ -28,8 +28,8 @@ export async function getTemplate({
       const { overwriteTemplate } = await prompts({
         type: "confirm",
         name: "overwriteTemplate",
-        message: `${chalk.redBright.bold(
-          "Warning:",
+        message: `${bold(
+          redBright("Warning:"),
         )} Template already exists. Overwrite?`,
       });
       if (!overwriteTemplate) {

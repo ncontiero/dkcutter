@@ -15,6 +15,7 @@ import { handleError } from "@/utils/handleError";
 import { getPackageInfo } from "@/utils/getPackageInfo";
 import { renderer } from "@/utils/renderer";
 import { cleanFiles } from "@/utils/cleanFiles";
+import { logger, colorize } from "@/utils/logger";
 import { PKG_ROOT, PKG_TEMPLATE } from "@/consts";
 
 process.on("SIGINT", handleError);
@@ -84,7 +85,7 @@ async function main() {
     if (!config) throw new Error("No configuration found. Please try again.");
     const ctx = await getContext({ config, program, skip: options.default });
 
-    const spinner = ora("\nCreating project...").start();
+    const spinner = ora(colorize("info", "Creating project...")).start();
 
     generatedProjectRoot = fs.readdirSync(templateFolder)[0];
     if (!generatedProjectRoot || !generatedProjectRoot.startsWith("{{")) {
@@ -101,11 +102,12 @@ async function main() {
 
     spinner.stop();
     runHooks({ runHook: "postGenProject", dir: generatedProjectRoot });
+    logger.break();
     spinner.start();
 
     cleanFiles({ isLocalProject, templateFolder });
 
-    spinner.succeed("Project created!");
+    spinner.succeed(colorize("success", "Project created!"));
   } catch (error) {
     cleanFiles({ generatedProjectRoot, isLocalProject, templateFolder });
     handleError(error);
