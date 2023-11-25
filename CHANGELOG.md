@@ -1,5 +1,21 @@
 # dkcutter
 
+## 3.0.0
+
+### Major Changes
+
+- [`decb524`](https://github.com/dkshs/dkcutter/commit/decb524077dc08ab6b3484ffccf6a6634e744d4f) - feat: changing `chalk` coloring library to `colorette`.
+
+### Minor Changes
+
+- [`aaa8a38`](https://github.com/dkshs/dkcutter/commit/aaa8a38e43dc51fd3515a7212e1fd29a2d8f75ca) - feat: adding ability to run hooks with bun.
+
+- [`8949709`](https://github.com/dkshs/dkcutter/commit/894970986910638154a156af49825230d764422c) - feat: adding ability to use hooks with typescript.
+
+### Patch Changes
+
+- [`ba91d25`](https://github.com/dkshs/dkcutter/commit/ba91d2562efc9e7759084534097f56bee10502e5) - feat: improving hook execution.
+
 ## 2.7.1
 
 ### Patch Changes
