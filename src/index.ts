@@ -109,13 +109,12 @@ async function main() {
     }
     generatedProjectRoot = renderer.renderString(generatedProjectRoot, ctx);
     generatedProjectRoot = path.resolve(output, generatedProjectRoot);
-    const generatedProjectRootExists = fs.existsSync(generatedProjectRoot);
 
-    if (generatedProjectRootExists && !options.overwrite) {
+    if (fs.existsSync(generatedProjectRoot) && !options.overwrite) {
       const path = generatedProjectRoot;
       generatedProjectRoot = undefined;
       throw new Error(`Project already exists at ${path}. Please try again.`);
-    } else if (generatedProjectRootExists && options.overwrite) {
+    } else if (options.overwrite) {
       fs.removeSync(generatedProjectRoot);
     }
     fs.ensureDirSync(generatedProjectRoot);
