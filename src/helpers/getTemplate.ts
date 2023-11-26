@@ -35,10 +35,14 @@ export async function getTemplate({
     if (await fs.exists(hooksFolder)) {
       await fs.copy(hooksFolder, HOOKS_FOLDER());
     }
-    await fs.copyFile(
-      path.join(cloneOutput, CONFIG_FILE_NAME),
-      path.join(PKG_ROOT, CONFIG_FILE_NAME),
-    );
+    const templateConfig = path.join(cloneOutput, CONFIG_FILE_NAME);
+    if (!(await fs.exists(templateConfig))) {
+      throw new Error(`Config ${CONFIG_FILE_NAME} file not found.`);
+    }
+    await fs.copyFile(templateConfig, path.join(PKG_ROOT, CONFIG_FILE_NAME));
+    if (!(await fs.exists(templateOutput))) {
+      throw new Error(`Template folder not found.`);
+    }
     await fs.copy(templateOutput, output);
     await fs.remove(cloneOutput);
 
