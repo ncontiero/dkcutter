@@ -1,5 +1,27 @@
 # dkcutter
 
+## 3.1.0
+
+### Minor Changes
+
+- [`1f8402a`](https://github.com/dkshs/dkcutter/commit/1f8402ab3311d98a7ca68b5aa0913ce799286bb9) - feat: adding option `-o, --output <path>`.
+
+- [`ca1fad5`](https://github.com/dkshs/dkcutter/commit/ca1fad5cb1b143b74a32b36b008b11b6cf0ac53a) - feat: adding option `-k, --keep-project-on-failure`.
+
+- [`b0c4c62`](https://github.com/dkshs/dkcutter/commit/b0c4c62cdd240067376bf141d1f4f5d03e35d5f1) - feat: adding option `-f, --overwrite`.
+
+### Patch Changes
+
+- [`7b0df47`](https://github.com/dkshs/dkcutter/commit/7b0df47d2223bab376f49b6c6cd1452f747375b1) - feat: removing `hooks` folder in the `cleanFiles` function and adding `node:` in the consts import.
+
+- [`1efd7f8`](https://github.com/dkshs/dkcutter/commit/1efd7f8fc21b626886a749b9bff59e565b5a8edf) - feat: improving way to get template.
+
+- [`006aff1`](https://github.com/dkshs/dkcutter/commit/006aff1a390f2e2b48f52ed1219c43ce15a6a075) - feat: improving validation of the `-f, --overwrite` option.
+
+- [`ce080bd`](https://github.com/dkshs/dkcutter/commit/ce080bd266eebc635653dbe193e8674197e61a62) - feat: removing `-c --cwd` option.
+
+- [`eef6da4`](https://github.com/dkshs/dkcutter/commit/eef6da41836f004d93b697d9ed3e9a62e49d4ac7) - feat: adding line break in `handleError`.
+
 ## 3.0.0
 
 ### Major Changes
