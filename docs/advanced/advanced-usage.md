@@ -14,6 +14,7 @@ Various advanced topics regarding dkcutter usage.
   - [Examples](./hooks.md#examples)
 - [Templates in Context Values](./templates-in-context.md)
 - [Private Variables](./private-variables.md)
+- [Global Variables](./global-variables.md)
 - [Choice Variables](./choice-variables.md)
 - [Boolean Variables](./boolean-variables.md)
 - [Variables using `object`](./variables-using-object.md)
