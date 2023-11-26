@@ -1,5 +1,11 @@
 # dkcutter
 
+## 3.1.1
+
+### Patch Changes
+
+- [`5e7101f`](https://github.com/dkshs/dkcutter/commit/5e7101f123a9f4cdbf7e73ee39cf4598ecb96208) - feat: adding validation when getting the template.
+
 ## 3.1.0
 
 ### Minor Changes
