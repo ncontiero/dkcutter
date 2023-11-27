@@ -1,5 +1,19 @@
 # dkcutter
 
+## 3.2.0
+
+### Minor Changes
+
+- [`9102153`](https://github.com/dkshs/dkcutter/commit/91021534ca5a23fbb859aef70e5a5777ae11e08b) - feat: adding ability to use abbreviations in url for templates.
+
+- [`cd344c7`](https://github.com/dkshs/dkcutter/commit/cd344c776904f3b5b42d8ff5cbe65f499584bb93) - feat: adding option `-d, --directory <path>`.
+
+- [`02856f2`](https://github.com/dkshs/dkcutter/commit/02856f2c2adff60b9674a5a5d30f67f4c4166bc7) - feat: adding option `-c, --checkout <checkout>`.
+
+### Patch Changes
+
+- [`85ff393`](https://github.com/dkshs/dkcutter/commit/85ff393673e179c92f555aa7672a706a75f62844) - update(deps): bump cosmiconfig from 8.3.6 to 9.0.0.
+
 ## 3.1.1
 
 ### Patch Changes
