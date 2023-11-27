@@ -55,7 +55,7 @@
     "@types/which": "^3",
     "eslint": "^8",
     "tsup": "^8.0.1",
-    "type-fest": "^4.7.1",
+    "type-fest": "^4.8.2",
     "typescript": "^5.2.2"
   },
   "publishConfig": {
