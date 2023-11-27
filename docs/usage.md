@@ -46,4 +46,10 @@ You will be prompted to enter a bunch of project config values. (These are defin
 
 Then, DKCutter will generate a project from the template, using the values that you entered. It will be placed in your current directory.
 
+And if you want to specify a branch you can do that with:
+
+```bash
+npx dkcutter gh:dkshs/dkcutter-nextjs --checkout develop
+```
+
 [See for advanced usage](./advanced/advanced-usage.md)

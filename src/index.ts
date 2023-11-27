@@ -25,6 +25,7 @@ const optionsSchema = z.object({
   default: z.boolean(),
   output: z.string(),
   directory: z.string().optional(),
+  checkout: z.string().optional(),
   overwrite: z.boolean(),
   keepProjectOnFailure: z.boolean(),
 });
@@ -62,6 +63,10 @@ async function main() {
       .option(
         "-d, --directory <path>",
         "Directory within repo that holds dkcutter.json file for advanced repositories with multi templates in it.",
+      )
+      .option(
+        "-c, --checkout <checkout>",
+        "branch, tag or commit to checkout after git clone.",
       )
       .option(
         "-f, --overwrite",
@@ -118,6 +123,7 @@ async function main() {
         url: templateArgSchema.data,
         outputDir: PKG_TEMPLATE,
         directoryOpt: options.directory,
+        checkout: options.checkout,
       });
     } else if (!isLocalProject) {
       throw new Error("Invalid template. Please specify a valid url or path!");

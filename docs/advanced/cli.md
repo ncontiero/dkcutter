@@ -24,6 +24,10 @@ Where to output the generated project dir into. Defaults to the current director
 
 Directory within repo that holds `dkcutter.json` file for advanced repositories with multi templates in it.
 
+### `-c, --checkout <checkout>`
+
+branch, tag or commit to checkout after git clone.
+
 ### `-f, --overwrite`
 
 Overwrite the output directory if it already exists. (default: `false`)

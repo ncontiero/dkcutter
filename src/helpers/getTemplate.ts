@@ -12,6 +12,7 @@ interface GetTemplateProps {
   outputDir: string;
   templateFolder?: string;
   directoryOpt?: string;
+  checkout?: string;
 }
 
 export async function getTemplate({
@@ -19,6 +20,7 @@ export async function getTemplate({
   outputDir,
   templateFolder = "template",
   directoryOpt = "",
+  checkout,
 }: GetTemplateProps) {
   try {
     logger.break();
@@ -36,6 +38,11 @@ export async function getTemplate({
     const templateConfig = path.join(resolvedDirectoryOpt, CONFIG_FILE_NAME);
 
     await execa("git", ["clone", url, cloneOutput]);
+    if (checkout) {
+      await execa("git", ["checkout", ...checkout.split(" ")], {
+        cwd: cloneOutput,
+      });
+    }
 
     if (!(await fs.exists(resolvedDirectoryOpt))) {
       throw new Error(`Directory ${directoryOpt} not found.`);
