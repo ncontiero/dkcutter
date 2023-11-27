@@ -24,6 +24,7 @@ process.on("SIGTERM", handleError);
 const optionsSchema = z.object({
   default: z.boolean(),
   output: z.string(),
+  directory: z.string().optional(),
   overwrite: z.boolean(),
   keepProjectOnFailure: z.boolean(),
 });
@@ -59,6 +60,10 @@ async function main() {
         process.cwd(),
       )
       .option(
+        "-d, --directory <path>",
+        "Directory within repo that holds dkcutter.json file for advanced repositories with multi templates in it.",
+      )
+      .option(
         "-f, --overwrite",
         "Overwrite the output directory if it already exists.",
         false,
@@ -90,7 +95,11 @@ async function main() {
     const projectRoot = isLocalProject ? args[0] : PKG_ROOT;
 
     if (z.string().url().safeParse(args[0]).success) {
-      await getTemplate({ url: args[0], outputDir: PKG_TEMPLATE });
+      await getTemplate({
+        url: args[0],
+        outputDir: PKG_TEMPLATE,
+        directoryOpt: options.directory,
+      });
     } else if (!isLocalProject) {
       throw new Error("Invalid template. Please specify a valid url or path!");
     } else if (!fs.existsSync(templateFolder)) {

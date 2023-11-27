@@ -11,12 +11,14 @@ interface GetTemplateProps {
   url: string;
   outputDir: string;
   templateFolder?: string;
+  directoryOpt?: string;
 }
 
 export async function getTemplate({
   url,
   outputDir,
   templateFolder = "template",
+  directoryOpt = "",
 }: GetTemplateProps) {
   try {
     logger.break();
@@ -28,21 +30,27 @@ export async function getTemplate({
     }
 
     const cloneOutput = path.join(output, "output");
-    const templateOutput = path.join(cloneOutput, templateFolder);
-    const hooksFolder = HOOKS_FOLDER(cloneOutput);
+    const resolvedDirectoryOpt = path.join(cloneOutput, directoryOpt);
+    const templateOutput = path.join(resolvedDirectoryOpt, templateFolder);
+    const hooksFolder = HOOKS_FOLDER(resolvedDirectoryOpt);
+    const templateConfig = path.join(resolvedDirectoryOpt, CONFIG_FILE_NAME);
 
     await execa("git", ["clone", url, cloneOutput]);
-    if (await fs.exists(hooksFolder)) {
-      await fs.copy(hooksFolder, HOOKS_FOLDER());
+
+    if (!(await fs.exists(resolvedDirectoryOpt))) {
+      throw new Error(`Directory ${directoryOpt} not found.`);
     }
-    const templateConfig = path.join(cloneOutput, CONFIG_FILE_NAME);
-    if (!(await fs.exists(templateConfig))) {
-      throw new Error(`Config ${CONFIG_FILE_NAME} file not found.`);
-    }
-    await fs.copyFile(templateConfig, path.join(PKG_ROOT, CONFIG_FILE_NAME));
     if (!(await fs.exists(templateOutput))) {
       throw new Error(`Template folder not found.`);
     }
+    if (await fs.exists(hooksFolder)) {
+      await fs.copy(hooksFolder, HOOKS_FOLDER());
+    }
+    if (!(await fs.exists(templateConfig))) {
+      throw new Error(`Config ${CONFIG_FILE_NAME} file not found.`);
+    }
+
+    await fs.copyFile(templateConfig, path.join(PKG_ROOT, CONFIG_FILE_NAME));
     await fs.copy(templateOutput, output);
     await fs.remove(cloneOutput);
 

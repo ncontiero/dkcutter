@@ -20,6 +20,10 @@ Do not prompt for parameters and/or use the template's default values. (default:
 
 Where to output the generated project dir into. Defaults to the current directory.
 
+### `-d, --directory <path>`
+
+Directory within repo that holds `dkcutter.json` file for advanced repositories with multi templates in it.
+
 ### `-f, --overwrite`
 
 Overwrite the output directory if it already exists. (default: `false`)
