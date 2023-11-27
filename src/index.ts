@@ -94,9 +94,28 @@ async function main() {
       : PKG_TEMPLATE;
     const projectRoot = isLocalProject ? args[0] : PKG_ROOT;
 
-    if (z.string().url().safeParse(args[0]).success) {
+    const templateArgSchema = z
+      .string()
+      .transform((val) =>
+        val.startsWith("gh:") ? `https://github.com/${val.slice(3)}` : val,
+      )
+      .transform((val) =>
+        val.startsWith("bb:") ? `https://bitbucket.org/${val.slice(3)}` : val,
+      )
+      .transform((val) =>
+        val.startsWith("gl:") ? `https://gitlab.com/${val.slice(3)}` : val,
+      )
+      .or(z.string().url())
+      .or(
+        z
+          .string()
+          .refine((val) => val.startsWith("git") || val.startsWith("hg")),
+      )
+      .safeParse(args[0]);
+
+    if (templateArgSchema.success) {
       await getTemplate({
-        url: args[0],
+        url: templateArgSchema.data,
         outputDir: PKG_TEMPLATE,
         directoryOpt: options.directory,
       });
