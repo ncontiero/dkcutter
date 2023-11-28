@@ -1,0 +1,5 @@
+---
+"dkcutter": patch
+---
+
+update(deps): tsx from 4.5.0 to 4.6.0
