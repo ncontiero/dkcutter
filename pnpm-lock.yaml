@@ -41,7 +41,7 @@ dependencies:
 
 devDependencies:
   '@changesets/cli':
-    specifier: ^2.26.2
+    specifier: ^2.27.1
     version: 2.27.1
   '@dkshs/changelog-github':
     specifier: 1.0.2
@@ -74,7 +74,7 @@ devDependencies:
     specifier: ^4.8.2
     version: 4.8.2
   typescript:
-    specifier: ^5.2.2
+    specifier: ^5.3.2
     version: 5.3.2
 
 packages:
