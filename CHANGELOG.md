@@ -1,5 +1,19 @@
 # dkcutter
 
+## 3.3.0
+
+### Minor Changes
+
+- [`87265b1`](https://github.com/dkshs/dkcutter/commit/87265b1c382a91dbd78abd5e9889771088878f80) - feat: adding ability to disable certain choices and rendering the title of choices.
+
+### Patch Changes
+
+- [`07d3cd1`](https://github.com/dkshs/dkcutter/commit/07d3cd1542d30bb33a12b43f2a8a5a407191f84f) - update(deps): tsx from 4.5.0 to 4.6.0
+
+- [`c267bc1`](https://github.com/dkshs/dkcutter/commit/c267bc1b81e0a3c2cb2efdac80fc44a7fffc79ee) - fix: validation for local projects when getting the template.
+
+- [`657cae5`](https://github.com/dkshs/dkcutter/commit/657cae501f5d11c28e663afb471cec338fdabebb) - update(deps): fs-extra from 11.1.1 to 11.2.0
+
 ## 3.2.0
 
 ### Minor Changes
