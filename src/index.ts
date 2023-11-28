@@ -110,6 +110,7 @@ async function main() {
       .transform((val) =>
         val.startsWith("gl:") ? `https://gitlab.com/${val.slice(3)}` : val,
       )
+      .refine((val) => !val.startsWith("."))
       .or(z.string().url())
       .or(
         z
