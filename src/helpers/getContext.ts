@@ -70,12 +70,26 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
     if (isBoolean) return "toggle";
     return "text";
   };
+  const getChoices = (answers: prompts.Answers<string>) => {
+    if (choices) {
+      return choices.map((choice) => ({
+        ...choice,
+        title: renderer.renderString(
+          choice.title || formatKeyMessage(choice.value),
+          answers,
+        ),
+        disabled:
+          renderer.renderString(choice.disabled || "false", answers) === "true",
+      }));
+    }
+    return choices;
+  };
 
   return {
     type: getType(),
     name: key,
     message,
-    choices,
+    choices: (_, answers) => getChoices(answers),
     initial: choices
       ? choices.findIndex((choice) => choice.value === value)
       : (_, values) =>

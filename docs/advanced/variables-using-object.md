@@ -81,7 +81,7 @@ The `choices` property can be used when you want to give choices and is a more v
 }
 ```
 
-This is a verbose form, but it can change what will appear through the `title` property and the value that will be inserted in the context is the `value` property. In some cases, this is not necessary, as in the example below:
+This is a verbose form, but you can change what will appear through the `title` property (can be used in the same way as the [`promptMessage`](#object---promptmessage-property) property) and the value that will be inserted into the context is the `value` property. In some cases, this is not necessary, as in the example below:
 
 ```json
 {
@@ -99,6 +99,26 @@ Or even simpler:
   "license": ["MIT", "BSD-3", "GNU GPL v3.0"]
 }
 ```
+
+### `disabled` property in `choices`
+
+If you do not want a certain choice to be available, you can disable it as follows:
+
+```json
+{
+  "database": {
+    "promptMessage": "What database ORM would you like to use?",
+    "value": "none",
+    "choices": [
+      { "title": "None", "value": "none" },
+      { "title": "Prisma", "value": "prisma" },
+      { "title": "MyOrm", "value": "myOrm", "disabled": "true" }
+    ]
+  }
+}
+```
+
+This property is similar to the object's [`disabled`](#object---disabled-property). You can disable it [statically](#disabling-statically) and [dynamically](#dynamically-disabling).
 
 ## Object - `disabled` property
 
