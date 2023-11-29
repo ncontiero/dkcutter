@@ -1,5 +1,11 @@
 # dkcutter
 
+## 3.3.1
+
+### Patch Changes
+
+- [`4d8232a`](https://github.com/dkshs/dkcutter/commit/4d8232ac8ee0e64e0c125a917b711a960f7120b1) - update: validating disabled `choices` passed through the cli and improving other validations
+
 ## 3.3.0
 
 ### Minor Changes
