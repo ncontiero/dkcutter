@@ -20,16 +20,23 @@ interface GetContext {
   skip?: boolean;
 }
 
+function isObject(value: unknown): value is object {
+  return value != null && typeof value === "object";
+}
+function isArray(value: unknown): value is unknown[] {
+  return Array.isArray(value);
+}
+
 function returnObject(config: ConfigProps) {
   const internal: ContextProps = {};
   const external: ContextProps = {};
 
   for (const [key, value] of Object.entries(config)) {
     const target = key.startsWith("_") ? internal : external;
-    if (Array.isArray(value)) {
+    if (isArray(value)) {
       target[key] = value[0];
-    } else if (typeof value === "object") {
-      target[key] = Array.isArray(value.value) ? value.value[0] : value.value;
+    } else if (isObject(value)) {
+      target[key] = isArray(value.value) ? value.value[0] : value.value;
     } else {
       target[key] = value;
     }
@@ -40,19 +47,18 @@ function returnObject(config: ConfigProps) {
 function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
   if (key.startsWith("_")) {
     return { type: null, name: key };
-  } else if (Array.isArray(objValues)) {
+  } else if (isArray(objValues)) {
     const choices = objValues.map((val) => ({ value: val }));
     return createPromptObject([key, { value: objValues[0], choices }]);
-  } else if (typeof objValues !== "object") {
+  } else if (!isObject(objValues)) {
     return createPromptObject([key, { value: objValues }]);
-  } else if (typeof objValues === "object" && Array.isArray(objValues.value)) {
+  } else if (isObject(objValues) && isArray(objValues.value)) {
     const choices = objValues.value.map((val) => ({ value: val }));
     return createPromptObject([key, { value: objValues.value[0], choices }]);
   }
   const { value, validateRegex, promptMessage, choices, disabled } = objValues;
   const isBoolean = typeof value === "boolean";
   const isString = typeof value === "string";
-  const isArray = Array.isArray(value);
   const message = (_: unknown, values: prompts.Answers<string>) =>
     promptMessage
       ? renderer.renderString(promptMessage, values)
@@ -66,7 +72,7 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
     if (disabled)
       return (_: unknown, values: prompts.Answers<string>) =>
         show(values, disabled);
-    if (choices || isArray) return "select";
+    if (choices || isArray(value)) return "select";
     if (isBoolean) return "toggle";
     return "text";
   };
@@ -152,15 +158,14 @@ export async function getContext({
   Object.entries(context).forEach(([key, value]) => {
     if (key.startsWith("_")) return;
     const configValue = config[key];
-    const isArray = Array.isArray(configValue);
     const regex =
-      !isArray && typeof configValue === "object"
+      !isArray(configValue) && isObject(configValue)
         ? configValue.validateRegex?.regex
         : undefined;
-    const choices = isArray
+    const choices = isArray(configValue)
       ? configValue.map((val) => ({ value: val }))
-      : typeof configValue === "object"
-        ? Array.isArray(configValue.value)
+      : isObject(configValue)
+        ? isArray(configValue.value)
           ? configValue.value.map((val) => ({ value: val }))
           : configValue.choices
         : undefined;
@@ -176,13 +181,31 @@ export async function getContext({
   context = { ...context, ...opts };
   for (const key in opts) {
     const value = config[key];
-    if (typeof value === "object" && !Array.isArray(value)) {
+    const defaultValue = isArray(value)
+      ? value[0]
+      : isObject(value)
+        ? isArray(value.value)
+          ? value.value[0]
+          : value.value
+        : value;
+    if (isObject(value) && !isArray(value)) {
       const disabled =
         value.disabled && renderer.renderString(value.disabled, context);
+      const choice = value.choices?.find(
+        (choice) => choice.value === opts[key],
+      );
+      const disabledChoice = renderer.renderString(
+        choice?.disabled || "false",
+        context,
+      );
       if (disabled === "true") {
         logger.warn(`Option --${key} is disabled.`);
-        delete context[key];
-        delete opts[key];
+        context[key] = defaultValue;
+        opts[key] = defaultValue;
+      } else if (disabledChoice === "true") {
+        logger.warn(`Option --${key} is disabled with value "${opts[key]}".`);
+        context[key] = defaultValue;
+        opts[key] = defaultValue;
       }
     }
   }
