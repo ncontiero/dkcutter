@@ -83,10 +83,7 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
     if (choices) {
       return choices.map((choice) => ({
         ...choice,
-        title: renderer.renderString(
-          choice.title || formatKeyMessage(choice.value),
-          answers,
-        ),
+        title: renderer.renderString(choice.title || choice.value, answers),
         disabled:
           renderer.renderString(choice.disabled || "false", answers) === "true",
       }));
