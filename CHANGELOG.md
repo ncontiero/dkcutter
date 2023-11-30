@@ -1,5 +1,15 @@
 # dkcutter
 
+## 3.3.2
+
+### Patch Changes
+
+- [`c3f2aee`](https://github.com/dkshs/dkcutter/commit/c3f2aeeb0b467d8656895305a4c80841d6287562) - update(deps): tsx from 4.6.0 to 4.6.1
+
+- [`c0e0252`](https://github.com/dkshs/dkcutter/commit/c0e0252ea21be15085f63e59b027b724dc31e133) - update: removing formatting for `choice` property values.
+
+- [`8b781f6`](https://github.com/dkshs/dkcutter/commit/8b781f60929bda6495dea1b87d6e5c98b50cba5a) - fix: passing the values from `dkcutter.json` when creating prompts.
+
 ## 3.3.1
 
 ### Patch Changes
