@@ -54,7 +54,10 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
     return createPromptObject([key, { value: objValues }]);
   } else if (isObject(objValues) && isArray(objValues.value)) {
     const choices = objValues.value.map((val) => ({ value: val }));
-    return createPromptObject([key, { value: objValues.value[0], choices }]);
+    return createPromptObject([
+      key,
+      { ...objValues, value: objValues.value[0], choices },
+    ]);
   }
   const { value, validateRegex, promptMessage, choices, disabled } = objValues;
   const isBoolean = typeof value === "boolean";
