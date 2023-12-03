@@ -1,5 +1,13 @@
 # dkcutter
 
+## 3.3.3
+
+### Patch Changes
+
+- [`a5bbff8`](https://github.com/dkshs/dkcutter/commit/a5bbff80b21ebdc06f847ba94d5b4218a17120b1) - fix: type of prompts disabled.
+
+- [`5d6afa4`](https://github.com/dkshs/dkcutter/commit/5d6afa4f9e40c7a3c338152f6890a74d8b7f99be) - update(deps): tsx from 4.6.1 to 4.6.2
+
 ## 3.3.2
 
 ### Patch Changes
