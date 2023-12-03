@@ -67,32 +67,26 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
       ? renderer.renderString(promptMessage, values)
       : formatKeyMessage(key);
 
-  const show = (values: prompts.Answers<string>, disabled: string) => {
-    const condition = renderer.renderString(disabled, values);
-    return condition === "false" ? "toggle" : null;
-  };
-  const getType = () => {
-    if (disabled)
-      return (_: unknown, values: prompts.Answers<string>) =>
-        show(values, disabled);
-    if (choices || isArray(value)) return "select";
-    if (isBoolean) return "toggle";
-    return "text";
+  const getType = (answers: prompts.Answers<string>) => {
+    let type: string | null =
+      choices || isArray(value) ? "select" : isBoolean ? "toggle" : "text";
+    if (disabled) {
+      const condition = renderer.renderString(disabled, answers);
+      type = condition === "false" ? type : null;
+    }
+    return type;
   };
   const getChoices = (answers: prompts.Answers<string>) => {
-    if (choices) {
-      return choices.map((choice) => ({
-        ...choice,
-        title: renderer.renderString(choice.title || choice.value, answers),
-        disabled:
-          renderer.renderString(choice.disabled || "false", answers) === "true",
-      }));
-    }
-    return choices;
+    return choices?.map((choice) => ({
+      ...choice,
+      title: renderer.renderString(choice.title || choice.value, answers),
+      disabled:
+        renderer.renderString(choice.disabled || "false", answers) === "true",
+    }));
   };
 
   return {
-    type: getType(),
+    type: (_, answers) => getType(answers),
     name: key,
     message,
     choices: (_, answers) => getChoices(answers),
