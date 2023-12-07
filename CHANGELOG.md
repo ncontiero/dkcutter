@@ -1,5 +1,11 @@
 # dkcutter
 
+## 3.3.4
+
+### Patch Changes
+
+- [`7266a47`](https://github.com/dkshs/dkcutter/commit/7266a47f0a14353f2ca40f01be5cbc337d083553) - fix: copying ignored files without rendering them.
+
 ## 3.3.3
 
 ### Patch Changes
