@@ -17,10 +17,6 @@ export async function structureRender(
   const files = await fs.readdir(templatePath);
 
   for (const file of files) {
-    if (ignorePatterns.some((pattern) => pattern.test(file))) {
-      continue;
-    }
-
     const filePath = path.join(templatePath, file);
     const treatedName = renderer.renderString(file, ctx);
     const outputFilePath = path.join(outputFolder, treatedName);
@@ -31,6 +27,10 @@ export async function structureRender(
       await fs.mkdir(outputFilePath, { recursive: true });
       await structureRender(ctx, filePath, outputFilePath);
     } else if (itemStat.isFile()) {
+      if (ignorePatterns.some((pattern) => pattern.test(file))) {
+        await fs.copyFile(filePath, outputFilePath);
+        continue;
+      }
       const fileContent = await fs.readFile(filePath, "utf-8");
       await fs.writeFile(
         outputFilePath,
