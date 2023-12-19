@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
-    "@dkshs/changelog-github": "1.0.3",
+    "@dkshs/changelog-github": "1.0.4",
     "@dkshs/eslint-config": "1.4.0",
     "@types/fs-extra": "^11",
     "@types/node": "^20",
