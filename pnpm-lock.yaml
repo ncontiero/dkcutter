@@ -44,8 +44,8 @@ devDependencies:
     specifier: ^2.27.1
     version: 2.27.1
   '@dkshs/changelog-github':
-    specifier: 1.0.3
-    version: 1.0.3
+    specifier: 1.0.4
+    version: 1.0.4
   '@dkshs/eslint-config':
     specifier: 1.4.0
     version: 1.4.0(eslint@8.56.0)(typescript@5.3.3)
@@ -302,8 +302,8 @@ packages:
       prettier: 2.8.8
     dev: true
 
-  /@dkshs/changelog-github@1.0.3:
-    resolution: {integrity: sha512-lHKqZ5kIydwD7PW7qzP9Lp0t8BrAVLWWtN3QiwKUjyq95rpgTG9o5BgUFMXP4V1Zz2gZ10dsEOdk8wBV9WVyWw==}
+  /@dkshs/changelog-github@1.0.4:
+    resolution: {integrity: sha512-N+6DPU3x/+6KWVxO8w0p7731uGcq93oDX7RsiiSSYc4OuBqvnMGF4Sk4tNyuhORiTBuRPK45FB4yFpoN/thApg==}
     dependencies:
       '@changesets/get-github-info': 0.6.0
       dotenv: 16.3.1
