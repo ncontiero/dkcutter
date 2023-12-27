@@ -1,5 +1,13 @@
 # dkcutter
 
+## 3.3.5
+
+### Patch Changes
+
+- [`b919eba`](https://github.com/dkshs/dkcutter/commit/b919ebadab0582fa3d79c7b828f406426c9806cb) - update(deps): tsx from 4.6.2 to 4.7.0
+
+- [`8352595`](https://github.com/dkshs/dkcutter/commit/8352595ac9ecb9bc399ac74cfe2fe074e6f94d77) - update(deps): ora from 7.0.1 to 8.0.1
+
 ## 3.3.4
 
 ### Patch Changes
