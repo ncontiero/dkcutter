@@ -4,6 +4,7 @@ import type {
   ContextProps,
   ConfigObjectProps,
   ConfigChoiceProps,
+  ChoicesTypeEnumProps,
 } from "./getConfig";
 
 import prompts from "prompts";
@@ -59,7 +60,14 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
       { ...objValues, value: objValues.value[0], choices },
     ]);
   }
-  const { value, validateRegex, promptMessage, choices, disabled } = objValues;
+  const {
+    value,
+    validateRegex,
+    promptMessage,
+    choices,
+    disabled,
+    choicesType = "select",
+  } = objValues;
   const isBoolean = typeof value === "boolean";
   const isString = typeof value === "string";
   const message = (_: unknown, values: prompts.Answers<string>) =>
@@ -69,7 +77,7 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
 
   const getType = (answers: prompts.Answers<string>) => {
     let type: string | null =
-      choices || isArray(value) ? "select" : isBoolean ? "toggle" : "text";
+      choices || isArray(value) ? choicesType : isBoolean ? "toggle" : "text";
     if (disabled) {
       const condition = renderer.renderString(disabled, answers);
       type = condition === "false" ? type : null;
@@ -100,6 +108,8 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
           ? true
           : validateRegex.message || "Please enter a valid value."
         : true,
+    hint: "- Space to select. Return to submit",
+    instructions: false,
     active: "Yes",
     inactive: "No",
   } as prompts.PromptObject<keyof ConfigProps>;
@@ -110,6 +120,7 @@ function optionValueSchema(
   type: "<string>" | "[boolean]",
   regex?: RegExp,
   choices?: ConfigChoiceProps[],
+  choicesType?: ChoicesTypeEnumProps,
 ) {
   const err = {
     message: `Enter a valid value in ${key}.`,
@@ -118,10 +129,14 @@ function optionValueSchema(
   const baseSchema = z.string().optional();
 
   const choiceSchema = choices
-    ? baseSchema.refine(
-        (val) => choices.some((choice) => choice.value === val),
-        err,
-      )
+    ? baseSchema.refine((val) => {
+        if (val && choicesType === "multiselect") {
+          return val
+            .split(",")
+            .every((choice) => choices?.some((c) => c.value === choice));
+        }
+        return choices?.some((c) => c.value === val);
+      }, err)
     : baseSchema;
 
   const regexSchema = regex
@@ -163,10 +178,16 @@ export async function getContext({
           ? configValue.value.map((val) => ({ value: val }))
           : configValue.choices
         : undefined;
+    const choicesType =
+      !isArray(configValue) && isObject(configValue)
+        ? configValue.choicesType
+        : "select";
     const flag = `--${key}`;
     const typeValue = typeof value === "string" ? "<string>" : "[boolean]";
     program.option(`${flag} ${typeValue}`, formatKeyMessage(key), (value) =>
-      optionValueSchema(flag, typeValue, regex, choices).parse(value),
+      optionValueSchema(flag, typeValue, regex, choices, choicesType).parse(
+        value,
+      ),
     );
   });
   program.parse(process.argv);
