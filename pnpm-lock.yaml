@@ -53,7 +53,7 @@ devDependencies:
     specifier: ^11
     version: 11.0.4
   '@types/node':
-    specifier: ^20.11.10
+    specifier: ^20
     version: 20.11.10
   '@types/nunjucks':
     specifier: ^3
