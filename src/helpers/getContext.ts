@@ -27,19 +27,31 @@ function isObject(value: unknown): value is object {
 function isArray(value: unknown): value is unknown[] {
   return Array.isArray(value);
 }
+function choicesTypeF(value: ConfigObjectProps): ChoicesTypeEnumProps {
+  if (!isArray(value) && isObject(value)) {
+    return value.choicesType ?? "select";
+  }
+  return "select";
+}
 
 function returnObject(config: ConfigProps) {
   const internal: ContextProps = {};
   const external: ContextProps = {};
 
   for (const [key, value] of Object.entries(config)) {
+    const choicesType = choicesTypeF(value);
     const target = key.startsWith("_") ? internal : external;
     if (isArray(value)) {
-      target[key] = value[0];
+      target[key] = choicesType === "multiselect" ? [value[0]] : value[0];
     } else if (isObject(value)) {
-      target[key] = isArray(value.value) ? value.value[0] : value.value;
+      const v = isArray(value.value) ? value.value[0] : value.value;
+      target[key] =
+        choicesType === "multiselect" && typeof v === "string" ? [v] : v;
     } else {
-      target[key] = value;
+      target[key] =
+        choicesType === "multiselect" && typeof value === "string"
+          ? [value]
+          : value;
     }
   }
   return { internal, external };
@@ -133,9 +145,9 @@ function optionValueSchema(
         if (val && choicesType === "multiselect") {
           return val
             .split(",")
-            .every((choice) => choices?.some((c) => c.value === choice));
+            .every((choice) => choices.some((c) => c.value === choice));
         }
-        return choices?.some((c) => c.value === val);
+        return choices.some((c) => c.value === val);
       }, err)
     : baseSchema;
 
@@ -147,13 +159,19 @@ function optionValueSchema(
     val === "false" || val === "true" ? val !== "false" : val,
   );
 
-  return booleanTransform.refine(
-    (val) =>
-      type === "<string>"
-        ? typeof val === "string" && val.trim().length > 0
-        : typeof val === "boolean",
-    err,
-  );
+  const typeSchema = booleanTransform.refine((val) => {
+    if (type === "<string>") {
+      return typeof val === "string" && val.trim().length > 0;
+    }
+    return typeof val === "boolean";
+  }, err);
+
+  return typeSchema.transform((v) => {
+    if (choicesType === "multiselect" && typeof v === "string") {
+      return v.split(",");
+    }
+    return v;
+  });
 }
 
 export async function getContext({
@@ -178,12 +196,10 @@ export async function getContext({
           ? configValue.value.map((val) => ({ value: val }))
           : configValue.choices
         : undefined;
-    const choicesType =
-      !isArray(configValue) && isObject(configValue)
-        ? configValue.choicesType
-        : "select";
+    const choicesType = choicesTypeF(configValue);
     const flag = `--${key}`;
-    const typeValue = typeof value === "string" ? "<string>" : "[boolean]";
+    const typeValue =
+      typeof value === "string" || isArray(value) ? "<string>" : "[boolean]";
     program.option(`${flag} ${typeValue}`, formatKeyMessage(key), (value) =>
       optionValueSchema(flag, typeValue, regex, choices, choicesType).parse(
         value,
@@ -196,13 +212,18 @@ export async function getContext({
   context = { ...context, ...opts };
   for (const key in opts) {
     const value = config[key];
-    const defaultValue = isArray(value)
+    const choicesType = choicesTypeF(value);
+    const dValue = isArray(value)
       ? value[0]
       : isObject(value)
         ? isArray(value.value)
           ? value.value[0]
           : value.value
         : value;
+    const defaultValue =
+      choicesType === "multiselect" && typeof dValue === "string"
+        ? dValue.split(",")
+        : dValue;
     if (isObject(value) && !isArray(value)) {
       const disabled =
         value.disabled && renderer.renderString(value.disabled, context);
@@ -238,6 +259,19 @@ export async function getContext({
     },
   );
 
+  for (const key in answers) {
+    if (new Array(answers[key]).flat().length === 0) {
+      const value = config[key];
+      const dValue = isArray(value)
+        ? value[0]
+        : isObject(value)
+          ? isArray(value.value)
+            ? value.value[0]
+            : value.value
+          : value;
+      answers[key] = [dValue];
+    }
+  }
   context = { ...internalCtx, ...answers };
 
   return treatData(context);
