@@ -1,4 +1,4 @@
-import type { ContextProps } from "@/helpers/getConfig";
+import type { DKCutterContext } from "@/helpers/getConfig";
 
 import path from "node:path";
 import fs from "fs-extra";
@@ -6,7 +6,7 @@ import fs from "fs-extra";
 import { renderer } from "@/utils/renderer";
 
 export async function structureRender(
-  ctx: ContextProps,
+  ctx: DKCutterContext,
   dir = path.join(process.cwd(), "template"),
   output = ".",
   ignorePatterns: RegExp[] = [/.(png|jpg|jpeg|ico|svg|gif|webp)$/i],

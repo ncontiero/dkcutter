@@ -42,6 +42,7 @@ export type ConfigProps = z.infer<typeof configSchema>;
 export type ContextProps = {
   [K in keyof ConfigProps]: string | string[] | boolean;
 };
+export type DKCutterContext = { dkcutter: ContextProps };
 
 export async function getConfig(cwd: string): Promise<ConfigProps | null> {
   try {

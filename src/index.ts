@@ -13,7 +13,7 @@ import { structureRender } from "@/helpers/structureRender";
 import { configureHooks, runHooks } from "@/helpers/runHooks";
 import { handleError } from "@/utils/handleError";
 import { getPackageInfo } from "@/utils/getPackageInfo";
-import { renderer } from "@/utils/renderer";
+import { renderer, setRendererContext } from "@/utils/renderer";
 import { cleanFiles } from "@/utils/cleanFiles";
 import { logger, colorize } from "@/utils/logger";
 import { PKG_ROOT, PKG_TEMPLATE } from "@/consts";
@@ -134,7 +134,9 @@ async function main() {
 
     const config = await getConfig(projectRoot);
     if (!config) throw new Error("No configuration found. Please try again.");
-    const ctx = await getContext({ config, program, skip: options.default });
+    const ctx = setRendererContext(
+      await getContext({ config, program, skip: options.default }),
+    );
 
     const spinner = ora(colorize("info", "Creating project...")).start();
 

@@ -1,4 +1,4 @@
-import type { ContextProps } from "./getConfig";
+import type { DKCutterContext } from "./getConfig";
 
 import path from "node:path";
 import fs from "fs-extra";
@@ -8,7 +8,10 @@ import { structureRender } from "./structureRender";
 import { getUserPkgManager } from "@/utils/getUserPkgManager";
 import { HOOKS_FOLDER, PKG_ROOT, RENDERED_HOOKS_FOLDER } from "@/consts";
 
-export async function configureHooks(ctx: ContextProps, dir = process.cwd()) {
+export async function configureHooks(
+  ctx: DKCutterContext,
+  dir = process.cwd(),
+) {
   const hooksFolder = HOOKS_FOLDER(dir);
 
   if (!fs.existsSync(hooksFolder)) return;

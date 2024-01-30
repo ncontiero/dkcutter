@@ -72,7 +72,7 @@ A `postGenProject` hook can conditionally control files and directories. The exa
 ```js
 import fs from "fs-extra";
 
-const pkgManager = "{{ dkcutter.pkgManager }}";
+const pkgManager = "{{ pkgManager }}";
 
 function removeLockFiles() {
   switch (pkgManager) {
