@@ -27,11 +27,21 @@ function updateContext(field: string, newValue: string, returnV = false) {
   dkcutter[field] = renderer.renderString(newValue, dkcutter);
   if (returnV) return dkcutter[field];
 }
+function addValueToContext(field: string, value: string, returnV = false) {
+  const msgError = "In `dkcutter.update()` the";
+  if (typeof field !== "string") {
+    throw new Error(`${msgError} field must be a string, got ${typeof field}`);
+  }
+  const dkcutter = renderer.getGlobal("dkcutter");
+  dkcutter[field] = renderer.renderString(value, dkcutter);
+  if (returnV) return dkcutter[field];
+}
 
 const globals = {
   pkgManager: getUserPkgManager(),
   now: new Date(),
   update: updateContext,
+  add: addValueToContext,
 };
 
 renderer.addGlobal("dkcutter", globals);
