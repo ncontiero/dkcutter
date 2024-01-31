@@ -1,5 +1,34 @@
 # dkcutter
 
+## 4.0.0
+
+### Major Changes
+
+- [`3a7ef60`](https://github.com/dkshs/dkcutter/commit/3a7ef60f4eb5d02f8cb6252779bc183d186145a7) - update: moving variables defined in `dkcutter.json` into the `dkcutter` context.
+
+  - All variables in the template and hooks must be used with the prefix `dkcutter.<variable>`:
+
+  ```diff
+  -{{ projectSlug }}
+  +{{ dkcutter.projectSlug }}
+  ```
+
+  - There were no changes to the use of variables in `dkcutter.json`, so there is no need to change them.
+
+### Minor Changes
+
+- [`e027175`](https://github.com/dkshs/dkcutter/commit/e027175a584049cb8cca2de0cb29358f1b244a4b) - feat: adding ability to choose multiple choices in `choices` via the `choicesType` property.
+
+- [`d04fb01`](https://github.com/dkshs/dkcutter/commit/d04fb01123822710131d14f5ccab527820225e8c) - feat: adding custom filter `wordCount` to count words in a string
+
+- [`34d5afa`](https://github.com/dkshs/dkcutter/commit/34d5afaaa915f29b086874e3850ee27810ad18e0) - feat: adding a function to add values to the context.
+
+- [`034145b`](https://github.com/dkshs/dkcutter/commit/034145b9bdf4449fd0a55468243bb0f842e8fd1c) - feat: adding function to update context values.
+
+### Patch Changes
+
+- [`2ed2669`](https://github.com/dkshs/dkcutter/commit/2ed2669496a1669a7f89b22c2c74775aab252f66) - fix: improving codes related to the `choicesType` property in options and prompts
+
 ## 3.3.5
 
 ### Patch Changes
