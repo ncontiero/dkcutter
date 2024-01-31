@@ -67,7 +67,7 @@ Options that can be passed on the object are the following:
     }
   ], // or undefined
   "disabled": "string | undefined",
-  "choicesType": "multiselect | select | undefined",
+  "choicesType": "multiselect | select | undefined"
 }
 ```
 
