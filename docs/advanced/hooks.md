@@ -18,7 +18,7 @@ Hooks are added to the `hooks/` folder of your template. Both Javascript are sup
 ```bash
 dkcutter-something/
 ├── template
-│   ├── {{project_slug}}/
+│   ├── {{dkcutter.project_slug}}/
 ├── hooks
 │   ├── preGenProject.js
 │   └── postGenProject.js
@@ -30,7 +30,7 @@ dkcutter-something/
 ```bash
 dkcutter-something/
 ├── template
-│   ├── {{project_slug}}/
+│   ├── {{dkcutter.project_slug}}/
 ├── hooks
 │   ├── preGenProject.ts
 │   └── postGenProject.ts
@@ -46,7 +46,7 @@ Hooks should be robust and handle errors gracefully. If a hook exits with a non-
 The `preGenProject` and `postGenProject` hooks support [nunjucks](https://github.com/mozilla/nunjucks) template rendering, similar to project templates. For instance:
 
 ```js
-const projectName = "{{ projectName }}";
+const projectName = "{{ dkcutter.projectName }}";
 ```
 
 ## Examples
@@ -57,7 +57,7 @@ A `preGenProject` hook can validate template variables. The following script che
 
 ```js
 const projectSlugRegex = /^[a-z0-9][a-z0-9-_]*$/;
-const projectSlug = "{{ projectSlug }}";
+const projectSlug = "{{ dkcutter.projectSlug }}";
 
 if (!projectSlugRegex.test(projectSlug)) {
   console.error(`ERROR: ${projectSlug} is not a valid project slug!`);
@@ -72,7 +72,7 @@ A `postGenProject` hook can conditionally control files and directories. The exa
 ```js
 import fs from "fs-extra";
 
-const pkgManager = "{{ pkgManager }}";
+const pkgManager = "{{ dkcutter.pkgManager }}";
 
 function removeLockFiles() {
   switch (pkgManager) {

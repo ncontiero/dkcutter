@@ -62,10 +62,12 @@ Options that can be passed on the object are the following:
   "choices": [
     {
       "value": "string",
-      "title": "string | undefined"
+      "title": "string | undefined",
+      "disabled": "string | undefined"
     }
   ], // or undefined
-  "disabled": "string | undefined"
+  "disabled": "string | undefined",
+  "choicesType": "multiselect | select | undefined",
 }
 ```
 

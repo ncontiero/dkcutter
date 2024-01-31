@@ -24,23 +24,23 @@ cd dkcutter-website-simple/
 
 ## Step 3: Create `template/projectSlug` Directory
 
-Create a directory called `template/{{projectSlug}}`.
+Create a directory called `template/{{dkcutter.projectSlug}}`.
 
 This value will be replaced with the repo name of projects that you generate from this dkcutter.
 
 ## Step 4: Create `index.html`
 
-Inside of `template/{{projectSlug}}`, create `index.html` with following content:
+Inside of `template/{{dkcutter.projectSlug}}`, create `index.html` with following content:
 
 ```html
 <!doctype html>
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>{{ projectName }}</title>
+    <title>{{ dkcutter.projectName }}</title>
   </head>
   <body>
-    <h1>{{ projectName }}</h1>
+    <h1>{{ dkcutter.projectName }}</h1>
   </body>
 </html>
 ```

@@ -31,11 +31,11 @@ Depending on an user’s choice, a different license is rendered by DKCutter.
 The above `license` choice variable creates `license`, which can be used like this:
 
 ```md
-{%- if license == "MIT" -%}
+{%- if dkcutter.license == "MIT" -%}
 
 # Possible license content here
 
-{%- elif license == "BSD-3" -%}
+{%- elif dkcutter.license == "BSD-3" -%}
 
 # More possible license content here
 
@@ -49,5 +49,5 @@ The created choice variable is still a regular DKCutter variable and can be used
 ```md
 ## License
 
-Distributed under the terms of the `{{license}}`\_ license,
+Distributed under the terms of the `{{dkcutter.license}}`\_ license,
 ```

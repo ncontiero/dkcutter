@@ -120,6 +120,26 @@ If you do not want a certain choice to be available, you can disable it as follo
 
 This property is similar to the object's [`disabled`](#object---disabled-property). You can disable it [statically](#disabling-statically) and [dynamically](#dynamically-disabling).
 
+## Object - `choicesType` property
+
+The `choicesType` property can be: "multiselect", "select" or undefined. This property should be used when you can have multiple choices in the [`choices`](#object---choices-property) property:
+
+```json
+{
+  "packages": {
+    "promptMessage": "What packages do you want to include in the project?",
+    "value": "none",
+    "choices": [
+      { "title": "ESLint", "value": "eslint" },
+      { "title": "Prettier", "value": "prettier" }
+    ],
+    "choicesType": "multiselect"
+  }
+}
+```
+
+The returned result will be an `array` containing the user's choices.
+
 ## Object - `disabled` property
 
 This property should be used when you want to disable a prompt statically or dynamically. When a prompt is recognized as deficient it will not be asked.
