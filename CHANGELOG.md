@@ -1,5 +1,11 @@
 # dkcutter
 
+## 4.0.1
+
+### Patch Changes
+
+- [`98f18af`](https://github.com/dkshs/dkcutter/commit/98f18af3d48607cbca198fb2df74abf3b23c4819) - update(deps): commander from 11.1.0 to 12.0.0
+
 ## 4.0.0
 
 ### Major Changes
