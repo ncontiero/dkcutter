@@ -56,22 +56,22 @@ devDependencies:
     specifier: 1.4.0
     version: 1.4.0(eslint@8.56.0)(typescript@5.3.3)
   '@types/fs-extra':
-    specifier: ^11
+    specifier: ^11.0.4
     version: 11.0.4
   '@types/node':
-    specifier: ^20
+    specifier: ^20.11.17
     version: 20.11.17
   '@types/nunjucks':
-    specifier: ^3
+    specifier: ^3.2.6
     version: 3.2.6
   '@types/prompts':
-    specifier: ^2
+    specifier: ^2.4.9
     version: 2.4.9
   '@types/which':
-    specifier: ^3
+    specifier: ^3.0.3
     version: 3.0.3
   eslint:
-    specifier: ^8
+    specifier: ^8.56.0
     version: 8.56.0
   husky:
     specifier: ^9.0.10
@@ -86,7 +86,7 @@ devDependencies:
     specifier: ^4.10.2
     version: 4.10.2
   typescript:
-    specifier: ^5
+    specifier: ^5.3.3
     version: 5.3.3
 
 packages:
