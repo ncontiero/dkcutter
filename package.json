@@ -1,6 +1,6 @@
 {
   "name": "dkcutter",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "A command-line utility that creates projects from templates.",
   "repository": {
     "type": "git",

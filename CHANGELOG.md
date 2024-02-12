@@ -1,5 +1,13 @@
 # dkcutter
 
+## 4.0.2
+
+### Patch Changes
+
+- [`213128f`](https://github.com/dkshs/dkcutter/commit/213128fab3005488ba4e0bd05419f353d27331b4) - chore(deps): update tsup to 8.0.2
+
+- [`3d8edeb`](https://github.com/dkshs/dkcutter/commit/3d8edebb26b35424b0ecc8ee2b705f3a1718a579) - chore(deps): update tsx to 4.7.1
+
 ## 4.0.1
 
 ### Patch Changes
