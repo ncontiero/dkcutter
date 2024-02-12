@@ -29,7 +29,8 @@
     "check": "pnpm lint && pnpm typecheck",
     "changeset": "changeset",
     "release": "changeset version",
-    "pub:release": "pnpm build && changeset publish"
+    "pub:release": "pnpm build && changeset publish",
+    "prepare": "husky"
   },
   "dependencies": {
     "colorette": "^2.0.20",
@@ -54,6 +55,8 @@
     "@types/prompts": "^2",
     "@types/which": "^3",
     "eslint": "^8",
+    "husky": "^9.0.10",
+    "lint-staged": "^15.2.2",
     "tsup": "^8.0.1",
     "type-fest": "^4.10.2",
     "typescript": "^5"
