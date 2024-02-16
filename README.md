@@ -50,9 +50,43 @@ Beyond that, you can have whatever files/directories you want.
 This is what will be generated locally, in your current directory:
 
 ```bash
-mysomething/    <------ Value corresponding to what you enter at the
-│                       projectSlug prompt
+mysomething/    <-------- Value corresponding to what you enter at the
+│                         projectSlug prompt
 │
-└── ...         <------ Files corresponding to those in your
-                        dkcutter's `{{ dkcutter.projectSlug }}/` dir
+└── ...         <-------- Files corresponding to those in your
+                          dkcutter's `{{ dkcutter.projectSlug }}/` dir
 ```
+
+## Getting Started
+
+### For Users
+
+The recommended way to use DKCutter as a command line utility is to execute it with `pnpm dlx`, `npx`, `yarn dlx` or `bunx`.
+
+#### Use a GitHub template
+
+```bash
+pnpm dlx dkcutter https://github.com/dkshs/dkcutter-nextjs.git
+```
+
+#### Use a local template
+
+```bash
+pnpm dlx dkcutter ./dkcutter-nextjs
+```
+
+#### Detailed Usage
+
+- Generate projects from local or remote templates.
+- Customize projects with `dkcutter.json` prompts.
+- Utilize pre- and post-generate hooks.
+
+[Learn More](https://github.com/dkshs/dkcutter/blob/main/docs/usage.md)
+
+### For Template Creators
+
+- Utilize unlimited directory nesting.
+- Employ nunjucks for all templating needs.
+- Define template variables easily with `dkcutter.json`.
+
+[Learn More](https://github.com/dkshs/dkcutter/blob/main/docs/tutorials/creating-from-scratch.md)
