@@ -1,5 +1,11 @@
 # dkcutter
 
+## 4.0.3
+
+### Patch Changes
+
+- [`7b88af1`](https://github.com/dkshs/dkcutter/commit/7b88af1a1cea87b219b54847af8f0cf468310b29) - fix(docs): add 'getting started' section back to readme
+
 ## 4.0.2
 
 ### Patch Changes
