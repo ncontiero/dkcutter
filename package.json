@@ -52,7 +52,7 @@
     "@dkshs/changelog-github": "1.0.5",
     "@dkshs/eslint-config": "1.4.0",
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^20.11.26",
+    "@types/node": "^20.11.27",
     "@types/nunjucks": "^3.2.6",
     "@types/prompts": "^2.4.9",
     "@types/which": "^3.0.3",
