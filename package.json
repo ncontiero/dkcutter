@@ -60,7 +60,7 @@
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "tsup": "^8.0.2",
-    "type-fest": "^4.15.0",
+    "type-fest": "^4.16.0",
     "typescript": "^5.4.5"
   },
   "publishConfig": {
