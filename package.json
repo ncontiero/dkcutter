@@ -49,7 +49,7 @@
     "@changesets/cli": "^2.27.1",
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
-    "@dkshs/changelog-github": "1.0.5",
+    "@dkshs/changelog-github": "1.0.6",
     "@dkshs/eslint-config": "1.5.0",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.12.7",

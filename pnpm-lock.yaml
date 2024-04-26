@@ -50,8 +50,8 @@ devDependencies:
     specifier: ^19.2.2
     version: 19.2.2
   '@dkshs/changelog-github':
-    specifier: 1.0.5
-    version: 1.0.5
+    specifier: 1.0.6
+    version: 1.0.6
   '@dkshs/eslint-config':
     specifier: 1.5.0
     version: 1.5.0(eslint@8.57.0)(typescript@5.4.5)
@@ -477,8 +477,8 @@ packages:
       chalk: 5.3.0
     dev: true
 
-  /@dkshs/changelog-github@1.0.5:
-    resolution: {integrity: sha512-7os07Z9IZc/4zhqADxCNZ8KQtwGLNTBqMhcHxaVkree7QG7Dgyx+UnOfbeiIVOe22SikhbHzWMo9nwOz4hZbNQ==}
+  /@dkshs/changelog-github@1.0.6:
+    resolution: {integrity: sha512-Poym7L83xt67wLaRTdB7BgbxDjIHVW9Kcxw72g0QszQTk45Sn0OFjdvC5dMWeYTVje/5RzRtDf7DxBN0bgpQXQ==}
     dependencies:
       '@changesets/get-github-info': 0.6.0
       dotenv: 16.4.5
