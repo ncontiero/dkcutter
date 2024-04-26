@@ -13,11 +13,12 @@ export async function configureHooks(
   dir = process.cwd(),
 ) {
   const hooksFolder = HOOKS_FOLDER(dir);
+  const renderedHooksFolder = RENDERED_HOOKS_FOLDER();
 
   if (!fs.existsSync(hooksFolder)) return;
-  fs.ensureDirSync(RENDERED_HOOKS_FOLDER);
+  fs.emptyDirSync(renderedHooksFolder);
 
-  await structureRender(ctx, hooksFolder, RENDERED_HOOKS_FOLDER);
+  await structureRender(ctx, hooksFolder, renderedHooksFolder);
 }
 
 interface RunHooks {
@@ -29,13 +30,14 @@ export function runHooks({ dir = process.cwd(), runHook }: RunHooks) {
   try {
     const pkgManager = getUserPkgManager();
     const supportedHooks = [`${runHook}.js`, `${runHook}.ts`];
+    const renderedHooksFolder = RENDERED_HOOKS_FOLDER();
 
     const hookFile = supportedHooks.find((hook) =>
-      fs.existsSync(path.join(RENDERED_HOOKS_FOLDER, hook)),
+      fs.existsSync(path.join(renderedHooksFolder, hook)),
     );
     if (!hookFile) return; // No hook found.
 
-    const hookPath = path.join(RENDERED_HOOKS_FOLDER, hookFile);
+    const hookPath = path.join(renderedHooksFolder, hookFile);
 
     const isBun = pkgManager === "bun";
     const isTs = hookFile.endsWith(".ts");

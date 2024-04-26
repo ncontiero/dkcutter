@@ -29,6 +29,6 @@ export function cleanFiles({
     fs.removeSync(templateFolder);
   }
 
-  fs.removeSync(RENDERED_HOOKS_FOLDER);
+  fs.removeSync(RENDERED_HOOKS_FOLDER());
   fs.removeSync(HOOKS_FOLDER());
 }
