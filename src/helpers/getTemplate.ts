@@ -3,9 +3,9 @@ import fs from "fs-extra";
 import { execa } from "execa";
 import ora from "ora";
 
-import { isGitInstalled } from "./git";
 import { logger } from "@/utils/logger";
-import { PKG_ROOT, CONFIG_FILE_NAME, HOOKS_FOLDER } from "@/consts";
+import { CONFIG_FILE_NAME, HOOKS_FOLDER, PKG_ROOT } from "@/consts";
+import { isGitInstalled } from "./git";
 
 interface GetTemplateProps {
   url: string;
@@ -62,12 +62,12 @@ export async function getTemplate({
     await fs.remove(cloneOutput);
 
     spinner.succeed("Template downloaded successfully.\n");
-  } catch (err) {
+  } catch (error) {
     const msg = "Failed to download template.";
-    if (err instanceof Error) {
-      throw new Error(`${msg}\n${err.message}`);
+    if (error instanceof Error) {
+      throw new TypeError(`${msg}\n${error.message}`);
     } else {
-      throw new Error(msg);
+      throw new TypeError(msg);
     }
   }
 }

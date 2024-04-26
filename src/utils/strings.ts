@@ -3,9 +3,9 @@ export const capitalize = <T extends string>(s: T) =>
 
 export function formatKeyMessage(key: string) {
   return capitalize(
-    key
-      .replace(/(?!^)([A-Z])/g, " $1")
+    `${key
+      .replaceAll(/(?!^)([A-Z])/g, " $1")
       .toLowerCase()
-      .trim() + "?",
+      .trim()}?`,
   );
 }

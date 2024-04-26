@@ -4,9 +4,9 @@ import path from "node:path";
 import fs from "fs-extra";
 import { execaSync } from "execa";
 
-import { structureRender } from "./structureRender";
 import { getUserPkgManager } from "@/utils/getUserPkgManager";
 import { HOOKS_FOLDER, PKG_ROOT, RENDERED_HOOKS_FOLDER } from "@/consts";
+import { structureRender } from "./structureRender";
 
 export async function configureHooks(
   ctx: DKCutterContext,
@@ -53,9 +53,9 @@ export function runHooks({ dir = process.cwd(), runHook }: RunHooks) {
   } catch (error) {
     const msg = `Failed to run hook: ${runHook}.`;
     if (error instanceof Error) {
-      throw new Error(`${msg}\n${error.message}`);
+      throw new TypeError(`${msg}\n${error.message}`);
     } else {
-      throw new Error(msg);
+      throw new TypeError(msg);
     }
   }
 }

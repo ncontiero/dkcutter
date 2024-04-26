@@ -1,10 +1,10 @@
 import type { Command } from "commander";
 import type {
+  ChoicesTypeEnumProps,
+  ConfigChoiceProps,
+  ConfigObjectProps,
   ConfigProps,
   ContextProps,
-  ConfigObjectProps,
-  ConfigChoiceProps,
-  ChoicesTypeEnumProps,
 } from "./getConfig";
 
 import prompts from "prompts";
@@ -88,7 +88,7 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
       : formatKeyMessage(key);
 
   const getType = (answers: prompts.Answers<string>) => {
-    let type: string | null =
+    let type: prompts.PromptType | null =
       choices || isArray(value) ? choicesType : isBoolean ? "toggle" : "text";
     if (disabled) {
       const condition = renderer.renderString(disabled, answers);
@@ -113,7 +113,9 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
     initial: choices
       ? choices.findIndex((choice) => choice.value === value)
       : (_, values) =>
-          isString ? renderer.renderString(value, values) : value,
+          isString
+            ? renderer.renderString(value, values)
+            : (value as prompts.InitialReturnValue),
     validate: (promptValue) =>
       typeof promptValue === "string" && validateRegex
         ? z.string().regex(validateRegex.regex).safeParse(promptValue).success
@@ -124,7 +126,7 @@ function createPromptObject([key, objValues]: [string, ConfigObjectProps]) {
     instructions: false,
     active: "Yes",
     inactive: "No",
-  } as prompts.PromptObject<keyof ConfigProps>;
+  } satisfies prompts.PromptObject<keyof ConfigProps>;
 }
 
 function optionValueSchema(
@@ -210,7 +212,7 @@ export async function getContext({
 
   const opts = program.opts();
   context = { ...context, ...opts };
-  for (const key in opts) {
+  for (const [key] of Object.entries(opts)) {
     const value = config[key];
     const choicesType = choicesTypeF(value);
     const dValue = isArray(value)
@@ -251,7 +253,7 @@ export async function getContext({
     return treatData(context);
   }
   const answers = await prompts(
-    Object.entries(config).map(createPromptObject),
+    Object.entries(config).map((c) => createPromptObject(c)),
     {
       onCancel: () => {
         throw new Error("\nInstallation aborted by user.");
@@ -259,8 +261,8 @@ export async function getContext({
     },
   );
 
-  for (const key in answers) {
-    if (new Array(answers[key]).flat().length === 0) {
+  for (const [key, aValue] of Object.entries(answers)) {
+    if ([aValue].flat().length === 0) {
       const value = config[key];
       const dValue = isArray(value)
         ? value[0]

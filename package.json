@@ -1,18 +1,18 @@
 {
   "name": "dkcutter",
+  "type": "module",
   "version": "4.0.3",
   "packageManager": "pnpm@9.0.6",
   "description": "A command-line utility that creates projects from templates.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dkshs/dkcutter.git"
-  },
-  "license": "MIT",
   "author": {
     "name": "DKSHS",
     "url": "https://github.com/dkshs"
   },
-  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dkshs/dkcutter.git"
+  },
   "exports": "./dist/index.js",
   "bin": {
     "dkcutter": "./dist/index.js"
@@ -20,13 +20,16 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "typecheck": "tsc --noEmit",
     "build": "tsup",
     "start": "node dist/index.js",
     "dev": "tsup --watch",
-    "lint": "eslint . && prettier . -c",
-    "lint:fix": "eslint --fix . && prettier . -w",
+    "lint": "eslint .",
+    "lint:fix": "pnpm lint --fix",
     "check": "pnpm lint && pnpm typecheck",
     "changeset": "changeset",
     "release": "changeset version",
@@ -51,7 +54,7 @@
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@dkshs/changelog-github": "1.0.6",
-    "@dkshs/eslint-config": "1.5.0",
+    "@dkshs/eslint-config": "2.3.3",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.12.7",
     "@types/nunjucks": "^3.2.6",
@@ -63,8 +66,5 @@
     "tsup": "^8.0.2",
     "type-fest": "^4.17.0",
     "typescript": "^5.4.5"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

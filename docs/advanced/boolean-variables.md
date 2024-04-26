@@ -22,7 +22,7 @@ you will get the following user input when running DKCutter:
 
 The above `runInstall` boolean variable creates `runInstall`, which can be used like this:
 
-```js
+```txt
 {%- if dkcutter.runInstall -%}
 //  In case of True add your content here
 

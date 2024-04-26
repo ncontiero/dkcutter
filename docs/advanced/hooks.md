@@ -56,7 +56,7 @@ const projectName = "{{ dkcutter.projectName }}";
 A `preGenProject` hook can validate template variables. The following script checks if the the provided project slug is valid.
 
 ```js
-const projectSlugRegex = /^[a-z0-9][a-z0-9-_]*$/;
+const projectSlugRegex = /^[\da-z][\d_a-z-]*$/;
 const projectSlug = "{{ dkcutter.projectSlug }}";
 
 if (!projectSlugRegex.test(projectSlug)) {

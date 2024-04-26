@@ -53,7 +53,7 @@ export async function getConfig(cwd: string): Promise<ConfigProps | null> {
     }
 
     return configSchema.parse(configResult.config);
-  } catch (error) {
+  } catch {
     throw new Error(
       `Invalid configuration found in ${cwd}/${CONFIG_FILE_NAME}.`,
     );

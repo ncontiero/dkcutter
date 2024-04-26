@@ -15,7 +15,7 @@ import { handleError } from "@/utils/handleError";
 import { getPackageInfo } from "@/utils/getPackageInfo";
 import { renderer, setRendererContext } from "@/utils/renderer";
 import { cleanFiles } from "@/utils/cleanFiles";
-import { logger, colorize } from "@/utils/logger";
+import { colorize, logger } from "@/utils/logger";
 import { PKG_ROOT, PKG_TEMPLATE } from "@/consts";
 
 process.on("SIGINT", handleError);
@@ -179,4 +179,4 @@ async function main() {
   }
 }
 
-main();
+await main();
