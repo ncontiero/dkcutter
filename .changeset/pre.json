@@ -4,5 +4,10 @@
   "initialVersions": {
     "dkcutter": "4.0.3"
   },
-  "changesets": []
+  "changesets": [
+    "dull-seahorses-march",
+    "odd-cobras-call",
+    "strange-feet-lay",
+    "strong-colts-promise"
+  ]
 }
