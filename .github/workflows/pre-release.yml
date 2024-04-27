@@ -1,8 +1,8 @@
-name: Release
+name: Pre-Release
 
 on:
   push:
-    branches: [main, prerelease]
+    branches: [main]
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
@@ -10,7 +10,7 @@ concurrency:
 
 jobs:
   release:
-    name: Release
+    name: Pre-Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -36,8 +36,9 @@ jobs:
         uses: changesets/action@v1
         with:
           version: pnpm release
-          commit: "feat(release): version packages"
-          title: "feat(release): version packages"
+          commit: "feat(pre-release): version packages"
+          title: "feat(pre-release): version packages"
+          branch: prerelease
           publish: pnpm pub:release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
