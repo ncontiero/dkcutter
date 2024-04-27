@@ -1,5 +1,19 @@
 # dkcutter
 
+## 4.1.0
+
+### Minor Changes
+
+- [`0e6ff49`](https://github.com/dkshs/dkcutter/commit/0e6ff49dd98db84cc43c9ecedfd9cadcbb25a78a) - chore: add id to rendered hooks folder
+
+### Patch Changes
+
+- [`98a4a9d`](https://github.com/dkshs/dkcutter/commit/98a4a9d0850026f68c1bdfae78d5ceaeee35a47e) - chore(deps): update zod to 3.23.4
+
+- [`0f4b259`](https://github.com/dkshs/dkcutter/commit/0f4b25994d0ae6eab3684a07b6a7be5aede3f279) - chore(deps): update tsx to 4.7.3
+
+- [`8bb3308`](https://github.com/dkshs/dkcutter/commit/8bb3308d2f096198763cdfb733e3cc15b65afe4f) - chore: improve code formatting
+
 ## 4.0.3
 
 ### Patch Changes
