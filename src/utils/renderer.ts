@@ -30,7 +30,7 @@ function updateContext(field: string, newValue: string, returnV = false) {
   if (returnV) return dkcutter[field];
 }
 function addValueToContext(field: string, value: string, returnV = false) {
-  const msgError = "In `dkcutter.update()` the";
+  const msgError = "In `dkcutter.add()` the";
   if (typeof field !== "string") {
     throw new TypeError(
       `${msgError} field must be a string, got ${typeof field}`,
