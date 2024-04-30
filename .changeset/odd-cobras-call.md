@@ -2,4 +2,4 @@
 "dkcutter": patch
 ---
 
-chore(deps): update zod to 3.23.4
+chore(deps): update zod to 3.23.5
