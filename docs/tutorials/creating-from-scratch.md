@@ -17,7 +17,7 @@ cd dkcutter-website-simple/
 
 ```json
 {
-  "projectName": "Cookiecutter Website Simple",
+  "projectName": "DKCutter Website Simple",
   "projectSlug": "{{ projectName|lower|replace(' ', '-')|trim }}"
 }
 ```
@@ -57,8 +57,8 @@ You can expect similar output:
 
 ```bash
 npx dkcutter .
-✔ Project name? … Cookiecutter Website Simple
-✔ Project slug? … cookiecutter-website-simple
+✔ Project name? … Test web
+✔ Project slug? … test-web
 ✔ Project created!
 ```
 
