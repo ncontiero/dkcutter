@@ -114,7 +114,9 @@ export async function cli(props: CLIProps): Promise<ContextProps> {
     const templateArg = isCli ? args[0] : template;
     if (!templateArg) program.help();
 
-    isLocalProject = templateArg.startsWith(".");
+    isLocalProject = fs.existsSync(templateArg)
+      ? fs.lstatSync(templateArg).isDirectory()
+      : false;
     templateFolder = isLocalProject
       ? path.join(templateArg, "template")
       : PKG_TEMPLATE;
@@ -131,25 +133,22 @@ export async function cli(props: CLIProps): Promise<ContextProps> {
       .transform((val) =>
         val.startsWith("gl:") ? `https://gitlab.com/${val.slice(3)}` : val,
       )
-      .refine((val) => !val.startsWith("."))
-      .or(z.string().url())
-      .or(
-        z
-          .string()
-          .refine((val) => val.startsWith("git") || val.startsWith("hg")),
+      .refine(
+        (val) =>
+          z.string().url().safeParse(val).success ||
+          val.startsWith("git") ||
+          val.startsWith("hg"),
       )
       .safeParse(templateArg);
 
-    if (templateArgSchema.success) {
+    if (templateArgSchema.success && !isLocalProject) {
       await getTemplate({
         url: templateArgSchema.data,
         outputDir: PKG_TEMPLATE,
         directoryOpt: options.directory,
         checkout: options.checkout,
       });
-    } else if (!isLocalProject) {
-      throw new Error("Invalid template. Please specify a valid url or path!");
-    } else if (!fs.existsSync(templateFolder)) {
+    } else if (!isLocalProject || !fs.existsSync(templateFolder)) {
       throw new Error("No template found. Please specify a valid url or path!");
     }
 
