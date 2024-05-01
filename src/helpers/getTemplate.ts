@@ -2,10 +2,10 @@ import path from "node:path";
 import fs from "fs-extra";
 import { execa } from "execa";
 import ora from "ora";
+import which from "which";
 
 import { logger } from "@/utils/logger";
 import { CONFIG_FILE_NAME, HOOKS_FOLDER, PKG_ROOT } from "@/consts";
-import { isGitInstalled } from "./git";
 
 interface GetTemplateProps {
   url: string;
@@ -13,6 +13,17 @@ interface GetTemplateProps {
   templateFolder?: string;
   directoryOpt?: string;
   checkout?: string;
+}
+
+export function isVSCInstalled(repoType: "hg" | "git"): boolean {
+  return !!which.sync(repoType, { nothrow: true });
+}
+
+function identifyRepoType(repoUrl: string) {
+  if (repoUrl.startsWith("hg") || repoUrl.includes("bitbucket")) {
+    return "hg";
+  }
+  return "git";
 }
 
 export async function getTemplate({
@@ -26,9 +37,10 @@ export async function getTemplate({
     logger.break();
     const spinner = ora("Downloading template...").start();
     const output = path.resolve(outputDir);
+    const repoType = identifyRepoType(url);
 
-    if (!isGitInstalled()) {
-      throw new Error("Git is not installed");
+    if (!isVSCInstalled(repoType)) {
+      throw new Error(`${repoType} is not installed`);
     }
 
     const cloneOutput = path.join(output, "output");
@@ -37,9 +49,18 @@ export async function getTemplate({
     const hooksFolder = HOOKS_FOLDER(resolvedDirectoryOpt);
     const templateConfig = path.join(resolvedDirectoryOpt, CONFIG_FILE_NAME);
 
-    await execa("git", ["clone", url, cloneOutput]);
+    if (url.startsWith("git") || url.startsWith("ssh")) {
+      spinner.stop();
+    }
+    await execa(repoType, ["clone", url, cloneOutput]);
+    spinner.start();
     if (checkout) {
-      await execa("git", ["checkout", ...checkout.split(" ")], {
+      const checkoutParams = [...checkout.split(" ")];
+      // Avoid Mercurial "--config" and "--debugger" injection vulnerability
+      if (repoType === "hg") {
+        checkoutParams.unshift("--");
+      }
+      await execa(repoType, ["checkout", ...checkoutParams], {
         cwd: cloneOutput,
       });
     }
@@ -67,7 +88,7 @@ export async function getTemplate({
     if (error instanceof Error) {
       throw new TypeError(`${msg}\n${error.message}`);
     } else {
-      throw new TypeError(msg);
+      throw new TypeError(`${msg}\nUnknown error: ${error}\n`);
     }
   }
 }
