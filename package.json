@@ -14,8 +14,10 @@
     "url": "https://github.com/dkshs/dkcutter.git"
   },
   "exports": "./dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "bin": {
-    "dkcutter": "./dist/index.js"
+    "dkcutter": "./dist/cli.js"
   },
   "files": [
     "dist"
@@ -26,7 +28,7 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "build": "tsup",
-    "start": "node dist/index.js",
+    "start": "node dist/cli.js",
     "dev": "tsup --watch",
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
