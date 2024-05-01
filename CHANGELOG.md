@@ -1,5 +1,27 @@
 # dkcutter
 
+## 4.1.0
+
+### Minor Changes
+
+- [`0e6ff49`](https://github.com/dkshs/dkcutter/commit/0e6ff49dd98db84cc43c9ecedfd9cadcbb25a78a) - chore: add id to rendered hooks folder
+
+- [`f13fdd0`](https://github.com/dkshs/dkcutter/commit/f13fdd05c759ee6470e9901a96d8a5fe9a93ccf2) - feat: add `dkcutter` function to generate projects via code
+
+- [`77d9491`](https://github.com/dkshs/dkcutter/commit/77d9491e4037f6feacbe40f30af984f59163ed12) - feat: improve template argument validation
+
+- [`d6ba94f`](https://github.com/dkshs/dkcutter/commit/d6ba94ff9a5f29dae1c5066e87e05d649c5e3d83) - chore: improve way to get repositories
+
+### Patch Changes
+
+- [`6c1069a`](https://github.com/dkshs/dkcutter/commit/6c1069a1dbba1de69235271a088b628a8c0fcbc2) - fix: update function name to `dkcutter.add()` in error message
+
+- [`07990f5`](https://github.com/dkshs/dkcutter/commit/07990f54467d2bb23a28e4d15f0ab993df777771) - chore(deps): update zod to 3.23.5
+
+- [`8bb3308`](https://github.com/dkshs/dkcutter/commit/8bb3308d2f096198763cdfb733e3cc15b65afe4f) - chore: improve code formatting
+
+- [`81ff41a`](https://github.com/dkshs/dkcutter/commit/81ff41a32af8347686ce29b4ba0b05c897184609) - chore(deps): update tsx to 4.8.2
+
 ## 4.0.3
 
 ### Patch Changes
