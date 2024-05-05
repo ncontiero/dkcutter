@@ -40,13 +40,15 @@ function contextSchema(
   choices?: ConfigChoiceProps[],
   choicesType?: ChoicesTypeEnumProps,
 ): z.ZodType<any, any, any> {
-  const type =
-    typeof value === "string" || isArray(value) ? "string" : "boolean";
   const err = {
-    message: `Invalid value for ${key}: '${value}'. ${choices ? `Valid choices: ${choices.map((c) => c.value).join(", ")}` : ""}`,
+    message: `Invalid value for ${key}: '${value}'.${choices ? ` Valid choices: ${choices.map((c) => c.value).join(", ")}` : ""}`,
     path: [key],
   };
-  const baseSchema = z.string(err).optional();
+  const baseSchema = z
+    .string()
+    .or(z.boolean())
+    .transform((val) => val.toString())
+    .optional();
 
   const choiceSchema = choices
     ? baseSchema.refine((val) => {
@@ -68,10 +70,10 @@ function contextSchema(
   );
 
   const typeSchema = booleanTransform.refine((val) => {
-    if (type === "string") {
-      return typeof val === "string" && val.trim().length > 0;
-    }
-    return typeof val === "boolean";
+    return (
+      (typeof val === "string" && val.trim().length > 0) ||
+      typeof val === "boolean"
+    );
   }, err);
 
   return typeSchema.transform((v) => {
@@ -160,9 +162,7 @@ function handleContext(
     const choicesType = isMultiselectFunc(configValue)
       ? "multiselect"
       : "select";
-    contextSchema(value, key, regex, choices, choicesType).parse(
-      value.toString(),
-    );
+    contextSchema(value, key, regex, choices, choicesType).parse(value);
     handleValuesDisabled(key, configValue, context);
   }
   newContext.context = context;
