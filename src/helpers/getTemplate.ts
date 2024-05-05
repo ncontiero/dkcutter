@@ -1,53 +1,78 @@
-import path from "node:path";
+import { join, resolve } from "node:path";
 import fs from "fs-extra";
-import { execa } from "execa";
 import ora from "ora";
 import which from "which";
+import { execa } from "execa";
 
 import { logger } from "@/utils/logger";
 import { CONFIG_FILE_NAME, HOOKS_FOLDER, PKG_ROOT } from "@/consts";
 
 interface GetTemplateProps {
+  /**
+   * The URL of the template repository.
+   */
   url: string;
+  /**
+   * The output directory where the template will be downloaded.
+   */
   outputDir: string;
-  templateFolder?: string;
+  /**
+   * The directory inside the template repository to download.
+   */
   directoryOpt?: string;
+  /**
+   * The branch, tag or commit to checkout.
+   */
   checkout?: string;
 }
 
+/**
+ * Checks if a specific version control system (VCS) is installed.
+ * @param {"hg" | "git"} repoType - The type of version control system to check for (Mercurial or Git).
+ * @returns {boolean} - True if the specified VCS is installed, false otherwise.
+ */
 export function isVSCInstalled(repoType: "hg" | "git"): boolean {
   return !!which.sync(repoType, { nothrow: true });
 }
 
-function identifyRepoType(repoUrl: string) {
+/**
+ * Identifies the type of version control system (VCS) based on the repository URL.
+ * @param {string} repoUrl - The URL of the repository to determine the VCS type for.
+ * @returns {"hg" | "git"} - The identified VCS type (Mercurial or Git).
+ */
+function identifyRepoType(repoUrl: string): "hg" | "git" {
   if (repoUrl.startsWith("hg") || repoUrl.includes("bitbucket")) {
     return "hg";
   }
   return "git";
 }
 
+/**
+ * Downloads a template from a specified URL and performs necessary setup actions.
+ * @param {GetTemplateProps} options - Object containing URL, output directory, optional directory, and checkout information.
+ * @returns {Promise<void>} - A Promise that resolves once the template is downloaded and set up.
+ */
 export async function getTemplate({
   url,
   outputDir,
-  templateFolder = "template",
   directoryOpt = "",
   checkout,
-}: GetTemplateProps) {
+}: GetTemplateProps): Promise<void> {
   try {
     logger.break();
     const spinner = ora("Downloading template...").start();
-    const output = path.resolve(outputDir);
+    const output = resolve(outputDir);
     const repoType = identifyRepoType(url);
 
     if (!isVSCInstalled(repoType)) {
       throw new Error(`${repoType} is not installed`);
     }
 
-    const cloneOutput = path.join(output, "output");
-    const resolvedDirectoryOpt = path.join(cloneOutput, directoryOpt);
-    const templateOutput = path.join(resolvedDirectoryOpt, templateFolder);
+    const cloneOutput = join(output, "output");
+    const resolvedDirectoryOpt = join(cloneOutput, directoryOpt);
+    const templateOutput = join(resolvedDirectoryOpt, "template");
     const hooksFolder = HOOKS_FOLDER(resolvedDirectoryOpt);
-    const templateConfig = path.join(resolvedDirectoryOpt, CONFIG_FILE_NAME);
+    const templateConfig = join(resolvedDirectoryOpt, CONFIG_FILE_NAME);
 
     if (url.startsWith("git") || url.startsWith("ssh")) {
       spinner.stop();
@@ -78,7 +103,7 @@ export async function getTemplate({
       throw new Error(`Config ${CONFIG_FILE_NAME} file not found.`);
     }
 
-    await fs.copyFile(templateConfig, path.join(PKG_ROOT, CONFIG_FILE_NAME));
+    await fs.copyFile(templateConfig, join(PKG_ROOT, CONFIG_FILE_NAME));
     await fs.copy(templateOutput, output);
     await fs.remove(cloneOutput);
 

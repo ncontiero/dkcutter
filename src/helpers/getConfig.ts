@@ -17,7 +17,7 @@ const configChoiceSchema = z.object({
   value: z.string(),
   disabled: z.string().optional(),
 });
-const ChoicesTypeEnum = z.enum(["select", "multiselect"]);
+const choicesTypeEnum = z.enum(["select", "multiselect"]);
 const configObjectSchema = z
   .object({
     promptMessage: z.string().optional(),
@@ -29,15 +29,16 @@ const configObjectSchema = z
       .optional(),
     value: configObjectValueSchema,
     choices: z.array(configChoiceSchema).optional(),
-    choicesType: z.optional(ChoicesTypeEnum),
+    choicesType: z.optional(choicesTypeEnum),
     disabled: z.string().optional(),
   })
   .or(configObjectValueSchema);
 export const configSchema = z.record(configObjectSchema);
 
+export type ConfigObjectValue = z.infer<typeof configObjectValueSchema>;
 export type ConfigChoiceProps = z.infer<typeof configChoiceSchema>;
 export type ConfigObjectProps = z.infer<typeof configObjectSchema>;
-export type ChoicesTypeEnumProps = z.infer<typeof ChoicesTypeEnum>;
+export type ChoicesTypeEnumProps = z.infer<typeof choicesTypeEnum>;
 export type ConfigProps = z.infer<typeof configSchema>;
 export type ContextProps = {
   [K in keyof ConfigProps]: string | string[] | boolean;

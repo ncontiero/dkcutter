@@ -2,38 +2,58 @@ import type { DKCutterContext } from "./getConfig";
 
 import path from "node:path";
 import fs from "fs-extra";
-import { execaSync } from "execa";
+import { execa } from "execa";
 
 import { getUserPkgManager } from "@/utils/getUserPkgManager";
 import { HOOKS_FOLDER, PKG_ROOT, RENDERED_HOOKS_FOLDER } from "@/consts";
 import { structureRender } from "./structureRender";
 
+/**
+ * Configures and renders hooks for DKCutter based on the provided context and directory.
+ * @param {DKCutterContext} context - The DKCutter context containing configuration data.
+ * @param {string} [dir=process.cwd()] - The directory to configure hooks in.
+ */
 export async function configureHooks(
-  ctx: DKCutterContext,
-  dir = process.cwd(),
+  context: DKCutterContext,
+  dir: string = process.cwd(),
 ) {
   const hooksFolder = HOOKS_FOLDER(dir);
   const renderedHooksFolder = RENDERED_HOOKS_FOLDER();
 
-  if (!fs.existsSync(hooksFolder)) return;
-  fs.emptyDirSync(renderedHooksFolder);
+  if (!(await fs.exists(hooksFolder))) return;
+  await fs.emptyDir(renderedHooksFolder);
 
-  await structureRender(ctx, hooksFolder, renderedHooksFolder);
+  await structureRender({
+    context,
+    directory: hooksFolder,
+    output: renderedHooksFolder,
+  });
 }
 
-interface RunHooks {
+interface RunHook {
+  /**
+   * The directory to run the hook in.
+   * @default process.cwd()
+   */
   dir?: string;
-  runHook: "postGenProject" | "preGenProject";
+  /**
+   * The hook to run.
+   */
+  hook: "postGenProject" | "preGenProject";
 }
 
-export function runHooks({ dir = process.cwd(), runHook }: RunHooks) {
+/**
+ * Runs a specific hook script based on the provided configuration.
+ * @param {RunHook} options - Object containing the directory and the hook script to run.
+ */
+export async function runHook({ dir = process.cwd(), hook }: RunHook) {
   try {
     const pkgManager = getUserPkgManager();
-    const supportedHooks = [`${runHook}.js`, `${runHook}.ts`];
+    const hooksPattern = new RegExp(`^${hook}\\.(js|ts)$`);
     const renderedHooksFolder = RENDERED_HOOKS_FOLDER();
 
-    const hookFile = supportedHooks.find((hook) =>
-      fs.existsSync(path.join(renderedHooksFolder, hook)),
+    const hookFile = (await fs.readdir(renderedHooksFolder)).find((file) =>
+      hooksPattern.test(file),
     );
     if (!hookFile) return; // No hook found.
 
@@ -45,15 +65,14 @@ export function runHooks({ dir = process.cwd(), runHook }: RunHooks) {
     const file = isBun ? "bun" : isTs ? tsx : "node";
     const args = isBun ? ["run", hookPath] : [hookPath];
 
-    execaSync(file, args, {
+    await execa(file, args, {
       cwd: dir,
       stdout: "inherit",
       stdin: "inherit",
       stderr: "inherit",
     }); // Run hook.
-    fs.removeSync(hookPath); // Remove hook file from hooks folder.
   } catch (error) {
-    const msg = `Failed to run hook: ${runHook}.`;
+    const msg = `Failed to run hook: ${hook}.`;
     if (error instanceof Error) {
       throw new TypeError(`${msg}\n${error.message}`);
     } else {

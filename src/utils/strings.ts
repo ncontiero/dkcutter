@@ -1,7 +1,16 @@
 export const capitalize = <T extends string>(s: T) =>
   (s[0].toUpperCase() + s.slice(1)) as Capitalize<typeof s>;
 
-export function formatKeyMessage(key: string) {
+/**
+ * Formats a key into a human-readable message with proper capitalization.
+ *
+ * This function transforms a key string into a formatted message by inserting spaces before capital letters,
+ * converting to lowercase, trimming whitespace, and capitalizing the first letter.
+ *
+ * @param {string} key - The key string to be formatted into a message.
+ * @returns {string} - The formatted key message.
+ */
+export function formatKeyMessage(key: string): string {
   return capitalize(
     `${key
       .replaceAll(/(?!^)([A-Z])/g, " $1")

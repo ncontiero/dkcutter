@@ -10,6 +10,8 @@ export const PKG_ROOT = path.join(distPath, "../");
 export const PKG_TEMPLATE = path.join(PKG_ROOT, "template");
 
 export const CONFIG_FILE_NAME = "dkcutter.json";
+export const DKCUTTER_PATTERN = /{{(\s?dkcutter)\.(.*?)}}/;
+export const NUNJUCKS_PATTERN = /({{|{%)[\s\w"'(),.=|-]*(%}|}})/;
 
 // Hooks
 export const HOOKS_FOLDER_ID = generateRandomString(6);

@@ -1,7 +1,7 @@
 # Calling DKCutter functions from Js/Ts
 
 > [!NOTE]
-> This feat is available in version 4.1.0
+> This feat is available in versions 4.1.0 and higher.
 
 You can use DKCutter from JS/TS:
 
@@ -18,7 +18,7 @@ await dkcutter({ template: "gh:dkshs/dkcutter-nextjs" });
 
 ## Options and Extra Context
 
-Use cli options or inject extra context:
+Use options or inject extra context:
 
 ```js
 // index.js
@@ -29,7 +29,7 @@ await dkcutter({
   template: "gh:dkshs/dkcutter-nextjs",
   // Passing extra context to replace default values.
   extraContext: { projectName: "My Project" },
-  // Passing the cli options
+  // Passing the options
   options: { checkout: "9a71f0d" },
 });
 ```

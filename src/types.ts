@@ -1,20 +1,22 @@
+import type { ContextProps } from "@/helpers/getConfig";
 import { z } from "zod";
 
-export const cliOptionsSchema = z.object({
-  default: z.boolean(),
-  output: z.string(),
+export const optionsSchema = z.object({
+  default: z.boolean().default(false),
+  output: z.string().default(process.cwd()),
   directory: z.string().optional(),
   checkout: z.string().optional(),
-  overwrite: z.boolean(),
-  keepProjectOnFailure: z.boolean(),
+  overwrite: z.boolean().default(false),
+  keepProjectOnFailure: z.boolean().default(false),
 });
+export type OptionsSchema = z.infer<typeof optionsSchema>;
 
-export interface CLIOptions extends z.infer<typeof cliOptionsSchema> {
+export interface Options extends OptionsSchema {
   /**
    * Do not prompt for parameters and/or use the template's default values
    *
    * @See https://github.com/dkshs/dkcutter/blob/main/docs/advanced/cli.md#-y---default
-   * @default "false in CLI mode and true in the dkcutter function."
+   * @default false
    */
   default: boolean;
 
@@ -58,13 +60,27 @@ export interface CLIOptions extends z.infer<typeof cliOptionsSchema> {
   keepProjectOnFailure: boolean;
 }
 
-export interface CLIExtraContext {
-  [key: string]: any;
-}
-
-export interface CLIProps {
+export interface DKCutter {
+  /**
+   * The template to be used.
+   *
+   * @example "./my-template" or "gh:my-user/my-template"
+   * @example "https://github.com/my-user/my-template"
+   */
   template: string;
-  options?: Partial<CLIOptions>;
-  extraContext?: CLIExtraContext;
-  isCli?: boolean;
+
+  /**
+   * The options for the DKCutter.
+   *
+   * @See https://github.com/dkshs/dkcutter/blob/main/docs/advanced/cli.md#options
+   */
+  options?: Partial<Options>;
+
+  /**
+   * Additional context data.
+   * You can specify options that will override the values from `dkcutter.json`
+   *
+   * @See https://github.com/dkshs/dkcutter/blob/main/docs/advanced/cli.md#injecting-extra-context
+   */
+  extraContext?: ContextProps;
 }
