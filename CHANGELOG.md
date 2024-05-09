@@ -1,5 +1,15 @@
 # dkcutter
 
+## 4.1.1
+
+### Patch Changes
+
+- [`06a7167`](https://github.com/dkshs/dkcutter/commit/06a7167251b5909bb1e185ef09799d06ce8560cb) - chore: refactor code
+
+- [#139](https://github.com/dkshs/dkcutter/pull/139) [`319f494`](https://github.com/dkshs/dkcutter/commit/319f494be34113da5ee502966cd4ac940af9194a) - chore(deps): update execa to v9
+
+- [`3ccbd2c`](https://github.com/dkshs/dkcutter/commit/3ccbd2cdb01fcf5fb7659acda5f2002704e3f9b3) - fix: update context validation schema
+
 ## 4.1.0
 
 ### Minor Changes
