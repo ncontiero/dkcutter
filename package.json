@@ -1,7 +1,7 @@
 {
   "name": "dkcutter",
   "type": "module",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "packageManager": "pnpm@9.6.0",
   "description": "A command-line utility that creates projects from templates.",
   "author": {

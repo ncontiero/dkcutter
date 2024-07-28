@@ -1,5 +1,11 @@
 # dkcutter
 
+## 4.1.2
+
+### Patch Changes
+
+- [`f2efae0`](https://github.com/dkshs/dkcutter/commit/f2efae039d902358b58c77f1b363341f32575dfe) - fix: update code formatting
+
 ## 4.1.1
 
 ### Patch Changes
