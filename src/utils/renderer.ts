@@ -27,13 +27,18 @@ export function setRendererContext(ctx: ContextProps): DKCutterContext {
  * Updates a field in the DKCutter context with a new value after rendering the string.
  * @param {string} field - The field in the context to update.
  * @param {string} newValue - The new value to set for the field.
- * @param {boolean} [returnV=false] - Flag indicating whether to return the updated value.
+ * @param {boolean} [returnV] - Flag indicating whether to return the updated value. (default: `false`)
+ * @returns {string|undefined} - The updated value if `returnV` is `true`, otherwise `undefined`.
+ * @throws {TypeError} - If the `field` argument is not a string.
+ * @throws {Error} - If the `field` does not exist in the DKCutter context.
+ * @example
+ * dkcutter.update("author", "Jane Doe");
  */
 function updateContext(
   field: string,
   newValue: string,
   returnV: boolean = false,
-) {
+): string | undefined {
   const msgError = "In `dkcutter.update()` the";
   if (typeof field !== "string") {
     throw new TypeError(
@@ -54,13 +59,18 @@ function updateContext(
  * Adds a value to a field in the DKCutter context after rendering the string.
  * @param {string} field - The field in the context to add the value to.
  * @param {string} value - The value to add to the field.
- * @param {boolean} [returnV=false] - Flag indicating whether to return the updated value.
+ * @param {boolean} [returnV] - Flag indicating whether to return the updated value. (default: `false`)
+ * @returns {string|undefined} - The updated value if `returnV` is `true`, otherwise `undefined`.
+ * @throws {TypeError} - If the `field` argument is not a string.
+ * @throws {Error} - If the `field` does not exist in the DKCutter context.
+ * @example
+ * dkcutter.add("author", "John Doe");
  */
 function addValueToContext(
   field: string,
   value: string,
   returnV: boolean = false,
-) {
+): string | undefined {
   const msgError = "In `dkcutter.add()` the";
   if (typeof field !== "string") {
     throw new TypeError(

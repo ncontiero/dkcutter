@@ -11,7 +11,7 @@ import { structureRender } from "./structureRender";
 /**
  * Configures and renders hooks for DKCutter based on the provided context and directory.
  * @param {DKCutterContext} context - The DKCutter context containing configuration data.
- * @param {string} [dir=process.cwd()] - The directory to configure hooks in.
+ * @param {string} [dir] - The directory to configure hooks in. Defaults to the current working directory.
  */
 export async function configureHooks(
   context: DKCutterContext,
