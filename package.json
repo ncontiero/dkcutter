@@ -56,7 +56,7 @@
     "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@dkshs/changelog-github": "1.0.6",
-    "@dkshs/eslint-config": "2.9.0",
+    "@dkshs/eslint-config": "2.9.1",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.14.15",
     "@types/nunjucks": "^3.2.6",
