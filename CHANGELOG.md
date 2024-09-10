@@ -1,5 +1,13 @@
 # dkcutter
 
+## 4.1.3
+
+### Patch Changes
+
+- [#282](https://github.com/dkshs/dkcutter/pull/282) [`93eca37`](https://github.com/dkshs/dkcutter/commit/93eca37d0efdaaa0cce96b5d537398a113330e80) - refactor: fix lint warnings
+
+- [`3e934a0`](https://github.com/dkshs/dkcutter/commit/3e934a01974999cfa6183806636e850d74779337) - docs: add license, references and inspirations section
+
 ## 4.1.2
 
 ### Patch Changes
