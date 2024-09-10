@@ -90,3 +90,11 @@ pnpm dlx dkcutter ./dkcutter-nextjs
 - Define template variables easily with `dkcutter.json`.
 
 [Learn More](https://github.com/dkshs/dkcutter/blob/main/docs/tutorials/creating-from-scratch.md)
+
+## References and inspirations
+
+- [Cookiecutter](https://github.com/cookiecutter/cookiecutter) - A cross-platform command-line utility that creates projects from project templates, e.g. Python package projects, C projects.
+
+## License
+
+This project is licensed under the **MIT** License - see the [LICENSE](https://github.com/dkshs/dkcutter/blob/main/LICENSE) file for details
