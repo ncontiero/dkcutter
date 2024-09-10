@@ -1,6 +1,6 @@
 import { Command } from "commander";
-import { getPackageInfo } from "@/utils/getPackageInfo";
 import { PKG_ROOT } from "@/consts";
+import { getPackageInfo } from "@/utils/getPackageInfo";
 
 export const program = new Command()
   .name("dkcutter")

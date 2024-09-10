@@ -8,16 +8,16 @@ import type {
 } from "./getConfig";
 
 import { z } from "zod";
+import { createCliOptions } from "@/cli/options";
+import { NUNJUCKS_PATTERN } from "@/consts";
 import {
   getDefaultValue,
   isArray,
   isMultiselect as isMultiselectFunc,
   isObject,
 } from "@/utils/dataHandler";
-import { renderer } from "@/utils/renderer";
 import { logger } from "@/utils/logger";
-import { createCliOptions } from "@/cli/options";
-import { NUNJUCKS_PATTERN } from "@/consts";
+import { renderer } from "@/utils/renderer";
 import { createPromptObjects } from "./prompts";
 
 /**

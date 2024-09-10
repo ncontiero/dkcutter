@@ -1,7 +1,7 @@
 import type { ContextProps, DKCutterContext } from "@/helpers/getConfig";
 
-import nunjucks from "nunjucks";
 import * as colors from "colorette";
+import nunjucks from "nunjucks";
 
 import { getUserPkgManager } from "./getUserPkgManager";
 

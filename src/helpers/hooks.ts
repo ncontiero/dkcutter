@@ -1,11 +1,11 @@
 import type { DKCutterContext } from "./getConfig";
 
 import path from "node:path";
-import fs from "fs-extra";
 import { execa } from "execa";
+import fs from "fs-extra";
 
-import { getUserPkgManager } from "@/utils/getUserPkgManager";
 import { HOOKS_FOLDER, PKG_ROOT, RENDERED_HOOKS_FOLDER } from "@/consts";
+import { getUserPkgManager } from "@/utils/getUserPkgManager";
 import { structureRender } from "./structureRender";
 
 /**
