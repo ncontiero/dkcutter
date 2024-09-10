@@ -1,11 +1,11 @@
 import { join, resolve } from "node:path";
+import { execa } from "execa";
 import fs from "fs-extra";
 import ora from "ora";
 import which from "which";
-import { execa } from "execa";
 
-import { logger } from "@/utils/logger";
 import { CONFIG_FILE_NAME, HOOKS_FOLDER, PKG_ROOT } from "@/consts";
+import { logger } from "@/utils/logger";
 
 interface GetTemplateProps {
   /**

@@ -2,9 +2,9 @@ import type { ConfigObjectProps, ConfigProps, ContextProps } from "./getConfig";
 import prompts from "prompts";
 import { z } from "zod";
 
-import { formatKeyMessage } from "@/utils/strings";
 import { isArray, isObject } from "@/utils/dataHandler";
 import { renderer } from "@/utils/renderer";
+import { formatKeyMessage } from "@/utils/strings";
 
 /**
  * Creates a prompt object based on the provided key and configuration object values.

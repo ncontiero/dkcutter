@@ -1,19 +1,19 @@
 import { join, resolve } from "node:path";
-import { z } from "zod";
 import fs from "fs-extra";
 import ora from "ora";
+import { z } from "zod";
 
+import { DKCUTTER_PATTERN, PKG_ROOT, PKG_TEMPLATE } from "@/consts";
 import { type ContextProps, getConfig } from "@/helpers/getConfig";
-import { getTemplate } from "@/helpers/getTemplate";
 import { getContext } from "@/helpers/getContext";
-import { renderer, setRendererContext } from "@/utils/renderer";
-import { colorize, logger } from "@/utils/logger";
-import { handleError } from "@/utils/handleError";
-import { cleanFiles } from "@/utils/cleanFiles";
+import { getTemplate } from "@/helpers/getTemplate";
 import { configureHooks, runHook } from "@/helpers/hooks";
 import { structureRender } from "@/helpers/structureRender";
 import { type DKCutter, optionsSchema } from "@/types";
-import { DKCUTTER_PATTERN, PKG_ROOT, PKG_TEMPLATE } from "@/consts";
+import { cleanFiles } from "@/utils/cleanFiles";
+import { handleError } from "@/utils/handleError";
+import { colorize, logger } from "@/utils/logger";
+import { renderer, setRendererContext } from "@/utils/renderer";
 
 process.on("SIGINT", handleError);
 process.on("SIGTERM", handleError);

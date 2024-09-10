@@ -1,5 +1,6 @@
-import type { ContextProps } from "@/helpers/getConfig";
 import type { OptionValues } from "commander";
+import type { ContextProps } from "@/helpers/getConfig";
+
 import { isArray } from "@/utils/dataHandler";
 import { formatKeyMessage } from "@/utils/strings";
 import { program } from "./program";
