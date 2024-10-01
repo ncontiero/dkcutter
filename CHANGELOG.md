@@ -1,5 +1,13 @@
 # dkcutter
 
+## 4.1.4
+
+### Patch Changes
+
+- [`951d375`](https://github.com/dkshs/dkcutter/commit/951d37514f326ff70acd2ce8b52ca19c3e8a18ad) - chore: add compatible node version
+
+- [`e15c865`](https://github.com/dkshs/dkcutter/commit/e15c865e137ef66fcfb68afb0f2501f394ef31bb) - chore(deps): update which to v5
+
 ## 4.1.3
 
 ### Patch Changes
