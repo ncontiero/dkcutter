@@ -52,7 +52,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.8",
+    "@changesets/cli": "^2.27.9",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
     "@dkshs/changelog-github": "1.0.6",
