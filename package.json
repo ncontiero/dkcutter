@@ -67,7 +67,7 @@
     "lint-staged": "^15.2.10",
     "tsup": "^8.3.0",
     "type-fest": "^4.26.1",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.3"
   },
   "engines": {
     "node": "^18.19.0 || >=20.5.0"
