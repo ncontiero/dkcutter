@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "colorette": "^2.0.20",
-    "commander": "^12.1.0",
+    "commander": "^13.0.0",
     "cosmiconfig": "^9.0.0",
     "execa": "^9.5.2",
     "fs-extra": "^11.2.0",
