@@ -64,7 +64,7 @@
     "@types/which": "^3.0.4",
     "eslint": "^9.18.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.3.0",
+    "lint-staged": "^15.4.1",
     "tsup": "^8.3.5",
     "type-fest": "^4.32.0",
     "typescript": "^5.7.3"
