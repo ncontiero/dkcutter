@@ -54,8 +54,12 @@ function contextSchema(
     ? baseSchema.refine((val) => {
         if (val && choicesType === "multiselect") {
           return val
+            .toLowerCase()
             .split(",")
-            .every((choice) => choices.some((c) => c.value === choice));
+            .every(
+              (choice) =>
+                choice === "none" || choices.some((c) => c.value === choice),
+            );
         }
         return choices.some((c) => c.value === val);
       }, err)
