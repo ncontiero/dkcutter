@@ -16,7 +16,6 @@ import {
   isMultiselect as isMultiselectFunc,
   isObject,
 } from "@/utils/dataHandler";
-import { logger } from "@/utils/logger";
 import { renderer } from "@/utils/renderer";
 import { createPromptObjects } from "./prompts";
 
@@ -113,7 +112,6 @@ function handleValuesDisabled(
       (disabled === "true" || disabledChoice === "true") &&
       contextValue !== defaultValue
     ) {
-      logger.warn(`Option '${key}' is disabled with value "${contextValue}".`);
       context[key] = defaultValue;
     }
   }
