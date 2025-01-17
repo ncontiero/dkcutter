@@ -1,5 +1,21 @@
 # dkcutter
 
+## 4.2.0
+
+### Minor Changes
+
+- [`afcb5bc`](https://github.com/dkshs/dkcutter/commit/afcb5bc83503950fc346597e5e33555c923e1082) - feat: add ability to put `none` in multiselect choices
+
+- [`a422b9e`](https://github.com/dkshs/dkcutter/commit/a422b9e6e49fe0f5c830133ff57b784b5f4e1e50) - feat: add default value as selected in `multiselect` choices
+
+### Patch Changes
+
+- [`53f1c30`](https://github.com/dkshs/dkcutter/commit/53f1c30f9fd3a51275cfe1115aa8167791e5b4fc) - fix: update union in `contextSchema` for value
+
+- [`b9271a2`](https://github.com/dkshs/dkcutter/commit/b9271a289f0265a1ceee85eadfad4a32fde28964) - chore(deps): update commander to v13
+
+- [`baa815a`](https://github.com/dkshs/dkcutter/commit/baa815a8c8bc22339d3d6b1b66baae8be9f73fe7) - chore: remove warning about disabled items with default values
+
 ## 4.1.4
 
 ### Patch Changes
