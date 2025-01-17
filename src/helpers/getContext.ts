@@ -47,6 +47,7 @@ function contextSchema(
   const baseSchema = z
     .string()
     .or(z.boolean())
+    .or(z.array(z.string()))
     .transform((val) => val.toString())
     .optional();
 
