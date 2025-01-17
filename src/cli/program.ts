@@ -40,5 +40,6 @@ export const program = new Command()
     false,
   )
   .argument("[template]", "The url or path of the template.")
+  .allowExcessArguments(true)
   .allowUnknownOption(true)
   .parse(process.argv);
