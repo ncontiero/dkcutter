@@ -1,5 +1,11 @@
 # dkcutter
 
+## 4.2.1
+
+### Patch Changes
+
+- [`c634ff6`](https://github.com/dkshs/dkcutter/commit/c634ff601b16c71f2c624f4b784f5f91f1295ee4) - fix: add `allowExcessArguments` to `Command`
+
 ## 4.2.0
 
 ### Minor Changes
