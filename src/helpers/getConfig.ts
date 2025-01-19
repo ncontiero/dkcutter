@@ -23,15 +23,15 @@ const choicesTypeEnum = z.enum(["select", "multiselect"]);
 const configObjectSchema = z
   .object({
     promptMessage: z.string().optional(),
+    value: configObjectValueSchema,
+    choices: z.array(configChoiceSchema).optional(),
+    choicesType: z.optional(choicesTypeEnum),
     validateRegex: z
       .object({
         regex: z.string().transform((regex) => new RegExp(regex)),
         message: z.string().optional(),
       })
       .optional(),
-    value: configObjectValueSchema,
-    choices: z.array(configChoiceSchema).optional(),
-    choicesType: z.optional(choicesTypeEnum),
     disabled: z.string().optional(),
   })
   .or(configObjectValueSchema);
