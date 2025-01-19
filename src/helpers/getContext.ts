@@ -183,6 +183,7 @@ function createContext(config: ConfigProps): {
 } {
   const internal: ContextProps = {};
   const external: ContextProps = {};
+  delete config.$schema;
 
   for (const [key, value] of Object.entries(config)) {
     const isMultiselect = isMultiselectFunc(value);
