@@ -3,7 +3,6 @@
   "title": "dkcutter.json schema",
   "description": "The schema for the dkcutter.json file.",
   "type": "object",
-  "additionalProperties": false,
   "patternProperties": {
     "^[a-zA-Z0-9_]+$": {
       "type": "object",
