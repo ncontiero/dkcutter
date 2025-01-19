@@ -1,5 +1,11 @@
 # dkcutter
 
+## 4.4.0
+
+### Minor Changes
+
+- [`e559b34`](https://github.com/dkshs/dkcutter/commit/e559b34ac3c4d5514960d15fe120b29b104018b6) - feat: add ability to select a choice by default
+
 ## 4.3.0
 
 ### Minor Changes
