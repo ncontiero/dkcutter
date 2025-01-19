@@ -100,6 +100,38 @@ If you do not want a certain choice to be available, you can disable it as follo
 
 This property is similar to the object's [`disabled`](#object---disabled-property). You can disable it [statically](#disabling-statically) and [dynamically](#dynamically-disabling).
 
+### `helpTextForDisabled` property in `choices`
+
+If you want to display a help message or a message informing you why a choice is disabled, you can use the `helpTextForDisabled` property. See:
+
+```json
+{
+  "database": {
+    "promptMessage": "What database ORM would you like to use?",
+    "value": "none",
+    "choices": [
+      { "title": "None", "value": "none" },
+      { "title": "Prisma", "value": "prisma" },
+      {
+        "title": "MyOrm",
+        "value": "myOrm",
+        "disabled": "true",
+        "helpTextForDisabled": "This ORM is disabled as it is in beta"
+      }
+    ]
+  }
+}
+```
+
+What will appear in the terminal will be the following:
+
+```bash
+? What database ORM would you like to use? › - Space to select. Return to submit
+❯   None
+    Prisma
+    MyOrm (This ORM is disabled as it is in beta)
+```
+
 ## Object - `choicesType` property
 
 The `choicesType` property can be: "multiselect", "select" or `undefined`. This property should be used when you can have multiple choices in the [`choices`](#object---choices-property) property:
@@ -117,6 +149,8 @@ The `choicesType` property can be: "multiselect", "select" or `undefined`. This 
   },
 }
 ```
+
+The returned result will be an `array` containing the user's choices.
 
 ### `selected` property in `choices` with `multiselect`
 
@@ -140,9 +174,25 @@ If you want a certain choice to be selected, you can use the `selected` property
 }
 ```
 
-The returned result will be an `array` containing the user's choices.
-
 This property can select [statically](#disabling-statically) and [dynamically](#dynamically-disabling). Similar to the [`disabled`](#object---disabled-property) object property.
+
+For a simpler form, you can use the `value` property:
+
+```json
+{
+  "additionalTools": {
+    "promptMessage": "Select additional tools: ",
+    "value": "tailwindcss",
+    "choices": [
+      { "title": "{{ colors.blue('TailwindCSS') }}", "value": "tailwindcss" },
+      { "title": "{{ colors.blue('ESLint') }}",  "value": "eslint" },
+    ],
+    "choicesType": "multiselect"
+  },
+}
+```
+
+This will select the value "tailwindcss" by default and if you want to have more than one choice selected, you can use the values separated by commas, like this: `"value": "tailwindcss,eslint"`. And if you want none to be selected, you can use `"none"`.
 
 ## Object - `validateRegex` property
 

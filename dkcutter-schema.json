@@ -44,6 +44,10 @@
                 "type": "string",
                 "description": "Whether the choice is disabled."
               },
+              "helpTextForDisabled": {
+                "type": "string",
+                "description": "The help text to display to the user when the choice is disabled."
+              },
               "selected": {
                 "type": "string",
                 "description": "Whether the choice is selected. This is only used for multiselect inputs."

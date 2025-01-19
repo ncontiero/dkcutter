@@ -54,18 +54,27 @@ export function createPromptObject([key, objValues]: [
     return type;
   };
   const getChoices = (answers: prompts.Answers<string>) => {
-    return choices?.map((choice) => ({
-      ...choice,
-      title: renderer.renderString(choice.title || choice.value, answers),
-      disabled:
-        renderer.renderString(choice.disabled || "false", answers) === "true",
-      selected: choice.selected
-        ? renderer.renderString(choice.selected, answers) === "true"
-        : choice.value === (isArray(value) ? value[0] : value),
-      description: choice.description
-        ? renderer.renderString(choice.description, answers)
-        : undefined,
-    }));
+    return choices?.map((choice) => {
+      const disabled =
+        renderer.renderString(choice.disabled || "false", answers) === "true";
+      const title = `${choice.title || choice.value}${
+        disabled && choice.helpTextForDisabled
+          ? ` (${choice.helpTextForDisabled})`
+          : ""
+      }`;
+
+      return {
+        ...choice,
+        title: renderer.renderString(title, answers),
+        disabled,
+        selected: choice.selected
+          ? renderer.renderString(choice.selected, answers) === "true"
+          : choice.value === (isArray(value) ? value[0] : value),
+        description: choice.description
+          ? renderer.renderString(choice.description, answers)
+          : undefined,
+      };
+    });
   };
 
   return {
