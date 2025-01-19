@@ -14,6 +14,7 @@ const configObjectValueSchema = z.union([
 ]);
 const configChoiceSchema = z.object({
   title: z.string().optional(),
+  description: z.string().optional(),
   value: z.string(),
   disabled: z.string().optional(),
 });

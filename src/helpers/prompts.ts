@@ -60,6 +60,9 @@ export function createPromptObject([key, objValues]: [
       disabled:
         renderer.renderString(choice.disabled || "false", answers) === "true",
       selected: choice.value === (isArray(value) ? value[0] : value),
+      description: choice.description
+        ? renderer.renderString(choice.description, answers)
+        : undefined,
     }));
   };
 
