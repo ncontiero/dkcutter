@@ -1,5 +1,11 @@
 # dkcutter
 
+## 4.3.0
+
+### Minor Changes
+
+- [`5a7f914`](https://github.com/dkshs/dkcutter/commit/5a7f9147d005586e3c065dd245a56f1c6e4bce79) - feat: add ability to put description on choices
+
 ## 4.2.1
 
 ### Patch Changes
