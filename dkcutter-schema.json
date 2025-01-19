@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "dkcutter.json schema",
+  "description": "The schema for the dkcutter.json file.",
+  "type": "object",
+  "additionalProperties": false,
+  "patternProperties": {
+    "^[a-zA-Z0-9_]+$": {
+      "type": "object",
+      "properties": {
+        "promptMessage": {
+          "type": "string",
+          "description": "The message to display to the user when prompting for input."
+        },
+        "value": {
+          "type": ["string", "array", "boolean"],
+          "items": {
+            "type": "string"
+          },
+          "description": "The value of the input. This can be a string, an array of strings, or a boolean."
+        },
+        "choices": {
+          "type": "array",
+          "description": "The choices to display to the user when prompting for input. This is only used for select and multiselect inputs.",
+          "items": {
+            "type": ["string", "object"],
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "The title of the choice. This is the text that will be displayed to the user."
+              },
+              "description": {
+                "type": "string",
+                "description": "The description of the choice. This is the text that will be displayed to the user when hovering over the choice."
+              },
+              "value": {
+                "type": "string",
+                "description": "The value of the choice. This is the value that will be returned when the choice is selected."
+              },
+              "disabled": {
+                "type": "string",
+                "description": "Whether the choice is disabled."
+              },
+              "selected": {
+                "type": "string",
+                "description": "Whether the choice is selected. This is only used for multiselect inputs."
+              }
+            },
+            "required": ["value"],
+            "additionalProperties": false
+          }
+        },
+        "choicesType": {
+          "type": "string",
+          "enum": ["select", "multiselect"],
+          "description": "The type of choices to display to the user when prompting for input. This is only used for select and multiselect inputs."
+        },
+        "validateRegex": {
+          "type": "object",
+          "description": "The regex to validate the input against. This is only used for text inputs.",
+          "properties": {
+            "regex": {
+              "type": "string",
+              "description": "The regex to validate the input against."
+            },
+            "message": {
+              "type": "string",
+              "description": "The message to display to the user when the input does not match the regex."
+            }
+          },
+          "required": ["regex"]
+        }
+      },
+      "required": ["value"]
+    }
+  }
+}
