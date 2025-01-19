@@ -5,7 +5,11 @@
   "type": "object",
   "patternProperties": {
     "^[a-zA-Z0-9_]+$": {
-      "type": "object",
+      "type": ["string", "boolean", "array", "object"],
+      "description": "The value of the input. This can be a string, a boolean, an array of strings, or an object.",
+      "items": {
+        "type": "string"
+      },
       "properties": {
         "promptMessage": {
           "type": "string",
@@ -22,7 +26,7 @@
           "type": "array",
           "description": "The choices to display to the user when prompting for input. This is only used for select and multiselect inputs.",
           "items": {
-            "type": ["string", "object"],
+            "type": "object",
             "properties": {
               "title": {
                 "type": "string",
@@ -68,6 +72,10 @@
             }
           },
           "required": ["regex"]
+        },
+        "disabled": {
+          "type": "string",
+          "description": "Whether the input is disabled."
         }
       },
       "required": ["value"],

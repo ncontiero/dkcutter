@@ -17,6 +17,7 @@ cd dkcutter-website-simple/
 
 ```json
 {
+  "$schema": "https://github.com/dkshs/dkcutter/raw/refs/heads/main/dkcutter-schema.json",
   "projectName": "DKCutter Website Simple",
   "projectSlug": "{{ projectName|lower|replace(' ', '-')|trim }}"
 }
@@ -33,10 +34,10 @@ This value will be replaced with the repo name of projects that you generate fro
 Inside of `template/{{dkcutter.projectSlug}}`, create `index.html` with following content:
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
     <title>{{ dkcutter.projectName }}</title>
   </head>
   <body>
@@ -45,7 +46,7 @@ Inside of `template/{{dkcutter.projectSlug}}`, create `index.html` with followin
 </html>
 ```
 
-## Step 5: Run cookiecutter
+## Step 5: Run dkcutter
 
 Run the following command in the directory that contains the `template` folder and `dkcutter.json`:
 
@@ -65,10 +66,10 @@ npx dkcutter .
 Resulting directory should be inside your work directory with a name that matches `projectSlug` you defined. Inside that directory there should be `index.html` with generated source:
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
     <title>Test web</title>
   </head>
   <body>

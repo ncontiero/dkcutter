@@ -40,10 +40,10 @@ dkcutter-something/
 
 You must have:
 
-- A `dkcutter.json` file
+- A `dkcutter.json` file.
 - A `template/{{dkcutter.projectSlug}}/` directory, where `projectSlug` is defined in your `dkcutter.json`.
 
-Beyond that, you can have whatever files/directories you want.
+Beyond that, you can have whatever files/directories you want and `dkcutter.json` has a [`schema.json`](./docs/advanced/user-config.md#schema) to make it easier to create your configurations.
 
 ### Output
 

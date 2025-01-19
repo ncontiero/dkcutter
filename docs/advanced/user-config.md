@@ -6,6 +6,20 @@ DKCutter tries to recover settings from a `dkcutter.json` file in its initial di
 
 You can pass [`string`](#string), [`boolean`](#boolean), [`array`](#array) or [`Object`](#object) for variables in `dkcutter.json`
 
+## Schema
+
+The `dkcutter.json` file has a schema to make it easier to configure which can be found at [`dkcutter-schema.json`](https://github.com/dkshs/dkcutter/blob/main/dkcutter-schema.json). You can use it like this:
+
+```json
+{
+  "$schema": "https://github.com/dkshs/dkcutter/raw/refs/heads/main/dkcutter-schema.json",
+  "projectName": {
+    "value": "My Awesome Project",
+    "promptMessage": "What is the project name?"
+  }
+}
+```
+
 ### Examples
 
 #### String
@@ -63,7 +77,9 @@ Options that can be passed on the object are the following:
     {
       "value": "string",
       "title": "string | undefined",
-      "disabled": "string | undefined"
+      "description": "string | undefined",
+      "disabled": "string | undefined",
+      "selected": "string | undefined"
     }
   ], // or undefined
   "disabled": "string | undefined",

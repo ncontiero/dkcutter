@@ -20,7 +20,7 @@ For example, if you provide the following choice variable in your `dkcutter.json
 you’d get the following choices when running DKCutter:
 
 ```bash
-? What license would you like to use? › - Use arrow-keys. Return to submit.
+? What license would you like to use? › - Space to select. Return to submit
 ❯   MIT
     BSD-3
     GNU GPL v3.0
@@ -49,5 +49,5 @@ The created choice variable is still a regular DKCutter variable and can be used
 ```md
 ## License
 
-Distributed under the terms of the `{{dkcutter.license}}`\_ license,
+Distributed under the terms of the `{{ dkcutter.license }}`\_ license,
 ```

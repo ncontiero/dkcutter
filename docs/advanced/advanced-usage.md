@@ -23,7 +23,7 @@ Various advanced topics regarding dkcutter usage.
 - [Variables using `object`](./variables-using-object.md)
   - [Object - `value` property](./variables-using-object.md#object---value-property)
   - [Object - `promptMessage` property](./variables-using-object.md#object---promptmessage-property)
-  - [Object - `validateRegex` property](./variables-using-object.md#object---validateregex-property)
   - [Object - `choices` property](./variables-using-object.md#object---choices-property)
   - [Object - `choicesType` property](./variables-using-object.md#object---choicestype-property)
+  - [Object - `validateRegex` property](./variables-using-object.md#object---validateregex-property)
   - [Object - `disabled` property](./variables-using-object.md#object---disabled-property)

@@ -11,7 +11,7 @@ DKCutter hooks are scripts executed at specific stages during the project genera
 
 ## Creating Hooks
 
-Hooks are added to the `hooks/` folder of your template. Both Javascript are supported.
+Hooks are added to the `hooks/` folder of your template. Both Javascript/Typescript are supported.
 
 ### Javascript Hooks Structure
 

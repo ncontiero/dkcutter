@@ -33,7 +33,7 @@ If the `promptMessage` property is not passed, the question will be asked as fol
 ? Project name? › My Project
 ```
 
-You can also use the [`colorette`](https://github.com/jorgebucaran/colorette) library through the `colors` global variable to colorize questions:
+You can also use the [`colorette`](https://github.com/jorgebucaran/colorette) library through the [`colors`](./global-variables.md#colors) global variable to colorize questions:
 
 ```json
 {
@@ -43,26 +43,6 @@ You can also use the [`colorette`](https://github.com/jorgebucaran/colorette) li
   }
 }
 ```
-
-## Object - `validateRegex` property
-
-The property `validateRegex` must be an object that contains, obligatorily, the property `regex` and, optionally, the property `message`, which is the message that will be shown if the regex fails. See:
-
-```json
-{
-  "projectName": "My Project",
-  "projectSlug": {
-    "value": "{{ projectName|lower|replace(' ', '-')|trim }}",
-    "promptMessage": "What is the project slug?",
-    "validateRegex": {
-      "regex": "^[a-z0-9@][a-z0-9-_]*$",
-      "message": "Invalid project slug. Please enter a valid value."
-    }
-  }
-}
-```
-
-The `regex` property must be a string, as above, it will be converted to RegExp and will be validated in the prompts and in the `extra-context-options` options. In the example, in `value`, [Templates in Context Values](./templates-in-context.md#templates-in-context-values) was used.
 
 ## Object - `choices` property
 
@@ -74,14 +54,14 @@ The `choices` property can be used when you want to give choices and is a more v
     "promptMessage": "What database ORM would you like to use?",
     "value": "none",
     "choices": [
-      { "title": "None", "value": "none" },
-      { "title": "Prisma", "value": "prisma" }
+      { "title": "{{ colors.blue('None') }}", "value": "none" },
+      { "title": "{{ colors.blue('Prisma') }}", "value": "prisma" }
     ]
   }
 }
 ```
 
-This is a verbose form, but you can change what will appear through the `title` property (can be used in the same way as the [`promptMessage`](#object---promptmessage-property) property) and the value that will be inserted into the context is the `value` property. In some cases, this is not necessary, as in the example below:
+This is a verbose form, but you can change what will appear through the `title` and `description` property (can be used in the same way as the [`promptMessage`](#object---promptmessage-property) property) and the value that will be inserted into the context is the `value` property. In some cases, this is not necessary, as in the example below:
 
 ```json
 {
@@ -122,23 +102,67 @@ This property is similar to the object's [`disabled`](#object---disabled-propert
 
 ## Object - `choicesType` property
 
-The `choicesType` property can be: "multiselect", "select" or undefined. This property should be used when you can have multiple choices in the [`choices`](#object---choices-property) property:
+The `choicesType` property can be: "multiselect", "select" or `undefined`. This property should be used when you can have multiple choices in the [`choices`](#object---choices-property) property:
 
 ```json
 {
-  "packages": {
-    "promptMessage": "What packages do you want to include in the project?",
+  "additionalTools": {
+    "promptMessage": "Select additional tools: ",
     "value": "none",
     "choices": [
-      { "title": "ESLint", "value": "eslint" },
-      { "title": "Prettier", "value": "prettier" }
+      { "title": "{{ colors.blue('TailwindCSS') }}", "value": "tailwindcss" },
+      { "title": "{{ colors.blue('ESLint') }}",  "value": "eslint" },
     ],
     "choicesType": "multiselect"
-  }
+  },
+}
+```
+
+### `selected` property in `choices` with `multiselect`
+
+If you want a certain choice to be selected, you can use the `selected` property. See:
+
+```json
+{
+  "additionalTools": {
+    "promptMessage": "Select additional tools: ",
+    "value": "none",
+    "choices": [
+      {
+        "title": "{{ colors.blue('TailwindCSS') }}",
+        "value": "tailwindcss",
+        "selected": "true"
+      },
+      { "title": "{{ colors.blue('ESLint') }}",  "value": "eslint" },
+    ],
+    "choicesType": "multiselect"
+  },
 }
 ```
 
 The returned result will be an `array` containing the user's choices.
+
+This property can select [statically](#disabling-statically) and [dynamically](#dynamically-disabling). Similar to the [`disabled`](#object---disabled-property) object property.
+
+## Object - `validateRegex` property
+
+The property `validateRegex` must be an object that contains, obligatorily, the property `regex` and, optionally, the property `message`, which is the message that will be shown if the regex fails. See:
+
+```json
+{
+  "projectName": "My Project",
+  "projectSlug": {
+    "value": "{{ projectName|lower|replace(' ', '-')|trim }}",
+    "promptMessage": "What is the project slug?",
+    "validateRegex": {
+      "regex": "^[a-z0-9@][a-z0-9-_]*$",
+      "message": "Invalid project slug. Please enter a valid value."
+    }
+  }
+}
+```
+
+The `regex` property must be a string, as above, it will be converted to RegExp and will be validated in the prompts and in the `extra-context-options` options. In the example, in `value`, [Templates in Context Values](./templates-in-context.md#templates-in-context-values) was used.
 
 ## Object - `disabled` property
 
