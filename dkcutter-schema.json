@@ -70,7 +70,8 @@
           "required": ["regex"]
         }
       },
-      "required": ["value"]
+      "required": ["value"],
+      "additionalProperties": false
     }
   }
 }
