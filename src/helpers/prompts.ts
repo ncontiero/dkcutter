@@ -59,7 +59,9 @@ export function createPromptObject([key, objValues]: [
       title: renderer.renderString(choice.title || choice.value, answers),
       disabled:
         renderer.renderString(choice.disabled || "false", answers) === "true",
-      selected: choice.value === (isArray(value) ? value[0] : value),
+      selected: choice.selected
+        ? renderer.renderString(choice.selected, answers) === "true"
+        : choice.value === (isArray(value) ? value[0] : value),
       description: choice.description
         ? renderer.renderString(choice.description, answers)
         : undefined,

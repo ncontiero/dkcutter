@@ -17,6 +17,7 @@ const configChoiceSchema = z.object({
   description: z.string().optional(),
   value: z.string(),
   disabled: z.string().optional(),
+  selected: z.string().optional(),
 });
 const choicesTypeEnum = z.enum(["select", "multiselect"]);
 const configObjectSchema = z
