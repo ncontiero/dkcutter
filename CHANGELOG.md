@@ -1,5 +1,17 @@
 # dkcutter
 
+## 4.5.0
+
+### Minor Changes
+
+- [`c15bf7f`](https://github.com/dkshs/dkcutter/commit/c15bf7fd3f3f11958fd678c16a162eb87b71ed26) - feat: add `helpTextForDisabled` property to choices
+
+### Patch Changes
+
+- [`3de37b2`](https://github.com/dkshs/dkcutter/commit/3de37b2a7c35a8108ddbd3e43fad1ef4a746afa7) - chore: add validation for disabled values
+
+- [`8d4e3e6`](https://github.com/dkshs/dkcutter/commit/8d4e3e66b62a6109bc913e027b9b6bd1d31f8cd7) - fix: delete `$schema` property from dkcutter.json when getting context
+
 ## 4.4.0
 
 ### Minor Changes
