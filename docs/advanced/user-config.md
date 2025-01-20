@@ -69,21 +69,22 @@ Options that can be passed on the object are the following:
 {
   "value": "string | boolean | string[]",
   "promptMessage": "string | undefined",
-  "validateRegex": {
-    "regex": "RegExp",
-    "message": "string | undefined"
-  }, // or undefined
   "choices": [
     {
       "value": "string",
       "title": "string | undefined",
       "description": "string | undefined",
       "disabled": "string | undefined",
+      "helpTextForDisabled": "string | undefined",
       "selected": "string | undefined"
     }
   ], // or undefined
-  "disabled": "string | undefined",
-  "choicesType": "multiselect | select | undefined"
+  "choicesType": "multiselect | select | undefined",
+  "validateRegex": {
+    "regex": "RegExp",
+    "message": "string | undefined"
+  }, // or undefined
+  "disabled": "string | undefined"
 }
 ```
 
