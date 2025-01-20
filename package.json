@@ -66,7 +66,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.4.1",
     "tsup": "^8.3.5",
-    "type-fest": "^4.32.0",
+    "type-fest": "^4.33.0",
     "typescript": "^5.7.3"
   },
   "engines": {
