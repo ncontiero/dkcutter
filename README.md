@@ -66,13 +66,13 @@ The recommended way to use DKCutter as a command line utility is to execute it w
 #### Use a GitHub template
 
 ```bash
-pnpm dlx dkcutter https://github.com/dkshs/dkcutter-nextjs.git
+pnpm dlx dkcutter@latest https://github.com/dkshs/dkcutter-nextjs.git
 ```
 
 #### Use a local template
 
 ```bash
-pnpm dlx dkcutter ./dkcutter-nextjs
+pnpm dlx dkcutter@latest ./dkcutter-nextjs
 ```
 
 #### Detailed Usage

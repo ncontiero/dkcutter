@@ -51,13 +51,13 @@ Inside of `template/{{dkcutter.projectSlug}}`, create `index.html` with followin
 Run the following command in the directory that contains the `template` folder and `dkcutter.json`:
 
 ```bash
-npx dkcutter .
+npx dkcutter@latest .
 ```
 
 You can expect similar output:
 
 ```bash
-npx dkcutter .
+npx dkcutter@latest .
 ✔ Project name? … Test web
 ✔ Project slug? … test-web
 ✔ Project created!
