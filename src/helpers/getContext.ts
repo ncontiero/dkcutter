@@ -2,7 +2,6 @@ import type {
   ChoicesTypeEnumProps,
   ConfigChoiceProps,
   ConfigObjectProps,
-  ConfigObjectValue,
   ConfigProps,
   ContextProps,
 } from "./getConfig";
@@ -25,22 +24,27 @@ import { createPromptObjects } from "./prompts";
  * This function constructs a Zod schema for validating and transforming configuration values.
  * It handles different types of values, choices, regex patterns, and multiselect options.
  *
- * @param {ConfigObjectValue} value - The configuration value to validate.
  * @param {string} key - The key associated with the configuration value.
+ * @param {ContextProps} context - The context object containing configuration values.
  * @param {RegExp} [regex] - Optional regular expression pattern for validation.
  * @param {ConfigChoiceProps[]} [choices] - Optional array of valid choices for the value.
  * @param {ChoicesTypeEnumProps} [choicesType] - Optional type of choices (e.g., multiselect).
  * @returns {z.ZodType<any, any, any>} - The Zod schema for the provided configuration value.
  */
 function contextSchema(
-  value: ConfigObjectValue,
   key: string,
+  context: ContextProps,
   regex?: RegExp,
   choices?: ConfigChoiceProps[],
   choicesType?: ChoicesTypeEnumProps,
 ): z.ZodType<any, any, any> {
+  const value = context[key];
+  const availableChoices = choices?.filter(
+    (c) => renderer.renderString(c.disabled || "false", context) !== "true",
+  );
+
   const err = {
-    message: `Invalid value for ${key}: '${value}'.${choices ? ` Valid choices: ${choices.map((c) => c.value).join(", ")}` : ""}`,
+    message: `Invalid value for ${key}: '${value}'.${availableChoices ? ` Valid choices: ${availableChoices.map((c) => c.value).join(", ")}` : ""}`,
     path: [key],
   };
   const baseSchema = z
@@ -58,10 +62,11 @@ function contextSchema(
             .split(",")
             .every(
               (choice) =>
-                choice === "none" || choices.some((c) => c.value === choice),
+                choice === "none" ||
+                availableChoices?.some((c) => c.value === choice),
             );
         }
-        return choices.some((c) => c.value === val);
+        return availableChoices?.some((c) => c.value === val);
       }, err)
     : baseSchema;
 
@@ -165,7 +170,7 @@ function handleContext(
     const choicesType = isMultiselectFunc(configValue)
       ? "multiselect"
       : "select";
-    contextSchema(value, key, regex, choices, choicesType).parse(value);
+    contextSchema(key, context, regex, choices, choicesType).parse(value);
     handleValuesDisabled(key, configValue, context);
   }
   newContext.context = context;
