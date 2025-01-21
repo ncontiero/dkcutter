@@ -24,7 +24,7 @@
     "check": "pnpm lint && pnpm typecheck && pnpm check:spell && pnpm check:case",
     "changeset": "changeset",
     "release": "changeset version",
-    "pub:release": "pnpm build && changeset publish",
+    "pub:release": "pnpm build --filter='!dkcutter-docs' && changeset publish",
     "prepare": "husky"
   },
   "devDependencies": {
