@@ -1,0 +1,17 @@
+[
+  "index",
+  "cli",
+  "dkcutter-config",
+  "templates-in-context",
+  "hooks",
+  {
+    "type": "file",
+    "name": "calling-dkcutter-function.md",
+    "label": "Calling DKCutter function from JS/TS"
+  },
+  "private-variables",
+  "global-variables",
+  "choice-variables",
+  "boolean-variables",
+  "variables-using-object"
+]

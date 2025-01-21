@@ -1,0 +1,5 @@
+.package-manager-tabs {
+  border: 1px solid var(--rp-c-divider);
+  border-radius: var(--rp-radius);
+  background-color: var(--rp-code-block-bg);
+}

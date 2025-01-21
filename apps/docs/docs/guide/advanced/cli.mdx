@@ -1,0 +1,75 @@
+# CLI - Command Line Options
+
+import { PackageManagerTabs } from "@/components/PackageManagerTabs";
+
+This section explains the command-line options you can use with DKCutter to customize
+how it generates projects from templates.
+
+## Basic Usage
+
+The basic usage of the DKCutter command-line tool follows this format:
+
+```bash
+dkcutter [template] [options] [extra-context-options]...
+```
+
+- `[template]`: The URL or path to the DKCutter template you want to use.
+- `[options]`: Optional flags that modify DKCutter's behavior (see details below).
+- `[extra-context-options]...`: (Optional) Additional key-value pairs to provide context that overrides values
+in the template's `dkcutter.json` file (see [Injecting Extra Context](#injecting-extra-context) for more information).
+
+## Options
+
+Here's a breakdown of the available DKCutter command-line options:
+
+### `-v, --version`
+
+Show the version and exit.
+
+### `-y, --default`
+
+Do not prompt for parameters and/or use the template's default values. (default: `false`)
+
+### `-o, --output <path>`
+
+Specifies the directory path where you want DKCutter to generate the project. If omitted, the project will be created in your current working directory.
+
+### `-d, --directory <path>`
+
+Directory within repo that holds `dkcutter.json` file for advanced repositories with multi templates in it.
+
+### `-c, --checkout <checkout>`
+
+branch, tag or commit to checkout after git clone.
+
+### `-f, --overwrite`
+
+Overwrite the output directory if it already exists. (default: `false`)
+
+### `-k, --keep-project-on-failure`
+
+Keep the generated project dir on failure. (default: `false`)
+
+### `-h, --help`
+
+display help for command.
+
+## Arguments
+
+### `template`
+
+This argument specifies the URL or local file path of the DKCutter template you want to use for project generation.
+
+## Injecting Extra Context
+
+You can provide additional context to DKCutter using key-value pairs on the command line. These key-value pairs will override the corresponding values defined in the template's `dkcutter.json` file. This allows you to customize project generation without modifying the template itself.
+
+Here's an example:
+
+<PackageManagerTabs
+  command="dkcutter@latest https://github.com/dkshs/dkcutter-nextjs --projectName 'My Name Project' -y"
+  isExecuted
+/>
+
+In this example, the `--projectName` option overrides the default `projectName` defined in
+the `dkcutter-nextjs` template's `dkcutter.json` file, and the `-y` flag avoids prompting you for confirmation.

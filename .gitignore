@@ -91,11 +91,6 @@ out
 .nuxt
 dist
 
-# DKCUTTER Tests
-template
-dkcutter.json
-hooks
-
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and not Next.js
@@ -134,5 +129,10 @@ hooks
 .yarn/install-state.gz
 .pnp.*
 
-.turbo
+# DKCUTTER Tests
 template-test
+dkcutter.json
+hooks
+
+doc_build/
+.turbo

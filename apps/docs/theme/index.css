@@ -1,0 +1,86 @@
+:root {
+  --selection-bg: rgba(123, 104, 238, 0.25);
+
+  --rp-c-bg: rgb(255, 255, 255);
+  --rp-c-bg-soft: rgb(246, 246, 246);
+  --rp-c-bg-mute: rgb(241, 241, 241);
+
+  --rp-c-divider: rgba(0, 0, 0, 0.15);
+  --rp-c-divider-light: rgba(0, 0, 0, 0.25);
+
+  --rp-c-text-1: rgb(0, 0, 0);
+  --rp-c-text-2: rgba(0, 0, 0, 0.6);
+  --rp-c-text-3: rgba(0, 0, 0, 0.2);
+  --rp-c-text-4: var(--rp-c-text-3);
+
+  --rp-c-text-code: rgb(115, 37, 218);
+  --rp-c-text-code-bg: rgba(0, 0, 0, 0.1);
+  --rp-code-title-bg: rgba(0, 0, 0, 0.05);
+  --rp-code-block-bg: rgba(0, 0, 0, 0.01);
+
+  --rp-c-brand: rgb(138, 43, 226);
+  --rp-c-brand-light: rgb(147, 112, 219);
+  --rp-c-brand-lighter: rgb(230, 230, 250);
+  --rp-c-brand-dark: rgb(62, 15, 156);
+  --rp-c-brand-darker: rgb(75, 0, 130);
+  --rp-c-brand-tint: rgba(138, 43, 226, 0.2);
+
+  --rp-home-hero-name-background: linear-gradient(
+    120deg,
+    var(--rp-c-brand),
+    rgb(24, 8, 73)
+  );
+  --rp-home-mask-background-image: conic-gradient(
+    from 180deg at 50% 50%,
+    var(--rp-c-brand-light) 0deg,
+    180deg,
+    rgb(172, 172, 245) 0deg
+  );
+
+  --rp-c-link: var(--rp-c-brand-dark);
+}
+
+.dark {
+  --rp-c-bg: rgb(0, 0, 0);
+  --rp-c-bg-soft: rgba(15, 15, 15, 0.75);
+  --rp-c-bg-mute: rgba(52, 58, 70, 0.5);
+  --rp-c-bg-alt: rgba(25, 29, 36, 0.5);
+
+  --rp-c-divider: rgba(255, 255, 255, 0.2);
+  --rp-c-divider-light: rgba(255, 255, 255, 0.25);
+
+  --rp-c-text-1: rgba(255, 255, 255, 1);
+  --rp-c-text-2: rgba(255, 255, 255, 0.75);
+  --rp-c-text-3: rgba(255, 255, 255, 0.2);
+
+  --rp-c-text-code: rgb(162, 152, 251);
+  --rp-c-text-code-bg: rgba(255, 255, 255, 0.1);
+  --rp-code-title-bg: rgba(255, 255, 255, 0.05);
+  --rp-code-block-bg: rgba(255, 255, 255, 0.025);
+
+  --rp-c-brand: rgb(138, 43, 226);
+  --rp-c-brand-dark: rgb(101, 48, 207);
+
+  --rp-c-link: var(--rp-c-brand-light);
+}
+
+*::selection {
+  background: var(--selection-bg);
+}
+
+.rspress-nav {
+  background-color: transparent;
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--rp-c-divider);
+}
+
+@media (max-width: 960px) {
+  .rspress-sidebar {
+    background-color: transparent;
+    backdrop-filter: blur(16px);
+    border-right: 1px solid var(--rp-c-divider);
+  }
+  .rspress-local-toc-container {
+    backdrop-filter: blur(16px);
+  }
+}

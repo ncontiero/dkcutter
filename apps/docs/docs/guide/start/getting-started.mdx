@@ -1,0 +1,31 @@
+# Quick start
+
+import { PackageManagerTabs } from "@/components/PackageManagerTabs";
+
+The recommended way to use DKCutter as a command line utility is to execute it with `pnpm dlx`, `npx`, `yarn dlx` or `bunx`.
+
+## With a GitHub template
+
+To create a project from the [dkcutter-nextjs](https://github.com/dkshs/dkcutter-nextjs) repo template:
+
+<PackageManagerTabs command="dkcutter@latest gh:dkshs/dkcutter-nextjs" isExecuted />
+
+DKCutter knows abbreviations for GitHub (`gh`), Bitbucket (`bb`), and GitLab (`gl`) projects, but you can also give it the full URL to any repository:
+
+<PackageManagerTabs command="dkcutter@latest https://github.com/dkshs/dkcutter-nextjs.git" isExecuted />
+
+## With a local template
+
+<PackageManagerTabs command="dkcutter@latest ./dkcutter-nextjs" isExecuted />
+
+## With JS/TS
+
+```js title="index.js"
+import { dkcutter } from "dkcutter";
+
+// Create project from the dkcutter-nextjs/ template
+await dkcutter({ template: "dkcutter-nextjs/" });
+
+// Create project from the gh:dkshs/dkcutter-nextjs repo template
+await dkcutter({ template: "gh:dkshs/dkcutter-nextjs" });
+```
