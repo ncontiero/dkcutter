@@ -31,8 +31,7 @@
     "dev": "tsup --watch",
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
-    "typecheck": "tsc --noEmit",
-    "check": "pnpm lint && pnpm typecheck"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "colorette": "^2.0.20",

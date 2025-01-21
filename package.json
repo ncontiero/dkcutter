@@ -19,7 +19,9 @@
     "lint": "eslint . && turbo lint",
     "lint:fix": "eslint . --fix && turbo lint:fix",
     "typecheck": "turbo typecheck",
-    "check": "pnpm lint && pnpm typecheck",
+    "check:spell": "pnpm dlx cspell",
+    "check:case": "pnpm dlx case-police **/*.{js,jsx,ts,tsx,md,mdx,json}",
+    "check": "pnpm lint && pnpm typecheck && pnpm check:spell && pnpm check:case",
     "changeset": "changeset",
     "release": "changeset version",
     "pub:release": "pnpm build && changeset publish",
@@ -31,6 +33,7 @@
     "@commitlint/config-conventional": "^19.6.0",
     "@dkshs/changelog-github": "1.0.6",
     "@dkshs/eslint-config": "3.4.0",
+    "cspell-ban-words": "^0.0.4",
     "eslint": "^9.18.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.4.1",
@@ -38,6 +41,6 @@
     "typescript": "^5.7.3"
   },
   "lint-staged": {
-    "*": "eslint . --fix"
+    "*": "pnpm check:spell && pnpm check:case && eslint . --fix"
   }
 }

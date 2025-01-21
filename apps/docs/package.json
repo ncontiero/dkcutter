@@ -9,8 +9,7 @@
     "preview": "rspress preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "typecheck": "tsc --noEmit",
-    "check": "pnpm lint && pnpm typecheck"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "rspress": "^1.40.0"
