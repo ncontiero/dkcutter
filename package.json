@@ -1,7 +1,7 @@
 {
-  "name": "dkcutter",
-  "type": "module",
-  "version": "4.5.0",
+  "name": "dkcutter-repo",
+  "version": "1.0.0",
+  "private": true,
   "packageManager": "pnpm@9.15.4",
   "description": "A command-line utility that creates projects from templates.",
   "author": {
@@ -13,43 +13,17 @@
     "type": "git",
     "url": "https://github.com/dkshs/dkcutter.git"
   },
-  "exports": "./dist/index.js",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "bin": {
-    "dkcutter": "./dist/cli.js"
-  },
-  "files": [
-    "dist"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
-    "typecheck": "tsc --noEmit",
-    "build": "tsup",
-    "start": "node dist/cli.js",
-    "dev": "tsup --watch",
-    "lint": "eslint .",
-    "lint:fix": "pnpm lint --fix",
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "eslint . && turbo lint",
+    "lint:fix": "eslint . --fix && turbo lint:fix",
+    "typecheck": "turbo typecheck",
     "check": "pnpm lint && pnpm typecheck",
     "changeset": "changeset",
     "release": "changeset version",
     "pub:release": "pnpm build && changeset publish",
     "prepare": "husky"
-  },
-  "dependencies": {
-    "colorette": "^2.0.20",
-    "commander": "^13.1.0",
-    "cosmiconfig": "^9.0.0",
-    "execa": "^9.5.2",
-    "fs-extra": "^11.3.0",
-    "nunjucks": "^3.2.4",
-    "ora": "^8.1.1",
-    "prompts": "^2.4.2",
-    "tsx": "^4.19.2",
-    "which": "^5.0.0",
-    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.11",
@@ -57,19 +31,13 @@
     "@commitlint/config-conventional": "^19.6.0",
     "@dkshs/changelog-github": "1.0.6",
     "@dkshs/eslint-config": "3.4.0",
-    "@types/fs-extra": "^11.0.4",
-    "@types/node": "^22.10.7",
-    "@types/nunjucks": "^3.2.6",
-    "@types/prompts": "^2.4.9",
-    "@types/which": "^3.0.4",
     "eslint": "^9.18.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.4.1",
-    "tsup": "^8.3.5",
-    "type-fest": "^4.33.0",
+    "turbo": "^2.3.3",
     "typescript": "^5.7.3"
   },
-  "engines": {
-    "node": "^18.19.0 || >=20.5.0"
+  "lint-staged": {
+    "*": "eslint . --fix"
   }
 }
