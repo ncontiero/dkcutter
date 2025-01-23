@@ -49,7 +49,7 @@
   "devDependencies": {
     "@dkshs/eslint-config": "3.4.0",
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^22.10.9",
+    "@types/node": "^22.10.10",
     "@types/nunjucks": "^3.2.6",
     "@types/prompts": "^2.4.9",
     "@types/which": "^3.0.4",
