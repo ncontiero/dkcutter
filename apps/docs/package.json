@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "rspress": "^1.40.1"
+    "rspress": "^1.40.2"
   },
   "devDependencies": {
     "@dkshs/eslint-config": "^3.4.0",
