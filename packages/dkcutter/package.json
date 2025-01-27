@@ -47,7 +47,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@dkshs/eslint-config": "3.4.0",
+    "@dkshs/eslint-config": "4.0.0",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.10.10",
     "@types/nunjucks": "^3.2.6",
