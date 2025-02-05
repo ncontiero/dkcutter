@@ -25,6 +25,7 @@ module.exports = {
     "pnpm-lock.yaml",
     "doc_build",
     "template-test",
+    "dist",
   ],
   flagWords: banWords,
   caseSensitive: true,
