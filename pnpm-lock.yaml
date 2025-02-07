@@ -52,8 +52,8 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1(@types/eslint@9.6.1)(@typescript-eslint/eslint-plugin@8.23.0(@typescript-eslint/parser@8.23.0(eslint@9.19.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.19.0(jiti@2.4.2))(typescript@5.7.3))(eslint@9.19.0(jiti@2.4.2))(tailwindcss@3.4.17)(typescript@5.7.3)
       '@rspress/plugin-shiki':
-        specifier: ^1.41.0
-        version: 1.41.0
+        specifier: ^1.41.1
+        version: 1.41.1
       '@types/node':
         specifier: ^22.13.1
         version: 22.13.1
@@ -1037,8 +1037,8 @@ packages:
     peerDependencies:
       '@rspress/runtime': ^1.41.0
 
-  '@rspress/plugin-shiki@1.41.0':
-    resolution: {integrity: sha512-ZQT/43H2dYySOrbII02HA8yKhD3DMOwrsFtskW+yoepuEYPErMzV1/3HYEEkJy3ItLXCSGbSwrZD0ihxPszZVg==}
+  '@rspress/plugin-shiki@1.41.1':
+    resolution: {integrity: sha512-/RdlOMKFejjrK+1kZkhN0GGjvGq338crKEAQFU3EMmRVobLj43S0j8kEkjSZkMf+3ZUjYueNRMCq821yCbofeA==}
     engines: {node: '>=14.17.6'}
 
   '@rspress/runtime@1.41.0':
@@ -1047,6 +1047,9 @@ packages:
 
   '@rspress/shared@1.41.0':
     resolution: {integrity: sha512-mrLwoSPC90bsP8jjn1oxCuNYFE95XAluJghxOx/Qqd8HbAEXzGsSQbHfHVsN9/nJA9FK7Oq4KdLH+ImY+pFWLg==}
+
+  '@rspress/shared@1.41.1':
+    resolution: {integrity: sha512-q4BC1nz/si+aDPewwbBSmKxGvgPz1Ki6zqcyz9qGQG6lMLXC7u1n2/ohrrN4ECpD7N2JTXjjDBE75CqmlQaoNg==}
 
   '@rspress/theme-default@1.41.0':
     resolution: {integrity: sha512-NkhcpMWXKGsVNJ6Ml12AZOP2LKMgnVVbmtLaQtf1TjECBNXRf6fJtoHbY7ocYrCrnVGE8MAHvV6657KnA4zUnw==}
@@ -5658,9 +5661,9 @@ snapshots:
       '@rspress/runtime': 1.41.0
       medium-zoom: 1.1.0
 
-  '@rspress/plugin-shiki@1.41.0':
+  '@rspress/plugin-shiki@1.41.1':
     dependencies:
-      '@rspress/shared': 1.41.0
+      '@rspress/shared': 1.41.1
       hast-util-from-html: 2.0.3
       shiki: 0.14.7
       unist-util-visit: 5.0.0
@@ -5678,6 +5681,16 @@ snapshots:
       - '@rspack/tracing'
 
   '@rspress/shared@1.41.0':
+    dependencies:
+      '@rsbuild/core': 1.2.3
+      chalk: 5.4.1
+      gray-matter: 4.0.3
+      lodash-es: 4.17.21
+      unified: 10.1.2
+    transitivePeerDependencies:
+      - '@rspack/tracing'
+
+  '@rspress/shared@1.41.1':
     dependencies:
       '@rsbuild/core': 1.2.3
       chalk: 5.4.1
