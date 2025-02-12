@@ -13,11 +13,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "rspress": "^1.41.1"
+    "rspress": "^1.41.2"
   },
   "devDependencies": {
     "@dkshs/eslint-config": "^4.0.2",
-    "@rspress/plugin-shiki": "^1.41.1",
+    "@rspress/plugin-shiki": "^1.41.2",
     "@types/node": "^22.13.1",
     "@types/react": "^19.0.8",
     "eslint": "^9.20.1",
