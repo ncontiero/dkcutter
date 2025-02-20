@@ -1,4 +1,4 @@
-import * as path from "node:path";
+import path from "node:path";
 import { pluginShiki } from "@rspress/plugin-shiki";
 import { pluginFontOpenSans } from "rspress-plugin-font-open-sans";
 import { defineConfig } from "rspress/config";
