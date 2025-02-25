@@ -19,7 +19,7 @@ Here's an example of how to reference the schema in your `dkcutter.json` file:
 
 ```json title="dkcutter.json"
 {
-  "$schema": "https://github.com/dkshs/dkcutter/raw/refs/heads/main/dkcutter-schema.json",
+  "$schema": "https://dkcutter.dkshs.me/schema.json",
   "projectName": {
     "value": "My Awesome Project",
     "promptMessage": "What is the project name?"
