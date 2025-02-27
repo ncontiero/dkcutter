@@ -13,7 +13,7 @@ The `dkcutter.json` file supports various data types for your configuration vari
 
 ## Using a Schema for Validation
 
-DKCutter leverages a schema file named `dkcutter-schema.json` to validate the structure and data types of your `dkcutter.json` configuration. This schema helps prevent errors and ensures consistency across your DKCutter projects. You can find the schema file here: [link to dkcutter-schema.json](https://github.com/dkshs/dkcutter/blob/main/dkcutter-schema.json).
+DKCutter leverages a schema file named `schema.json` to validate the structure and data types of your `dkcutter.json` configuration. This schema helps prevent errors and ensures consistency across your DKCutter projects. You can find the schema file here: [link to dkcutter-schema.json](https://dkcutter.dkshs.me/schema.json).
 
 Here's an example of how to reference the schema in your `dkcutter.json` file:
 
