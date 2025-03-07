@@ -34,7 +34,7 @@
     "@dkshs/changelog-github": "1.0.6",
     "@dkshs/eslint-config": "4.3.0",
     "cspell-ban-words": "^0.0.4",
-    "eslint": "^9.21.0",
+    "eslint": "^9.22.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
     "turbo": "^2.4.4",
