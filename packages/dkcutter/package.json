@@ -34,6 +34,7 @@
     "build": "tsup",
     "start": "node dist/cli.js",
     "dev": "tsup --watch",
+    "clean": "git clean -xdf dist .turbo node_modules",
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
     "typecheck": "tsc --noEmit"

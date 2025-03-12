@@ -16,6 +16,7 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "clean": "turbo clean && git clean -xdf .turbo node_modules",
     "lint": "eslint . && turbo lint",
     "lint:fix": "eslint . --fix && turbo lint:fix",
     "typecheck": "turbo typecheck",

@@ -5,6 +5,9 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "doc_build/**"]
     },
+    "clean": {
+      "dependsOn": ["^clean"]
+    },
     "typecheck": {
       "dependsOn": ["^typecheck"]
     },
