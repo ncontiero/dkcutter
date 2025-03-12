@@ -1,5 +1,11 @@
 # dkcutter
 
+## 4.5.2
+
+### Patch Changes
+
+- [`15b0a3c`](https://github.com/dkshs/dkcutter/commit/15b0a3c8768b52e56457965c996b2d6365dd7bfa) - fix(docs): add readme
+
 ## 4.5.1
 
 ### Patch Changes
