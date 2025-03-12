@@ -34,5 +34,10 @@ export default defineConfig({
         content: "https://github.com/dkshs/dkcutter",
       },
     ],
+    editLink: {
+      docRepoBaseUrl:
+        "https://github.com/dkshs/dkcutter/tree/main/apps/docs/docs",
+      text: "📝 Edit this page on GitHub",
+    },
   },
 });
