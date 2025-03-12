@@ -18,4 +18,4 @@ Go to the [Quick Start](https://dkcutter.dkshs.me/guide/start/getting-started) t
 
 ## License
 
-This project is licensed under the **MIT** License - see the [LICENSE](./LICENSE) file for details
+This project is licensed under the **MIT** License - see the [LICENSE](https://github.com/dkshs/dkcutter/blob/main/LICENSE) file for details
