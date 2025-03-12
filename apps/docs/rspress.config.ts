@@ -25,7 +25,7 @@ export default defineConfig({
   themeConfig: {
     enableScrollToTop: true,
     footer: {
-      message: "© 2024 DKCutter",
+      message: "© 2024 Nicolas Contiero",
     },
     socialLinks: [
       {

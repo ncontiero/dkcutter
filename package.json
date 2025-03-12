@@ -5,7 +5,7 @@
   "packageManager": "pnpm@10.6.2",
   "description": "A command-line utility that creates projects from templates.",
   "author": {
-    "name": "DKSHS",
+    "name": "Nicolas Contiero",
     "url": "https://github.com/dkshs"
   },
   "license": "MIT",

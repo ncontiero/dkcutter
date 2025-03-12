@@ -5,13 +5,18 @@
   "packageManager": "pnpm@10.6.2",
   "description": "A command-line utility that creates projects from templates.",
   "author": {
-    "name": "DKSHS",
+    "name": "Nicolas Contiero",
     "url": "https://github.com/dkshs"
   },
   "license": "MIT",
+  "homepage": "https://dkcutter.dkshs.me",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dkshs/dkcutter.git"
+    "url": "https://github.com/dkshs/dkcutter.git",
+    "directory": "packages/dkcutter"
+  },
+  "bugs": {
+    "url": "https://github.com/dkshs/dkcutter/issues"
   },
   "exports": "./dist/index.js",
   "main": "./dist/index.js",
