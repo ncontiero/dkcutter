@@ -26,7 +26,9 @@
     "changeset": "changeset",
     "release": "changeset version",
     "pub:release": "pnpm build --filter='!dkcutter-docs' && changeset publish",
-    "prepare": "husky"
+    "prepare": "husky",
+    "commitlint": "commitlint --edit",
+    "pre-commit": "lint-staged"
   },
   "devDependencies": {
     "@changesets/cli": "^2.28.1",
