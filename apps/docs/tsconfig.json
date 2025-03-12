@@ -7,7 +7,6 @@
     "module": "ESNext", 
     "moduleResolution": "bundler",
     "paths": {
-      "@theme": ["./theme"],
       "@/components/*": ["./theme/components/*"],
     },
     "resolveJsonModule": true,
