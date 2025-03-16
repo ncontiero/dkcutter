@@ -1,5 +1,11 @@
 # dkcutter
 
+## 4.5.3
+
+### Patch Changes
+
+- [`2c6fd6b`](https://github.com/dkshs/dkcutter/commit/2c6fd6b8a5b0a27d31b189e49be7e6b9a9103839) - fix: add original file permissions when copying or writing
+
 ## 4.5.2
 
 ### Patch Changes
