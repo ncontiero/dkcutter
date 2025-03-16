@@ -59,6 +59,8 @@ export async function structureRender(props: RenderOptions) {
         output: outputFilePath,
       });
     } else if (itemStat.isFile()) {
+      const fileMode = itemStat.mode & 0o777;
+
       if (ignorePatterns.some((pattern) => pattern.test(file))) {
         await fs.copyFile(filePath, outputFilePath);
       } else {
@@ -68,6 +70,8 @@ export async function structureRender(props: RenderOptions) {
           renderer.renderString(fileContent, context),
         );
       }
+
+      await fs.chmod(outputFilePath, fileMode);
     }
   };
 
