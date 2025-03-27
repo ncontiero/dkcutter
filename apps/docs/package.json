@@ -19,7 +19,7 @@
   "devDependencies": {
     "@dkshs/eslint-config": "^4.6.0",
     "@rspress/plugin-shiki": "^1.43.9",
-    "@types/node": "^22.13.13",
+    "@types/node": "^22.13.14",
     "@types/react": "^19.0.12",
     "eslint": "^9.23.0",
     "rspress-plugin-font-open-sans": "^1.0.0",
