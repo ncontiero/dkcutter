@@ -1,5 +1,11 @@
 # dkcutter
 
+## 4.5.4
+
+### Patch Changes
+
+- [`637a31e`](https://github.com/ncontiero/dkcutter/commit/637a31e63ea482931da7c5019c89f7782e000df9) - refactor: update github username and docs domain
+
 ## 4.5.3
 
 ### Patch Changes
