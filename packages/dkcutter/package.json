@@ -6,17 +6,17 @@
   "description": "A command-line utility that creates projects from templates.",
   "author": {
     "name": "Nicolas Contiero",
-    "url": "https://github.com/dkshs"
+    "url": "https://github.com/ncontiero"
   },
   "license": "MIT",
-  "homepage": "https://dkcutter.dkshs.me",
+  "homepage": "https://dkcutter.ncontiero.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dkshs/dkcutter.git",
+    "url": "https://github.com/ncontiero/dkcutter.git",
     "directory": "packages/dkcutter"
   },
   "bugs": {
-    "url": "https://github.com/dkshs/dkcutter/issues"
+    "url": "https://github.com/ncontiero/dkcutter/issues"
   },
   "exports": "./dist/index.js",
   "main": "./dist/index.js",
@@ -53,7 +53,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@dkshs/eslint-config": "4.6.0",
+    "@ncontiero/eslint-config": "5.1.1",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.13.14",
     "@types/nunjucks": "^3.2.6",

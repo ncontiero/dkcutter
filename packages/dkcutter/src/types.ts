@@ -15,7 +15,7 @@ export interface Options extends OptionsSchema {
   /**
    * Do not prompt for parameters and/or use the template's default values
    *
-   * @See https://dkcutter.dkshs.me/guide/advanced/cli#-y---default
+   * @See https://dkcutter.ncontiero.com/guide/advanced/cli#-y---default
    * @default false
    */
   default: boolean;
@@ -23,7 +23,7 @@ export interface Options extends OptionsSchema {
   /**
    * Where to output the generated project dir into.
    *
-   * @See https://dkcutter.dkshs.me/guide/advanced/cli#-o---output-path
+   * @See https://dkcutter.ncontiero.com/guide/advanced/cli#-o---output-path
    * @default process.cwd()
    */
   output: string;
@@ -32,21 +32,21 @@ export interface Options extends OptionsSchema {
    * Directory within repo that holds `dkcutter.json` file
    * for advanced repositories with multi templates in it.
    *
-   * @See https://dkcutter.dkshs.me/guide/advanced/cli#-d---directory-path
+   * @See https://dkcutter.ncontiero.com/guide/advanced/cli#-d---directory-path
    */
   directory?: string;
 
   /**
    * Branch, tag or commit to checkout after git clone.
    *
-   * @See https://dkcutter.dkshs.me/guide/advanced/cli#-c---checkout-checkout
+   * @See https://dkcutter.ncontiero.com/guide/advanced/cli#-c---checkout-checkout
    */
   checkout?: string;
 
   /**
    * Overwrite the output directory if it already exists
    *
-   * @See https://dkcutter.dkshs.me/guide/advanced/cli#-f---overwrite
+   * @See https://dkcutter.ncontiero.com/guide/advanced/cli#-f---overwrite
    * @default false
    */
   overwrite: boolean;
@@ -54,7 +54,7 @@ export interface Options extends OptionsSchema {
   /**
    * Keep the generated project dir on failure
    *
-   * @See https://dkcutter.dkshs.me/guide/advanced/cli#-k---keep-project-on-failure
+   * @See https://dkcutter.ncontiero.com/guide/advanced/cli#-k---keep-project-on-failure
    * @default false
    */
   keepProjectOnFailure: boolean;
@@ -72,7 +72,7 @@ export interface DKCutter {
   /**
    * The options for the DKCutter.
    *
-   * @See https://dkcutter.dkshs.me/guide/advanced/cli#options
+   * @See https://dkcutter.ncontiero.com/guide/advanced/cli#options
    */
   options?: Partial<Options>;
 
@@ -80,7 +80,7 @@ export interface DKCutter {
    * Additional context data.
    * You can specify options that will override the values from `dkcutter.json`
    *
-   * @See https://dkcutter.dkshs.me/guide/advanced/cli#injecting-extra-context
+   * @See https://dkcutter.ncontiero.com/guide/advanced/cli#injecting-extra-context
    */
   extraContext?: ContextProps;
 }

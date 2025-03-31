@@ -12,14 +12,14 @@ import { dkcutter } from "dkcutter";
 // Generate a project from the "dkcutter-nextjs/" template
 await dkcutter({ template: "dkcutter-nextjs/" });
 
-// Generate a project from the "gh:dkshs/dkcutter-nextjs" repository template
-await dkcutter({ template: "gh:dkshs/dkcutter-nextjs" });
+// Generate a project from the "gh:ncontiero/dkcutter-nextjs" repository template
+await dkcutter({ template: "gh:ncontiero/dkcutter-nextjs" });
 ```
 
 In these examples:
 
 - `dkcutter-nextjs/`: This references a template located within a local directory structure.
-- `gh:dkshs/dkcutter-nextjs`: This specifies a template located in a public GitHub repository.
+- `gh:ncontiero/dkcutter-nextjs`: This specifies a template located in a public GitHub repository.
 
 ## Customizing Project Generation
 
@@ -28,9 +28,9 @@ You can tailor the project generation process by providing options and extra con
 ```js title="index.js"
 import { dkcutter } from "dkcutter";
 
-// Generate a project from the "gh:dkshs/dkcutter-nextjs" repository template
+// Generate a project from the "gh:ncontiero/dkcutter-nextjs" repository template
 await dkcutter({
-  template: "gh:dkshs/dkcutter-nextjs",
+  template: "gh:ncontiero/dkcutter-nextjs",
   // Replace default values with custom project name
   extraContext: { projectName: "My Awesome Project" },
   // Specify a specific Git commit to checkout
@@ -50,7 +50,7 @@ import { dkcutter } from "dkcutter";
 
 // Generate a project and retrieve the final context
 const context = await dkcutter({
-  template: "gh:dkshs/dkcutter-nextjs",
+  template: "gh:ncontiero/dkcutter-nextjs",
   extraContext: { projectName: "My Project" },
 });
 

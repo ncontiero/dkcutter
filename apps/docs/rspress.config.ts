@@ -31,12 +31,12 @@ export default defineConfig({
       {
         icon: "github",
         mode: "link",
-        content: "https://github.com/dkshs/dkcutter",
+        content: "https://github.com/ncontiero/dkcutter",
       },
     ],
     editLink: {
       docRepoBaseUrl:
-        "https://github.com/dkshs/dkcutter/tree/main/apps/docs/docs",
+        "https://github.com/ncontiero/dkcutter/tree/main/apps/docs/docs",
       text: "📝 Edit this page on GitHub",
     },
   },

@@ -2,7 +2,7 @@
 
 A command-line utility that creates projects from templates.
 
-[![license mit](https://img.shields.io/badge/licence-MIT-7c3aed)](https://github.com/dkshs/dkcutter/blob/main/LICENSE)
+[![license mit](https://img.shields.io/badge/licence-MIT-7c3aed)](https://github.com/ncontiero/dkcutter/blob/main/LICENSE)
 [![NPM version][npm-image]][npm-url]
 
 [npm-url]: https://www.npmjs.com/package/dkcutter
@@ -10,7 +10,7 @@ A command-line utility that creates projects from templates.
 
 ## Getting Started
 
-Go to the [Quick Start](https://dkcutter.dkshs.me/guide/start/getting-started) to get started.
+Go to the [Quick Start](https://dkcutter.ncontiero.com/guide/start/getting-started) to get started.
 
 ## References and inspirations
 
@@ -18,4 +18,4 @@ Go to the [Quick Start](https://dkcutter.dkshs.me/guide/start/getting-started) t
 
 ## License
 
-This project is licensed under the **MIT** License - see the [LICENSE](https://github.com/dkshs/dkcutter/blob/main/LICENSE) file for details
+This project is licensed under the **MIT** License - see the [LICENSE](https://github.com/ncontiero/dkcutter/blob/main/LICENSE) file for details

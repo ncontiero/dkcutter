@@ -6,13 +6,13 @@ The recommended way to use DKCutter as a command line utility is to execute it w
 
 ## With a GitHub template
 
-To create a project from the [dkcutter-nextjs](https://github.com/dkshs/dkcutter-nextjs) repo template:
+To create a project from the [dkcutter-nextjs](https://github.com/ncontiero/dkcutter-nextjs) repo template:
 
-<PackageManagerTabs command="dkcutter@latest gh:dkshs/dkcutter-nextjs" isExecuted />
+<PackageManagerTabs command="dkcutter@latest gh:ncontiero/dkcutter-nextjs" isExecuted />
 
 DKCutter knows abbreviations for GitHub (`gh`), Bitbucket (`bb`), and GitLab (`gl`) projects, but you can also give it the full URL to any repository:
 
-<PackageManagerTabs command="dkcutter@latest https://github.com/dkshs/dkcutter-nextjs.git" isExecuted />
+<PackageManagerTabs command="dkcutter@latest https://github.com/ncontiero/dkcutter-nextjs.git" isExecuted />
 
 ## With a local template
 
@@ -26,6 +26,6 @@ import { dkcutter } from "dkcutter";
 // Create project from the dkcutter-nextjs/ template
 await dkcutter({ template: "dkcutter-nextjs/" });
 
-// Create project from the gh:dkshs/dkcutter-nextjs repo template
-await dkcutter({ template: "gh:dkshs/dkcutter-nextjs" });
+// Create project from the gh:ncontiero/dkcutter-nextjs repo template
+await dkcutter({ template: "gh:ncontiero/dkcutter-nextjs" });
 ```

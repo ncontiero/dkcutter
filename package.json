@@ -6,17 +6,17 @@
   "description": "A command-line utility that creates projects from templates.",
   "author": {
     "name": "Nicolas Contiero",
-    "url": "https://github.com/dkshs"
+    "url": "https://github.com/ncontiero"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dkshs/dkcutter.git"
+    "url": "https://github.com/ncontiero/dkcutter.git"
   },
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
-    "clean": "turbo clean && git clean -xdf .turbo node_modules",
+    "clean": "turbo clean && git clean -xdf .turbo node_modules -e .turbo/config.json",
     "lint": "eslint . && turbo lint",
     "lint:fix": "eslint . --fix && turbo lint:fix",
     "typecheck": "turbo typecheck",
@@ -35,7 +35,7 @@
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@dkshs/changelog-github": "1.0.6",
-    "@dkshs/eslint-config": "4.6.0",
+    "@ncontiero/eslint-config": "5.1.1",
     "cspell-ban-words": "^0.0.4",
     "eslint": "^9.23.0",
     "husky": "^9.1.7",
