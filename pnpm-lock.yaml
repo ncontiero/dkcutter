@@ -17,9 +17,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^19.8.0
         version: 19.8.0
-      '@dkshs/changelog-github':
-        specifier: 1.0.6
-        version: 1.0.6
+      '@ncontiero/changelog-github':
+        specifier: 2.1.0
+        version: 2.1.0
       '@ncontiero/eslint-config':
         specifier: 5.1.1
         version: 5.1.1(@types/eslint@9.6.1)(@typescript-eslint/eslint-plugin@8.29.0(@typescript-eslint/parser@8.29.0(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2))(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2))(eslint@9.23.0(jiti@2.4.2))(tailwindcss@3.4.17)(typescript@5.8.2)
@@ -284,9 +284,6 @@ packages:
   '@commitlint/types@19.8.0':
     resolution: {integrity: sha512-LRjP623jPyf3Poyfb0ohMj8I3ORyBDOwXAgxxVPbSD0unJuW2mJWeiRfaQinjtccMqC5Wy1HOMfa4btKjbNxbg==}
     engines: {node: '>=v18'}
-
-  '@dkshs/changelog-github@1.0.6':
-    resolution: {integrity: sha512-Poym7L83xt67wLaRTdB7BgbxDjIHVW9Kcxw72g0QszQTk45Sn0OFjdvC5dMWeYTVje/5RzRtDf7DxBN0bgpQXQ==}
 
   '@emnapi/core@1.4.0':
     resolution: {integrity: sha512-H+N/FqT07NmLmt6OFFtDfwe8PNygprzBikrEMyQfgqSmT0vzE515Pz7R8izwB9q/zsH/MA64AKoul3sA6/CzVg==}
@@ -615,6 +612,9 @@ packages:
 
   '@napi-rs/wasm-runtime@0.2.7':
     resolution: {integrity: sha512-5yximcFK5FNompXfJFoWanu5l8v1hNGqNHh9du1xETp9HWk/B/PzvchX55WYOPaIeNglG8++68AAiauBAtbnzw==}
+
+  '@ncontiero/changelog-github@2.1.0':
+    resolution: {integrity: sha512-l9dmoXM3mQrMW92X+eaH4UlGT85LXQmVembrMHP/WraqTSLjs+iNpODJzorG2Nna9S8oqj3fapfr2HOltq4NWQ==}
 
   '@ncontiero/eslint-config@5.1.1':
     resolution: {integrity: sha512-9OqOaWMn9ZEtY4PyS8/9DPfvaiabGqa/w7d4tnq53775rte+SKjORqAO8hXaGK2Ad9YvcdaAVjCSekYSN9PprQ==}
@@ -4990,13 +4990,6 @@ snapshots:
       '@types/conventional-commits-parser': 5.0.1
       chalk: 5.4.1
 
-  '@dkshs/changelog-github@1.0.6':
-    dependencies:
-      '@changesets/get-github-info': 0.6.0
-      dotenv: 16.4.7
-    transitivePeerDependencies:
-      - encoding
-
   '@emnapi/core@1.4.0':
     dependencies:
       '@emnapi/wasi-threads': 1.0.1
@@ -5310,6 +5303,13 @@ snapshots:
       '@emnapi/runtime': 1.4.0
       '@tybys/wasm-util': 0.9.0
     optional: true
+
+  '@ncontiero/changelog-github@2.1.0':
+    dependencies:
+      '@changesets/get-github-info': 0.6.0
+      dotenv: 16.4.7
+    transitivePeerDependencies:
+      - encoding
 
   '@ncontiero/eslint-config@5.1.1(@types/eslint@9.6.1)(@typescript-eslint/eslint-plugin@8.29.0(@typescript-eslint/parser@8.29.0(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2))(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2))(eslint@9.23.0(jiti@2.4.2))(tailwindcss@3.4.17)(typescript@5.8.2)':
     dependencies:
