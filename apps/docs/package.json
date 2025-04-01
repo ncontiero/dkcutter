@@ -8,7 +8,7 @@
     "build": "rspress build",
     "dev": "rspress dev",
     "clean": "git clean -xdf dist doc_build .turbo node_modules",
-    "preview": "rspress preview",
+    "preview": "rspress preview --host ::",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit"
