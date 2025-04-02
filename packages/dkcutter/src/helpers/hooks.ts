@@ -52,6 +52,8 @@ export async function runHook({ dir = process.cwd(), hook }: RunHook) {
     const hooksPattern = new RegExp(`^${hook}\\.(js|ts)$`);
     const renderedHooksFolder = RENDERED_HOOKS_FOLDER();
 
+    if (!(await fs.exists(renderedHooksFolder))) return; // No hook found.
+
     const hookFile = (await fs.readdir(renderedHooksFolder)).find((file) =>
       hooksPattern.test(file),
     );
