@@ -11,6 +11,7 @@ export const program = new Command()
     "Display the version number.",
   )
   .usage("[options] [template] [extra-context-options]...")
+  .option("--init", "Initialize a base DKCutter template.", false)
   .option(
     "-y, --default",
     "Do not prompt for parameters and/or use the template's default values.",

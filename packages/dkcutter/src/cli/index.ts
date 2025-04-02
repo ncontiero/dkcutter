@@ -21,6 +21,16 @@ export async function cli(): Promise<void> {
 
     const options = program.opts();
     const template = program.args[0];
+
+    if (options.init) {
+      await dkcutter({
+        template: "gh:ncontiero/dkcutter",
+        options,
+        extraContext: {},
+      });
+      return;
+    }
+
     if (!template) program.help();
 
     await dkcutter({

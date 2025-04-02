@@ -129,10 +129,5 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# DKCUTTER Tests
-template-test
-dkcutter.json
-hooks
-
 doc_build/
 .turbo
