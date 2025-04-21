@@ -21,7 +21,7 @@
     "@rspress/plugin-shiki": "^1.43.11",
     "@types/node": "^22.14.1",
     "@types/react": "^19.1.2",
-    "eslint": "^9.25.0",
+    "eslint": "^9.25.1",
     "rspress-plugin-font-open-sans": "^1.0.0",
     "typescript": "^5.8.3"
   }
