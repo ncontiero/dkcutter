@@ -14,11 +14,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "rspress": "1.43.13"
+    "rspress": "1.44.0"
   },
   "devDependencies": {
     "@ncontiero/eslint-config": "^5.1.1",
-    "@rspress/plugin-shiki": "^1.43.13",
+    "@rspress/plugin-shiki": "^1.44.0",
     "@types/node": "^22.15.17",
     "@types/react": "^19.1.4",
     "eslint": "^9.26.0",
