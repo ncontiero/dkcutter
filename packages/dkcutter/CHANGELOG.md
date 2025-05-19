@@ -1,5 +1,15 @@
 # dkcutter
 
+## 5.0.0
+
+### Major Changes
+
+- [`da9706e`](https://github.com/ncontiero/dkcutter/commit/da9706ee51e48d883cfe51dc83d314675f524fe5) - chore!: drop support for node 18
+
+### Patch Changes
+
+- [#548](https://github.com/ncontiero/dkcutter/pull/548) [`799c480`](https://github.com/ncontiero/dkcutter/commit/799c48055d4bf00f1f7ac8d45b35e0c9de9b0381) - chore(deps): update commander to v14
+
 ## 4.6.0
 
 ### Minor Changes
