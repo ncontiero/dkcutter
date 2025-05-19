@@ -2,7 +2,6 @@
   "name": "dkcutter-docs",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@10.11.0",
   "license": "MIT",
   "scripts": {
     "build": "rspress build",
