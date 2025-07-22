@@ -1,5 +1,11 @@
 # dkcutter
 
+## 5.0.1
+
+### Patch Changes
+
+- [#606](https://github.com/ncontiero/dkcutter/pull/606) [`246f0b1`](https://github.com/ncontiero/dkcutter/commit/246f0b19275ffa02803bcc962713c3b39955214a) - chore(deps): update zod to v4
+
 ## 5.0.0
 
 ### Major Changes
@@ -45,5 +51,4 @@
 - [`660654f`](https://github.com/dkshs/dkcutter/commit/660654f4d678d216b18101862048062ccaa2a637) - fix: update documentation url in jsdoc
 
 - [`bb79fe7`](https://github.com/dkshs/dkcutter/commit/bb79fe7b2f39e7686cb8a808e1ff4f737567ad1d) - chore: add `bugs`, `homepage` and update `author` in `package.json`
-
   - No significant changes.

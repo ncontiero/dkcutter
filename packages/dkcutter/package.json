@@ -1,7 +1,7 @@
 {
   "name": "dkcutter",
   "type": "module",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "A command-line utility that creates projects from templates.",
   "author": {
     "name": "Nicolas Contiero",
