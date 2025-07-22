@@ -44,7 +44,7 @@ function contextSchema(
   );
 
   const err = {
-    message: `Invalid value for ${key}: '${value}'.${availableChoices ? ` Valid choices: ${availableChoices.map((c) => c.value).join(", ")}` : ""}`,
+    error: `Invalid value for ${key}: '${value}'.${availableChoices ? ` Valid choices: ${availableChoices.map((c) => c.value).join(", ")}` : ""}`,
     path: [key],
   };
   const baseSchema = z
