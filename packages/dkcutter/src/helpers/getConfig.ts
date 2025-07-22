@@ -36,7 +36,7 @@ const configObjectSchema = z
     disabled: z.string().optional(),
   })
   .or(configObjectValueSchema);
-export const configSchema = z.record(configObjectSchema);
+export const configSchema = z.record(z.string(), configObjectSchema);
 
 export type ConfigObjectValue = z.infer<typeof configObjectValueSchema>;
 export type ConfigChoiceProps = z.infer<typeof configChoiceSchema>;
