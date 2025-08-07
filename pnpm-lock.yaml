@@ -64,8 +64,8 @@ importers:
         specifier: ^9.32.0
         version: 9.32.0(jiti@2.4.2)
       rspress-plugin-font-open-sans:
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.0.3
+        version: 1.0.3(@rspress/core@1.45.0(webpack@5.97.1))
       typescript:
         specifier: ^5.9.2
         version: 5.9.2
@@ -3869,8 +3869,10 @@ packages:
   rspack-plugin-virtual-module@0.1.13:
     resolution: {integrity: sha512-VC0HiVHH6dtGfTgfpbDgVTt6LlYv+uAg9CWGWAR5lBx9FbKPEZeGz7iRUUP8vMymx+PGI8ps0u4a25dne0rtuQ==}
 
-  rspress-plugin-font-open-sans@1.0.0:
-    resolution: {integrity: sha512-4GP0pd7h3W8EWdqE0VkA62nzUJZNy4ZnYK7be8+lOKHQKsQ5nZ+22A/VurNssi1eZFx3kjwbmIuoAkgb5W8S9Q==}
+  rspress-plugin-font-open-sans@1.0.3:
+    resolution: {integrity: sha512-17i7uUqvyy5k51ggZJ5xoP9duqC2W76GcBviIu400VXXAQEZx3JzZWPcGz9gGmVaFHAkH19NtZK0EYKfneX4rw==}
+    peerDependencies:
+      '@rspress/core': ^2.0.0-beta.24 || ^2.0.0
 
   rspress@1.45.0:
     resolution: {integrity: sha512-sQb3u+E3D/5mrquKj9AKz1gVIK+Nk6NqrNuS7ZixzxZY+1u7uVES1WW8hhEbHXq/eDN+vRVhj0kEs5b66ed4ow==}
@@ -9299,7 +9301,9 @@ snapshots:
     dependencies:
       fs-extra: 11.3.1
 
-  rspress-plugin-font-open-sans@1.0.0: {}
+  rspress-plugin-font-open-sans@1.0.3(@rspress/core@1.45.0(webpack@5.97.1)):
+    dependencies:
+      '@rspress/core': 1.45.0(webpack@5.97.1)
 
   rspress@1.45.0(webpack@5.97.1):
     dependencies:
