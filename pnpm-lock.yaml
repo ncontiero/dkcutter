@@ -85,8 +85,8 @@ importers:
         specifier: ^9.6.0
         version: 9.6.0
       fs-extra:
-        specifier: ^11.3.0
-        version: 11.3.0
+        specifier: ^11.3.1
+        version: 11.3.1
       nunjucks:
         specifier: ^3.2.4
         version: 3.2.4(chokidar@3.6.0)
@@ -2272,8 +2272,8 @@ packages:
     resolution: {integrity: sha512-wzsgA6WOq+09wrU1tsJ09udeR/YZRaeArL9e1wPbFg3GG2yDnC2ldKpxs4xunpFF9DgqCqOIra3bc1HWrJ37Ww==}
     engines: {node: '>=0.4.x'}
 
-  fs-extra@11.3.0:
-    resolution: {integrity: sha512-Z4XaCL6dUDHfP/jT25jJKMmtxvuwbkrD1vNSMFlo9lNLY2c5FHYSQgHPRZUjAB26TpDEoW9HCOgplrdbaPV/ew==}
+  fs-extra@11.3.1:
+    resolution: {integrity: sha512-eXvGGwZ5CL17ZSwHWd3bbgk7UUpF6IFHtP57NYYakPvHOs8GDgDe5KJI36jIJzDkJ6eJjuzRA8eBQb6SkKue0g==}
     engines: {node: '>=14.14'}
 
   fs-extra@7.0.1:
@@ -4118,6 +4118,7 @@ packages:
   source-map@0.8.0-beta.0:
     resolution: {integrity: sha512-2ymg6oRBpebeZi9UUNsgQ89bhx01TcTkmNTGnNO88imTmbSgy4nfujrgVEFKWpMTEGA11EDkTt7mqObTPdigIA==}
     engines: {node: '>= 8'}
+    deprecated: The work that was done in this beta branch won't be included in future versions
 
   space-separated-tokens@1.1.5:
     resolution: {integrity: sha512-q/JSVd1Lptzhf5bkYm4ob4iWPjx0KiRe3sRFBNrVqbJkFaBm5vbbowy1mymoPNLRa52+oadOhJ+K49wsSeSjTA==}
@@ -7195,7 +7196,7 @@ snapshots:
 
   format@0.2.2: {}
 
-  fs-extra@11.3.0:
+  fs-extra@11.3.1:
     dependencies:
       graceful-fs: 4.2.11
       jsonfile: 6.1.0
@@ -9296,7 +9297,7 @@ snapshots:
 
   rspack-plugin-virtual-module@0.1.13:
     dependencies:
-      fs-extra: 11.3.0
+      fs-extra: 11.3.1
 
   rspress-plugin-font-open-sans@1.0.0: {}
 
