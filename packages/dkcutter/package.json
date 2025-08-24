@@ -49,7 +49,7 @@
     "prompts": "^2.4.2",
     "tsx": "^4.20.4",
     "which": "^5.0.0",
-    "zod": "^4.0.17"
+    "zod": "^4.1.1"
   },
   "devDependencies": {
     "@ncontiero/eslint-config": "6.1.0",
