@@ -60,7 +60,7 @@
     "@types/which": "^3.0.4",
     "eslint": "^9.34.0",
     "tsup": "^8.5.0",
-    "type-fest": "^4.41.0",
+    "type-fest": "^5.0.1",
     "typescript": "^5.9.2"
   },
   "engines": {
