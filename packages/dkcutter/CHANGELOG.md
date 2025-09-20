@@ -1,5 +1,13 @@
 # dkcutter
 
+## 5.0.2
+
+### Patch Changes
+
+- [#654](https://github.com/ncontiero/dkcutter/pull/654) [`b0933d9`](https://github.com/ncontiero/dkcutter/commit/b0933d9ae753eae133233fe981ac045e800cb6e7) - chore(deps): update ora to v9
+
+- [#655](https://github.com/ncontiero/dkcutter/pull/655) [`eee9391`](https://github.com/ncontiero/dkcutter/commit/eee9391e70deab1e623fb4b35d5562e63c4e478d) - chore(deps): update type-fest to v5
+
 ## 5.0.1
 
 ### Patch Changes
