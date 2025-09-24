@@ -1,5 +1,5 @@
 {
-  "$schema": "https://dkcutter.ncontiero.com/schema.json",
+  "$schema": "./apps/docs/docs/public/schema.json",
   "projectName": {
     "value": "My Awesome Project",
     "promptMessage": "What is the project name?"

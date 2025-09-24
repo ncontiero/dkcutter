@@ -8,14 +8,14 @@ const explorer = cosmiconfig("dkcutter", {
 });
 
 const configObjectValueSchema = z.union([
-  z.string(),
+  z.string().min(1),
   z.boolean(),
-  z.array(z.string()),
+  z.array(z.string().min(1)).min(1),
 ]);
 const configChoiceSchema = z.object({
   title: z.string().optional(),
   description: z.string().optional(),
-  value: z.string(),
+  value: z.string().min(1),
   disabled: z.string().optional(),
   helpTextForDisabled: z.string().optional(),
   selected: z.string().optional(),

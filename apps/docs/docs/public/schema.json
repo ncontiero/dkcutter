@@ -10,6 +10,8 @@
       "items": {
         "type": "string"
       },
+      "minItems": 1,
+      "minLength": 1,
       "properties": {
         "promptMessage": {
           "type": "string",
@@ -20,6 +22,8 @@
           "items": {
             "type": "string"
           },
+          "minItems": 1,
+          "minLength": 1,
           "description": "The value of the input. This can be a string, an array of strings, or a boolean."
         },
         "choices": {
@@ -38,6 +42,7 @@
               },
               "value": {
                 "type": "string",
+                "minLength": 1,
                 "description": "The value of the choice. This is the value that will be returned when the choice is selected."
               },
               "disabled": {

@@ -6,6 +6,29 @@ import { isArray, isObject } from "@/utils/dataHandler";
 import { renderer } from "@/utils/renderer";
 import { formatKeyMessage } from "@/utils/strings";
 
+function normalizeConfigObject(
+  config: ConfigObjectProps,
+): Exclude<ConfigObjectProps, string | boolean | string[]> {
+  if (isArray(config)) {
+    return {
+      value: config[0],
+      choices: config.map((val) => ({ value: val })),
+    };
+  }
+  if (!isObject(config)) {
+    return { value: config };
+  }
+  if (isArray(config.value)) {
+    return {
+      ...config,
+      value: config.value[0],
+      choices: config.value.map((val) => ({ value: val })),
+    };
+  }
+
+  return config;
+}
+
 /**
  * Creates a prompt object based on the provided key and configuration object values.
  * @param {[string, ConfigObjectProps]} [key, objValues] - A tuple containing the key and configuration object values.
@@ -17,44 +40,41 @@ export function createPromptObject([key, objValues]: [
 ]): prompts.PromptObject<keyof ConfigProps> {
   if (key.startsWith("_")) {
     return { type: null, name: key };
-  } else if (isArray(objValues)) {
-    const choices = objValues.map((val) => ({ value: val }));
-    return createPromptObject([key, { value: objValues[0], choices }]);
-  } else if (!isObject(objValues)) {
-    return createPromptObject([key, { value: objValues }]);
-  } else if (isObject(objValues) && isArray(objValues.value)) {
-    const choices = objValues.value.map((val) => ({ value: val }));
-    return createPromptObject([
-      key,
-      { ...objValues, value: objValues.value[0], choices },
-    ]);
   }
+
+  const normalizedValues = normalizeConfigObject(objValues);
   const {
     value,
     validateRegex,
     promptMessage,
     choices,
-    disabled,
     choicesType = "select",
-  } = objValues;
-  const isBoolean = typeof value === "boolean";
-  const isString = typeof value === "string";
+  } = normalizedValues;
+  const initialValue = isArray(value) ? value[0] : value;
+  const haveChoices = choices && choices.length > 0;
+
   const message = (_: unknown, values: prompts.Answers<string>) =>
     promptMessage
       ? renderer.renderString(promptMessage, values)
       : formatKeyMessage(key);
 
+  const isBoolean = typeof value === "boolean";
   const getType = (answers: prompts.Answers<string>) => {
-    let type: prompts.PromptType | null =
-      choices || isArray(value) ? choicesType : isBoolean ? "toggle" : "text";
-    if (disabled) {
-      const condition = renderer.renderString(disabled, answers);
-      type = condition === "false" ? type : null;
+    if (normalizedValues.disabled) {
+      const condition = renderer.renderString(
+        normalizedValues.disabled,
+        answers,
+      );
+      if (condition === "true") {
+        return null;
+      }
     }
-    return type;
+    return haveChoices ? choicesType : isBoolean ? "toggle" : "text";
   };
+
   const getChoices = (answers: prompts.Answers<string>) => {
-    return choices?.map((choice) => {
+    if (!haveChoices) return [];
+    return choices.map((choice) => {
       const disabled =
         renderer.renderString(choice.disabled || "false", answers) === "true";
       const title = `${choice.title || choice.value}${
@@ -69,7 +89,7 @@ export function createPromptObject([key, objValues]: [
         disabled,
         selected: choice.selected
           ? renderer.renderString(choice.selected, answers) === "true"
-          : choice.value === (isArray(value) ? value[0] : value),
+          : choice.value === initialValue,
         description: choice.description
           ? renderer.renderString(choice.description, answers)
           : undefined,
@@ -82,17 +102,26 @@ export function createPromptObject([key, objValues]: [
     name: key,
     message,
     choices: (_, answers) => getChoices(answers),
-    initial: choices
-      ? choices.findIndex((choice) => choice.value === value)
-      : (_, values) =>
-          isString
-            ? renderer.renderString(value, values)
-            : (value as prompts.InitialReturnValue),
+    initial: (_, answers) => {
+      const valueRendered =
+        typeof initialValue === "string"
+          ? renderer.renderString(initialValue, answers)
+          : initialValue;
+
+      if (haveChoices) {
+        const index = choices.findIndex(
+          (choice) => choice.value === valueRendered,
+        );
+        return index === -1 ? 0 : index;
+      }
+
+      return valueRendered;
+    },
     validate: (promptValue) =>
       typeof promptValue === "string" && validateRegex
         ? z.string().regex(validateRegex.regex).safeParse(promptValue).success
           ? true
-          : validateRegex.message || "Please enter a valid value."
+          : (validateRegex.message ?? "Please enter a valid value.")
         : true,
     hint: "- Space to select. Return to submit",
     instructions: false,

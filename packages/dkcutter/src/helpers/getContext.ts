@@ -57,14 +57,12 @@ function contextSchema(
   const choiceSchema = choices
     ? baseSchema.refine((val) => {
         if (val && choicesType === "multiselect") {
-          return val
-            .toLowerCase()
-            .split(",")
-            .every(
-              (choice) =>
-                choice === "none" ||
-                availableChoices?.some((c) => c.value === choice),
-            );
+          const selectedChoices = val.trim().toLowerCase().split(",");
+          return selectedChoices.every(
+            (choice) =>
+              choice === "none" ||
+              availableChoices?.some((c) => c.value === choice.trim()),
+          );
         }
         return availableChoices?.some((c) => c.value === val);
       }, err)
@@ -75,7 +73,7 @@ function contextSchema(
     : choiceSchema;
 
   const booleanTransform = regexSchema.transform((val) =>
-    val === "false" || val === "true" ? val !== "false" : val,
+    val === "true" ? true : val === "false" ? false : val,
   );
 
   const typeSchema = booleanTransform.refine((val) => {
@@ -87,7 +85,7 @@ function contextSchema(
 
   return typeSchema.transform((v) => {
     if (choicesType === "multiselect" && typeof v === "string") {
-      return v.split(",");
+      return v.split(",").map((s) => s.trim());
     }
     return v;
   });
@@ -127,8 +125,8 @@ function handleValuesDisabled(
 }
 
 type HandleContextReturn = {
-  context: ContextProps;
-  extraContext: ContextProps;
+  fullContext: ContextProps;
+  cliOptions: ContextProps;
 };
 /**
  * Handles context properties based on configuration and command-line arguments.
@@ -143,18 +141,19 @@ type HandleContextReturn = {
 function handleContext(
   context: ContextProps,
   config: ConfigProps,
+  extraContext: ContextProps,
 ): HandleContextReturn {
-  let newContext: HandleContextReturn = { context, extraContext: {} };
+  let cliOptions: ContextProps = {};
   if (process.argv.includes("--dkcutter.isCli=true")) {
-    newContext = { ...newContext, extraContext: createCliOptions(context) };
+    cliOptions = createCliOptions(context);
   }
-  context = { ...newContext.context, ...newContext.extraContext };
-  for (const [key, value] of Object.entries(context)) {
-    if (
-      key.startsWith("_") ||
-      (typeof value === "string" && NUNJUCKS_PATTERN.test(value))
-    )
-      continue;
+
+  const mergedContext = { ...context, ...extraContext, ...cliOptions };
+
+  for (const [key, value] of Object.entries(mergedContext)) {
+    const isDynamic = typeof value === "string" && NUNJUCKS_PATTERN.test(value);
+    if (key.startsWith("_") || isDynamic) continue;
+
     const configValue = config[key];
     const regex =
       !isArray(configValue) && isObject(configValue)
@@ -170,11 +169,12 @@ function handleContext(
     const choicesType = isMultiselectFunc(configValue)
       ? "multiselect"
       : "select";
-    contextSchema(key, context, regex, choices, choicesType).parse(value);
-    handleValuesDisabled(key, configValue, context);
+
+    contextSchema(key, mergedContext, regex, choices, choicesType).parse(value);
+    handleValuesDisabled(key, configValue, mergedContext);
   }
-  newContext.context = context;
-  return newContext;
+
+  return { fullContext: mergedContext, cliOptions };
 }
 
 /**
@@ -194,13 +194,16 @@ function createContext(config: ConfigProps): {
     const isMultiselect = isMultiselectFunc(value);
     const target = key.startsWith("_") ? internal : external;
     if (isArray(value)) {
-      target[key] = isMultiselect ? [value[0]] : value[0];
+      target[key] = value[0];
     } else if (isObject(value)) {
       const v = isArray(value.value) ? value.value[0] : value.value;
-      target[key] = isMultiselect && typeof v === "string" ? [v] : v;
+      if (isMultiselect && typeof v === "string") {
+        target[key] = v.split(",").map((s) => s.trim());
+      } else {
+        target[key] = v;
+      }
     } else {
-      target[key] =
-        isMultiselect && typeof value === "string" ? [value] : value;
+      target[key] = value;
     }
   }
   return { internal, external };
@@ -246,18 +249,21 @@ export async function getContext({
   extraContext = {},
 }: GetContext): Promise<ContextProps> {
   const { internal, external } = createContext(config);
-  let context = { ...internal, ...external, ...extraContext };
-  const { context: newContext, extraContext: newExtraContext } = handleContext(
+  let context = { ...internal, ...external };
+
+  const { fullContext, cliOptions } = handleContext(
     context,
     config,
+    extraContext,
   );
-  context = { ...newContext, ...newExtraContext };
-  extraContext = { ...extraContext, ...newExtraContext };
 
   if (skip) {
-    return renderContext(context);
+    return renderContext(fullContext);
   }
-  const answers = await createPromptObjects(config, extraContext);
+  const answers = await createPromptObjects(config, {
+    ...extraContext,
+    ...cliOptions,
+  });
 
   for (const [key, value] of Object.entries(answers)) {
     if ([value].flat().length === 0) {
@@ -266,7 +272,7 @@ export async function getContext({
       answers[key] = [defaultValue];
     }
   }
-  context = { ...internal, ...answers };
+  context = { ...internal, ...answers }; // Re-assign context with answers
 
   return renderContext(context);
 }

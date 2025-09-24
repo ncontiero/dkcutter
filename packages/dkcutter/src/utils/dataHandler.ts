@@ -19,6 +19,26 @@ export function isMultiselect(value: ConfigObjectProps): boolean {
 }
 
 /**
+ * Extracts the initial value from a configuration property.
+ * @param {ConfigObjectProps} configValue - The configuration property.
+ */
+export function getInitialValue(configValue: ConfigObjectProps) {
+  if (isArray(configValue)) {
+    return configValue[0];
+  }
+
+  if (isObject(configValue)) {
+    const { value } = configValue;
+    if (isArray(value)) {
+      return value[0];
+    }
+    return value;
+  }
+
+  return configValue;
+}
+
+/**
  * Returns the default value based on the provided configuration object.
  *
  * This function determines the default value by checking the configuration object and its properties.
@@ -31,14 +51,11 @@ export function isMultiselect(value: ConfigObjectProps): boolean {
 export function getDefaultValue(
   configValue: ConfigObjectProps,
 ): ConfigObjectValue {
-  const initialValue = isArray(configValue)
-    ? configValue[0]
-    : isObject(configValue)
-      ? isArray(configValue.value)
-        ? configValue.value[0]
-        : configValue.value
-      : configValue;
-  return isMultiselect(configValue) && typeof initialValue === "string"
-    ? initialValue.split(",")
-    : initialValue;
+  const initialValue = getInitialValue(configValue);
+
+  if (isMultiselect(configValue) && typeof initialValue === "string") {
+    return initialValue.split(",").map((s) => s.trim());
+  }
+
+  return initialValue;
 }
