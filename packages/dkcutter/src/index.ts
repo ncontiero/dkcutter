@@ -52,8 +52,8 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
     templateFolder = isLocalProject ? join(template, "template") : PKG_TEMPLATE;
     const projectRoot = isLocalProject ? template : PKG_ROOT;
 
-    const templateData = templateIsValid(template);
     if (!isLocalProject) {
+      const templateData = templateIsValid(template);
       await getTemplate({
         url: templateData,
         outputDir: PKG_TEMPLATE,
