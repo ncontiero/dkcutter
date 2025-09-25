@@ -6,6 +6,11 @@
   },
   {
     "type": "dir",
+    "name": "config",
+    "label": "DKCutter Configuration"
+  },
+  {
+    "type": "dir",
     "name": "advanced",
     "label": "Advanced"
   }

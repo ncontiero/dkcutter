@@ -1,58 +1,57 @@
-# Create a DKCutter From Scratch
+# Create a Template From Scratch
 
 import { Steps } from "@/components/Steps";
 import { PackageManagerTabs } from "@/components/PackageManagerTabs";
 
-We'll create a simple DKCutter named `dkcutter-website-simple` for generating basic websites.
-This is a great way to get started with DKCutter if you're new to creating websites.
-Or you can use [`--init`](../advanced/cli.mdx#--init) option to create a base DKCutter template project.
+This guide will walk you through creating a simple `dkcutter` template from scratch. We'll build a template named `dkcutter-website-simple` for generating a basic HTML website.
+
+This is a great way to understand the fundamentals of how `dkcutter` templates are structured.
 
 ## Let's get started!
 
 <div className="steps">
 <Steps>
 
-### Step 1: Create a directory for your DKCutter
+### Create the Template Directory
 
-Open your terminal and navigate to your desired directory.
-Then, run the following command to create a new directory for your DKCutter and `cd` into it:
+First, create a directory for your new template and navigate into it.
 
 ```bash
 mkdir dkcutter-website-simple
 cd dkcutter-website-simple/
-``` 
+```
 
-### Step 2: Create the `dkcutter.json` file
+### Create the `dkcutter.json` file
 
-The `dkcutter.json` file contains configuration options that DKCutter uses to generate your project.
-Create a new file named `dkcutter.json` and paste the following content into it, replacing the placeholder text with your desired project name:
+This file is the heart of your template. It defines the variables that the user will be prompted for. Create a file named `dkcutter.json` with the following content:
 
 ```json title="dkcutter.json"
 {
   "$schema": "https://dkcutter.ncontiero.com/schema.json",
   "projectName": "My Simple Website",
-  "projectSlug": "{{ projectName|lower|replace(' ', '-')|trim }}"
+  "projectSlug": "{{ dkcutter.projectName|lower|replace(' ', '-')|trim }}"
 }
 ```
 
-#### Explanation of `dkcutter.json` properties:
+**Explanation:**
 
-- `"$schema"`: This property specifies the location of the DKCutter schema file that defines the valid configuration options.
-- `"projectName"`: This property defines the name of your website project.
-- `"projectSlug"`: This property defines the name of the directory that will be created for your website.
-It uses a template that converts the project name to lowercase, replaces spaces with hyphens, and removes any leading or trailing whitespace.
+-   `"$schema"`: (Optional) Specifies the schema for editor autocompletion and validation.
+-   `"projectName"`: A variable that the user will be prompted for. We've given it a default value of `"My Simple Website"`.
+-   `"projectSlug"`: A variable that is *derived* from `projectName`. It uses a template that converts the project name to lowercase, replaces spaces with hyphens, and removes any leading or trailing whitespace.
 
-### Step 3: Create the template directory
+### Create the Template Files
 
-Create a new directory named `template/{{dkcutter.projectSlug}}` inside your DKCutter project directory.
-This directory will hold the template files that will be used to generate your website.
+Now, let's create the files that will be part of the generated project. Create the following directory structure:
 
-### Step 4: Create the index.html file
+```bash
+mkdir -p template/{{dkcutter.projectSlug}}
+```
 
-Inside the `template/{{dkcutter.projectSlug}}` directory, create a new file named `index.html`
-and paste the following basic HTML code into it:
+This command creates a `template` directory, and inside it, a directory with a dynamic name `{{dkcutter.projectSlug}}`.
 
-```html title="index.html"
+Inside that directory, create an `index.html` file:
+
+```html title="template/{{dkcutter.projectSlug}}/index.html"
 <!DOCTYPE html>
 <html>
   <head>
@@ -65,40 +64,33 @@ and paste the following basic HTML code into it:
 </html>
 ```
 
-This code defines a simple HTML page with a title that matches your project name.
+Notice the `{{ dkcutter.projectName }}` placeholders. DKCutter will replace these with the value of the `projectName` variable.
 
-### Step 5: Run DKCutter
+### Run DKCutter
 
-Navigate back to your terminal and run the following command to generate your website project:
+Your template is now ready! Let's test it. From inside the `dkcutter-website-simple` directory, run `dkcutter` pointing to the current directory (`.`):
 
 <PackageManagerTabs command="dkcutter@latest ." isExecuted />
 
-The `.` at the end of the command specifies the current directory where your DKCutter project resides.
-
-You can expect similar output:
+DKCutter will prompt you for the `projectName`. Let's enter a new name:
 
 ```bash
-npx dkcutter@latest .
-✔ Project name? … Test web
-✔ Project slug? … test-web
+✔ Project name? … My Awesome Site
+✔ Project slug? … my-awesome-site
 ✔ Project created!
 ```
 
-Resulting directory should be inside your work directory with a name that matches `projectSlug` you defined.
-Inside that directory there should be `index.html` with generated source:
+### Check the Output
 
-```html title="index.html"
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Test web</title>
-  </head>
-  <body>
-    <h1>Test web</h1>
-  </body>
-</html>
-```
+DKCutter will generate a new folder in your current directory named `my-awesome-site`. If you inspect the generated `index.html`, you'll see that the placeholders have been replaced with your project name.
+
+Congratulations! You've just created and used your first `dkcutter` template.
 
 </Steps>
 </div>
+
+## Alternative: Using `--init`
+
+Instead of creating a template entirely from scratch, you can use the `--init` flag to generate a boilerplate template structure. This is a great starting point.
+
+<PackageManagerTabs command="dkcutter@latest --init" isExecuted />

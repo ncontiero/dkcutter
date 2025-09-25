@@ -1,40 +1,99 @@
-# Quick start
+# Getting Started
 
+import { Steps } from "@/components/Steps";
 import { PackageManagerTabs } from "@/components/PackageManagerTabs";
 
-The recommended way to use DKCutter as a command line utility is to execute it with `pnpm dlx`, `npx`, `yarn dlx` or `bunx`.
+Welcome to DKCutter! This guide will walk you through creating your first project from a template.
 
-## With `--init` option
+The recommended way to use DKCutter is via `npx`, `pnpm dlx`, `yarn dlx`, or `bunx`, which ensures you are always using the latest version.
 
-To create a base DKCutter template project, run the following command:
+<div className="steps">
+<Steps>
+
+### 1. Creating a New Project
+
+Let's start by creating a new project. We'll use a simple, official template to get a feel for how `dkcutter` works.
+
+Open your terminal and run the following command:
+
+<PackageManagerTabs command="dkcutter@latest gh:ncontiero/dkcutter-nextjs" isExecuted />
+
+This command tells DKCutter to download the [`dkcutter-nextjs`](https://github.com/ncontiero/dkcutter-nextjs) template from GitHub and start the project creation process.
+
+### 2. Answering the Prompts
+
+DKCutter will now ask you a series of questions to configure your new project. These are defined in the template's `dkcutter.json` file. For this example, you can accept the default values by pressing `Enter` for each prompt.
+
+```bash
+✔ What is the project name? … Next.js App
+✔ What is the project slug? … next-js-app
+✔ What is the project description? … A Next.js app generated with dkcutter
+...
+```
+
+### 3. Exploring Your New Project
+
+Once you've answered all the prompts, DKCutter will create a new directory with the `project_slug` you provided.
+
+That's it! You've successfully created a new project using DKCutter. You can now `cd` into your new project directory and start working.
+
+</Steps>
+</div>
+
+## Template Abbreviations
+
+DKCutter understands abbreviations for popular Git providers. This makes it easier to use templates hosted on GitHub, GitLab, or Bitbucket.
+
+- `gh:` for GitHub (`gh:user/repo`)
+- `gl:` for GitLab (`gl:user/repo`)
+- `bb:` for Bitbucket (`bb:user/repo`)
+
+You can also use the full URL to any Git repository:
+
+<PackageManagerTabs command="dkcutter@latest https://github.com/ncontiero/dkcutter-nextjs.git" isExecuted />
+
+## Other Ways to Use DKCutter
+
+While using a GitHub template is common, you can also use templates from your local machine or even use DKCutter programmatically.
+
+### From a Local Template
+
+If you have a template on your local machine, you can point DKCutter to it. For example, if you have a template in a directory named `my-awesome-template` in your current folder:
+
+<PackageManagerTabs command="dkcutter@latest ./my-awesome-template" isExecuted />
+
+### Creating a Template with `--init`
+
+You can bootstrap a new, empty template to create your own. This is a great way to get started with making your own templates.
 
 <PackageManagerTabs command="dkcutter@latest --init" isExecuted />
 
 > [!INFO]
-> This feature is only available in the `4.6.0` version or later.
+> This feature is available in version `4.6.0` or later.
 
-## With a GitHub template
+### Programmatic Usage
 
-To create a project from the [dkcutter-nextjs](https://github.com/ncontiero/dkcutter-nextjs) repo template:
+You can also use DKCutter as a module in your own JavaScript/TypeScript projects.
 
-<PackageManagerTabs command="dkcutter@latest gh:ncontiero/dkcutter-nextjs" isExecuted />
+First, install it as a dependency:
 
-DKCutter knows abbreviations for GitHub (`gh`), Bitbucket (`bb`), and GitLab (`gl`) projects, but you can also give it the full URL to any repository:
+<PackageManagerTabs command="install dkcutter" />
 
-<PackageManagerTabs command="dkcutter@latest https://github.com/ncontiero/dkcutter-nextjs.git" isExecuted />
+Then, you can import and use the `dkcutter` function:
 
-## With a local template
-
-<PackageManagerTabs command="dkcutter@latest ./dkcutter-nextjs" isExecuted />
-
-## With JS/TS
-
-```js title="index.js"
+```javascript title="my-script.js"
 import { dkcutter } from "dkcutter";
 
-// Create project from the dkcutter-nextjs/ template
-await dkcutter({ template: "dkcutter-nextjs/" });
+async function main() {
+  try {
+    // Create a project from a GitHub template
+    await dkcutter({ template: "gh:ncontiero/dkcutter-nextjs" });
 
-// Create project from the gh:ncontiero/dkcutter-nextjs repo template
-await dkcutter({ template: "gh:ncontiero/dkcutter-nextjs" });
+    console.log("Project created successfully!");
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+}
+
+main();
 ```

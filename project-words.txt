@@ -11,3 +11,6 @@ Rspress
 postgres
 nothrow
 bitbucket
+mkdirs
+jinja
+postgresql

@@ -1,59 +1,49 @@
 # Introduction
 
-**DKCutter** is a powerful tool for developers who want to automate and standardize project creation. Using templates defined by directory structures, DKCutter allows for quick and interactive configuration that adapts each template to the user's specific needs. The tool is also compatible with hooks, allowing the execution of custom scripts before and after project generation.
+**DKCutter** is a command-line utility that creates projects from templates. It's a powerful tool for developers looking to automate and standardize project creation, saving time and effort.
 
-With integration to version control systems like GitHub, DKCutter facilitates collaboration and reuse of templates across different projects and teams. Its flexibility and customization through the dkcutter.json configuration file make DKCutter an ideal choice for developers seeking efficiency and standardization.
+Tired of manually setting up the same boilerplate for every new project? DKCutter solves this by using project templates. You can create your own or use templates shared by others.
 
-## Features
+## Key Features
 
-- **Templates and Directory Structures:** Use templates stored in the file system or in a VCS repository such as GitHub. DKCutter reads a configuration file and interactively asks if the user wants to modify the default settings.
+- **Template-based Scaffolding:** Generate projects from templates on your local filesystem or in a Git repository.
 
-- **Project Generation and Customization:** DKCutter generates an output directory structure that respects your preferences. This means you can start a new project quickly, saving valuable time and avoiding repetitive manual tasks.
+- **Interactive Configuration:** DKCutter interactively prompts you for project-specific values, using a `dkcutter.json` file for defaults.
 
-- **Code Hooks:** Implement JavaScript or TypeScript code to be executed before and after project generation. This allows the execution of custom tasks that fit your specific needs, ensuring that everything is configured exactly as you want.
+- **Customization with Hooks:** Execute your own JavaScript or TypeScript scripts before and after project generation for custom setup tasks.
 
-- **Flexibility and Scalability:** Simplify the creation of various custom projects, maintaining consistency and quality, regardless of the size and complexity of the project.
+- **Flexible & Scalable:** Easily create a variety of projects while maintaining consistency and quality, no matter the complexity.
 
-DKCutter is more than just a project generation tool; it is a practical and efficient assistant that helps developers transform reusable templates into unique and functional projects, ensuring accurate and high-quality configuration.
+## How It Works
 
-## Overview
+DKCutter works by taking a template and rendering it into a new project.
 
-DKCutter operates on templates provided as directory structures containing template files. These templates can reside on your local file system or within a VCS (Git) server like GitHub.
+### Template Structure (Input)
 
-DKCutter parses a configuration file and prompts you interactively to confirm or modify settings. Subsequently, it utilizes both the configuration and your input to generate a corresponding output directory structure.
-
-Optionally, the tool can execute user-provided code (JavaScript or TypeScript) before and after project generation using pre-generation and post-generation hooks, respectively.
-
-### Input
-
-Here's a simplified example of a fundamental dkcutter directory structure:
+A DKCutter template is a directory with a specific structure. Here’s a basic example:
 
 ```bash
-dkcutter-something/
-├── template/
-│   ├── {{dkcutter.projectSlug}}/  <----- Project template
-├── hooks/                         <----- Directory for pre- and post-generation hooks (optional)
-│   ├── preGenProject.js           <----- Pre-generation hook script (optional)
-│   └── postGenProject.js          <----- Post-generation hook script (optional)
-├── blah.txt                       <----- Non-templated files/directories
-└── dkcutter.json                  <----- Configuration file defining prompts & defaults
+my-awesome-template/
+├── dkcutter.json                  # Configuration file for variables and settings.
+├── hooks/                         # Optional directory for pre/post-generation scripts.
+│   ├── preGenProject.js           # Optional script run before generation.
+│   └── postGenProject.js          # Optional script run after generation.
+└── template/
+    └── {{dkcutter.projectSlug}}/  # The actual project template files go here.
 ```
 
-Essential components include:
+The two key components are:
 
-- A `dkcutter.json` file containing configuration details.
-- A `template/{{dkcutter.projectSlug}}/` directory, where `projectSlug` is defined in your `dkcutter.json`.
+1. `dkcutter.json`: A file that defines variables (like `projectSlug`) that you will be prompted for.
+2. `template/{{dkcutter.projectSlug}}/`: A directory containing the files for your new project. You can use variables from `dkcutter.json` in file and directory names, as well as in file content.
 
-Beyond that, you can have whatever files/directories you want. The `dkcutter.json` file adheres to a schema (refer to schema.json for details) to streamline configuration creation.
+### Generated Project (Output)
 
-### Output
-
-The generated project structure will appear within your current working directory:
+When you run `dkcutter` with a template, it will prompt you for the variables defined in `dkcutter.json`. After you provide them, it generates a new project in your current directory:
 
 ```bash
-my-something/    <-------- Value corresponding to what you enter at the
-│                         projectSlug prompt
-│
-└── ...         <-------- Files corresponding to those in your
-                          dkcutter's `{{ dkcutter.projectSlug }}/` dir
+my-new-project/    # The name you provided for `projectSlug`.
+└── ...            # Your new project's files, rendered from the template.
 ```
+
+This allows you to quickly bootstrap new projects with your desired structure and configuration.

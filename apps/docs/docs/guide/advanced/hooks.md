@@ -50,6 +50,22 @@ const projectName = "{{ dkcutter.projectName }}";
 console.log(`Generating project: ${projectName}`);
 ```
 
+### Using Libraries in Hooks
+
+You can use some libraries that are made available at hooks runtime, see which ones they are:
+
+* [colorette](https://github.com/jorgebucaran/colorette) - 🌈Easily set your terminal text color & styles;
+* [commander](https://github.com/tj/commander.js) - Node.js command-line interfaces made easy;
+* [cosmiconfig](https://github.com/cosmiconfig/cosmiconfig) - Find and load configuration from a package.json property, rc file, TypeScript module, and more!;
+* [execa](https://github.com/sindresorhus/execa) - Process execution for humans;
+* [fs-extra](https://github.com/jprichardson/node-fs-extra) - Node.js: extra methods for the fs object like copy(), remove(), mkdirs();
+* [nunjucks](https://github.com/mozilla/nunjucks) - A powerful templating engine with inheritance, asynchronous control, and more (jinja2 inspired);
+* [ora](https://github.com/sindresorhus/ora) - Elegant terminal spinner;
+* [prompts](https://github.com/terkelg/prompts) - ❯ Lightweight, beautiful and user-friendly interactive prompts;
+* [tsx](https://github.com/privatenumber/tsx) - ⚡️ TypeScript Execute | The easiest way to run TypeScript in Node.js;
+* [which](https://github.com/npm/node-which) - Like which(1) unix command. Find the first instance of an executable in the PATH.;
+* [zod](https://github.com/colinhacks/zod) - TypeScript-first schema validation with static type inference.
+
 ## Hook Examples
 
 ### Example: Validating Template Variables
