@@ -1,5 +1,15 @@
 # dkcutter
 
+## 5.0.3
+
+### Patch Changes
+
+- [`2ed374d`](https://github.com/ncontiero/dkcutter/commit/2ed374d088109a5b463598ad05be42f53cd2498b) - refactor: add robust template URL validation
+
+- [`b6c9cdf`](https://github.com/ncontiero/dkcutter/commit/b6c9cdf52ac2e88e64b458130dc46ac3eb95acce) - fix: ensure template validation only occurs for remote templates
+
+- [`0927486`](https://github.com/ncontiero/dkcutter/commit/09274860f032711d5144197357460ef42bc1d8c0) - refactor: improve config normalization, context handling, and validation logic
+
 ## 5.0.2
 
 ### Patch Changes
