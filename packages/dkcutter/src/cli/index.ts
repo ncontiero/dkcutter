@@ -15,7 +15,7 @@ process.on("unhandledRejection", handleError);
  *
  * @returns {Promise<void>} - A promise that resolves once the CLI execution is completed.
  */
-export async function cli(): Promise<void> {
+async function cli(): Promise<void> {
   try {
     process.argv.push("--dkcutter.isCli=true");
 

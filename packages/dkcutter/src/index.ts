@@ -1,12 +1,11 @@
 import { join, resolve } from "node:path";
 import fs from "fs-extra";
 import ora from "ora";
-import { z } from "zod";
 
 import { DKCUTTER_PATTERN, PKG_ROOT, PKG_TEMPLATE } from "@/consts";
 import { type ContextProps, getConfig } from "@/helpers/getConfig";
 import { getContext } from "@/helpers/getContext";
-import { getTemplate } from "@/helpers/getTemplate";
+import { getTemplate, templateIsValid } from "@/helpers/getTemplate";
 import { configureHooks, runHook } from "@/helpers/hooks";
 import { structureRender } from "@/helpers/structureRender";
 import { type DKCutter, optionsSchema } from "@/types";
@@ -53,28 +52,10 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
     templateFolder = isLocalProject ? join(template, "template") : PKG_TEMPLATE;
     const projectRoot = isLocalProject ? template : PKG_ROOT;
 
-    const templateSchema = z
-      .string()
-      .transform((val) =>
-        val.startsWith("gh:") ? `https://github.com/${val.slice(3)}` : val,
-      )
-      .transform((val) =>
-        val.startsWith("bb:") ? `https://bitbucket.org/${val.slice(3)}` : val,
-      )
-      .transform((val) =>
-        val.startsWith("gl:") ? `https://gitlab.com/${val.slice(3)}` : val,
-      )
-      .refine(
-        (val) =>
-          z.string().url().safeParse(val).success ||
-          val.startsWith("git") ||
-          val.startsWith("hg"),
-      )
-      .safeParse(template);
-
-    if (templateSchema.success && !isLocalProject) {
+    const templateData = templateIsValid(template);
+    if (!isLocalProject) {
       await getTemplate({
-        url: templateSchema.data,
+        url: templateData,
         outputDir: PKG_TEMPLATE,
         directoryOpt: options.directory,
         checkout: options.checkout,

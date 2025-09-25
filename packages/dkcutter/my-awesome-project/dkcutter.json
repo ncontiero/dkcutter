@@ -1,0 +1,15 @@
+{
+  "$schema": "https://dkcutter.ncontiero.com/schema.json",
+  "projectName": {
+    "value": "My Awesome Project",
+    "promptMessage": "What is the project name?"
+  },
+  "projectSlug": {
+    "value": "{{ projectName|lower|replace(' ', '-')|trim }}",
+    "promptMessage": "What is the project slug?",
+    "validateRegex": {
+      "regex": "^[a-z0-9@][a-z0-9-_]*$",
+      "message": "Invalid project slug. Please enter a valid value."
+    }
+  }
+}

@@ -13,6 +13,14 @@ export const CONFIG_FILE_NAME = "dkcutter.json";
 export const DKCUTTER_PATTERN = /\{\{(\s?dkcutter)\.(.*?)\}\}/;
 export const NUNJUCKS_PATTERN = /(\{\{|\{%)[\s\w"'(),.=|-]*(%\}|\}\})/;
 
+// Templates
+export const REPO_PREFIXES = {
+  "gh:": "https://github.com/",
+  "bb:": "https://bitbucket.org/",
+  "gl:": "https://gitlab.com/",
+};
+export const GIT_HG_URL_REGEX = /^(ssh:\/\/|git(@|:\/\/)|hg(::|@|:\/\/))/;
+
 // Hooks
 export const HOOKS_FOLDER_ID = generateRandomString(6);
 export const HOOKS_FOLDER = (dir: string = PKG_ROOT) => path.join(dir, "hooks");
