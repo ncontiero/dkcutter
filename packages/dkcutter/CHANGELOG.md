@@ -1,5 +1,11 @@
 # dkcutter
 
+## 5.0.5
+
+### Patch Changes
+
+- [`6cd74a5`](https://github.com/ncontiero/dkcutter/commit/6cd74a5b7ce0be546b1c205f27bde069ae73bc34) - fix: ensure private context keys are ordered last in final context
+
 ## 5.0.4
 
 ### Patch Changes
