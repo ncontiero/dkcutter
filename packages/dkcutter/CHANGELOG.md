@@ -1,5 +1,11 @@
 # dkcutter
 
+## 5.0.4
+
+### Patch Changes
+
+- [`5214cb2`](https://github.com/ncontiero/dkcutter/commit/5214cb25bb6f4285112a7a29917aaf5390041db7) - fix: remove lowercasing of multiselect choices in context schema
+
 ## 5.0.3
 
 ### Patch Changes
