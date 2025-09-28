@@ -249,7 +249,7 @@ export async function getContext({
   extraContext = {},
 }: GetContext): Promise<ContextProps> {
   const { internal, external } = createContext(config);
-  let context = { ...internal, ...external };
+  let context = { ...external, ...internal };
 
   const { fullContext, cliOptions } = handleContext(
     context,
@@ -272,7 +272,7 @@ export async function getContext({
       answers[key] = [defaultValue];
     }
   }
-  context = { ...internal, ...answers }; // Re-assign context with answers
+  context = { ...answers, ...internal }; // Re-assign context with answers
 
   return renderContext(context);
 }
