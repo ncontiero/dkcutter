@@ -57,7 +57,7 @@ function contextSchema(
   const choiceSchema = choices
     ? baseSchema.refine((val) => {
         if (val && choicesType === "multiselect") {
-          const selectedChoices = val.trim().toLowerCase().split(",");
+          const selectedChoices = val.trim().split(",");
           return selectedChoices.every(
             (choice) =>
               choice === "none" ||
