@@ -47,12 +47,12 @@
     "nunjucks": "^3.2.4",
     "ora": "^9.0.0",
     "prompts": "^2.4.2",
-    "tsx": "^4.20.5",
+    "tsx": "^4.20.6",
     "which": "^5.0.0",
     "zod": "^4.1.11"
   },
   "devDependencies": {
-    "@ncontiero/eslint-config": "6.1.0",
+    "@ncontiero/eslint-config": "6.2.0",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^24.5.2",
     "@types/nunjucks": "^3.2.6",
