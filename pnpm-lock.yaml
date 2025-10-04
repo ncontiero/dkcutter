@@ -58,7 +58,7 @@ importers:
         specifier: ^24.6.1
         version: 24.6.2
       '@types/react':
-        specifier: ^19.1.16
+        specifier: ^19.1.17
         version: 19.1.17
       eslint:
         specifier: ^9.36.0
