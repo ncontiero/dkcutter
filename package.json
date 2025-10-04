@@ -42,7 +42,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.2.3",
     "turbo": "^2.5.8",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   },
   "lint-staged": {
     "*": "pnpm check:spell && pnpm check:case && eslint . --fix"
