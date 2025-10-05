@@ -55,11 +55,11 @@ importers:
         specifier: ^1.45.6
         version: 1.45.6(rspress@1.45.6(webpack@5.97.1))
       '@types/node':
-        specifier: ^24.6.1
+        specifier: ^24.6.2
         version: 24.6.2
       '@types/react':
-        specifier: ^19.1.17
-        version: 19.1.17
+        specifier: ^19.2.0
+        version: 19.2.0
       eslint:
         specifier: ^9.36.0
         version: 9.36.0(jiti@2.6.0)
@@ -113,7 +113,7 @@ importers:
         specifier: ^11.0.4
         version: 11.0.4
       '@types/node':
-        specifier: ^24.6.1
+        specifier: ^24.6.2
         version: 24.6.2
       '@types/nunjucks':
         specifier: ^3.2.6
@@ -1137,8 +1137,8 @@ packages:
   '@types/prompts@2.4.9':
     resolution: {integrity: sha512-qTxFi6Buiu8+50/+3DGIWLHM6QuWsEKugJnnP6iv2Mc4ncxE4A/OJkjuVOA+5X0X1S/nq5VJRa8Lu+nwcvbrKA==}
 
-  '@types/react@19.1.17':
-    resolution: {integrity: sha512-Qec1E3mhALmaspIrhWt9jkQMNdw6bReVu64mjvhbhq2NFPftLPVr+l1SZgmw/66WwBNpDh7ao5AT6gF5v41PFA==}
+  '@types/react@19.2.0':
+    resolution: {integrity: sha512-1LOH8xovvsKsCBq1wnT4ntDUdCJKmnEakhsuoUSy6ExlHCkGP2hqnatagYTgFk6oeL0VU31u7SNjunPN+GchtA==}
 
   '@types/unist@2.0.11':
     resolution: {integrity: sha512-CmBKiL6NNo/OqgmMn95Fk9Whlp2mtvIv+KNpQKN2F4SjvrEesubTRWGYSg+BnWZOnlCaSTU1sMpsBOzgbYhnsA==}
@@ -5484,7 +5484,7 @@ snapshots:
   '@mdx-js/react@2.3.0(react@18.3.1)':
     dependencies:
       '@types/mdx': 2.0.13
-      '@types/react': 19.1.17
+      '@types/react': 19.2.0
       react: 18.3.1
 
   '@module-federation/error-codes@0.14.0': {}
@@ -6035,7 +6035,7 @@ snapshots:
       '@types/node': 24.6.2
       kleur: 3.0.3
 
-  '@types/react@19.1.17':
+  '@types/react@19.2.0':
     dependencies:
       csstype: 3.1.3
 
