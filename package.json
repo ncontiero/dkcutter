@@ -24,9 +24,7 @@
     "check:spell": "pnpm dlx cspell",
     "check:case": "pnpm dlx case-police **/*.{js,jsx,ts,tsx,md,mdx,json}",
     "check": "pnpm lint && pnpm typecheck && pnpm check:spell && pnpm check:case",
-    "changeset": "changeset",
-    "release": "changeset version",
-    "pub:release": "pnpm build --filter='!dkcutter-docs' && changeset publish",
+    "release": "pnpm build --filter='!dkcutter-docs' && changeset publish",
     "prepare": "husky",
     "commitlint": "commitlint --edit",
     "pre-commit": "lint-staged"

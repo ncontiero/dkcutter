@@ -10,6 +10,12 @@ concurrency:
 
 jobs:
   release:
+    permissions:
+      contents: write # to create release (changesets/action)
+      pull-requests: write # to create pull request (changesets/action)
+      id-token: write # required for provenance and oidc publish
+
+    if: github.repository == 'ncontiero/dkcutter'
     name: Release
     runs-on: ubuntu-latest
     env:
@@ -18,6 +24,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -26,6 +34,9 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version-file: .nvmrc
+
+      - name: Update npm
+        run: npm install -g npm@latest
 
       - name: Install dependencies
         run: pnpm install
@@ -37,10 +48,9 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          version: pnpm release
           commit: "feat(release): version packages"
           title: "feat(release): version packages"
-          publish: pnpm pub:release
+          publish: pnpm release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
