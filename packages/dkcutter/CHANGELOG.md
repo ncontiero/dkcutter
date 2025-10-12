@@ -1,5 +1,11 @@
 # dkcutter
 
+## 5.0.6
+
+### Patch Changes
+
+- [`69e13a1`](https://github.com/ncontiero/dkcutter/commit/69e13a124bb32c6f9ad2fcf8deb0385d4ff3984e) - ci(release): use OpenID Connect (OIDC) for Trusted publishing
+
 ## 5.0.5
 
 ### Patch Changes
