@@ -33,7 +33,7 @@
     "@changesets/cli": "^2.29.7",
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
-    "@ncontiero/changelog-github": "2.1.1",
+    "@ncontiero/changelog-github": "2.1.2",
     "@ncontiero/eslint-config": "6.2.1",
     "cspell-ban-words": "^0.0.4",
     "eslint": "^9.37.0",

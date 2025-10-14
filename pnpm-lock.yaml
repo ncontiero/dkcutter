@@ -18,8 +18,8 @@ importers:
         specifier: ^20.0.0
         version: 20.0.0
       '@ncontiero/changelog-github':
-        specifier: 2.1.1
-        version: 2.1.1
+        specifier: 2.1.2
+        version: 2.1.2
       '@ncontiero/eslint-config':
         specifier: 6.2.1
         version: 6.2.1(@types/eslint@9.6.1)(@typescript-eslint/utils@8.46.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@9.37.0(jiti@2.6.1))(tailwindcss@3.4.17)(typescript@5.9.3)
@@ -652,8 +652,8 @@ packages:
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
 
-  '@ncontiero/changelog-github@2.1.1':
-    resolution: {integrity: sha512-fRTiWFT6oKtPz0REYJc3GfP6KV0SUHGCDCft3gQ1B5idYZ6dKjMWCqXHlz+X9QK00skYKeq2tGkV991Ol6aPcA==}
+  '@ncontiero/changelog-github@2.1.2':
+    resolution: {integrity: sha512-8rDTtx/NuhvxHFEWvmAv8OH9iXdMAg7KknegLrTbaipNbAOIXDWqdu8RO863qtBz0C3ZnRtp+sVK8zOyMTtUCw==}
 
   '@ncontiero/eslint-config@6.2.1':
     resolution: {integrity: sha512-QA2lYRgDG7mVPagsqj39MwR9jXQQvHVw3HfVNcFZ9pQGE5NjnupRjxMmm3Dhu3T8xmdk9vRBzWFtmdGUTmiFOw==}
@@ -5501,7 +5501,7 @@ snapshots:
       '@tybys/wasm-util': 0.10.1
     optional: true
 
-  '@ncontiero/changelog-github@2.1.1':
+  '@ncontiero/changelog-github@2.1.2':
     dependencies:
       '@changesets/get-github-info': 0.6.0
       dotenv: 17.2.3
