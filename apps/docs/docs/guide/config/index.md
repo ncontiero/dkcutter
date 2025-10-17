@@ -87,11 +87,17 @@ Like other variables, you can use the chosen value to conditionally generate fil
 
 ```markdown
 {% if dkcutter.license == "MIT" %}
+
 # MIT license content
+
 {% elif dkcutter.license == "BSD-3" %}
+
 # BSD-3 license content
+
 {% else %}
+
 # GNU GPL v3.0 license content
+
 {% endif %}
 ```
 

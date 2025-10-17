@@ -8,7 +8,7 @@ While you can define variables with just a value, the object format offers more 
 
 ## Templates in Configuration Values
 
-First, realize that DKCutter provides powerful templating capabilities within the *values* (not the keys) of your `dkcutter.json` configuration file. To understand more, see the [Templates in Context Values](../advanced/templates-in-context.md) section.
+First, realize that DKCutter provides powerful templating capabilities within the _values_ (not the keys) of your `dkcutter.json` configuration file. To understand more, see the [Templates in Context Values](../advanced/templates-in-context.md) section.
 
 ## Object Properties
 
@@ -47,7 +47,7 @@ You can also use a global variable provided by DKCutter, `colors`:
   "postgresqlVersion": {
     "value": ["17", "16", "15", "14"],
     "promptMessage": "What {{ colors.blue('PostgreSQL') }} version would you like to use?"
-  },
+  }
 }
 ```
 
@@ -155,7 +155,7 @@ Look what the output would be:
 Look what the output would be:
 
 ```bash
-? Select the features you want to include: › - Space to select. Return to submit 
+? Select the features you want to include: › - Space to select. Return to submit
 ◉   none
 ◯   linter
 ◯   formatter

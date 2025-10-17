@@ -1,6 +1,6 @@
 # Private Variables
 
-DKCutter supports the concept of *private variables* within your `dkcutter.json` configuration. These variables are intended for internal use within your templates and hooks and are not exposed to the user as prompts during project generation.
+DKCutter supports the concept of _private variables_ within your `dkcutter.json` configuration. These variables are intended for internal use within your templates and hooks and are not exposed to the user as prompts during project generation.
 
 ## Defining Private Variables
 
@@ -23,7 +23,7 @@ When DKCutter processes this configuration:
 
 - The user will be prompted for the value of `projectName`.
 - The `_privateSlug` variable will be automatically calculated based on the provided `projectName` using the Nunjucks template `{{ projectName|lower|replace(' ', '-') }}`.
-- The user will *not* be prompted to provide a value for `_privateSlug`.
+- The user will _not_ be prompted to provide a value for `_privateSlug`.
 
 ### Resulting Context
 
