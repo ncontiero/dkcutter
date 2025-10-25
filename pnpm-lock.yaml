@@ -33,7 +33,7 @@ importers:
         specifier: ^9.1.7
         version: 9.1.7
       lint-staged:
-        specifier: ^16.2.5
+        specifier: ^16.2.6
         version: 16.2.6
       turbo:
         specifier: ^2.5.8
