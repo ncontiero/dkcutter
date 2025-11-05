@@ -16,7 +16,7 @@
     "rspress": "1.45.8"
   },
   "devDependencies": {
-    "@ncontiero/eslint-config": "^6.4.0",
+    "@ncontiero/eslint-config": "^6.4.1",
     "@rspress/plugin-shiki": "^1.45.8",
     "@types/node": "^24.10.0",
     "@types/react": "^19.2.2",
