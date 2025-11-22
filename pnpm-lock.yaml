@@ -21,8 +21,8 @@ importers:
         specifier: 2.1.2
         version: 2.1.2
       '@ncontiero/eslint-config':
-        specifier: 6.4.1
-        version: 6.4.1(@types/eslint@9.6.1)(@typescript-eslint/utils@8.46.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(jiti@2.6.1)(tailwindcss@4.1.17)(typescript@5.9.3)
+        specifier: 6.5.0
+        version: 6.5.0(@types/eslint@9.6.1)(@typescript-eslint/utils@8.46.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(jiti@2.6.1)(tailwindcss@4.1.17)(typescript@5.9.3)
       cspell-ban-words:
         specifier: ^0.0.4
         version: 0.0.4
@@ -49,8 +49,8 @@ importers:
         version: 1.46.1(webpack@5.102.1)
     devDependencies:
       '@ncontiero/eslint-config':
-        specifier: ^6.4.1
-        version: 6.4.1(@types/eslint@9.6.1)(@typescript-eslint/utils@8.46.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(jiti@2.6.1)(tailwindcss@4.1.17)(typescript@5.9.3)
+        specifier: ^6.5.0
+        version: 6.5.0(@types/eslint@9.6.1)(@typescript-eslint/utils@8.46.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(jiti@2.6.1)(tailwindcss@4.1.17)(typescript@5.9.3)
       '@rspress/plugin-shiki':
         specifier: ^1.46.1
         version: 1.46.1(rspress@1.46.1(webpack@5.102.1))
@@ -107,8 +107,8 @@ importers:
         version: 4.1.12
     devDependencies:
       '@ncontiero/eslint-config':
-        specifier: 6.4.1
-        version: 6.4.1(@types/eslint@9.6.1)(@typescript-eslint/utils@8.46.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(jiti@2.6.1)(tailwindcss@4.1.17)(typescript@5.9.3)
+        specifier: 6.5.0
+        version: 6.5.0(@types/eslint@9.6.1)(@typescript-eslint/utils@8.46.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(jiti@2.6.1)(tailwindcss@4.1.17)(typescript@5.9.3)
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -742,23 +742,23 @@ packages:
     resolution: {integrity: sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@html-eslint/eslint-plugin@0.47.1':
-    resolution: {integrity: sha512-q5kkM2SxI2GGhHeWaMTw3XwaZdeU7D3s8FWPVfqnsgdQwHemCjoPTx35svmVfz4bJRd2fVoHAMQcEJmAbcFJlw==}
+  '@html-eslint/eslint-plugin@0.48.0':
+    resolution: {integrity: sha512-gZvPZu8RwHGCkLD3FItf3vpZsvcCZSxTNwshsWvraixSqOir/y2319v18tNOfRsCs3JCExhLXziUhkvoF0llhA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^8.0.0 || ^9.0.0
 
-  '@html-eslint/parser@0.47.1':
-    resolution: {integrity: sha512-fs/Wb1j0YtzOvavAuOh9BR6haNwTVGrizEVzALLfnmp82b47NnZwWUPd7cDPS04inRW01VcMjUsUJJa9jz9mOQ==}
+  '@html-eslint/parser@0.48.0':
+    resolution: {integrity: sha512-IO8J3R1+0+QuYUNh0IT1C4KZIA0W8IbXS5/tvs0e+GvYjnTRJ0eNNJN5CwqRlLYLmsF0rDtrxBteBZXULfk7Zg==}
 
-  '@html-eslint/template-parser@0.47.1':
-    resolution: {integrity: sha512-kMqBF58ls/pkBn4R/1ATybCr0BR3lD1Sg5YYJMYAJegMITGM4Zmo0O9jMAO/IyyU6ol2766IqhJuX2A5KfOpeg==}
+  '@html-eslint/template-parser@0.48.0':
+    resolution: {integrity: sha512-E5L8K7nVwYtNTZtuSF0uVEstYWzd056PsUQQgDPa00VhGVPkd4gOYQbRboTfeO/bSphvgf7FcTLl97wHlLZARQ==}
 
-  '@html-eslint/template-syntax-parser@0.47.1':
-    resolution: {integrity: sha512-XQvJv1Z0L8427qGAEC5EqZz/PsWo2g+YN7ipFJlF7LWOd52ubp4j1itUpn8moSJhtcBODaNqdeouL8NEwz/3vw==}
+  '@html-eslint/template-syntax-parser@0.48.0':
+    resolution: {integrity: sha512-hkyw2pguiXVvg4MuuRnwqFtgmwWUuOwkgnWaSMP37OJLzjsH5Qhhv3fBD1hc1sYgIuF8j+S8vDMV6FFX7WDVGg==}
 
-  '@html-eslint/types@0.47.1':
-    resolution: {integrity: sha512-4k2G+OcAU/S9sAjvghCgoI4cd+J45Xjzn9zP/TfuydTTR3LtGn7P8AT/cfAmrU73lMBjuJuRsHaR4m0+Xrb60A==}
+  '@html-eslint/types@0.48.0':
+    resolution: {integrity: sha512-jfUt1qGwGEsWuwYlg3TG0ZE6vm9rxRUuA+ke0p5lVaEEAe4UO57g9/lpo0+GB/57Qiai4Se3qZ02Pa/P4JrWuA==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -895,8 +895,8 @@ packages:
   '@ncontiero/changelog-github@2.1.2':
     resolution: {integrity: sha512-8rDTtx/NuhvxHFEWvmAv8OH9iXdMAg7KknegLrTbaipNbAOIXDWqdu8RO863qtBz0C3ZnRtp+sVK8zOyMTtUCw==}
 
-  '@ncontiero/eslint-config@6.4.1':
-    resolution: {integrity: sha512-7Uqo/SqF63Xclvijg1wGBn7+omHweTFlzGFrBzFDOifXL9B37aqeDnslqAdIjCYu1Vr3dqLbJ6wUXn0ffG2kwQ==}
+  '@ncontiero/eslint-config@6.5.0':
+    resolution: {integrity: sha512-+f2ZOYO7pev2KsZr2s4chOVtPOtlp5h/0FxwqpAH8nBf/JmvBGeTWmnpctOhPacUKVRKfY1ve55x7g+ZvnMaXA==}
     engines: {node: '>=20.11.0'}
     peerDependencies:
       '@tanstack/eslint-plugin-query': '>=5.50.0'
@@ -905,8 +905,8 @@ packages:
       '@tanstack/eslint-plugin-query':
         optional: true
 
-  '@next/eslint-plugin-next@16.0.1':
-    resolution: {integrity: sha512-g4Cqmv/gyFEXNeVB2HkqDlYKfy+YrlM2k8AVIO/YQVEPfhVruH1VA99uT1zELLnPLIeOnx8IZ6Ddso0asfTIdw==}
+  '@next/eslint-plugin-next@16.0.3':
+    resolution: {integrity: sha512-6sPWmZetzFWMsz7Dhuxsdmbu3fK+/AxKRtj7OB0/3OZAI2MHB/v2FeYh271LZ9abvnM1WIwWc/5umYjx0jo5sQ==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -2343,8 +2343,8 @@ packages:
       eslint-import-resolver-node:
         optional: true
 
-  eslint-plugin-jsdoc@61.1.12:
-    resolution: {integrity: sha512-CGJTnltz7ovwOW33xYhvA4fMuriPZpR5OnJf09SV28iU2IUpJwMd6P7zvUK8Sl56u5YzO+1F9m46wpSs2dufEw==}
+  eslint-plugin-jsdoc@61.2.1:
+    resolution: {integrity: sha512-Htacti3dbkNm4rlp/Bk9lqhv+gi6US9jyN22yaJ42G6wbteiTbNLChQwi25jr/BN+NOzDWhZHvCDdrhX0F8dXQ==}
     engines: {node: '>=20.11.0'}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
@@ -5700,43 +5700,43 @@ snapshots:
       '@eslint/core': 0.17.0
       levn: 0.4.1
 
-  '@html-eslint/eslint-plugin@0.47.1(eslint@9.39.1(jiti@2.6.1))(jiti@2.6.1)':
+  '@html-eslint/eslint-plugin@0.48.0(eslint@9.39.1(jiti@2.6.1))(jiti@2.6.1)':
     dependencies:
       '@eslint/plugin-kit': 0.3.5
-      '@html-eslint/parser': 0.47.1(jiti@2.6.1)
-      '@html-eslint/template-parser': 0.47.1(jiti@2.6.1)
-      '@html-eslint/template-syntax-parser': 0.47.1(jiti@2.6.1)
-      '@html-eslint/types': 0.47.1(jiti@2.6.1)
+      '@html-eslint/parser': 0.48.0(jiti@2.6.1)
+      '@html-eslint/template-parser': 0.48.0(jiti@2.6.1)
+      '@html-eslint/template-syntax-parser': 0.48.0(jiti@2.6.1)
+      '@html-eslint/types': 0.48.0(jiti@2.6.1)
       eslint: 9.39.1(jiti@2.6.1)
     transitivePeerDependencies:
       - jiti
       - supports-color
 
-  '@html-eslint/parser@0.47.1(jiti@2.6.1)':
+  '@html-eslint/parser@0.48.0(jiti@2.6.1)':
     dependencies:
-      '@html-eslint/template-syntax-parser': 0.47.1(jiti@2.6.1)
-      '@html-eslint/types': 0.47.1(jiti@2.6.1)
+      '@html-eslint/template-syntax-parser': 0.48.0(jiti@2.6.1)
+      '@html-eslint/types': 0.48.0(jiti@2.6.1)
       es-html-parser: 0.3.1
     transitivePeerDependencies:
       - jiti
       - supports-color
 
-  '@html-eslint/template-parser@0.47.1(jiti@2.6.1)':
+  '@html-eslint/template-parser@0.48.0(jiti@2.6.1)':
     dependencies:
-      '@html-eslint/types': 0.47.1(jiti@2.6.1)
+      '@html-eslint/types': 0.48.0(jiti@2.6.1)
       es-html-parser: 0.3.1
     transitivePeerDependencies:
       - jiti
       - supports-color
 
-  '@html-eslint/template-syntax-parser@0.47.1(jiti@2.6.1)':
+  '@html-eslint/template-syntax-parser@0.48.0(jiti@2.6.1)':
     dependencies:
-      '@html-eslint/types': 0.47.1(jiti@2.6.1)
+      '@html-eslint/types': 0.48.0(jiti@2.6.1)
     transitivePeerDependencies:
       - jiti
       - supports-color
 
-  '@html-eslint/types@0.47.1(jiti@2.6.1)':
+  '@html-eslint/types@0.48.0(jiti@2.6.1)':
     dependencies:
       '@types/estree': 1.0.8
       es-html-parser: 0.3.1
@@ -5929,13 +5929,13 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@ncontiero/eslint-config@6.4.1(@types/eslint@9.6.1)(@typescript-eslint/utils@8.46.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(jiti@2.6.1)(tailwindcss@4.1.17)(typescript@5.9.3)':
+  '@ncontiero/eslint-config@6.5.0(@types/eslint@9.6.1)(@typescript-eslint/utils@8.46.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(jiti@2.6.1)(tailwindcss@4.1.17)(typescript@5.9.3)':
     dependencies:
       '@eslint-community/eslint-plugin-eslint-comments': 4.5.0(eslint@9.39.1(jiti@2.6.1))
       '@eslint/markdown': 7.5.1
-      '@html-eslint/eslint-plugin': 0.47.1(eslint@9.39.1(jiti@2.6.1))(jiti@2.6.1)
-      '@html-eslint/parser': 0.47.1(jiti@2.6.1)
-      '@next/eslint-plugin-next': 16.0.1
+      '@html-eslint/eslint-plugin': 0.48.0(eslint@9.39.1(jiti@2.6.1))(jiti@2.6.1)
+      '@html-eslint/parser': 0.48.0(jiti@2.6.1)
+      '@next/eslint-plugin-next': 16.0.3
       '@typescript-eslint/eslint-plugin': 8.46.4(@typescript-eslint/parser@8.46.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       '@typescript-eslint/parser': 8.46.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       eslint: 9.39.1(jiti@2.6.1)
@@ -5946,7 +5946,7 @@ snapshots:
       eslint-plugin-command: 3.3.1(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-de-morgan: 2.0.0(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-import-x: 4.16.1(@typescript-eslint/utils@8.46.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))
-      eslint-plugin-jsdoc: 61.1.12(eslint@9.39.1(jiti@2.6.1))
+      eslint-plugin-jsdoc: 61.2.1(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-jsonc: 2.21.0(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-n: 17.23.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
@@ -5978,7 +5978,7 @@ snapshots:
       - tailwindcss
       - typescript
 
-  '@next/eslint-plugin-next@16.0.1':
+  '@next/eslint-plugin-next@16.0.3':
     dependencies:
       fast-glob: 3.3.1
 
@@ -7491,7 +7491,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-jsdoc@61.1.12(eslint@9.39.1(jiti@2.6.1)):
+  eslint-plugin-jsdoc@61.2.1(eslint@9.39.1(jiti@2.6.1)):
     dependencies:
       '@es-joy/jsdoccomment': 0.76.0
       '@es-joy/resolve.exports': 1.2.0
