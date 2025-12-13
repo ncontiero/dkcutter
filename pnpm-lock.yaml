@@ -55,7 +55,7 @@ importers:
         specifier: ^1.47.0
         version: 1.47.0(rspress@1.47.0(webpack@5.102.1))
       '@types/node':
-        specifier: ^24.10.2
+        specifier: ^24.10.3
         version: 24.10.3
       '@types/react':
         specifier: ^19.2.7
@@ -113,7 +113,7 @@ importers:
         specifier: ^11.0.4
         version: 11.0.4
       '@types/node':
-        specifier: ^24.10.2
+        specifier: ^24.10.3
         version: 24.10.3
       '@types/nunjucks':
         specifier: ^3.2.6
