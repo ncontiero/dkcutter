@@ -34,7 +34,7 @@
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
     "@ncontiero/changelog-github": "2.1.2",
-    "@ncontiero/eslint-config": "6.5.1",
+    "@ncontiero/eslint-config": "6.5.2",
     "cspell-ban-words": "^0.0.4",
     "eslint": "^9.39.2",
     "husky": "^9.1.7",
