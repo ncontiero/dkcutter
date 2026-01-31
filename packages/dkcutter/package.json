@@ -52,7 +52,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@ncontiero/eslint-config": "7.0.0",
+    "@ncontiero/eslint-config": "7.0.1",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^24.10.9",
     "@types/nunjucks": "^3.2.6",
