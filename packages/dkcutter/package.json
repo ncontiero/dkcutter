@@ -54,7 +54,7 @@
   "devDependencies": {
     "@ncontiero/eslint-config": "7.0.1",
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^24.10.11",
+    "@types/node": "^24.10.12",
     "@types/nunjucks": "^3.2.6",
     "@types/prompts": "^2.4.9",
     "@types/which": "^3.0.4",
