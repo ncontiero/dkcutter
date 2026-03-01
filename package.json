@@ -2,7 +2,7 @@
   "name": "dkcutter-repo",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@10.30.2",
+  "packageManager": "pnpm@10.30.3",
   "description": "A command-line utility that creates projects from templates.",
   "author": {
     "name": "Nicolas Contiero",
@@ -31,15 +31,15 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
-    "@commitlint/cli": "^20.4.1",
-    "@commitlint/config-conventional": "^20.4.1",
+    "@commitlint/cli": "^20.4.2",
+    "@commitlint/config-conventional": "^20.4.2",
     "@ncontiero/changelog-github": "2.1.2",
-    "@ncontiero/eslint-config": "7.0.1",
+    "@ncontiero/eslint-config": "7.1.0",
     "cspell-ban-words": "^0.0.4",
     "eslint": "^9.39.3",
     "husky": "^9.1.7",
-    "lint-staged": "^16.2.7",
-    "turbo": "^2.8.9",
+    "lint-staged": "^16.3.0",
+    "turbo": "^2.8.12",
     "typescript": "^5.9.3"
   },
   "lint-staged": {
