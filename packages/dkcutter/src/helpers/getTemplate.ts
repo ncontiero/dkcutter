@@ -3,7 +3,6 @@ import { execa } from "execa";
 import fs from "fs-extra";
 import ora from "ora";
 import which from "which";
-
 import z from "zod";
 import {
   CONFIG_FILE_NAME,
