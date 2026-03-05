@@ -38,7 +38,7 @@
     "cspell-ban-words": "^0.0.4",
     "eslint": "^9.39.3",
     "husky": "^9.1.7",
-    "lint-staged": "^16.3.1",
+    "lint-staged": "^16.3.2",
     "turbo": "^2.8.12",
     "typescript": "^5.9.3"
   },
