@@ -30,7 +30,7 @@
     "pre-commit": "lint-staged"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.8",
+    "@changesets/cli": "^2.30.0",
     "@commitlint/cli": "^20.4.3",
     "@commitlint/config-conventional": "^20.4.3",
     "@ncontiero/changelog-github": "2.1.2",
