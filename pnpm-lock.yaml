@@ -33,7 +33,7 @@ importers:
         specifier: ^9.1.7
         version: 9.1.7
       lint-staged:
-        specifier: ^16.3.3
+        specifier: ^16.4.0
         version: 16.4.0
       turbo:
         specifier: ^2.8.16
@@ -5320,7 +5320,7 @@ snapshots:
       '@commitlint/types': 20.4.4
       git-raw-commits: 5.0.1(conventional-commits-parser@6.3.0)
       minimist: 1.2.8
-      tinyexec: 1.0.2
+      tinyexec: 1.0.4
     transitivePeerDependencies:
       - conventional-commits-filter
       - conventional-commits-parser
