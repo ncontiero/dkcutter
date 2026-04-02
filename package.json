@@ -39,7 +39,7 @@
     "eslint": "^9.39.4",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
-    "turbo": "^2.8.21",
+    "turbo": "^2.9.2",
     "typescript": "^5.9.3"
   },
   "lint-staged": {
