@@ -61,7 +61,7 @@
     "eslint": "^9.39.4",
     "tsup": "^8.5.1",
     "type-fest": "^5.5.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   },
   "engines": {
     "node": ">=20"
