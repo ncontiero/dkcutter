@@ -17,11 +17,14 @@
   "bugs": {
     "url": "https://github.com/ncontiero/dkcutter/issues"
   },
-  "exports": "./dist/index.js",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./cli": "./dist/cli.mjs",
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/index.d.mts",
   "bin": {
-    "dkcutter": "./dist/cli.js"
+    "dkcutter": "./dist/cli.mjs"
   },
   "files": [
     "dist"
@@ -30,9 +33,9 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsup",
-    "start": "node dist/cli.js",
-    "dev": "tsup --watch",
+    "build": "tsdown",
+    "start": "node dist/cli.mjs",
+    "dev": "tsdown --watch",
     "clean": "git clean -xdf dist .turbo node_modules",
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
@@ -59,7 +62,7 @@
     "@types/prompts": "^2.4.9",
     "@types/which": "^3.0.4",
     "eslint": "^9.39.4",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.21.9",
     "type-fest": "^5.5.0",
     "typescript": "^5.9.3"
   },
