@@ -30,17 +30,17 @@
     "pre-commit": "lint-staged"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.30.0",
+    "@changesets/cli": "^2.31.0",
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
     "@ncontiero/changelog-github": "2.1.2",
-    "@ncontiero/eslint-config": "7.1.0",
+    "@ncontiero/eslint-config": "7.2.0",
     "cspell-ban-words": "^0.0.4",
-    "eslint": "^9.39.4",
+    "eslint": "^10.2.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "turbo": "^2.9.6",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   },
   "lint-staged": {
     "*": "pnpm check:spell && pnpm check:case && eslint . --fix"

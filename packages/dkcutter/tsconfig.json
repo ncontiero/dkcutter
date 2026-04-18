@@ -5,9 +5,8 @@
     "composite": false,
     "target": "ESNext",
     "lib": ["ESNext"],
-    "baseUrl": ".",
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "paths": {
       "@/*": ["./src/*"]
     },
