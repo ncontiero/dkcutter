@@ -1,5 +1,11 @@
 # dkcutter
 
+## 5.0.7
+
+### Patch Changes
+
+- [`35eb096`](https://github.com/ncontiero/dkcutter/commit/35eb096862c5748b42e5e498ee54d28906222d61) - chore: switch build tooling to tsdown and update module exports
+
 ## 5.0.6
 
 ### Patch Changes
