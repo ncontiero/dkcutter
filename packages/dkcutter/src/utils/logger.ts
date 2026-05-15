@@ -12,11 +12,11 @@ const colorFunctions = {
   warn: yellow,
 };
 
-export const colorize = (type: LOG_TYPE, data: any) => {
-  return colorFunctions[type] ? colorFunctions[type](data) : data;
+export const colorize = (type: LOG_TYPE, data: string | number) => {
+  return colorFunctions[type]?.(data) ?? data;
 };
 
-export function createLogger(type: LOG_TYPE, ...data: unknown[]) {
+export function createLogger(type: LOG_TYPE, ...data: (string | number)[]) {
   const args = data.map((item) => colorize(type, item));
   const messageType = type === "error" ? "error" : "log";
   const formattedMessage = util.format(...args);
@@ -37,7 +37,7 @@ export function createLogger(type: LOG_TYPE, ...data: unknown[]) {
 }
 
 export function createLoggerMethod(type: LOG_TYPE) {
-  return (...args: unknown[]) => createLogger(type, ...args);
+  return (...args: (string | number)[]) => createLogger(type, ...args);
 }
 
 export const logger = {

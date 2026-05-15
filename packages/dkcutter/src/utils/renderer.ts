@@ -17,7 +17,7 @@ export const renderer = nunjucks.configure({ autoescape: true });
  * @returns {DKCutterContext} - The updated DKCutter context.
  */
 export function setRendererContext(ctx: ContextProps): DKCutterContext {
-  const dkcutter = renderer.getGlobal("dkcutter");
+  const dkcutter = renderer.getGlobal("dkcutter") as ContextProps;
   const newCtx = { ...dkcutter, ...ctx };
   renderer.addGlobal("dkcutter", newCtx);
   return { dkcutter: newCtx };
@@ -45,8 +45,8 @@ function updateContext(
       `${msgError} field must be a string, got ${typeof field}`,
     );
   }
-  const dkcutter = renderer.getGlobal("dkcutter");
-  if (!dkcutter[field]) {
+  const dkcutter = renderer.getGlobal("dkcutter") as ContextProps;
+  if (dkcutter[field] == null) {
     throw new Error(
       `${msgError} field "${field}" does not exist in the context`,
     );
@@ -77,7 +77,7 @@ function addValueToContext(
       `${msgError} field must be a string, got ${typeof field}`,
     );
   }
-  const dkcutter = renderer.getGlobal("dkcutter");
+  const dkcutter = renderer.getGlobal("dkcutter") as ContextProps;
   dkcutter[field] = renderer.renderString(value, dkcutter);
   if (returnV) return dkcutter[field];
 }

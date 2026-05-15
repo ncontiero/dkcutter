@@ -117,9 +117,12 @@ export async function getTemplate({
   } catch (error) {
     const msg = "Failed to download template.";
     if (error instanceof Error) {
-      throw new TypeError(`${msg}\n${error.message}`);
+      throw new Error(`${msg}\n${error.message}`);
     } else {
-      throw new TypeError(`${msg}\nUnknown error: ${error}\n`);
+      console.error(error);
+      throw new Error(
+        `${msg}\nUnknown error. Check the console for more details.`,
+      );
     }
   }
 }

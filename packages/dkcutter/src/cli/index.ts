@@ -1,3 +1,4 @@
+import type { CLIOptions } from "@/types";
 import { handleError } from "@/utils/handleError";
 import { dkcutter } from "..";
 import { program } from "./program";
@@ -19,7 +20,7 @@ async function cli(): Promise<void> {
   try {
     process.argv.push("--dkcutter.isCli=true");
 
-    const options = program.opts();
+    const options = program.opts<CLIOptions>();
     const template = program.args[0];
 
     if (options.init) {

@@ -37,7 +37,7 @@ function normalizeConfigObject(
 export function createPromptObject([key, objValues]: [
   string,
   ConfigObjectProps,
-]): prompts.PromptObject<keyof ConfigProps> {
+]): prompts.PromptObject {
   if (key.startsWith("_")) {
     return { type: null, name: key };
   }
@@ -141,7 +141,7 @@ export async function createPromptObjects(
   extraContext: ContextProps,
 ): Promise<prompts.Answers<string>> {
   prompts.override(extraContext);
-  return await prompts(
+  return prompts(
     Object.entries(config).map((c) => createPromptObject(c)),
     {
       onCancel: () => {

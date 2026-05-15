@@ -60,6 +60,16 @@ export interface Options extends OptionsSchema {
   keepProjectOnFailure: boolean;
 }
 
+export interface CLIOptions extends Options {
+  /**
+   * Initialize a base DKCutter template.
+   *
+   * @See https://dkcutter.ncontiero.com/guide/advanced/cli#--init
+   * @default false
+   */
+  init: boolean;
+}
+
 export interface DKCutter {
   /**
    * The template to be used.

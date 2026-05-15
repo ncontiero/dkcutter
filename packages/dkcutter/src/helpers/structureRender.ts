@@ -76,5 +76,5 @@ export async function structureRender(props: RenderOptions) {
     }
   };
 
-  await Promise.all(files.map((file) => processFile(file)));
+  await Promise.all(files.map(async (file) => processFile(file)));
 }
