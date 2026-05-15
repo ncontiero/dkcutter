@@ -1,6 +1,5 @@
 import { join, resolve } from "node:path";
 import { execa } from "execa";
-import fs from "fs-extra";
 import ora from "ora";
 import which from "which";
 import z from "zod";
@@ -11,6 +10,7 @@ import {
   PKG_ROOT,
   REPO_PREFIXES,
 } from "@/consts";
+import { copy, pathExists, remove } from "@/utils/files";
 
 type RepoType = "hg" | "git";
 interface GetTemplateProps {
@@ -95,23 +95,23 @@ export async function getTemplate({
       });
     }
 
-    if (!(await fs.exists(resolvedDirectoryOpt))) {
+    if (!(await pathExists(resolvedDirectoryOpt))) {
       throw new Error(`Directory ${directoryOpt} not found.`);
     }
-    if (!(await fs.exists(templateOutput))) {
+    if (!(await pathExists(templateOutput))) {
       throw new Error(`Template folder not found.`);
     }
-    if (!(await fs.exists(templateConfig))) {
+    if (!(await pathExists(templateConfig))) {
       throw new Error(`Config ${CONFIG_FILE_NAME} file not found.`);
     }
 
-    if (await fs.exists(hooksFolder)) {
-      await fs.copy(hooksFolder, HOOKS_FOLDER());
+    if (await pathExists(hooksFolder)) {
+      await copy(hooksFolder, HOOKS_FOLDER());
     }
 
-    await fs.copyFile(templateConfig, join(PKG_ROOT, CONFIG_FILE_NAME));
-    await fs.copy(templateOutput, output);
-    await fs.remove(cloneOutput);
+    await copy(templateConfig, join(PKG_ROOT, CONFIG_FILE_NAME));
+    await copy(templateOutput, output);
+    await remove(cloneOutput);
 
     spinner.succeed("Template downloaded successfully.");
   } catch (error) {

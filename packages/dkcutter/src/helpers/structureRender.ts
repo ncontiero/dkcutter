@@ -1,7 +1,7 @@
 import type { DKCutterContext } from "@/helpers/getConfig";
 
+import fs from "node:fs/promises";
 import { join, resolve } from "node:path";
-import fs from "fs-extra";
 
 import { IGNORE_FILE_PATTERN } from "@/consts";
 import { renderer } from "@/utils/renderer";

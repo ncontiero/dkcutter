@@ -1,10 +1,11 @@
 import type { DKCutterContext } from "./getConfig";
 
+import fs from "node:fs/promises";
 import path from "node:path";
 import { execa } from "execa";
-import fs from "fs-extra";
 
 import { HOOKS_FOLDER, PKG_ROOT, RENDERED_HOOKS_FOLDER } from "@/consts";
+import { emptyDir, pathExists } from "@/utils/files";
 import { getUserPkgManager } from "@/utils/getUserPkgManager";
 import { structureRender } from "./structureRender";
 
@@ -20,8 +21,8 @@ export async function configureHooks(
   const hooksFolder = HOOKS_FOLDER(dir);
   const renderedHooksFolder = RENDERED_HOOKS_FOLDER();
 
-  if (!(await fs.exists(hooksFolder))) return;
-  await fs.emptyDir(renderedHooksFolder);
+  if (!(await pathExists(hooksFolder))) return;
+  await emptyDir(renderedHooksFolder);
 
   await structureRender({
     context,
@@ -52,7 +53,7 @@ export async function runHook({ dir = process.cwd(), hook }: RunHook) {
     const hooksPattern = new RegExp(`^${hook}\\.(js|ts)$`);
     const renderedHooksFolder = RENDERED_HOOKS_FOLDER();
 
-    if (!(await fs.exists(renderedHooksFolder))) return; // No hook found.
+    if (!(await pathExists(renderedHooksFolder))) return; // No hook found.
 
     const hookFile = (await fs.readdir(renderedHooksFolder)).find((file) =>
       hooksPattern.test(file),
