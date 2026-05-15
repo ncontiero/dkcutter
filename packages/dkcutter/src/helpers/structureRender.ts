@@ -3,6 +3,7 @@ import type { DKCutterContext } from "@/helpers/getConfig";
 import { join, resolve } from "node:path";
 import fs from "fs-extra";
 
+import { IGNORE_FILE_PATTERN } from "@/consts";
 import { renderer } from "@/utils/renderer";
 
 interface RenderOptions {
@@ -36,7 +37,7 @@ export async function structureRender(props: RenderOptions) {
     context,
     directory = join(process.cwd(), "template"),
     output = ".",
-    ignorePatterns = [/.(png|jpg|jpeg|ico|svg|gif|webp)$/i],
+    ignorePatterns = [IGNORE_FILE_PATTERN],
   } = props;
 
   const templatePath = resolve(directory);

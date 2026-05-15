@@ -124,10 +124,11 @@ function handleValuesDisabled(
   }
 }
 
-type HandleContextReturn = {
+interface HandleContextReturn {
   fullContext: ContextProps;
   cliOptions: ContextProps;
-};
+}
+
 /**
  * Handles context properties based on configuration and command-line arguments.
  *
