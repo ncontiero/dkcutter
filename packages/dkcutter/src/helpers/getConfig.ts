@@ -1,9 +1,9 @@
-import { cosmiconfig } from "cosmiconfig";
+import { lilconfig } from "lilconfig";
 import { z } from "zod";
 
 import { CONFIG_FILE_NAME } from "@/consts";
 
-const explorer = cosmiconfig("dkcutter", {
+const explorer = lilconfig("dkcutter", {
   searchPlaces: [CONFIG_FILE_NAME],
 });
 
