@@ -66,6 +66,9 @@ You can use some libraries that are made available at hooks runtime, see which o
 - [which](https://github.com/npm/node-which) - Like which(1) unix command. Find the first instance of an executable in the PATH.;
 - [zod](https://github.com/colinhacks/zod) - TypeScript-first schema validation with static type inference.
 
+> [!INFO]
+> As of version 6.0.0, `fs-extra` and `execa` are no longer provided. You should use the native `fs` or `fs/promises` and [`tinyexec`](https://github.com/tinylibs/tinyexec) instead.
+
 ## Hook Examples
 
 ### Example: Validating Template Variables
