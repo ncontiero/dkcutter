@@ -7,6 +7,8 @@ import { x } from "tinyexec";
 import { HOOKS_FOLDER, PKG_ROOT, RENDERED_HOOKS_FOLDER } from "@/consts";
 import { emptyDir, pathExists } from "@/utils/files";
 import { getUserPkgManager } from "@/utils/getUserPkgManager";
+import { logger } from "@/utils/logger";
+import { spinner } from "@/utils/spinner";
 import { structureRender } from "./structureRender";
 
 /**
@@ -68,6 +70,7 @@ export async function runHook({ dir = process.cwd(), hook }: RunHook) {
     const file = isBun ? "bun" : isTs ? tsx : "node";
     const args = isBun ? ["run", hookPath] : [hookPath];
 
+    spinner.info(`Running hook: ${hook}. Hook output:`);
     await x(file, args, {
       stdin: "inherit",
       nodeOptions: {
@@ -76,6 +79,10 @@ export async function runHook({ dir = process.cwd(), hook }: RunHook) {
       },
       throwOnError: true,
     }); // Run hook.
+
+    logger.break();
+    spinner.setText("Generating project...");
+    spinner.start();
   } catch (error) {
     const msg = `Failed to run hook: ${hook}.`;
     if (error instanceof Error) {

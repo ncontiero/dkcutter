@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 import { join, resolve } from "node:path";
-import { Spinner } from "picospinner";
 
 import { DKCUTTER_PATTERN, PKG_ROOT, PKG_TEMPLATE } from "@/consts";
 import { type ContextProps, getConfig } from "@/helpers/getConfig";
@@ -13,6 +12,7 @@ import { cleanFiles, emptyDir, pathExists } from "@/utils/files";
 import { handleError } from "@/utils/handleError";
 import { colorize, logger } from "@/utils/logger";
 import { renderer, setRendererContext } from "@/utils/renderer";
+import { spinner } from "./utils/spinner";
 
 process.on("SIGINT", handleError);
 process.on("SIGTERM", handleError);
@@ -34,6 +34,8 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
   let keepProjectOnFailure = false;
 
   try {
+    spinner.start();
+
     if (!template || template.trim().length === 0) {
       throw new Error("No template specified. Please specify a template.");
     }
@@ -70,8 +72,8 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
       await getContext({ config, skip: options.default, extraContext }),
     );
 
-    const spinner = new Spinner(colorize("info", "Generating project..."));
-    spinner.start();
+    spinner.setText("Generating project...");
+    if (!spinner.running) spinner.start();
 
     generatedProjectRoot = (await fs.readdir(templateFolder))[0];
     if (
@@ -95,10 +97,7 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
 
     await structureRender({ context, directory: templateFolder, output });
 
-    spinner.stop();
     await runHook({ hook: "postGenProject", dir: generatedProjectRoot });
-    logger.break();
-    spinner.start();
 
     await cleanFiles({ isLocalProject, templateFolder });
 

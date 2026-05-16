@@ -1,5 +1,4 @@
 import { join, resolve } from "node:path";
-import { Spinner } from "picospinner";
 import { x } from "tinyexec";
 import which from "which";
 import z from "zod";
@@ -11,6 +10,8 @@ import {
   REPO_PREFIXES,
 } from "@/consts";
 import { copy, pathExists, remove } from "@/utils/files";
+import { colorize } from "@/utils/logger";
+import { spinner } from "@/utils/spinner";
 
 type RepoType = "hg" | "git";
 interface GetTemplateProps {
@@ -64,8 +65,7 @@ export async function getTemplate({
   directoryOpt = "",
   checkout,
 }: GetTemplateProps): Promise<void> {
-  const spinner = new Spinner("Downloading template...");
-  spinner.start();
+  spinner.setText("Downloading template...");
   const output = resolve(outputDir);
 
   try {
@@ -117,7 +117,7 @@ export async function getTemplate({
     await copy(templateOutput, output);
     await remove(cloneOutput);
 
-    spinner.succeed("Template downloaded successfully.");
+    spinner.succeed(colorize("success", "Template downloaded successfully."));
   } catch (error) {
     const msg = "Failed to download template.";
     if (error instanceof Error) {
