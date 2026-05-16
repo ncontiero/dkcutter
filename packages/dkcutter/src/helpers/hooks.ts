@@ -74,6 +74,7 @@ export async function runHook({ dir = process.cwd(), hook }: RunHook) {
         cwd: dir,
         stdio: "inherit",
       },
+      throwOnError: true,
     }); // Run hook.
   } catch (error) {
     const msg = `Failed to run hook: ${hook}.`;
