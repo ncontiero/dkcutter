@@ -3,7 +3,7 @@ import util from "node:util";
 import { isMainThread, parentPort } from "node:worker_threads";
 import { blue, green, red, yellow } from "colorette";
 
-type LOG_TYPE = "info" | "success" | "error" | "warn";
+export type LOG_TYPE = "info" | "success" | "error" | "warn";
 
 const colorFunctions = {
   info: blue,

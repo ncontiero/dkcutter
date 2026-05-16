@@ -20,6 +20,7 @@
   "exports": {
     ".": "./dist/index.mjs",
     "./cli": "./dist/cli.mjs",
+    "./utils": "./dist/utils/index.mjs",
     "./package.json": "./package.json"
   },
   "types": "./dist/index.d.mts",
@@ -67,5 +68,8 @@
   },
   "engines": {
     "node": "^22.3.0 || >=24.0.0"
+  },
+  "inlinedDependencies": {
+    "type-fest": "5.6.0"
   }
 }

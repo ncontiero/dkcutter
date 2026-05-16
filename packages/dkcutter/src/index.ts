@@ -8,11 +8,10 @@ import { getTemplate, templateIsValid } from "@/helpers/getTemplate";
 import { configureHooks, runHook } from "@/helpers/hooks";
 import { structureRender } from "@/helpers/structureRender";
 import { type DKCutter, optionsSchema } from "@/types";
+import { colorize, logger, spinner } from "@/utils";
 import { cleanFiles, emptyDir, pathExists } from "@/utils/files";
 import { handleError } from "@/utils/handleError";
-import { colorize, logger } from "@/utils/logger";
 import { renderer, setRendererContext } from "@/utils/renderer";
-import { spinner } from "./utils/spinner";
 
 process.on("SIGINT", handleError);
 process.on("SIGTERM", handleError);

@@ -9,9 +9,7 @@ import {
   PKG_ROOT,
   REPO_PREFIXES,
 } from "@/consts";
-import { copy, pathExists, remove } from "@/utils/files";
-import { colorize } from "@/utils/logger";
-import { spinner } from "@/utils/spinner";
+import { colorize, copy, pathExists, remove, spinner } from "@/utils";
 
 type RepoType = "hg" | "git";
 interface GetTemplateProps {

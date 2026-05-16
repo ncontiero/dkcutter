@@ -1,4 +1,4 @@
-import { logger } from "@/utils/logger";
+import { logger } from ".";
 
 export function handleError(error: unknown) {
   logger.error("\nAborting installation...");

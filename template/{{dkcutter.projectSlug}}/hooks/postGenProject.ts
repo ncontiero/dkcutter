@@ -1,4 +1,6 @@
-console.log("Running postGenProject hook...");
+import { logger } from "dkcutter/utils";
+
+logger.info("Running postGenProject hook...");
 
 // This is a placeholder for any post-generation logic you want to implement.
 // You can add any custom logic here that you want to run after the project is generated.

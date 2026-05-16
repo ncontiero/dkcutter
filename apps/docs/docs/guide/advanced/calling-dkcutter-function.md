@@ -58,3 +58,23 @@ console.log("Final project context:", context);
 ```
 
 By incorporating DKCutter into your JavaScript/TypeScript projects, you can automate project creation tasks and streamline your development workflow.
+
+## Using Shared Utilities
+
+> [!INFO]
+> This feature will be available starting with version 6.0.0.
+
+DKCutter exposes several internal utilities that you can use in your own scripts or hooks. These are available via the `dkcutter/utils` entrypoint.
+
+```js title="postGenProject.js"
+import { logger, spinner } from "dkcutter/utils";
+
+logger.info("Starting custom process...");
+spinner.setText("Working...");
+spinner.start();
+
+// ... your logic
+spinner.succeed("Done!");
+```
+
+This allows you to maintain a consistent look and feel with the DKCutter when building custom integrations.

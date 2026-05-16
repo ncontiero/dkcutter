@@ -3,7 +3,7 @@ import type { ContextProps, DKCutterContext } from "@/helpers/getConfig";
 import * as colors from "colorette";
 import nunjucks from "nunjucks";
 
-import { getUserPkgManager } from "./getUserPkgManager";
+import { getUserPkgManager } from ".";
 
 /**
  * Returns the default renderer for the DKCutter template.

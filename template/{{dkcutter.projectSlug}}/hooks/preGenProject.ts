@@ -1,4 +1,6 @@
-console.log("Running preGenProject hook...");
+import { logger } from "dkcutter/utils";
+
+logger.info("Running preGenProject hook...");
 
 // This is a placeholder for any pre-generation logic you want to implement.
 // You can add any custom logic here that you want to run before the project is generated.

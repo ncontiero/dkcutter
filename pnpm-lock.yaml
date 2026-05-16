@@ -26,6 +26,9 @@ importers:
       cspell-ban-words:
         specifier: ^0.0.4
         version: 0.0.4
+      dkcutter:
+        specifier: workspace:*
+        version: link:packages/dkcutter
       eslint:
         specifier: ^10.4.0
         version: 10.4.0(jiti@2.7.0)

@@ -5,10 +5,13 @@ import path from "node:path";
 import { x } from "tinyexec";
 
 import { HOOKS_FOLDER, PKG_ROOT, RENDERED_HOOKS_FOLDER } from "@/consts";
-import { emptyDir, pathExists } from "@/utils/files";
-import { getUserPkgManager } from "@/utils/getUserPkgManager";
-import { logger } from "@/utils/logger";
-import { spinner } from "@/utils/spinner";
+import {
+  emptyDir,
+  getUserPkgManager,
+  logger,
+  pathExists,
+  spinner,
+} from "@/utils";
 import { structureRender } from "./structureRender";
 
 /**

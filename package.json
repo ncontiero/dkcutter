@@ -37,6 +37,7 @@
     "@ncontiero/changelog-github": "2.1.4",
     "@ncontiero/eslint-config": "8.2.1",
     "cspell-ban-words": "^0.0.4",
+    "dkcutter": "workspace:*",
     "eslint": "^10.4.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.4",
