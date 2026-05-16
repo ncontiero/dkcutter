@@ -1,5 +1,5 @@
 import { join, resolve } from "node:path";
-import ora from "ora";
+import { Spinner } from "picospinner";
 import { x } from "tinyexec";
 import which from "which";
 import z from "zod";
@@ -64,7 +64,8 @@ export async function getTemplate({
   directoryOpt = "",
   checkout,
 }: GetTemplateProps): Promise<void> {
-  const spinner = ora("Downloading template...").start();
+  const spinner = new Spinner("Downloading template...");
+  spinner.start();
   const output = resolve(outputDir);
 
   try {
@@ -83,7 +84,8 @@ export async function getTemplate({
       spinner.stop();
     }
     await x(repoType, ["clone", url, cloneOutput]);
-    spinner.start();
+    !spinner.running && spinner.start();
+
     if (checkout) {
       const checkoutParams = [...checkout.split(" ")];
       // Avoid Mercurial "--config" and "--debugger" injection vulnerability

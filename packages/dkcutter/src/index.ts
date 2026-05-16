@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import { join, resolve } from "node:path";
-import ora from "ora";
+import { Spinner } from "picospinner";
 
 import { DKCUTTER_PATTERN, PKG_ROOT, PKG_TEMPLATE } from "@/consts";
 import { type ContextProps, getConfig } from "@/helpers/getConfig";
@@ -70,7 +70,8 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
       await getContext({ config, skip: options.default, extraContext }),
     );
 
-    const spinner = ora(colorize("info", "Creating project...")).start();
+    const spinner = new Spinner(colorize("info", "Generating project..."));
+    spinner.start();
 
     generatedProjectRoot = (await fs.readdir(templateFolder))[0];
     if (
