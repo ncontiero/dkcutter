@@ -2,7 +2,7 @@ import type { DKCutterContext } from "./getConfig";
 
 import fs from "node:fs/promises";
 import path from "node:path";
-import { execa } from "execa";
+import { x } from "tinyexec";
 
 import { HOOKS_FOLDER, PKG_ROOT, RENDERED_HOOKS_FOLDER } from "@/consts";
 import { emptyDir, pathExists } from "@/utils/files";
@@ -68,11 +68,12 @@ export async function runHook({ dir = process.cwd(), hook }: RunHook) {
     const file = isBun ? "bun" : isTs ? tsx : "node";
     const args = isBun ? ["run", hookPath] : [hookPath];
 
-    await execa(file, args, {
-      cwd: dir,
-      stdout: "inherit",
+    await x(file, args, {
       stdin: "inherit",
-      stderr: "inherit",
+      nodeOptions: {
+        cwd: dir,
+        stdio: "inherit",
+      },
     }); // Run hook.
   } catch (error) {
     const msg = `Failed to run hook: ${hook}.`;

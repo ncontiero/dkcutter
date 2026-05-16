@@ -1,6 +1,6 @@
 import { join, resolve } from "node:path";
-import { execa } from "execa";
 import ora from "ora";
+import { x } from "tinyexec";
 import which from "which";
 import z from "zod";
 import {
@@ -82,7 +82,7 @@ export async function getTemplate({
     if (url.startsWith("git") || url.startsWith("ssh")) {
       spinner.stop();
     }
-    await execa(repoType, ["clone", url, cloneOutput]);
+    await x(repoType, ["clone", url, cloneOutput]);
     spinner.start();
     if (checkout) {
       const checkoutParams = [...checkout.split(" ")];
@@ -90,8 +90,10 @@ export async function getTemplate({
       if (repoType === "hg") {
         checkoutParams.unshift("--");
       }
-      await execa(repoType, ["checkout", ...checkoutParams], {
-        cwd: cloneOutput,
+      await x(repoType, ["checkout", ...checkoutParams], {
+        nodeOptions: {
+          cwd: cloneOutput,
+        },
       });
     }
 
