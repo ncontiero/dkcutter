@@ -67,6 +67,8 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
 
     const config = await getConfig(projectRoot);
     if (!config) throw new Error("No configuration found. Please try again.");
+
+    if (spinner.running) spinner.stop();
     const context = setRendererContext(
       await getContext({ config, skip: options.default, extraContext }),
     );
