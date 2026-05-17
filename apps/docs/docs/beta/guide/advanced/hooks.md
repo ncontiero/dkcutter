@@ -52,9 +52,6 @@ console.log(`Generating project: ${projectName}`);
 
 ### Using Shared Utilities
 
-> [!INFO]
-> This feature is available starting with version 6.0.0.
-
 DKCutter exposes several internal utilities that you can use in your hooks. These are available via the `dkcutter/utils` entrypoint. See [Calling DKCutter function from JS/TS](./calling-dkcutter-function.md#using-shared-utilities) for more details.
 
 ### Using Libraries in Hooks
@@ -63,18 +60,14 @@ You can use some libraries that are made available at hooks runtime, see which o
 
 - [colorette](https://github.com/jorgebucaran/colorette) - 🌈Easily set your terminal text color & styles;
 - [commander](https://github.com/tj/commander.js) - Node.js command-line interfaces made easy;
-- [cosmiconfig](https://github.com/cosmiconfig/cosmiconfig) - Find and load configuration from a package.json property, rc file, TypeScript module, and more!;
-- [execa](https://github.com/sindresorhus/execa) - Process execution for humans;
-- [fs-extra](https://github.com/jprichardson/node-fs-extra) - Node.js: extra methods for the fs object like copy(), remove(), mkdirs();
+- [lilconfig](https://github.com/antonk52/lilconfig) - Zero-dependency nodejs config seeker;
+- [tinyexec](https://github.com/tinylibs/tinyexec) - 📟 A tiny, higher level interface around child_process
 - [nunjucks](https://github.com/mozilla/nunjucks) - A powerful templating engine with inheritance, asynchronous control, and more (jinja2 inspired);
-- [ora](https://github.com/sindresorhus/ora) - Elegant terminal spinner;
+- [picospinner](https://github.com/tinylibs/picospinner) - A lightweight, no dependency, pluggable CLI spinner library;
 - [prompts](https://github.com/terkelg/prompts) - ❯ Lightweight, beautiful and user-friendly interactive prompts;
 - [tsx](https://github.com/privatenumber/tsx) - ⚡️ TypeScript Execute | The easiest way to run TypeScript in Node.js;
 - [which](https://github.com/npm/node-which) - Like which(1) unix command. Find the first instance of an executable in the PATH.;
 - [zod](https://github.com/colinhacks/zod) - TypeScript-first schema validation with static type inference.
-
-> [!INFO]
-> As of version 6.0.0, `fs-extra`, `execa`, `ora`, and `cosmiconfig` modules will no longer be provided. You should use the native `fs` or `fs/promises`, [`tinyexec`](https://github.com/tinylibs/tinyexec), [`picospinner`](https://github.com/tinylibs/picospinner), and [`lilconfig`](https://github.com/antonk52/lilconfig) instead.
 
 ## Hook Examples
 
@@ -97,17 +90,17 @@ if (!projectSlugRegex.test(projectSlug)) {
 A `postGenProject` hook can conditionally manage files and directories within the generated project. This example demonstrates how to remove unnecessary lock files based on the chosen package manager:
 
 ```js title="postGenProject.js"
-import fs from "fs-extra";
+import { remove } from "dkcutter/utils";
 
 const pkgManager = "{{ dkcutter.pkgManager }}";
 
-function removeLockFiles() {
+async function removeLockFiles() {
   switch (pkgManager) {
     case "pnpm":
-      fs.removeSync("package-lock.json");
+      await remove("package-lock.json");
       break;
     case "npm":
-      fs.removeSync("pnpm-lock.yaml");
+      await remove("pnpm-lock.yaml");
       break;
   }
 }

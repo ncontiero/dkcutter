@@ -61,9 +61,6 @@ By incorporating DKCutter into your JavaScript/TypeScript projects, you can auto
 
 ## Using Shared Utilities
 
-> [!INFO]
-> This feature will be available starting with version 6.0.0.
-
 DKCutter exposes several internal utilities that you can use in your own scripts or hooks. These are available via the `dkcutter/utils` entrypoint.
 
 ```js title="postGenProject.js"

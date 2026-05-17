@@ -1,5 +1,7 @@
 ---
 pageType: home
+title: DKCutter
+titleSuffix: "A Better Way to Create Projects"
 
 hero:
   name: DKCutter
@@ -16,7 +18,7 @@ hero:
       link: /guide/start/getting-started
   image:
     src: /dkcutter-icon.png
-    alt: Logo
+    alt: DKCutter Logo
 features:
   - title: Template Management
     details: DKCutter allows you to use directory structures as templates for your projects, facilitating standardization.
