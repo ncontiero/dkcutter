@@ -1,6 +1,6 @@
 # CLI - Command Line Options
 
-import { PackageManagerTabs } from "@/components/PackageManagerTabs";
+import { PackageManagerTabs } from "@rspress/core/theme";
 
 This section explains the command-line options you can use with DKCutter to customize
 how it generates projects from templates.
@@ -72,7 +72,7 @@ Here's an example:
 
 <PackageManagerTabs
   command="dkcutter@latest https://github.com/ncontiero/dkcutter-nextjs --projectName 'My Name Project' -y"
-  isExecuted
+  dlx
 />
 
 In this example, the `--projectName` option overrides the default `projectName` defined in

@@ -6,9 +6,6 @@
     "useDefineForClassFields": true,
     "module": "ESNext", 
     "moduleResolution": "bundler",
-    "paths": {
-      "@/components/*": ["./theme/components/*"],
-    },
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
     "strict": true,

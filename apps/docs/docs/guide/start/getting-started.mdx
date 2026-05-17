@@ -1,7 +1,7 @@
 # Getting Started
 
-import { Steps } from "@/components/Steps";
-import { PackageManagerTabs } from "@/components/PackageManagerTabs";
+import { Steps } from "@rspress/core/theme";
+import { PackageManagerTabs } from "@rspress/core/theme";
 
 Welcome to DKCutter! This guide will walk you through creating your first project from a template.
 
@@ -10,17 +10,17 @@ The recommended way to use DKCutter is via `npx`, `pnpm dlx`, `yarn dlx`, or `bu
 <div className="steps">
 <Steps>
 
-### 1. Creating a New Project
+### Creating a New Project
 
 Let's start by creating a new project. We'll use a simple, official template to get a feel for how `dkcutter` works.
 
 Open your terminal and run the following command:
 
-<PackageManagerTabs command="dkcutter@latest gh:ncontiero/dkcutter-nextjs" isExecuted />
+<PackageManagerTabs command="dkcutter@latest gh:ncontiero/dkcutter-nextjs" dlx />
 
 This command tells DKCutter to download the [`dkcutter-nextjs`](https://github.com/ncontiero/dkcutter-nextjs) template from GitHub and start the project creation process.
 
-### 2. Answering the Prompts
+### Answering the Prompts
 
 DKCutter will now ask you a series of questions to configure your new project. These are defined in the template's `dkcutter.json` file. For this example, you can accept the default values by pressing `Enter` for each prompt.
 
@@ -31,7 +31,7 @@ DKCutter will now ask you a series of questions to configure your new project. T
 ...
 ```
 
-### 3. Exploring Your New Project
+### Exploring Your New Project
 
 Once you've answered all the prompts, DKCutter will create a new directory with the `project_slug` you provided.
 
@@ -50,7 +50,7 @@ DKCutter understands abbreviations for popular Git providers. This makes it easi
 
 You can also use the full URL to any Git repository:
 
-<PackageManagerTabs command="dkcutter@latest https://github.com/ncontiero/dkcutter-nextjs.git" isExecuted />
+<PackageManagerTabs command="dkcutter@latest https://github.com/ncontiero/dkcutter-nextjs.git" dlx />
 
 ## Other Ways to Use DKCutter
 
@@ -60,13 +60,13 @@ While using a GitHub template is common, you can also use templates from your lo
 
 If you have a template on your local machine, you can point DKCutter to it. For example, if you have a template in a directory named `my-awesome-template` in your current folder:
 
-<PackageManagerTabs command="dkcutter@latest ./my-awesome-template" isExecuted />
+<PackageManagerTabs command="dkcutter@latest ./my-awesome-template" dlx />
 
 ### Creating a Template with `--init`
 
 You can bootstrap a new, empty template to create your own. This is a great way to get started with making your own templates.
 
-<PackageManagerTabs command="dkcutter@latest --init" isExecuted />
+<PackageManagerTabs command="dkcutter@latest --init" dlx />
 
 > [!INFO]
 > This feature is available in version `4.6.0` or later.

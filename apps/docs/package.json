@@ -12,12 +12,9 @@
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {
-    "rspress": "1.47.1"
-  },
   "devDependencies": {
     "@ncontiero/eslint-config": "^8.2.1",
-    "@rspress/plugin-shiki": "^1.47.1",
+    "@rspress/core": "2.0.11",
     "@types/node": "^25.8.0",
     "@types/react": "^19.2.14",
     "eslint": "^10.4.0",

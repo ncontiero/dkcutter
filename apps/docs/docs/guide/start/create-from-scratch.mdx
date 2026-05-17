@@ -1,7 +1,6 @@
 # Create a Template From Scratch
 
-import { Steps } from "@/components/Steps";
-import { PackageManagerTabs } from "@/components/PackageManagerTabs";
+import { PackageManagerTabs, Steps } from "@rspress/core/theme";
 
 This guide will walk you through creating a simple `dkcutter` template from scratch. We'll build a template named `dkcutter-website-simple` for generating a basic HTML website.
 
@@ -70,7 +69,7 @@ Notice the `{{ dkcutter.projectName }}` placeholders. DKCutter will replace thes
 
 Your template is now ready! Let's test it. From inside the `dkcutter-website-simple` directory, run `dkcutter` pointing to the current directory (`.`):
 
-<PackageManagerTabs command="dkcutter@latest ." isExecuted />
+<PackageManagerTabs command="dkcutter@latest ." dlx />
 
 DKCutter will prompt you for the `projectName`. Let's enter a new name:
 
@@ -93,4 +92,4 @@ Congratulations! You've just created and used your first `dkcutter` template.
 
 Instead of creating a template entirely from scratch, you can use the `--init` flag to generate a boilerplate template structure. This is a great starting point.
 
-<PackageManagerTabs command="dkcutter@latest --init" isExecuted />
+<PackageManagerTabs command="dkcutter@latest --init" dlx />

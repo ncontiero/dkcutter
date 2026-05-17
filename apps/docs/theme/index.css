@@ -41,7 +41,7 @@
 }
 
 .dark {
-  --rp-c-bg: rgb(0, 0, 0);
+  --rp-c-bg: rgb(18, 18, 18);
   --rp-c-bg-soft: rgba(15, 15, 15, 0.75);
   --rp-c-bg-mute: rgba(52, 58, 70, 0.5);
   --rp-c-bg-alt: rgba(25, 29, 36, 0.5);
@@ -72,6 +72,13 @@
   background-color: transparent;
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--rp-c-divider);
+}
+
+.rp-prev-next-page__item__desc {
+  color: var(--rp-c-text-2) !important;
+}
+.rp-prev-next-page__item:hover {
+  opacity: 0.9 !important;
 }
 
 @media (max-width: 960px) {
