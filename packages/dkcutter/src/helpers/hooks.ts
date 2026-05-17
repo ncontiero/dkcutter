@@ -73,7 +73,7 @@ export async function runHook({ dir = process.cwd(), hook }: RunHook) {
     const file = isBun ? "bun" : isTs ? tsx : "node";
     const args = isBun ? ["run", hookPath] : [hookPath];
 
-    spinner.info(`Running hook: ${hook}. Hook output:`);
+    spinner.info(`Running hook: ${hook}.`);
     await x(file, args, {
       stdin: "inherit",
       nodeOptions: {
@@ -85,7 +85,7 @@ export async function runHook({ dir = process.cwd(), hook }: RunHook) {
 
     logger.break();
     spinner.setText("Generating project...");
-    spinner.start();
+    !spinner.running && spinner.start();
   } catch (error) {
     const msg = `Failed to run hook: ${hook}.`;
     if (error instanceof Error) {
