@@ -2,22 +2,24 @@
 
 Various advanced topics regarding dkcutter usage.
 
-## [CLI - Command Line Options](./cli.md)
+## [CLI - Command Line Options](./cli.mdx)
 
-- [Options](./cli.md#options)
-- [Arguments](./cli.md#arguments)
-- [Injecting Extra Context](./cli.md#injecting-extra-context)
+- [Options](./cli.mdx#options)
+- [Arguments](./cli.mdx#arguments)
+- [Injecting Extra Context](./cli.mdx#injecting-extra-context)
 
 ## [Templates in Context Values](./templates-in-context.md)
 
 - [How it Works](./templates-in-context.md#how-it-works)
 - [Basic Example: Dynamically Generating a Project Slug](./templates-in-context.md#basic-example-dynamically-generating-a-project-slug)
+- [Binary Files & Ignoring](./templates-in-context.md#binary-files--ignoring)
 
 ## [Global Variables](./global-variables.md)
 
 - [Accessing Global Variables](./global-variables.md#accessing-global-variables)
 - [DKCutter Variables](./global-variables.md#dkcutter-variables)
 - [Colors Variable](./global-variables.md#colors-variable)
+- [Nunjucks Filters](./global-variables.md#nunjucks-filters)
 
 ## [DKCutter Hooks](./hooks.md)
 
@@ -32,3 +34,11 @@ Various advanced topics regarding dkcutter usage.
 - [Customizing Project Generation](./calling-dkcutter-function.md#customizing-project-generation)
 - [Accessing the Final Context](./calling-dkcutter-function.md#accessing-the-final-context)
 - [Using Shared Utilities](./calling-dkcutter-function.md#using-shared-utilities)
+
+## [Internal Utilities](./utils.md)
+
+- [Importing Utilities](./utils.md#importing-utilities)
+- [Logger](./utils.md#logger)
+- [Spinner](./utils.md#spinner)
+- [File Utilities](./utils.md#file-utilities)
+- [Other Utilities](./utils.md#other-utilities)

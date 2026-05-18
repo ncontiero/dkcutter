@@ -52,7 +52,7 @@ console.log(`Generating project: ${projectName}`);
 
 ### Using Shared Utilities
 
-DKCutter exposes several internal utilities that you can use in your hooks. These are available via the `dkcutter/utils` entrypoint. See [Calling DKCutter function from JS/TS](./calling-dkcutter-function.md#using-shared-utilities) for more details.
+DKCutter exposes several internal utilities that you can use in your hooks. These are available via the `dkcutter/utils` entrypoint. See [Internal Utilities](./utils.md) for more details.
 
 ### Using Libraries in Hooks
 

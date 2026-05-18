@@ -8,5 +8,6 @@
     "type": "file",
     "name": "calling-dkcutter-function.md",
     "label": "Calling DKCutter function from JS/TS"
-  }
+  },
+  "utils"
 ]

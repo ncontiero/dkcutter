@@ -36,3 +36,12 @@ Here's how this works in practice:
   The resulting `projectSlug` is `yet-another-new-project`.
 
 This simple example demonstrates how you can automatically generate a URL-friendly project slug based on the project name, saving the user from having to manually enter it. This approach can be extended to more complex scenarios, further enhancing the user experience and streamlining project setup.
+
+## Binary Files & Ignoring
+
+By default, DKCutter will try to render all files in your template as Nunjucks templates. However, certain file types (mostly binaries) are automatically ignored to prevent corruption:
+
+- Images: `.png`, `.jpg`, `.jpeg`, `.ico`, `.webp`, `.gif`
+- Icons: `.svg`
+
+These files will be copied directly to the output directory without any template processing.

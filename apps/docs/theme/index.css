@@ -36,6 +36,11 @@
     180deg,
     rgb(172, 172, 245) 0deg
   );
+  --rp-banner-background: radial-gradient(
+    circle,
+    rgb(24, 8, 73) 35%,
+    rgb(52, 38, 138) 75%
+  ) !important;
 
   --rp-c-link: var(--rp-c-brand-dark);
 }

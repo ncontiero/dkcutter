@@ -101,4 +101,4 @@ Like other variables, you can use the chosen value to conditionally generate fil
 {% endif %}
 ```
 
-These are the simplest ways to configure your variables. For more advanced settings, such as using objects to add custom prompt messages, validations, and more, see the [Advanced Configuration](./advanced-config.md) section.
+These are the simplest ways to configure your variables. For more advanced settings, such as using objects to add custom prompt messages, validations, and more, see the [Advanced Configuration](advanced-config.md) section.

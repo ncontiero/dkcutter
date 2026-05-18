@@ -39,7 +39,16 @@ await dkcutter({
 ```
 
 - `extraContext`: This object allows you to override default template values with your own configurations.
-- `options`: This object lets you pass additional options to the generation process. Refer to the [DKCutter CLI documentation](./cli.mdx#cli---command-line-options) for a complete list of available options:
+- `options`: This object lets you pass additional options to the generation process. Refer to the table below for a complete list of available options:
+
+| Option                 | Type      | Default         | Description                                                  |
+| ---------------------- | --------- | --------------- | ------------------------------------------------------------ |
+| `default`              | `boolean` | `false`         | If `true`, uses default values and skips prompts.            |
+| `output`               | `string`  | `process.cwd()` | The directory where the project will be generated.           |
+| `directory`            | `string`  | `undefined`     | Subdirectory within the repo that contains `dkcutter.json`.  |
+| `checkout`             | `string`  | `undefined`     | Git branch, tag, or commit to checkout.                      |
+| `overwrite`            | `boolean` | `false`         | If `true`, overwrites existing output directory.             |
+| `keepProjectOnFailure` | `boolean` | `false`         | If `true`, keeps the generated directory if an error occurs. |
 
 ## Accessing the Final Context
 
@@ -59,19 +68,4 @@ console.log("Final project context:", context);
 
 By incorporating DKCutter into your JavaScript/TypeScript projects, you can automate project creation tasks and streamline your development workflow.
 
-## Using Shared Utilities
-
-DKCutter exposes several internal utilities that you can use in your own scripts or hooks. These are available via the `dkcutter/utils` entrypoint.
-
-```js title="postGenProject.js"
-import { logger, spinner } from "dkcutter/utils";
-
-logger.info("Starting custom process...");
-spinner.setText("Working...");
-spinner.start();
-
-// ... your logic
-spinner.succeed("Done!");
-```
-
-This allows you to maintain a consistent look and feel with the DKCutter when building custom integrations.
+For more information on using DKCutter's internal utilities, see the [Internal Utilities](./utils.md) section.

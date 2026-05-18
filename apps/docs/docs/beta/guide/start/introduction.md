@@ -4,15 +4,22 @@
 
 Tired of manually setting up the same boilerplate for every new project? DKCutter solves this by using project templates. You can create your own or use templates shared by others.
 
+> [!TIP]
+> Coming from v5? Check out our [v6 Migration Guide](./v6-migration-guide.md) to learn about the breaking changes and new features.
+
 ## Key Features
 
-- **Template-based Scaffolding:** Generate projects from templates on your local filesystem or in a Git repository.
+- **Dynamic Scaffolding:** Generate projects from templates on your local filesystem or in a Git repository using [Nunjucks](https://mozilla.github.io/nunjucks/) for powerful logic.
 
-- **Interactive Configuration:** DKCutter interactively prompts you for project-specific values, using a `dkcutter.json` file for defaults.
+- **Interactive Configuration:** DKCutter interactively prompts you for project-specific values, with support for regex validation, conditional prompts, and multiselect choices.
 
-- **Customization with Hooks:** Execute your own JavaScript or TypeScript scripts before and after project generation for custom setup tasks.
+- **Customization with Hooks:** Execute your own JavaScript or TypeScript scripts before and after project generation. Hooks have access to a rich set of built-in libraries.
 
-- **Flexible & Scalable:** Easily create a variety of projects while maintaining consistency and quality, no matter the complexity.
+- **Native VCS Support:** Easily use templates from GitHub (`gh:`), GitLab (`gl:`), and Bitbucket (`bb:`) with shorthand prefixes.
+
+- **Programmatic API:** Use DKCutter directly in your Node.js applications and tools with a simple and flexible API.
+
+- **Shared Utilities:** Utilize built-in utilities like logger, spinner, and file manipulation functions to build more powerful and consistent hooks. See [Internal Utilities](../advanced/utils.md) for more details.
 
 ## How It Works
 
@@ -26,8 +33,8 @@ A DKCutter template is a directory with a specific structure. Here’s a basic e
 my-awesome-template/
 ├── dkcutter.json                  # Configuration file for variables and settings.
 ├── hooks/                         # Optional directory for pre/post-generation scripts.
-│   ├── preGenProject.js           # Optional script run before generation.
-│   └── postGenProject.js          # Optional script run after generation.
+│   ├── preGenProject.ts           # Optional script run before generation.
+│   └── postGenProject.ts          # Optional script run after generation.
 └── template/
     └── {{dkcutter.projectSlug}}/  # The actual project template files go here.
 ```

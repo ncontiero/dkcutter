@@ -28,7 +28,7 @@ Show the version and exit.
 
 ### `--init`
 
-Create a base DKCutter template project. This option is only available in version `4.6.0` or later.
+Create a base DKCutter template project. This will bootstrap a new template structure in your current directory, including a `dkcutter.json` file and a `template/` folder.
 
 ### `-y, --default`
 
@@ -63,6 +63,18 @@ display help for command.
 ### `template`
 
 This argument specifies the URL or local file path of the DKCutter template you want to use for project generation.
+
+#### Shorthand Prefixes
+
+DKCutter understands abbreviations for popular Git providers, making it easier to use remote templates:
+
+- `gh:` for GitHub (`gh:user/repo`)
+- `gl:` for GitLab (`gl:user/repo`)
+- `bb:` for Bitbucket (`bb:user/repo`)
+
+Example:
+
+<PackageManagerTabs command="dkcutter@beta gh:ncontiero/dkcutter-nextjs" dlx />
 
 ## Injecting Extra Context
 
