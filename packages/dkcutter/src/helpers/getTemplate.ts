@@ -1,6 +1,5 @@
 import { join, resolve } from "node:path";
 import { x } from "tinyexec";
-import which from "which";
 import z from "zod";
 import {
   CONFIG_FILE_NAME,
@@ -37,7 +36,12 @@ interface GetTemplateProps {
  * @returns {Promise<boolean>} - True if the specified VCS is installed, false otherwise.
  */
 export async function isVSCInstalled(repoType: RepoType): Promise<boolean> {
-  return !!(await which(repoType, { nothrow: true }));
+  try {
+    const { exitCode } = await x(repoType, ["--version"]);
+    return exitCode === 0;
+  } catch {
+    return false;
+  }
 }
 
 /**

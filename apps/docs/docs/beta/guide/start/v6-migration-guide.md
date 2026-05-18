@@ -12,12 +12,45 @@ To reduce bundle size and improve performance, several libraries previously prov
 
 If your hooks rely on these libraries, you will need to update them:
 
-| Old Library   | New Replacement    | Reason                                                         |
-| ------------- | ------------------ | -------------------------------------------------------------- |
-| `execa`       | `tinyexec`         | `tinyexec` is smaller and faster for most common use cases.    |
-| `ora`         | `picospinner`      | `picospinner` is a lightweight, zero-dependency alternative.   |
-| `fs-extra`    | `node:fs/promises` | Modern Node.js provides robust native asynchronous file APIs.  |
-| `cosmiconfig` | `lilconfig`        | `lilconfig` is a zero-dependency alternative to `cosmiconfig`. |
+| Old Library   | New Replacement    | Reason                                                                                                            |
+| ------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| `execa`       | `tinyexec`         | `tinyexec` is smaller and faster for most common use cases.                                                       |
+| `ora`         | `picospinner`      | `picospinner` is a lightweight, zero-dependency alternative.                                                      |
+| `fs-extra`    | `node:fs/promises` | Modern Node.js provides robust native asynchronous file APIs.                                                     |
+| `cosmiconfig` | `lilconfig`        | `lilconfig` is a zero-dependency alternative to `cosmiconfig`.                                                    |
+| `which`       | `tinyexec`         | Removed to reduce dependencies. You can verify if a command exists by running it with `--version` via `tinyexec`. |
+
+### Example: Migrating from `which` to `tinyexec`
+
+**Before (v5):**
+
+```js
+import which from "which";
+
+const hasGit = await which("git", { nothrow: true });
+if (hasGit) {
+  // ...
+}
+```
+
+**After (v6):**
+
+```js
+import { x } from "tinyexec";
+
+async function hasGit() {
+  try {
+    const { exitCode } = await x("git", ["--version"]);
+    return exitCode === 0;
+  } catch {
+    return false;
+  }
+}
+
+if (await hasGit()) {
+  // ...
+}
+```
 
 ### Example: Migrating from `fs-extra` to `node:fs/promises`
 

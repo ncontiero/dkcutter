@@ -66,7 +66,6 @@ You can use some libraries that are made available at hooks runtime, see which o
 - [picospinner](https://github.com/tinylibs/picospinner) - A lightweight, no dependency, pluggable CLI spinner library;
 - [prompts](https://github.com/terkelg/prompts) - ❯ Lightweight, beautiful and user-friendly interactive prompts;
 - [tsx](https://github.com/privatenumber/tsx) - ⚡️ TypeScript Execute | The easiest way to run TypeScript in Node.js;
-- [which](https://github.com/npm/node-which) - Like which(1) unix command. Find the first instance of an executable in the PATH.;
 - [zod](https://github.com/colinhacks/zod) - TypeScript-first schema validation with static type inference.
 
 ## Hook Examples
