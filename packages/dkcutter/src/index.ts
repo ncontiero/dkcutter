@@ -76,11 +76,11 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
     spinner.setText("Generating project...");
     if (!spinner.running) spinner.start();
 
-    generatedProjectRoot = (await fs.readdir(templateFolder))[0];
-    if (
-      !generatedProjectRoot ||
-      DKCUTTER_PATTERN.test(generatedProjectRoot) === false
-    ) {
+    const templateFiles = await fs.readdir(templateFolder);
+    generatedProjectRoot = templateFiles.find((file) =>
+      DKCUTTER_PATTERN.test(file),
+    );
+    if (!generatedProjectRoot) {
       throw new Error("No template project found. Please try again.");
     }
     generatedProjectRoot = renderer.renderString(generatedProjectRoot, context);

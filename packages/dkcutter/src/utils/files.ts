@@ -81,7 +81,7 @@ export async function emptyDir(path: PathLike) {
  * This function handles the removal of specific files and directories associated with a generated project,
  * including the project root, template folder, configuration file, rendered hooks, and hooks folder.
  *
- * @param {props} CleanFiles - The parameters to use for cleaning up the generated project.
+ * @param {CleanFiles} options - The parameters to use for cleaning up the generated project.
  * @returns {Promise<void>} - A promise that resolves once the cleanup is completed.
  */
 export async function cleanFiles({
