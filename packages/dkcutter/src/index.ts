@@ -89,7 +89,9 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
     if ((await pathExists(generatedProjectRoot)) && !options.overwrite) {
       const path = generatedProjectRoot;
       generatedProjectRoot = undefined;
-      throw new Error(`Project already exists at ${path}. Please try again.`);
+      throw new Error(
+        `Project already exists at ${path}.\nPlease try again with a different output path or enable overwrite option.`,
+      );
     }
     await emptyDir(generatedProjectRoot);
 
@@ -105,6 +107,7 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
     spinner.succeed(colorize("success", "Project created!"));
     return context.dkcutter;
   } catch (error) {
+    spinner.running && spinner.stop();
     if (keepProjectOnFailure) {
       generatedProjectRoot = undefined;
       logger.warn("Project creation failed. Keeping project dir.");

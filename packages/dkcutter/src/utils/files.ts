@@ -94,10 +94,7 @@ export async function cleanFiles({
   }
 
   if (!isLocalProject) {
-    await remove(path.join(PKG_ROOT, CONFIG_FILE_NAME), {
-      recursive: true,
-      force: true,
-    });
+    await remove(path.join(PKG_ROOT, CONFIG_FILE_NAME));
     await remove(templateFolder);
   }
 
