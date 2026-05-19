@@ -31,9 +31,12 @@ dkcutter-something/
 │   └── {{dkcutter.projectSlug}}/     # Your template directory
 ├── hooks/                            # Hooks directory
 │   ├── preGenProject.js              # Pre-generation hook (JavaScript)
-│   └── postGenProject.ts             # Post-generation hook (TypeScript)
+│   ├── postGenProject.ts             # Post-generation hook (TypeScript)
+│   └── utils.ts                      # Custom utility functions
 └── dkcutter.json                     # DKCutter configuration file
 ```
+
+You can have multiple files inside the `hooks` folder and import them into your main hook files (`preGenProject` or `postGenProject`), provided you use relative imports (e.g., `import { myHelper } from "./utils";`). All files inside the hooks directory will be processed and rendered by Nunjucks just like your hooks.
 
 ## Hook Execution Behavior
 

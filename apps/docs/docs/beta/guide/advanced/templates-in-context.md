@@ -43,5 +43,8 @@ By default, DKCutter will try to render all files in your template as Nunjucks t
 
 - Images: `.png`, `.jpg`, `.jpeg`, `.ico`, `.webp`, `.gif`
 - Icons: `.svg`
+- Fonts: `.woff`, `.woff2`, `.ttf`, `.eot`
+- Videos: `.mp4`, `.webm`
+- Archives and Documents: `.zip`, `.tar.gz`, `.pdf`
 
 These files will be copied directly to the output directory without any template processing.
