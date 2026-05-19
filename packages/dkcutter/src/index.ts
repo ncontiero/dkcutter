@@ -2,12 +2,16 @@ import fs from "node:fs/promises";
 import { join, resolve } from "node:path";
 
 import { DKCUTTER_PATTERN, PKG_ROOT, PKG_TEMPLATE } from "@/consts";
-import { type ContextProps, getConfig } from "@/helpers/getConfig";
+import {
+  type ContextProps,
+  type DKCutterContext,
+  getConfig,
+} from "@/helpers/getConfig";
 import { getContext } from "@/helpers/getContext";
 import { getTemplate, templateIsValid } from "@/helpers/getTemplate";
 import { configureHooks, runHook } from "@/helpers/hooks";
 import { structureRender } from "@/helpers/structureRender";
-import { type DKCutter, optionsSchema } from "@/types";
+import { type DKCutter, type OptionsSchema, optionsSchema } from "@/types";
 import { colorize, logger, spinner } from "@/utils";
 import { cleanFiles, emptyDir, pathExists } from "@/utils/files";
 import { handleError } from "@/utils/handleError";
@@ -18,6 +22,86 @@ process.on("SIGTERM", handleError);
 process.on("uncaughtException", handleError);
 process.on("unhandledRejection", handleError);
 
+interface SetupPathsResult {
+  output: string;
+  isLocalProject: boolean;
+  templateFolder: string;
+  projectRoot: string;
+}
+
+async function setupPaths(
+  template: string,
+  options: OptionsSchema,
+): Promise<SetupPathsResult> {
+  const output = resolve(options.output);
+
+  if (!(await pathExists(output))) {
+    throw new Error(`Output path ${output} does not exist.`);
+  }
+
+  const isLocalProject = (await pathExists(template))
+    ? (await fs.lstat(template)).isDirectory()
+    : false;
+  const templateFolder = isLocalProject
+    ? join(template, "template")
+    : PKG_TEMPLATE;
+  const projectRoot = isLocalProject ? template : PKG_ROOT;
+
+  return { output, isLocalProject, templateFolder, projectRoot };
+}
+
+async function prepareTemplate(
+  template: string,
+  isLocalProject: boolean,
+  templateFolder: string,
+  options: OptionsSchema,
+): Promise<void> {
+  if (!isLocalProject) {
+    const templateData = templateIsValid(template);
+    await getTemplate({
+      url: templateData,
+      outputDir: PKG_TEMPLATE,
+      directoryOpt: options.directory,
+      checkout: options.checkout,
+    });
+  } else if (!(await pathExists(templateFolder))) {
+    throw new Error("No template found. Please specify a valid url or path!");
+  }
+}
+
+async function resolveProjectRoot(
+  output: string,
+  templateFolder: string,
+  context: DKCutterContext,
+): Promise<string> {
+  const templateFiles = await fs.readdir(templateFolder);
+  let generatedProjectRoot = templateFiles.find((file) =>
+    DKCUTTER_PATTERN.test(file),
+  );
+  if (!generatedProjectRoot) {
+    throw new Error("No template project found. Please try again.");
+  }
+  generatedProjectRoot = renderer.renderString(generatedProjectRoot, context);
+  return resolve(output, generatedProjectRoot);
+}
+
+async function renderProject(
+  generatedProjectRoot: string,
+  output: string,
+  templateFolder: string,
+  context: DKCutterContext,
+  projectRoot: string,
+): Promise<void> {
+  await emptyDir(generatedProjectRoot);
+
+  await configureHooks(context, projectRoot);
+  await runHook({ hook: "preGenProject", dir: generatedProjectRoot });
+
+  await structureRender({ context, directory: templateFolder, output });
+
+  await runHook({ hook: "postGenProject", dir: generatedProjectRoot });
+}
+
 /**
  * Run DKCutter just as if using it from the command line.
  *
@@ -27,9 +111,9 @@ process.on("unhandledRejection", handleError);
 export async function dkcutter(props: DKCutter): Promise<ContextProps> {
   const { template, extraContext = {}, options: opts = {} } = props;
 
-  let generatedProjectRoot;
+  let generatedProjectRoot: string | undefined;
   let isLocalProject = false;
-  let templateFolder;
+  let templateFolder = PKG_TEMPLATE;
   let keepProjectOnFailure = false;
 
   try {
@@ -40,32 +124,15 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
     }
 
     const options = optionsSchema.parse(opts);
-    const output = resolve(options.output);
     keepProjectOnFailure = options.keepProjectOnFailure;
 
-    if (!(await pathExists(output))) {
-      throw new Error(`Output path ${output} does not exist.`);
-    }
+    const paths = await setupPaths(template, options);
+    isLocalProject = paths.isLocalProject;
+    templateFolder = paths.templateFolder;
 
-    isLocalProject = (await pathExists(template))
-      ? (await fs.lstat(template)).isDirectory()
-      : false;
-    templateFolder = isLocalProject ? join(template, "template") : PKG_TEMPLATE;
-    const projectRoot = isLocalProject ? template : PKG_ROOT;
+    await prepareTemplate(template, isLocalProject, templateFolder, options);
 
-    if (!isLocalProject) {
-      const templateData = templateIsValid(template);
-      await getTemplate({
-        url: templateData,
-        outputDir: PKG_TEMPLATE,
-        directoryOpt: options.directory,
-        checkout: options.checkout,
-      });
-    } else if (!isLocalProject || !(await pathExists(templateFolder))) {
-      throw new Error("No template found. Please specify a valid url or path!");
-    }
-
-    const config = await getConfig(projectRoot);
+    const config = await getConfig(paths.projectRoot);
     if (!config) throw new Error("No configuration found. Please try again.");
 
     if (spinner.running) spinner.stop();
@@ -76,31 +143,27 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
     spinner.setText("Generating project...");
     if (!spinner.running) spinner.start();
 
-    const templateFiles = await fs.readdir(templateFolder);
-    generatedProjectRoot = templateFiles.find((file) =>
-      DKCUTTER_PATTERN.test(file),
+    generatedProjectRoot = await resolveProjectRoot(
+      paths.output,
+      templateFolder,
+      context,
     );
-    if (!generatedProjectRoot) {
-      throw new Error("No template project found. Please try again.");
-    }
-    generatedProjectRoot = renderer.renderString(generatedProjectRoot, context);
-    generatedProjectRoot = resolve(output, generatedProjectRoot);
 
     if ((await pathExists(generatedProjectRoot)) && !options.overwrite) {
       const path = generatedProjectRoot;
-      generatedProjectRoot = undefined;
+      generatedProjectRoot = undefined; // prevent deletion in catch block
       throw new Error(
         `Project already exists at ${path}.\nPlease try again with a different output path or enable overwrite option.`,
       );
     }
-    await emptyDir(generatedProjectRoot);
 
-    await configureHooks(context, projectRoot);
-    await runHook({ hook: "preGenProject", dir: generatedProjectRoot });
-
-    await structureRender({ context, directory: templateFolder, output });
-
-    await runHook({ hook: "postGenProject", dir: generatedProjectRoot });
+    await renderProject(
+      generatedProjectRoot,
+      paths.output,
+      templateFolder,
+      context,
+      paths.projectRoot,
+    );
 
     await cleanFiles({ isLocalProject, templateFolder });
 
