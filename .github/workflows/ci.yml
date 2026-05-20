@@ -31,6 +31,9 @@ jobs:
       - name: Check code
         run: pnpm check
 
+      - name: Run tests
+        run: pnpm test
+
   lint-commits:
     name: Lint Commits
     runs-on: ubuntu-latest
