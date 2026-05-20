@@ -1,0 +1,4 @@
+export const framework = "{{ dkcutter.framework }}";
+export const tools = "{{ dkcutter.tools }}";
+export const isEslint = {{ dkcutter.isEslint }};
+export const isPrettier = {{ dkcutter.isPrettier }};

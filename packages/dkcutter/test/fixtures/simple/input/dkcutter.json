@@ -1,0 +1,12 @@
+{
+  "projectName": "My App",
+  "projectSlug": {
+    "value": "{{ projectName|lower|replace(' ', '-')|trim }}",
+    "validateRegex": {
+      "regex": "^[a-z0-9@][a-z0-9-_]*$",
+      "message": "Invalid project slug. Please enter a valid value."
+    }
+  },
+  "author": "John Doe",
+  "useTypescript": true
+}

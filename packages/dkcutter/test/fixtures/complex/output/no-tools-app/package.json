@@ -1,0 +1,7 @@
+{
+  "name": "no-tools-app",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "echo 'running'"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "projectSlug": "default-app",
+  "database": false,
+  "framework": {
+    "value": "react",
+    "choices": [
+      { "value": "react" },
+      { "value": "vue" },
+      { "value": "svelte" }
+    ]
+  },
+  "tools": {
+    "value": "eslint,prettier",
+    "choicesType": "multiselect",
+    "choices": [
+      { "value": "eslint", "selected": "true" },
+      { "value": "prettier", "selected": "true" },
+      { "value": "vitest" }
+    ]
+  },
+  "_internalString": "{{ projectSlug }}-{{ framework }}"
+}
