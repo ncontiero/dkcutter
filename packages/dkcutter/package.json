@@ -52,7 +52,7 @@
     "picospinner": "^3.0.0",
     "prompts": "^2.4.2",
     "tinyexec": "^1.1.2",
-    "tsx": "^4.22.1",
+    "tsx": "^4.22.3",
     "zod": "^4.4.3"
   },
   "devDependencies": {
