@@ -26,6 +26,12 @@ interface RenderOptions {
    * @default [/.(png|jpg|jpeg|ico|svg|gif|webp)$/i]
    */
   ignorePatterns?: RegExp[];
+  /**
+   * Whether the files being rendered are hooks.
+   * Ensures deterministic sequential rendering prioritizing preGen hooks.
+   * @default false
+   */
+  isHooks?: boolean;
 }
 
 async function processTemplateFile(
@@ -34,6 +40,7 @@ async function processTemplateFile(
   outputFolder: string,
   context: DKCutterContext,
   ignorePatterns: RegExp[],
+  isHooks?: boolean,
 ) {
   const filePath = join(templatePath, file);
   const treatedName = renderer.renderString(file, context);
@@ -48,6 +55,7 @@ async function processTemplateFile(
       directory: filePath,
       output: outputFilePath,
       ignorePatterns,
+      isHooks,
     });
   } else if (itemStat.isFile()) {
     const fileMode = itemStat.mode & 0o777;
@@ -76,6 +84,7 @@ export async function structureRender(props: RenderOptions) {
     directory = join(process.cwd(), "template"),
     output = ".",
     ignorePatterns = [IGNORE_FILE_PATTERN],
+    isHooks = false,
   } = props;
 
   const templatePath = resolve(directory);
@@ -83,15 +92,37 @@ export async function structureRender(props: RenderOptions) {
 
   const files = await fs.readdir(templatePath);
 
-  await Promise.all(
-    files.map(async (file) =>
-      processTemplateFile(
+  if (isHooks) {
+    files.sort((a, b) => {
+      const isAPre = a.toLowerCase().includes("pregen");
+      const isBPre = b.toLowerCase().includes("pregen");
+      if (isAPre && !isBPre) return -1;
+      if (!isAPre && isBPre) return 1;
+      return a.localeCompare(b);
+    });
+
+    for (const file of files) {
+      await processTemplateFile(
         file,
         templatePath,
         outputFolder,
         context,
         ignorePatterns,
+        isHooks,
+      );
+    }
+  } else {
+    await Promise.all(
+      files.map(async (file) =>
+        processTemplateFile(
+          file,
+          templatePath,
+          outputFolder,
+          context,
+          ignorePatterns,
+          isHooks,
+        ),
       ),
-    ),
-  );
+    );
+  }
 }

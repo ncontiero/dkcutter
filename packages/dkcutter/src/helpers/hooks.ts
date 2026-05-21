@@ -33,6 +33,7 @@ export async function configureHooks(
     context,
     directory: hooksFolder,
     output: renderedHooksFolder,
+    isHooks: true,
   });
 }
 
