@@ -30,7 +30,7 @@ jobs:
         run: pnpm install
 
       - name: Build code
-        run: pnpm build -F dkcutter
+        run: pnpm build:dkcutter
 
       - name: Run tests
         run: pnpm test

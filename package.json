@@ -16,6 +16,7 @@
   },
   "scripts": {
     "build": "turbo build",
+    "build:dkcutter": "turbo build -F dkcutter",
     "start": "dkcutter",
     "dev": "turbo dev",
     "clean": "turbo clean && git clean -xdf .turbo node_modules -e .turbo/config.json",
@@ -27,7 +28,7 @@
     "check": "pnpm lint && pnpm typecheck && pnpm check:spell && pnpm check:case",
     "test": "turbo test",
     "test:watch": "turbo test:watch",
-    "release": "pnpm build --filter='!dkcutter-docs' && changeset publish",
+    "release": "pnpm build:dkcutter && changeset publish",
     "prepare": "husky",
     "commitlint": "commitlint --edit",
     "pre-commit": "lint-staged"
