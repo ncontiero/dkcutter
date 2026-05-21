@@ -9,7 +9,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  test:
+    name: Test - Release
+    uses: ./.github/workflows/test.yml
+
   release:
+    needs: test
     permissions:
       contents: write # to create release (changesets/action)
       pull-requests: write # to create pull request (changesets/action)
@@ -40,9 +45,6 @@ jobs:
 
       - name: Check code
         run: pnpm check
-
-      - name: Run tests
-        run: pnpm test
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
