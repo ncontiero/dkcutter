@@ -1,8 +1,5 @@
 {
   "name": "{{ dkcutter.projectSlug }}",
   "version": "1.0.0",
-  "scripts": {
-    "dev": "echo 'running'"{% if dkcutter.isEslint == "true" %},
-    "lint": "eslint ."{% endif %}
-  }
+  "scripts": {}
 }

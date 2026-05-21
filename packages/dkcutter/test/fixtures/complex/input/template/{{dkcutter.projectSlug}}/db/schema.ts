@@ -1,3 +1,3 @@
 export const schema = {
-  internal: "{{ dkcutter._internalString }}"
+  internal: "{{ dkcutter._internalString }}",
 };

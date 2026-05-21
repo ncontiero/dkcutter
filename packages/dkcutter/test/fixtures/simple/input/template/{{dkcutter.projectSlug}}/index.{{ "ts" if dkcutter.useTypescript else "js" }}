@@ -1,1 +1,3 @@
-console.log("Welcome to {{ dkcutter.projectName }}, created by {{ dkcutter.author }}!");
+import { logger } from "dkcutter/utils";
+
+logger.info("Welcome to {{ dkcutter.projectName }}, created by {{ dkcutter.author }}!");

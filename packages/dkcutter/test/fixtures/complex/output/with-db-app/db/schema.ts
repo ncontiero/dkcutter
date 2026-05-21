@@ -1,3 +1,3 @@
 export const schema = {
-  internal: "with-db-app-react"
+  internal: "with-db-app-react",
 };
