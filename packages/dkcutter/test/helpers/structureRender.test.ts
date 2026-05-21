@@ -1,5 +1,6 @@
 import type { Stats } from "node:fs";
 import fs from "node:fs/promises";
+import { resolve } from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { structureRender } from "@/helpers/structureRender";
 import { renderer } from "@/utils/renderer";
@@ -87,8 +88,9 @@ describe("helpers/structureRender", () => {
     vi.mocked(
       fs.readdir as unknown as (path: string) => Promise<string[]>,
     ).mockImplementation(async (dir) => {
-      if (dir === "/template") return Promise.resolve(["src"]);
-      if (dir === "/template/src") return Promise.resolve(["index.ts"]);
+      if (dir === resolve("/template")) return Promise.resolve(["src"]);
+      if (dir === resolve("/template/src"))
+        return Promise.resolve(["index.ts"]);
       return Promise.resolve([]);
     });
 
@@ -96,8 +98,8 @@ describe("helpers/structureRender", () => {
       fs.lstat as unknown as (path: string) => Promise<Stats>,
     ).mockImplementation(async (path) => {
       return Promise.resolve({
-        isDirectory: () => path.toString().endsWith("src"),
-        isFile: () => !path.toString().endsWith("src"),
+        isDirectory: () => path.toString() === resolve("/template/src"),
+        isFile: () => path.toString() !== resolve("/template/src"),
         mode: 0o777,
       } as unknown as Stats);
     });
