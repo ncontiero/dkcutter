@@ -131,3 +131,4 @@ dist
 
 doc_build/
 .turbo
+.vercel

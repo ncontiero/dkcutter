@@ -12,6 +12,9 @@ export default defineConfig({
   route: {
     cleanUrls: true,
   },
+  ssg: {
+    experimentalWorker: true,
+  },
   plugins: [pluginFontOpenSans()],
   themeConfig: {
     enableScrollToTop: true,
