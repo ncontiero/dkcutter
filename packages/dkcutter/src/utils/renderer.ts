@@ -24,6 +24,20 @@ export function setRendererContext(ctx: ContextProps): DKCutterContext {
 }
 
 /**
+ * Converts a string value that represents a boolean into its boolean equivalent, or returns the original string.
+ * This helper is used to interpret case-insensitive "true"/"false" values while preserving non-boolean strings.
+ *
+ * @param {string} value - The string value to check and convert.
+ * @returns {boolean|string} - `true` or `false` if the input matches those strings (case-insensitive), otherwise the original string.
+ */
+function verifyBoolean(value: string): boolean | string {
+  const lowerValue = value.trim().toLowerCase();
+  if (lowerValue === "true") return true;
+  if (lowerValue === "false") return false;
+  return value;
+}
+
+/**
  * Updates a field in the DKCutter context with a new value after rendering the string.
  * @param {string} field - The field in the context to update.
  * @param {string} newValue - The new value to set for the field.
@@ -38,7 +52,7 @@ function updateContext(
   field: string,
   newValue: string,
   returnV: boolean = false,
-): string | undefined {
+): string | boolean | undefined {
   const msgError = "In `dkcutter.update()` the";
   if (typeof field !== "string") {
     throw new TypeError(
@@ -51,7 +65,7 @@ function updateContext(
       `${msgError} field "${field}" does not exist in the context`,
     );
   }
-  dkcutter[field] = renderer.renderString(newValue, dkcutter);
+  dkcutter[field] = verifyBoolean(renderer.renderString(newValue, dkcutter));
   if (returnV) return dkcutter[field];
 }
 
@@ -70,7 +84,7 @@ function addValueToContext(
   field: string,
   value: string,
   returnV: boolean = false,
-): string | undefined {
+): string | boolean | undefined {
   const msgError = "In `dkcutter.add()` the";
   if (typeof field !== "string") {
     throw new TypeError(
@@ -78,7 +92,7 @@ function addValueToContext(
     );
   }
   const dkcutter = renderer.getGlobal("dkcutter") as ContextProps;
-  dkcutter[field] = renderer.renderString(value, dkcutter);
+  dkcutter[field] = verifyBoolean(renderer.renderString(value, dkcutter));
   if (returnV) return dkcutter[field];
 }
 
