@@ -12,11 +12,35 @@ const colorFunctions = {
   warn: yellow,
 };
 
-export const colorize = (type: LOG_TYPE, data: string | number) => {
-  return colorFunctions[type]?.(data) ?? data;
-};
+function toLogString(value: unknown): string {
+  if (typeof value === "string") return value;
+  if (
+    typeof value === "number" ||
+    typeof value === "boolean" ||
+    value === null ||
+    value === undefined
+  )
+    return String(value);
 
-export function createLogger(type: LOG_TYPE, ...data: (string | number)[]) {
+  if (typeof value === "bigint" || typeof value === "symbol") {
+    return value.toString();
+  }
+
+  try {
+    // Try JSON first for objects/arrays to preserve structure
+    return JSON.stringify(value);
+  } catch {
+    // Fallback to default string conversion
+    return String(value);
+  }
+}
+
+export function colorize(type: LOG_TYPE, data: unknown): string {
+  const text = toLogString(data);
+  return colorFunctions[type]?.(text) ?? text;
+}
+
+export function createLogger(type: LOG_TYPE, ...data: unknown[]) {
   const args = data.map((item) => colorize(type, item));
   const messageType = type === "error" ? "error" : "log";
   const formattedMessage = util.format(...args);
@@ -37,7 +61,7 @@ export function createLogger(type: LOG_TYPE, ...data: (string | number)[]) {
 }
 
 export function createLoggerMethod(type: LOG_TYPE) {
-  return (...args: (string | number)[]) => createLogger(type, ...args);
+  return (...args: unknown[]) => createLogger(type, ...args);
 }
 
 export const logger = {
