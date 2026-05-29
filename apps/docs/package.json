@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@ncontiero/eslint-config": "^8.2.1",
-    "@rspress/core": "2.0.12",
+    "@rspress/core": "2.0.13",
     "@types/node": "^25.9.1",
     "@types/react": "^19.2.15",
     "eslint": "^10.4.0",
