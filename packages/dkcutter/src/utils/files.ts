@@ -76,6 +76,29 @@ export async function emptyDir(path: PathLike) {
 }
 
 /**
+ * Renames or moves a file or directory from one path to another.
+ * Falls back to copying and removing the original when a cross-device rename is not allowed.
+ *
+ * @param oldPath The current path of the file or directory.
+ * @param newPath The new path where the file or directory should be moved or renamed.
+ * @returns A promise that resolves when the rename or fallback move operation has completed.
+ * @throws Re-throws any error that is not related to cross-device rename limitations.
+ */
+export async function rename(oldPath: string, newPath: string) {
+  try {
+    await fs.rename(oldPath, newPath);
+  } catch (error) {
+    if (!(error instanceof Error)) throw error;
+    if ("code" in error && error.code === "EXDEV") {
+      await copy(oldPath, newPath);
+      await remove(oldPath);
+    } else {
+      throw error;
+    }
+  }
+}
+
+/**
  * Cleans up files and folders related to a generated project based on specified parameters.
  *
  * This function handles the removal of specific files and directories associated with a generated project,
