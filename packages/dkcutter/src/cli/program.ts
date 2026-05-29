@@ -1,12 +1,12 @@
 import { Command } from "commander";
 import { PKG_ROOT } from "@/consts";
-import { getPackageInfo } from "@/utils";
+import { getPackageInfoSync } from "@/utils";
 
 export const program = new Command()
   .name("dkcutter")
   .description("A command-line utility that creates projects from templates.")
   .version(
-    getPackageInfo(PKG_ROOT).packageJson.version || "5.0.3",
+    getPackageInfoSync(PKG_ROOT).packageJson.version || "5.0.3",
     "-v, --version",
     "Display the version number.",
   )

@@ -4,6 +4,7 @@ import fs from "node:fs/promises";
 import { join, resolve } from "node:path";
 
 import { IGNORE_FILE_PATTERN } from "@/consts";
+import { mkdir } from "@/utils";
 import { renderer } from "@/utils/renderer";
 
 interface RenderOptions {
@@ -49,7 +50,7 @@ async function processTemplateFile(
   const itemStat = await fs.lstat(filePath);
 
   if (itemStat.isDirectory()) {
-    await fs.mkdir(outputFilePath, { recursive: true });
+    await mkdir(outputFilePath);
     await structureRender({
       context,
       directory: filePath,

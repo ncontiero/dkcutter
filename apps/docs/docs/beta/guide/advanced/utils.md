@@ -67,8 +67,12 @@ DKCutter provides several asynchronous file manipulation utilities, mostly wrapp
 - `pathExists(path)`: Checks if a file or directory exists. Returns a `Promise<boolean>`.
 - `copy(src, dest, options?)`: Copies files or directories recursively. Returns a `Promise<void>`.
 - `remove(path, options?)`: Removes a file or directory recursively and forcibly. Returns a `Promise<void>`.
+- `mkdir(path, options?)`: Creates a directory. Returns a `Promise<void>`.
 - `emptyDir(path)`: Empties a directory. If it doesn't exist, it creates it. Returns a `Promise<void>`.
 - `rename(oldPath, newPath)`: Renames a file or directory. It handles cross-device moves by falling back to a copy-and-delete strategy if the standard rename fails (e.g., when moving between different partitions or Docker volumes). Returns a `Promise<void>`.
+- `readJsonFile<T>(path)`: Reads a JSON file and parses its contents. Returns a `Promise<T>`.
+- `readJsonFileSync<T>(path)`: Synchronous version of `readJsonFile`.
+- `writeJsonFile(path, data, options?)`: Writes JSON data to a file. Returns a `Promise<void>`.
 
 ```ts
 import { copy, pathExists } from "dkcutter/utils";
@@ -82,6 +86,7 @@ if (await pathExists("./temp")) {
 
 - `getUserPkgManager()`: Detects the package manager being used (`npm`, `pnpm`, `yarn`, or `bun`).
 - `getPackageInfo(dir)`: Returns the `package.json` content and path for a given directory.
+- `getPackageInfoSync(dir)`: Synchronous version of `getPackageInfo`.
 - `capitalize(str)`: Capitalizes the first letter of a string.
 - `generateRandomString(length)`: Generates a random alphanumeric string.
 

@@ -10,7 +10,7 @@ export async function updatePackageJson({
   projectDir,
   scripts = {},
 }: UpdatePackageJsonProps) {
-  const { packageJson, packageJsonPath } = getPackageInfo(projectDir);
+  const { packageJson, packageJsonPath } = await getPackageInfo(projectDir);
 
   packageJson.scripts = { ...packageJson.scripts, ...scripts };
 

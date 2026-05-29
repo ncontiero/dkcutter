@@ -1,4 +1,9 @@
-import type { CopyOptions, PathLike, RmOptions } from "node:fs";
+import fsSync, {
+  type CopyOptions,
+  type MakeDirectoryOptions,
+  type PathLike,
+  type RmOptions,
+} from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
 import {
@@ -64,6 +69,18 @@ export async function pathExists(path: PathLike) {
 }
 
 /**
+ * Creates a directory at the given path.
+ * This function ensures directory creation is recursive by default while allowing custom options.
+ *
+ * @param path The path of the directory to create.
+ * @param options Optional directory creation options that override or extend the default recursive behavior.
+ * @returns A promise that resolves when the directory has been created.
+ */
+export async function mkdir(path: PathLike, options?: MakeDirectoryOptions) {
+  return fs.mkdir(path, { recursive: true, ...options });
+}
+
+/**
  * Empties a directory at the given path and recreates it as an empty folder.
  * This ensures any previous contents are removed before the directory is used again.
  *
@@ -72,7 +89,7 @@ export async function pathExists(path: PathLike) {
  */
 export async function emptyDir(path: PathLike) {
   await remove(path);
-  await fs.mkdir(path, { recursive: true });
+  await mkdir(path);
 }
 
 /**
@@ -96,6 +113,60 @@ export async function rename(oldPath: string, newPath: string) {
       throw error;
     }
   }
+}
+
+/**
+ * Reads a JSON file from the given path and parses its contents into a JavaScript value.
+ * This function provides a typed interface to read and deserialize JSON files asynchronously.
+ *
+ * @param filePath The path to the JSON file to read.
+ * @returns A promise that resolves to the parsed JSON content typed as `T`.
+ */
+export async function readJsonFile<T = unknown>(filePath: string): Promise<T> {
+  const fileContent = await fs.readFile(filePath, "utf-8");
+  return JSON.parse(fileContent) as T;
+}
+
+/**
+ * Reads a JSON file from the given path and synchronously parses its contents into a JavaScript value.
+ * This function provides a typed interface to read and deserialize JSON files in a blocking manner.
+ *
+ * @param filePath The path to the JSON file to read.
+ * @returns The parsed JSON content typed as `T`.
+ */
+export function readJsonFileSync<T = unknown>(filePath: string): T {
+  const fileContent = fsSync.readFileSync(filePath, "utf-8");
+  return JSON.parse(fileContent) as T;
+}
+
+interface WriteJsonFileOptions {
+  /**
+   * The number of spaces or string to use for indentation in the JSON output.
+   * If not provided, defaults to 2 spaces.
+   */
+  spaces?: number | string;
+}
+
+/**
+ * Writes a JavaScript value as JSON to a file at the given path.
+ * This function ensures the target directory exists and formats the JSON output with optional spacing.
+ *
+ * @param filePath The path to the JSON file to write.
+ * @param data The data to serialize and write as JSON.
+ * @param options Optional formatting options.
+ * @returns A promise that resolves once the JSON file has been written.
+ */
+export async function writeJsonFile<T = unknown>(
+  filePath: string,
+  data: T,
+  options?: WriteJsonFileOptions,
+) {
+  await mkdir(path.dirname(filePath));
+  await fs.writeFile(
+    filePath,
+    JSON.stringify(data, null, options?.spaces ?? 2),
+    "utf-8",
+  );
 }
 
 /**
