@@ -5,3 +5,5 @@ export const spinner = new Spinner("Initializing...", {
     text: "blue",
   },
 });
+
+export { Spinner };
