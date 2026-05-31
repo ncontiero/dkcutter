@@ -33,8 +33,4 @@ export default defineConfig({
         "https://github.com/ncontiero/dkcutter/tree/main/apps/docs/docs",
     },
   },
-  multiVersion: {
-    default: "latest",
-    versions: ["latest", "beta"],
-  },
 });
