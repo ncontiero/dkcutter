@@ -1,5 +1,67 @@
 # dkcutter
 
+## 6.0.0
+
+### Major Changes
+
+- [`82c8fbe`](https://github.com/ncontiero/dkcutter/commit/82c8fbe3f613de876b9e3d3bdacf0e758aac0cdb) - refactor!: remove `which` dependency
+
+  - `which` is no longer provided at hooks runtime. If you were using `which` in your hooks to detect executables, you can verify if a command exists by running it with a `--version` flag using `tinyexec` instead.
+
+- [`089a3ee`](https://github.com/ncontiero/dkcutter/commit/089a3ee511408c0c0ebbbda9fd5f71a056dc5073) - refactor!: replace `cosmiconfig` with `lilconfig`
+
+  - If you use `cosmiconfig` in your hooks, you should now use `lilconfig` instead, as `cosmiconfig` is no longer provided.
+
+- [`86f7eb8`](https://github.com/ncontiero/dkcutter/commit/86f7eb87f0cc6d7185dbdba058c6b1e5de699142) - refactor!: replace `execa` with `tinyexec`
+
+  - If you use `execa` in your hooks, you should now use `tinyexec` instead, as `execa` is no longer provided.
+
+- [`9df9b1c`](https://github.com/ncontiero/dkcutter/commit/9df9b1cbd61b146021f9ab5f710294b9d9aada88) - chore(deps)!: require Node.js 22.3.0 or higher
+
+- [`737184f`](https://github.com/ncontiero/dkcutter/commit/737184fc9456d8d477e4dcaa894fad2365aca72d) - refactor!: replace `ora` with `picospinner`
+
+  - If you use `ora` in your hooks, you should now use `picospinner` instead, as `ora` is no longer provided.
+
+- [`3781b2a`](https://github.com/ncontiero/dkcutter/commit/3781b2a096cbee93f8039a62e69d3e88ab912ffc) - refactor!: replace `fs-extra` with `fs/promises`
+
+  - If you use `fs-extra` in your hooks, you should now use `fs` or `fs/promises` instead, as `fs-extra` is no longer provided.
+
+### Minor Changes
+
+- [`1657b4f`](https://github.com/ncontiero/dkcutter/commit/1657b4f59d76096aa0431c056d460a71e0d839f7) - feat(utils): add JSON file helpers and async package info utilities
+
+- [`a7cc411`](https://github.com/ncontiero/dkcutter/commit/a7cc4111429daac707cff8bc11ae8ff054cffbf0) - feat: expose shared utils entrypoint
+
+  - This allows users to import internal utilities like `logger`, `spinner` directly from `dkcutter/utils`.
+
+- [`cbea1e7`](https://github.com/ncontiero/dkcutter/commit/cbea1e7f95bf5995a4048f55396bbc441cace73e) - feat(utils): add cross-device safe rename helper
+
+### Patch Changes
+
+- [`d9147e5`](https://github.com/ncontiero/dkcutter/commit/d9147e5d19982eb1545be542784fa774c6da4720) - fix: stop the CLI spinner to render/get the context
+
+- [`9761d14`](https://github.com/ncontiero/dkcutter/commit/9761d1457702f6836d7cb6118944abd8c827586d) - refactor: consolidate config types and centralize file ignore patterns
+
+- [`4caf1a9`](https://github.com/ncontiero/dkcutter/commit/4caf1a9fe143addf6b710dc5b74e1b89386abf62) - fix(hooks): ensure deterministic sequential rendering for hooks
+
+- [`c0cf9b1`](https://github.com/ncontiero/dkcutter/commit/c0cf9b103fb41a5912f08785d2baa9a818644873) - refactor: improve type safety and CLI options types
+
+- [`813a925`](https://github.com/ncontiero/dkcutter/commit/813a92521f99b9da5b1b66f6b0831db518f60ea9) - fix: add `throwOnError` when executing the hooks
+
+- [`2374616`](https://github.com/ncontiero/dkcutter/commit/23746161746ee96b344e2681a247cf2f8a0da965) - feat(renderer): support boolean conversion when updating dkcutter context
+
+- [`739d8e7`](https://github.com/ncontiero/dkcutter/commit/739d8e7ea7a49cca4e87d55e08362de09ee24ae8) - chore(deps): update deps
+
+- [`2c1f3dd`](https://github.com/ncontiero/dkcutter/commit/2c1f3dd9f979987fa4be298ad4446745767abfee) - fix: reliably locate template root folder to avoid targeting hidden files
+
+- [`d7ba93a`](https://github.com/ncontiero/dkcutter/commit/d7ba93aab7926aa9023d18961a8877706b7ec7a6) - chore: expands ignored file patterns to include common binary/font/archive/media/document types
+
+- [`5e0e443`](https://github.com/ncontiero/dkcutter/commit/5e0e443ab57f1562f8e07b4124b1c8cf6c3f2b8b) - chore: improve spinner usage and hook logging in dkcutter workflow
+
+- [`63d99f5`](https://github.com/ncontiero/dkcutter/commit/63d99f5884d3ed140065ecf3220b522a22a5df26) - refactor: extract helper functions for prompting, template setup, and structure rendering
+
+- [`531ac38`](https://github.com/ncontiero/dkcutter/commit/531ac38388b55c18a3fa2c3eab696b5109491561) - chore: improve error handling and cleanup during project generation
+
 ## 5.0.7
 
 ### Patch Changes
