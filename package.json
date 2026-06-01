@@ -41,7 +41,7 @@
     "@ncontiero/eslint-config": "8.2.1",
     "cspell-ban-words": "^0.0.4",
     "dkcutter": "workspace:*",
-    "eslint": "^10.4.0",
+    "eslint": "^10.4.1",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.5",
     "turbo": "^2.9.16",
