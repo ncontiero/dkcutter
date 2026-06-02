@@ -43,7 +43,7 @@
     "dkcutter": "workspace:*",
     "eslint": "^10.4.1",
     "husky": "^9.1.7",
-    "lint-staged": "^17.0.5",
+    "lint-staged": "^17.0.6",
     "turbo": "^2.9.16",
     "typescript": "^6.0.3"
   },
