@@ -1,5 +1,11 @@
 # dkcutter
 
+## 6.0.1
+
+### Patch Changes
+
+- [#878](https://github.com/ncontiero/dkcutter/pull/878) [`cfd2e3b`](https://github.com/ncontiero/dkcutter/commit/cfd2e3bdbb22c0da2597f7435dae20c0c64f56ff) - chore(deps): update commander to v15
+
 ## 6.0.0
 
 ### Major Changes
