@@ -1,5 +1,11 @@
 # dkcutter
 
+## 6.0.2
+
+### Patch Changes
+
+- [`ad8a384`](https://github.com/ncontiero/dkcutter/commit/ad8a38435abc595cd3a9e5109aad2b0b0624fab4) - fix(context): correctly apply transformed values to merged context
+
 ## 6.0.1
 
 ### Patch Changes
