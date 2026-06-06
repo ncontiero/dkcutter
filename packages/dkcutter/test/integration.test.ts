@@ -153,6 +153,13 @@ describe("Integration: Fixtures", () => {
     });
   });
 
+  it('should process simple fixture with custom extraContext (useTypescript as string "false")', async () => {
+    await validateValidCase("simple", "custom-app", {
+      projectName: "Custom App",
+      useTypescript: "false",
+    });
+  });
+
   it("should process simple fixture with custom extraContext (projectSlug != projectName)", async () => {
     await validateValidCase("simple", "my-app-slug", {
       projectName: "My App",

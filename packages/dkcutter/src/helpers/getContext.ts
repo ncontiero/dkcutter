@@ -29,7 +29,6 @@ import { createPromptObjects } from "./prompts";
  * @param {RegExp} [regex] - Optional regular expression pattern for validation.
  * @param {ConfigChoiceProps[]} [choices] - Optional array of valid choices for the value.
  * @param {ChoicesTypeEnumProps} [choicesType] - Optional type of choices (e.g., multiselect).
- * @returns {z.ZodTypeAny} - The Zod schema for the provided configuration value.
  */
 function contextSchema(
   key: string,
@@ -37,7 +36,7 @@ function contextSchema(
   regex?: RegExp,
   choices?: ConfigChoiceProps[],
   choicesType?: ChoicesTypeEnumProps,
-): z.ZodTypeAny {
+) {
   const value = context[key];
   const availableChoices = choices?.filter(
     (c) => renderer.renderString(c.disabled || "false", context) !== "true",
@@ -51,8 +50,7 @@ function contextSchema(
     .string()
     .or(z.boolean())
     .or(z.array(z.string()))
-    .transform((val) => val.toString())
-    .optional();
+    .transform((val) => val.toString());
 
   const choiceSchema = choices
     ? baseSchema.refine((val) => {
@@ -171,7 +169,13 @@ function handleContext(
       ? "multiselect"
       : "select";
 
-    contextSchema(key, mergedContext, regex, choices, choicesType).parse(value);
+    mergedContext[key] = contextSchema(
+      key,
+      mergedContext,
+      regex,
+      choices,
+      choicesType,
+    ).parse(value);
     handleValuesDisabled(key, configValue, mergedContext);
   }
 
