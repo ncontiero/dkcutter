@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@ncontiero/eslint-config": "^8.2.1",
+    "@ncontiero/eslint-config": "^8.2.2",
     "@rspress/core": "2.0.13",
     "@types/node": "^25.9.1",
     "@types/react": "^19.2.16",
