@@ -15,9 +15,9 @@
   },
   "devDependencies": {
     "@ncontiero/eslint-config": "^8.2.2",
-    "@rspress/core": "2.0.13",
-    "@types/node": "^25.9.1",
-    "@types/react": "^19.2.16",
+    "@rspress/core": "2.0.14",
+    "@types/node": "^25.9.3",
+    "@types/react": "^19.2.17",
     "eslint": "^10.4.1",
     "rspress-plugin-font-open-sans": "^1.0.4",
     "typescript": "^6.0.3"
