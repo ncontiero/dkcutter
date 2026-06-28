@@ -1,26 +1,24 @@
-import { Command } from "commander";
-import { PKG_ROOT } from "@/consts";
-import { getPackageInfoSync } from "@/utils";
+import { cac } from "cac";
+import pkg from "../../package.json" with { type: "json" };
 
-export const program = new Command()
-  .name("dkcutter")
-  .description("A command-line utility that creates projects from templates.")
-  .version(
-    getPackageInfoSync(PKG_ROOT).packageJson.version || "5.0.3",
-    "-v, --version",
-    "Display the version number.",
-  )
-  .usage("[options] [template] [extra-context-options]...")
-  .option("--init", "Initialize a base DKCutter template.", false)
+export const program = cac("dkcutter");
+
+program
+  .usage("[template] [options] [extra-context-options]...")
+  .version(pkg.version || "6.0.2")
+  .help();
+
+program
+  .option("--init", "Initialize a base DKCutter template.", { default: false })
   .option(
     "-y, --default",
     "Do not prompt for parameters and/or use the template's default values.",
-    false,
+    { default: false },
   )
   .option(
     "-o, --output <path>",
     "Where to output the generated project dir into.",
-    process.cwd(),
+    { default: process.cwd() },
   )
   .option(
     "-d, --directory <path>",
@@ -33,14 +31,10 @@ export const program = new Command()
   .option(
     "-f, --overwrite",
     "Overwrite the output directory if it already exists.",
-    false,
+    { default: false },
   )
   .option(
     "-k, --keep-project-on-failure",
     "Keep the generated project dir on failure.",
-    false,
-  )
-  .argument("[template]", "The url or path of the template.")
-  .allowExcessArguments(true)
-  .allowUnknownOption(true)
-  .parse(process.argv);
+    { default: false },
+  );

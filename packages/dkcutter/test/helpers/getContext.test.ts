@@ -99,14 +99,10 @@ describe("helpers/getContext", () => {
     });
 
     it("should apply CLI options to override defaults", async () => {
-      // Mock process.argv
+      // Mock process.argv and env
       const originalArgv = process.argv;
-      process.argv = [
-        "node",
-        "script",
-        "--dkcutter.isCli=true",
-        "--slug=my-slug",
-      ];
+      process.argv = ["node", "script", "--slug=my-slug"];
+      process.env.DKCUTTER_IS_CLI = "true";
 
       const config: ConfigProps = {
         slug: "default-slug",
@@ -116,6 +112,7 @@ describe("helpers/getContext", () => {
       expect(context.slug).toBe("my-slug");
 
       process.argv = originalArgv;
+      delete process.env.DKCUTTER_IS_CLI;
     });
   });
 });

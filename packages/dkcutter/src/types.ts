@@ -62,6 +62,22 @@ export interface Options extends OptionsSchema {
 
 export interface CLIOptions extends Options {
   /**
+   * Show help message and exit.
+   *
+   * @See https://dkcutter.ncontiero.com/guide/advanced/cli#-h---help
+   * @default false
+   */
+  help?: boolean;
+
+  /**
+   * Show version number and exit.
+   *
+   * @See https://dkcutter.ncontiero.com/guide/advanced/cli#-v---version
+   * @default false
+   */
+  version?: boolean;
+
+  /**
    * Initialize a base DKCutter template.
    *
    * @See https://dkcutter.ncontiero.com/guide/advanced/cli#--init

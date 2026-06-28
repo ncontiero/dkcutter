@@ -18,10 +18,11 @@ process.on("unhandledRejection", handleError);
  */
 async function cli(): Promise<void> {
   try {
-    process.argv.push("--dkcutter.isCli=true");
+    process.env.DKCUTTER_IS_CLI = "true";
 
-    const options = program.opts<CLIOptions>();
-    const template = program.args[0];
+    const parsed = program.parse(process.argv, { run: false });
+    const options = parsed.options as CLIOptions;
+    const template = parsed.args[0];
 
     if (options.init) {
       await dkcutter({
@@ -32,7 +33,14 @@ async function cli(): Promise<void> {
       return;
     }
 
-    if (!template) program.help();
+    if (options.help || options.version) {
+      return;
+    }
+
+    if (!template) {
+      program.outputHelp();
+      return;
+    }
 
     await dkcutter({
       template,

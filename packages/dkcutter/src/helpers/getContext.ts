@@ -143,7 +143,7 @@ function handleContext(
   extraContext: ContextProps,
 ): HandleContextReturn {
   let cliOptions: ContextProps = {};
-  if (process.argv.includes("--dkcutter.isCli=true")) {
+  if (process.env.DKCUTTER_IS_CLI === "true") {
     cliOptions = createCliOptions(context);
   }
 
