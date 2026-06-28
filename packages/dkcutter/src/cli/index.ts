@@ -1,6 +1,8 @@
 import type { CLIOptions } from "@/types";
+import { bold, cyan, dim } from "ansis";
 import { handleError } from "@/utils/handleError";
 import { dkcutter } from "..";
+import pkg from "../../package.json" with { type: "json" };
 import { program } from "./program";
 
 process.on("SIGINT", handleError);
@@ -24,21 +26,24 @@ async function cli(): Promise<void> {
     const options = parsed.options as CLIOptions;
     const template = parsed.args[0];
 
+    if (options.help || options.version) {
+      return;
+    }
+
+    if (!template && !options.init) {
+      program.outputHelp();
+      return;
+    }
+
+    console.log(`\n${bold(cyan("DKCutter"))} ${dim(`v${pkg.version}`)}`);
+    console.log(`${dim("Let's create something amazing!")}\n`);
+
     if (options.init) {
       await dkcutter({
         template: "gh:ncontiero/dkcutter",
         options,
         extraContext: {},
       });
-      return;
-    }
-
-    if (options.help || options.version) {
-      return;
-    }
-
-    if (!template) {
-      program.outputHelp();
       return;
     }
 

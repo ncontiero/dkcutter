@@ -10,7 +10,7 @@ import { colorize, logger, pathExists, spinner } from "dkcutter/utils";
 
 ## Logger
 
-The `logger` provides a consistent way to print messages to the terminal with colors. It is built on top of [colorette](https://github.com/jorgebucaran/colorette).
+The `logger` provides a consistent way to print messages to the terminal with colors. It is built on top of [ansis](https://github.com/webdiscus/ansis).
 
 - `logger.info(...data)`: Prints an informative message (blue).
 - `logger.success(...data)`: Prints a success message (green).

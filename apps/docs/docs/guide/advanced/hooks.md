@@ -61,7 +61,7 @@ DKCutter exposes several internal utilities that you can use in your hooks. Thes
 
 You can use some libraries that are made available at hooks runtime, see which ones they are:
 
-- [colorette](https://github.com/jorgebucaran/colorette) - 🌈Easily set your terminal text color & styles;
+- [ansis](https://github.com/webdiscus/ansis) - 🌈 The Node.js library for formatting text in terminal with ANSI colors & styles;
 - [cac](https://github.com/cacjs/cac) - Simple yet powerful framework for building command-line apps;
 - [lilconfig](https://github.com/antonk52/lilconfig) - Zero-dependency nodejs config seeker;
 - [tinyexec](https://github.com/tinylibs/tinyexec) - 📟 A tiny, higher level interface around child_process

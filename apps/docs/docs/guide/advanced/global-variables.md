@@ -61,7 +61,7 @@ DKCutter offers the following built-in variables:
 
 ## Colors Variable
 
-The `colors` variable provides access to color functionality for styling prompts within your `dkcutter.json` configuration file. It utilizes the [`colorette`](https://github.com/jorgebucaran/colorette) library.
+The `colors` variable provides access to color functionality for styling prompts within your `dkcutter.json` configuration file. It utilizes the [`ansis`](https://github.com/webdiscus/ansis) library.
 
 ### Example: Using Colors in Prompts
 

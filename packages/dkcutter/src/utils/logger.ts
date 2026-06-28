@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import util from "node:util";
 import { isMainThread, parentPort } from "node:worker_threads";
-import { blue, green, red, yellow } from "colorette";
+import { blue, green, red, yellow } from "ansis";
 
 export type LOG_TYPE = "info" | "success" | "error" | "warn";
 

@@ -1,6 +1,6 @@
 import type { ContextProps, DKCutterContext } from "@/helpers/getConfig";
 
-import * as colors from "colorette";
+import * as colors from "ansis";
 import nunjucks from "nunjucks";
 
 import { getUserPkgManager } from ".";
@@ -104,7 +104,15 @@ const globals = {
 };
 
 renderer.addGlobal("dkcutter", globals);
-renderer.addGlobal("colors", colors);
+
+type ColorFn = (...args: string[]) => string;
+const nunjucksColors: Record<string, ColorFn> = {};
+for (const [key, value] of Object.entries(colors)) {
+  if (typeof value === "function") {
+    nunjucksColors[key] = (...args: string[]) => (value as ColorFn)(...args);
+  }
+}
+renderer.addGlobal("colors", nunjucksColors);
 
 renderer.addFilter("wordCount", (str: string, count: string) => {
   return count ? str.split(count).length - 1 : str.length;
