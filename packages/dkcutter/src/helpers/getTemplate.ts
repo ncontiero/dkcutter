@@ -35,7 +35,7 @@ interface GetTemplateProps {
  * @param {RepoType} repoType - The type of version control system to check for (Mercurial or Git).
  * @returns {Promise<boolean>} - True if the specified VCS is installed, false otherwise.
  */
-export async function isVSCInstalled(repoType: RepoType): Promise<boolean> {
+export async function isVCSInstalled(repoType: RepoType): Promise<boolean> {
   try {
     const { exitCode } = await x(repoType, ["--version"]);
     return exitCode === 0;
@@ -72,7 +72,7 @@ export async function getTemplate({
 
   try {
     const repoType = identifyRepoType(url);
-    if (!(await isVSCInstalled(repoType))) {
+    if (!(await isVCSInstalled(repoType))) {
       throw new Error(`${repoType} is not installed`);
     }
 
