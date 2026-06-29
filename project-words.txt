@@ -18,3 +18,4 @@ postgresql
 tinyexec
 picospinner
 pregen
+isbinaryfile
