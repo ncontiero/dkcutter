@@ -61,16 +61,17 @@ DKCutter exposes several internal utilities that you can use in your hooks. Thes
 
 You can use some libraries that are made available at hooks runtime, see which ones they are:
 
-- [ansis](https://github.com/webdiscus/ansis) - 🌈 The Node.js library for formatting text in terminal with ANSI colors & styles;
-- [colorette](https://github.com/jorgebucaran/colorette) - 🌈Easily set your terminal text color & styles (**Deprecated: will be removed in the next major version. Use `ansis` instead**);
-- [cac](https://github.com/cacjs/cac) - Simple yet powerful framework for building command-line apps;
-- [commander](https://github.com/tj/commander.js) - Node.js command-line interfaces made easy (**Deprecated: will be removed in the next major version. Use `cac` instead**);
 - [@clack/prompts](https://github.com/natemoo-re/clack) - Effortlessly build beautiful command-line apps;
+- [ansis](https://github.com/webdiscus/ansis) - 🌈 The Node.js library for formatting text in terminal with ANSI colors & styles;
+- [cac](https://github.com/cacjs/cac) - Simple yet powerful framework for building command-line apps;
+- [colorette](https://github.com/jorgebucaran/colorette) - 🌈Easily set your terminal text color & styles (**Deprecated: will be removed in the next major version. Use `ansis` instead**);
+- [commander](https://github.com/tj/commander.js) - Node.js command-line interfaces made easy (**Deprecated: will be removed in the next major version. Use `cac` instead**);
+- [isbinaryfile](https://github.com/gjtorikian/isBinaryFile) - Detects if a file is binary in Node.js;
 - [lilconfig](https://github.com/antonk52/lilconfig) - Zero-dependency nodejs config seeker;
-- [tinyexec](https://github.com/tinylibs/tinyexec) - 📟 A tiny, higher level interface around child_process
 - [nunjucks](https://github.com/mozilla/nunjucks) - A powerful templating engine with inheritance, asynchronous control, and more (jinja2 inspired);
 - [picospinner](https://github.com/tinylibs/picospinner) - A lightweight, no dependency, pluggable CLI spinner library (**Deprecated: will be removed in the next major version. Use `@clack/prompts` spinner instead**);
 - [prompts](https://github.com/terkelg/prompts) - ❯ Lightweight, beautiful and user-friendly interactive prompts (**Deprecated: will be removed in the next major version. Use `@clack/prompts` instead**);
+- [tinyexec](https://github.com/tinylibs/tinyexec) - 📟 A tiny, higher level interface around child_process
 - [tsx](https://github.com/privatenumber/tsx) - ⚡️ TypeScript Execute | The easiest way to run TypeScript in Node.js;
 - [zod](https://github.com/colinhacks/zod) - TypeScript-first schema validation with static type inference.
 

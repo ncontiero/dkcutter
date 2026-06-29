@@ -3,6 +3,7 @@ import type { DKCutterContext } from "@/helpers/getConfig";
 import fs from "node:fs/promises";
 import { join, resolve } from "node:path";
 
+import { isBinaryFile } from "isbinaryfile";
 import { IGNORE_FILE_PATTERN } from "@/consts";
 import { mkdir } from "@/utils";
 import { renderer } from "@/utils/renderer";
@@ -59,9 +60,10 @@ async function processTemplateFile(
       isHooks,
     });
   } else if (itemStat.isFile()) {
-    const fileMode = itemStat.mode & 0o777;
-
-    if (ignorePatterns.some((pattern) => pattern.test(file))) {
+    if (
+      ignorePatterns.some((pattern) => pattern.test(file)) ||
+      (await isBinaryFile(filePath))
+    ) {
       await fs.copyFile(filePath, outputFilePath);
     } else {
       const fileContent = await fs.readFile(filePath, "utf-8");
@@ -71,6 +73,7 @@ async function processTemplateFile(
       );
     }
 
+    const fileMode = itemStat.mode & 0o777;
     await fs.chmod(outputFilePath, fileMode);
   }
 }
