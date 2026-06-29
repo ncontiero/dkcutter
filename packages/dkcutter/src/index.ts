@@ -12,10 +12,11 @@ import { getTemplate, templateIsValid } from "@/helpers/getTemplate";
 import { configureHooks, runHook } from "@/helpers/hooks";
 import { structureRender } from "@/helpers/structureRender";
 import { type DKCutter, type OptionsSchema, optionsSchema } from "@/types";
-import { colorize, logger, spinner } from "@/utils";
 import { cleanFiles, emptyDir, pathExists } from "@/utils/files";
 import { handleError } from "@/utils/handleError";
+import { colorize, logger } from "@/utils/logger";
 import { renderer, setRendererContext } from "@/utils/renderer";
+import { clackSpinner } from "@/utils/spinner";
 
 process.on("SIGINT", handleError);
 process.on("SIGTERM", handleError);
@@ -117,7 +118,7 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
   let keepProjectOnFailure = false;
 
   try {
-    spinner.start();
+    clackSpinner.start("Initializing...");
 
     if (!template || template.trim().length === 0) {
       throw new Error("No template specified. Please specify a template.");
@@ -135,13 +136,13 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
     const config = await getConfig(paths.projectRoot);
     if (!config) throw new Error("No configuration found. Please try again.");
 
-    if (spinner.running) spinner.stop();
+    clackSpinner.stop();
+
     const context = setRendererContext(
       await getContext({ config, skip: options.default, extraContext }),
     );
 
-    spinner.setText("Generating project...");
-    if (!spinner.running) spinner.start();
+    clackSpinner.start("Generating project...");
 
     generatedProjectRoot = await resolveProjectRoot(
       paths.output,
@@ -167,10 +168,10 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
 
     await cleanFiles({ isLocalProject, templateFolder });
 
-    spinner.succeed(colorize("success", "Project created!"));
+    clackSpinner.stop(colorize("success", "Project created!"));
     return context.dkcutter;
   } catch (error) {
-    spinner.running && spinner.stop();
+    clackSpinner.stop();
     if (keepProjectOnFailure) {
       generatedProjectRoot = undefined;
       logger.warn("Project creation failed. Keeping project dir.");

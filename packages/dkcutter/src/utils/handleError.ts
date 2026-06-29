@@ -1,7 +1,6 @@
-import { logger } from ".";
+import { logger } from "./logger";
 
 export function handleError(error: unknown) {
-  logger.break();
   logger.error("An error occurred during project generation.");
 
   if (typeof error === "string") {

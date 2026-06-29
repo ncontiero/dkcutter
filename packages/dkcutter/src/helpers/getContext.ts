@@ -274,7 +274,9 @@ export async function getContext({
     if ([value].flat().length === 0) {
       const configValue = config[key];
       const defaultValue = getDefaultValue(configValue);
-      answers[key] = [defaultValue];
+      answers[key] = Array.isArray(defaultValue)
+        ? defaultValue
+        : [defaultValue as string];
     }
   }
   context = { ...answers, ...internal }; // Re-assign context with answers

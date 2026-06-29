@@ -10,7 +10,7 @@ import { colorize, logger, pathExists, spinner } from "dkcutter/utils";
 
 ## Logger
 
-The `logger` provides a consistent way to print messages to the terminal with colors. It is built on top of [ansis](https://github.com/webdiscus/ansis).
+The `logger` provides a consistent way to print messages to the terminal with colors. It was previously built on top of `ansis` but now wraps `@clack/prompts`. It automatically applies terminal colors to the messages.
 
 - `logger.info(...data)`: Prints an informative message (blue).
 - `logger.success(...data)`: Prints a success message (green).
@@ -31,7 +31,7 @@ A utility function to wrap strings with terminal colors without printing them im
 
 - `colorize(type, data)`: Returns a colored string.
   - `type`: `"info"` | `"success"` | `"error"` | `"warn"`
-  - `data`: `string` | `number`
+  - `data`: `unknown`
 
 ```ts
 import { colorize, logger } from "dkcutter/utils";
@@ -42,22 +42,40 @@ logger.info(`Status: ${coloredText}`);
 
 ## Spinner
 
-The `spinner` is used to display a loading animation in the terminal. It is powered by [picospinner](https://github.com/tinylibs/picospinner).
+> [!WARNING]
+> The old `spinner` utility (which mimics `picospinner`) is **deprecated** and will be removed in the next major version (v7). It is highly recommended to migrate to the new `clackSpinner` utility, which is powered by `@clack/prompts` and replaces the old implementation.
+>
+> You can import the new spinner via `import { clackSpinner } from "dkcutter/utils"` or use `@clack/prompts` directly.
 
-- `spinner.start()`: Starts the spinner with an optional message.
+The `spinner` is used to display a loading animation in the terminal. Below is the documentation for both the old (deprecated) utility and the new recommended approach.
+
+### New Approach: `clackSpinner` (Recommended)
+
+The `clackSpinner` provides a clean, standard loading indicator that integrates perfectly with other `dkcutter` prompt visual aesthetics.
+
+```javascript
+import { clackSpinner } from "dkcutter/utils";
+
+clackSpinner.start("Downloading files...");
+// ... perform async task
+clackSpinner.stop("Files downloaded successfully!");
+```
+
+### Old Approach: `spinner` (Deprecated)
+
+- `spinner.start(text)`: Starts the spinner with the given text.
 - `spinner.stop()`: Stops the spinner.
-- `spinner.setText(text)`: Updates the message being displayed.
-- `spinner.succeed(text?)`: Stops the spinner and displays a success message.
-- `spinner.fail(text?)`: Stops the spinner and displays a failure message.
-- `spinner.info(text?)`: Stops the spinner and displays an info message.
+- `spinner.setText(text)`: Changes the text of the spinner.
+- `spinner.succeed(text)`: Stops the spinner and displays a success message.
+- `spinner.info(text)`: Stops the spinner and displays an info message.
+- `spinner.fail(text)`: Stops the spinner and displays a failure message.
 
-```ts
-import { colorize, spinner } from "dkcutter/utils";
+```javascript
+import { spinner } from "dkcutter/utils";
 
-spinner.setText(colorize("info", "Processing..."));
-spinner.start();
+spinner.start("Processing...");
 // ... perform task
-spinner.succeed(colorize("success", "Done!"));
+spinner.succeed("Done!");
 ```
 
 ## File Utilities

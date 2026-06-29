@@ -1,5 +1,6 @@
 import type { CLIOptions } from "@/types";
-import { bold, cyan, dim } from "ansis";
+import * as p from "@clack/prompts";
+import { bgCyan, black, cyan, dim } from "ansis";
 import { handleError } from "@/utils/handleError";
 import { dkcutter } from "..";
 import pkg from "../../package.json" with { type: "json" };
@@ -35,8 +36,8 @@ async function cli(): Promise<void> {
       return;
     }
 
-    console.log(`\n${bold(cyan("DKCutter"))} ${dim(`v${pkg.version}`)}`);
-    console.log(`${dim("Let's create something amazing!")}\n`);
+    p.intro(`${bgCyan(black(" DKCutter "))} ${dim(`v${pkg.version}`)}`);
+    p.note(cyan("Let's create something amazing!"), "DKCutter");
 
     if (options.init) {
       await dkcutter({
@@ -44,6 +45,7 @@ async function cli(): Promise<void> {
         options,
         extraContext: {},
       });
+      p.outro("All done! Happy coding!");
       return;
     }
 
@@ -52,6 +54,7 @@ async function cli(): Promise<void> {
       options,
       extraContext: {},
     });
+    p.outro("All done! Happy coding!");
   } catch (error) {
     handleError(error);
   }

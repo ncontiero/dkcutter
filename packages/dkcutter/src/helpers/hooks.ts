@@ -1,17 +1,10 @@
 import type { DKCutterContext } from "./getConfig";
-
 import fs from "node:fs/promises";
 import path from "node:path";
+import { dim } from "ansis";
 import { x } from "tinyexec";
-
 import { HOOKS_FOLDER, PKG_ROOT, RENDERED_HOOKS_FOLDER } from "@/consts";
-import {
-  emptyDir,
-  getUserPkgManager,
-  logger,
-  pathExists,
-  spinner,
-} from "@/utils";
+import { clackSpinner, emptyDir, getUserPkgManager, pathExists } from "@/utils";
 import { structureRender } from "./structureRender";
 
 /**
@@ -74,7 +67,11 @@ export async function runHook({ dir = process.cwd(), hook }: RunHook) {
     const file = isBun ? "bun" : isTs ? tsx : "node";
     const args = isBun ? ["run", hookPath] : [hookPath];
 
-    spinner.info(`Running hook: ${hook}.`);
+    const hookMessage =
+      hook === "preGenProject"
+        ? dim("Executing pre-generation hook...")
+        : dim("Executing post-generation hook...");
+    clackSpinner.stop(hookMessage);
     await x(file, args, {
       stdin: "inherit",
       nodeOptions: {
@@ -84,9 +81,7 @@ export async function runHook({ dir = process.cwd(), hook }: RunHook) {
       throwOnError: true,
     }); // Run hook.
 
-    logger.break();
-    spinner.setText("Generating project...");
-    !spinner.running && spinner.start();
+    clackSpinner.start("Generating project...");
   } catch (error) {
     const msg = `Failed to run hook: ${hook}.`;
     if (error instanceof Error) {
