@@ -18,11 +18,6 @@ import { colorize, logger } from "@/utils/logger";
 import { renderer, setRendererContext } from "@/utils/renderer";
 import { clackSpinner } from "@/utils/spinner";
 
-process.on("SIGINT", handleError);
-process.on("SIGTERM", handleError);
-process.on("uncaughtException", handleError);
-process.on("unhandledRejection", handleError);
-
 interface SetupPathsResult {
   output: string;
   isLocalProject: boolean;
