@@ -15,6 +15,11 @@ export default defineConfig({
   ssg: {
     experimentalWorker: true,
   },
+  markdown: {
+    link: {
+      checkAnchors: true,
+    },
+  },
   plugins: [pluginFontOpenSans()],
   themeConfig: {
     enableScrollToTop: true,
