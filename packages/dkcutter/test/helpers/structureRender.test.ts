@@ -25,6 +25,16 @@ vi.mock("@/utils/renderer", () => ({
   },
 }));
 
+vi.mock("isbinaryfile", () => ({
+  isBinaryFile: vi.fn((filePath: string) => {
+    return (
+      filePath.endsWith(".png") ||
+      filePath.endsWith(".woff") ||
+      filePath.endsWith(".mp4")
+    );
+  }),
+}));
+
 describe("helpers/structureRender", () => {
   beforeEach(() => {
     vi.clearAllMocks();
