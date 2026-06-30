@@ -1,5 +1,36 @@
 # dkcutter
 
+## 6.1.0
+
+### Minor Changes
+
+- [`d0de0e9`](https://github.com/ncontiero/dkcutter/commit/d0de0e9b45f90608d257f5d29e23ddaa991e26a1) - refactor: deprecate `colorette` and `commander`
+
+  - Restored `colorette` and `commander` to `package.json` dependencies to ensure backward compatibility for existing templates that rely on them in their hooks.
+  - Both libraries are now officially deprecated and will be removed in the next major version (v7). Users are encouraged to migrate to `ansis` and `cac` respectively.
+
+- [`3aa56cb`](https://github.com/ncontiero/dkcutter/commit/3aa56cb2e3a1f691a8fbb2b94c190c5783e24f26) - refactor: replace `prompts` and `picospinner` to use `@clack/prompts`
+
+  - `prompts` and `picospinner` remain installed for backward compatibility in templates using them in hooks, but are officially deprecated and will be removed in v7.
+
+### Patch Changes
+
+- [`30efa54`](https://github.com/ncontiero/dkcutter/commit/30efa54e6593e91b69a8583d5f9a83585a29141a) - chore: skip templating for binary files during structure rendering
+
+- [`f320cef`](https://github.com/ncontiero/dkcutter/commit/f320cef50ab507818ed15271d03174db1915e6bb) - chore: remove global process error handlers from entrypoint
+
+- [`d1b3c01`](https://github.com/ncontiero/dkcutter/commit/d1b3c0142371a2725f0906a097ad7ea69a7fd125) - chore: improve schema validation error handling
+
+- [`b37a959`](https://github.com/ncontiero/dkcutter/commit/b37a959cbed2cd5a75b88a61b218cbc9db452757) - refactor: replace `commander` with `cac`
+
+- [`6338126`](https://github.com/ncontiero/dkcutter/commit/633812674fec9eb3d847716fb1e7c32452f081d4) - refactor: replace `colorette` with `ansis`
+
+- [`777676b`](https://github.com/ncontiero/dkcutter/commit/777676b723200fdffc164fcdffd43161a4788ecc) - refactor: consolidate context update logic in renderer
+
+- [`3884282`](https://github.com/ncontiero/dkcutter/commit/38842825bd94a407f526ecf2e2a19d5379968411) - refactor: add cause to thrown errors in `structureRender` to preserve stack traces
+
+- [`6059fb1`](https://github.com/ncontiero/dkcutter/commit/6059fb10ae14dce2535dad1bb6084c849e8d5c18) - fix: add error handling around template file rendering
+
 ## 6.0.2
 
 ### Patch Changes
