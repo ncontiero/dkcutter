@@ -1,5 +1,11 @@
 # dkcutter
 
+## 6.1.1
+
+### Patch Changes
+
+- [`3ad8309`](https://github.com/ncontiero/dkcutter/commit/3ad8309a6bbbc2f59c4f9b46aeda86a6f5e6bcc1) - fix: improve typings and exports in dkcutter utilities
+
 ## 6.1.0
 
 ### Minor Changes
