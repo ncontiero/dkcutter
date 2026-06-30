@@ -36,16 +36,13 @@ function contextSchema(
   regex?: RegExp,
   choices?: ConfigChoiceProps[],
   choicesType?: ChoicesTypeEnumProps,
+  regexMessage?: string,
 ) {
   const value = context[key];
   const availableChoices = choices?.filter(
     (c) => renderer.renderString(c.disabled || "false", context) !== "true",
   );
 
-  const err = {
-    error: `Invalid value for ${key}: '${String(value)}'.${availableChoices ? ` Valid choices: ${availableChoices.map((c) => c.value).join(", ")}` : ""}`,
-    path: [key],
-  };
   const baseSchema = z
     .string()
     .or(z.boolean())
@@ -53,33 +50,49 @@ function contextSchema(
     .transform((val) => val.toString());
 
   const choiceSchema = choices
-    ? baseSchema.refine((val) => {
-        if (val && choicesType === "multiselect") {
-          const selectedChoices = val.trim().split(",");
-          return selectedChoices.every(
-            (choice) =>
-              choice === "none" ||
-              availableChoices?.some((c) => c.value === choice.trim()),
-          );
-        }
-        return availableChoices?.some((c) => c.value === val);
-      }, err)
+    ? baseSchema.refine(
+        (val) => {
+          if (val && choicesType === "multiselect") {
+            const selectedChoices = val.trim().split(",");
+            return selectedChoices.every(
+              (choice) =>
+                choice === "none" ||
+                availableChoices?.some((c) => c.value === choice.trim()),
+            );
+          }
+          return availableChoices?.some((c) => c.value === val);
+        },
+        {
+          message: `Invalid value for ${key}: '${String(value)}'. Valid choices: ${availableChoices?.map((c) => c.value).join(", ") ?? ""}`,
+          path: [key],
+        },
+      )
     : baseSchema;
 
   const regexSchema = regex
-    ? choiceSchema.refine((val) => (val ? regex.test(val) : true), err)
+    ? choiceSchema.refine((val) => (val ? regex.test(val) : true), {
+        message:
+          regexMessage ?? `Invalid format for ${key}: '${String(value)}'.`,
+        path: [key],
+      })
     : choiceSchema;
 
   const booleanTransform = regexSchema.transform((val) =>
     val === "true" ? true : val === "false" ? false : val,
   );
 
-  const typeSchema = booleanTransform.refine((val) => {
-    return (
-      (typeof val === "string" && val.trim().length > 0) ||
-      typeof val === "boolean"
-    );
-  }, err);
+  const typeSchema = booleanTransform.refine(
+    (val) => {
+      return (
+        (typeof val === "string" && val.trim().length > 0) ||
+        typeof val === "boolean"
+      );
+    },
+    {
+      message: `Value for ${key} cannot be empty.`,
+      path: [key],
+    },
+  );
 
   return typeSchema.transform((v) => {
     if (choicesType === "multiselect" && typeof v === "string") {
@@ -158,6 +171,10 @@ function handleContext(
       !isArray(configValue) && isObject(configValue)
         ? configValue.validateRegex?.regex
         : undefined;
+    const regexMessage =
+      !isArray(configValue) && isObject(configValue)
+        ? configValue.validateRegex?.message
+        : undefined;
     const choices = isArray(configValue)
       ? configValue.map((val) => ({ value: val }))
       : isObject(configValue)
@@ -175,6 +192,7 @@ function handleContext(
       regex,
       choices,
       choicesType,
+      regexMessage,
     ).parse(value);
     handleValuesDisabled(key, configValue, mergedContext);
   }
