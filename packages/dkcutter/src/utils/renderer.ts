@@ -38,6 +38,44 @@ function verifyBoolean(value: string): boolean | string {
 }
 
 /**
+ * Applies a rendered value to a specific field in the DKCutter context and optionally returns the result.
+ * This helper centralizes validation and conditional existence checks for context field updates used by other context utilities.
+ *
+ * @param {string} actionName - The name of the action used for error messaging context.
+ * @param {string} field - The name of the field in the DKCutter context to set or validate.
+ * @param {string} value - The raw string value to render with the current context before assignment.
+ * @param {boolean} [returnV] - Whether the function should return the newly assigned value instead of `undefined`.
+ * @param {boolean} [checkExists] - When `true`, ensures the field already exists in the context before updating.
+ * @returns {string|boolean|undefined} - The updated field value when `returnV` is `true`, otherwise `undefined`.
+ * @throws {TypeError} - If `field` is not provided as a string.
+ * @throws {Error} - If `checkExists` is `true` and the target field is missing from the DKCutter context.
+ */
+function setContextField(
+  actionName: "update" | "add",
+  field: string,
+  value: string,
+  returnV: boolean = false,
+  checkExists: boolean = false,
+): string | boolean | undefined {
+  if (typeof field !== "string") {
+    throw new TypeError(
+      `In \`dkcutter.${actionName}()\` the field must be a string, got ${typeof field}`,
+    );
+  }
+
+  const dkcutter = renderer.getGlobal("dkcutter") as ContextProps;
+
+  if (checkExists && dkcutter[field] == null) {
+    throw new Error(
+      `In \`dkcutter.${actionName}()\` the field "${field}" does not exist in the context`,
+    );
+  }
+
+  dkcutter[field] = verifyBoolean(renderer.renderString(value, dkcutter));
+  if (returnV) return dkcutter[field];
+}
+
+/**
  * Updates a field in the DKCutter context with a new value after rendering the string.
  * @param {string} field - The field in the context to update.
  * @param {string} newValue - The new value to set for the field.
@@ -53,20 +91,7 @@ function updateContext(
   newValue: string,
   returnV: boolean = false,
 ): string | boolean | undefined {
-  const msgError = "In `dkcutter.update()` the";
-  if (typeof field !== "string") {
-    throw new TypeError(
-      `${msgError} field must be a string, got ${typeof field}`,
-    );
-  }
-  const dkcutter = renderer.getGlobal("dkcutter") as ContextProps;
-  if (dkcutter[field] == null) {
-    throw new Error(
-      `${msgError} field "${field}" does not exist in the context`,
-    );
-  }
-  dkcutter[field] = verifyBoolean(renderer.renderString(newValue, dkcutter));
-  if (returnV) return dkcutter[field];
+  return setContextField("update", field, newValue, returnV, true);
 }
 
 /**
@@ -76,7 +101,6 @@ function updateContext(
  * @param {boolean} [returnV] - Flag indicating whether to return the updated value. (default: `false`)
  * @returns {string|undefined} - The updated value if `returnV` is `true`, otherwise `undefined`.
  * @throws {TypeError} - If the `field` argument is not a string.
- * @throws {Error} - If the `field` does not exist in the DKCutter context.
  * @example
  * dkcutter.add("author", "John Doe");
  */
@@ -85,15 +109,7 @@ function addValueToContext(
   value: string,
   returnV: boolean = false,
 ): string | boolean | undefined {
-  const msgError = "In `dkcutter.add()` the";
-  if (typeof field !== "string") {
-    throw new TypeError(
-      `${msgError} field must be a string, got ${typeof field}`,
-    );
-  }
-  const dkcutter = renderer.getGlobal("dkcutter") as ContextProps;
-  dkcutter[field] = verifyBoolean(renderer.renderString(value, dkcutter));
-  if (returnV) return dkcutter[field];
+  return setContextField("add", field, value, returnV, false);
 }
 
 const globals = {
