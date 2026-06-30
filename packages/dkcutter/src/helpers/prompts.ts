@@ -74,17 +74,16 @@ function getPromptChoices(
   });
 }
 
+const requiredStringSchema = z.string().min(1);
 function getValidateSchema(validateRegex: NormalizedConfig["validateRegex"]) {
   if (!validateRegex) {
-    return z.string().min(1);
+    return requiredStringSchema;
   }
 
-  return z
-    .string()
-    .regex(
-      validateRegex.regex,
-      validateRegex.message ?? "Please enter a valid value.",
-    );
+  return requiredStringSchema.regex(
+    validateRegex.regex,
+    validateRegex.message ?? "Please enter a valid value.",
+  );
 }
 
 export async function createPromptObjects(
