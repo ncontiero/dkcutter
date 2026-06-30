@@ -176,3 +176,5 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
     return {};
   }
 }
+
+export type { DKCutter, Options } from "@/types";

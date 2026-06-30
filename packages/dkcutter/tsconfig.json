@@ -14,7 +14,6 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "declaration": true,
-    "declarationMap": true,
     "inlineSources": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

@@ -43,9 +43,7 @@ export type ConfigChoiceProps = z.infer<typeof configChoiceSchema>;
 export type ConfigObjectProps = z.infer<typeof configObjectSchema>;
 export type ChoicesTypeEnumProps = z.infer<typeof choicesTypeEnum>;
 export type ConfigProps = z.infer<typeof configSchema>;
-export type ContextProps = {
-  [K in keyof ConfigProps]: string | string[] | boolean;
-};
+export type ContextProps = Record<string, string | string[] | boolean>;
 export interface DKCutterContext {
   dkcutter: ContextProps;
 }

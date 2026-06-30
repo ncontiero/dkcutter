@@ -10,7 +10,9 @@ import { readJsonFile, readJsonFileSync } from "./files";
  * @param dir - Directory in which to look for the package.json file.
  * @returns An object containing the packageJsonPath and the parsed packageJson contents.
  */
-export async function getPackageInfo(dir: string) {
+export async function getPackageInfo(
+  dir: string,
+): Promise<{ packageJsonPath: string; packageJson: PackageJson }> {
   const packageJsonPath = path.join(dir, "package.json");
   const packageJson = await readJsonFile<PackageJson>(packageJsonPath);
 
@@ -24,7 +26,9 @@ export async function getPackageInfo(dir: string) {
  * @param dir - Directory in which to look for the package.json file.
  * @returns An object containing the packageJsonPath and the parsed packageJson contents.
  */
-export function getPackageInfoSync(dir: string) {
+export function getPackageInfoSync(
+  dir: string,
+): { packageJsonPath: string; packageJson: PackageJson } {
   const packageJsonPath = path.join(dir, "package.json");
   const packageJson = readJsonFileSync<PackageJson>(packageJsonPath);
 

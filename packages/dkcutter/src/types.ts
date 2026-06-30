@@ -11,7 +11,7 @@ export const optionsSchema = z.object({
 });
 export type OptionsSchema = z.infer<typeof optionsSchema>;
 
-export interface Options extends OptionsSchema {
+export interface Options {
   /**
    * Do not prompt for parameters and/or use the template's default values
    *

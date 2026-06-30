@@ -37,7 +37,10 @@ interface CleanFiles {
  * @param options Optional removal options that override or extend the default recursive and force behavior.
  * @returns A promise that resolves when the removal operation has completed.
  */
-export async function remove(path: PathLike, options?: RmOptions) {
+export async function remove(
+  path: PathLike,
+  options?: RmOptions,
+): Promise<void> {
   return fs.rm(path, { recursive: true, force: true, ...options });
 }
 
@@ -50,7 +53,11 @@ export async function remove(path: PathLike, options?: RmOptions) {
  * @param options Optional copy options that override or extend the default recursive behavior.
  * @returns A promise that resolves when the copy operation has completed.
  */
-export async function copy(src: string, dest: string, options?: CopyOptions) {
+export async function copy(
+  src: string,
+  dest: string,
+  options?: CopyOptions,
+): Promise<void> {
   return fs.cp(src, dest, { recursive: true, ...options });
 }
 
@@ -61,7 +68,7 @@ export async function copy(src: string, dest: string, options?: CopyOptions) {
  * @param path The path to check for accessibility.
  * @returns A promise that resolves to true if the path is accessible, or false if it is not.
  */
-export async function pathExists(path: PathLike) {
+export async function pathExists(path: PathLike): Promise<boolean> {
   return fs.access(path).then(
     () => true,
     () => false,
@@ -76,7 +83,10 @@ export async function pathExists(path: PathLike) {
  * @param options Optional directory creation options that override or extend the default recursive behavior.
  * @returns A promise that resolves when the directory has been created.
  */
-export async function mkdir(path: PathLike, options?: MakeDirectoryOptions) {
+export async function mkdir(
+  path: PathLike,
+  options?: MakeDirectoryOptions,
+): Promise<string | undefined> {
   return fs.mkdir(path, { recursive: true, ...options });
 }
 
@@ -87,7 +97,7 @@ export async function mkdir(path: PathLike, options?: MakeDirectoryOptions) {
  * @param path The path of the directory to empty and recreate.
  * @returns A promise that resolves once the directory has been removed and recreated.
  */
-export async function emptyDir(path: PathLike) {
+export async function emptyDir(path: PathLike): Promise<void> {
   await remove(path);
   await mkdir(path);
 }
@@ -101,7 +111,7 @@ export async function emptyDir(path: PathLike) {
  * @returns A promise that resolves when the rename or fallback move operation has completed.
  * @throws Re-throws any error that is not related to cross-device rename limitations.
  */
-export async function rename(oldPath: string, newPath: string) {
+export async function rename(oldPath: string, newPath: string): Promise<void> {
   try {
     await fs.rename(oldPath, newPath);
   } catch (error) {
@@ -160,7 +170,7 @@ export async function writeJsonFile<T = unknown>(
   filePath: string,
   data: T,
   options?: WriteJsonFileOptions,
-) {
+): Promise<void> {
   await mkdir(path.dirname(filePath));
   await fs.writeFile(
     filePath,
