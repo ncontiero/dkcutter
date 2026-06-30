@@ -60,21 +60,27 @@ async function processTemplateFile(
       isHooks,
     });
   } else if (itemStat.isFile()) {
-    if (
-      ignorePatterns.some((pattern) => pattern.test(file)) ||
-      (await isBinaryFile(filePath))
-    ) {
-      await fs.copyFile(filePath, outputFilePath);
-    } else {
-      const fileContent = await fs.readFile(filePath, "utf-8");
-      await fs.writeFile(
-        outputFilePath,
-        renderer.renderString(fileContent, context),
-      );
-    }
+    try {
+      if (
+        ignorePatterns.some((pattern) => pattern.test(file)) ||
+        (await isBinaryFile(filePath))
+      ) {
+        await fs.copyFile(filePath, outputFilePath);
+      } else {
+        const fileContent = await fs.readFile(filePath, "utf-8");
+        const renderedContent = renderer.renderString(fileContent, context);
+        await fs.writeFile(outputFilePath, renderedContent);
+      }
 
-    const fileMode = itemStat.mode & 0o777;
-    await fs.chmod(outputFilePath, fileMode);
+      const fileMode = itemStat.mode & 0o777;
+      await fs.chmod(outputFilePath, fileMode);
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Error processing file ${filePath}:\n${error.message}`);
+      } else {
+        throw new Error(`Unknown error processing file ${filePath}`);
+      }
+    }
   }
 }
 
