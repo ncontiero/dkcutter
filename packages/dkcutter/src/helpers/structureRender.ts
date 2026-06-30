@@ -76,9 +76,14 @@ async function processTemplateFile(
       await fs.chmod(outputFilePath, fileMode);
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error(`Error processing file ${filePath}:\n${error.message}`);
+        throw new Error(
+          `Error processing file ${filePath}:\n${error.message}`,
+          { cause: error },
+        );
       } else {
-        throw new Error(`Unknown error processing file ${filePath}`);
+        throw new Error(`Unknown error processing file ${filePath}`, {
+          cause: error,
+        });
       }
     }
   }
