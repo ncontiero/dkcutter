@@ -26,9 +26,10 @@ export async function getPackageInfo(
  * @param dir - Directory in which to look for the package.json file.
  * @returns An object containing the packageJsonPath and the parsed packageJson contents.
  */
-export function getPackageInfoSync(
-  dir: string,
-): { packageJsonPath: string; packageJson: PackageJson } {
+export function getPackageInfoSync(dir: string): {
+  packageJsonPath: string;
+  packageJson: PackageJson;
+} {
   const packageJsonPath = path.join(dir, "package.json");
   const packageJson = readJsonFileSync<PackageJson>(packageJsonPath);
 
