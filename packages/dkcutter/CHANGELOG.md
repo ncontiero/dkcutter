@@ -1,5 +1,15 @@
 # dkcutter
 
+## 6.1.2
+
+### Patch Changes
+
+- [`577e026`](https://github.com/ncontiero/dkcutter/commit/577e0266efcd9d120d04603f86b2bbc4c9d70b37) - refactor(utils): extract `PackageInfo` interface for package metadata helpers
+
+- [`5722329`](https://github.com/ncontiero/dkcutter/commit/572232926116c94314569e65d57de5743328634d) - fix: allow numeric values in context schema
+
+- [`42e85fb`](https://github.com/ncontiero/dkcutter/commit/42e85fb7109263d7b19637c6e297340b3993ec95) - fix: align validation refinement keys with error property
+
 ## 6.1.1
 
 ### Patch Changes
