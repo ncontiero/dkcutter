@@ -63,7 +63,7 @@ function contextSchema(
           return availableChoices?.some((c) => c.value === val);
         },
         {
-          message: `Invalid value for ${key}: '${String(value)}'. Valid choices: ${availableChoices?.map((c) => c.value).join(", ") ?? ""}`,
+          error: `Invalid value for ${key}: '${String(value)}'. Valid choices: ${availableChoices?.map((c) => c.value).join(", ") ?? ""}`,
           path: [key],
         },
       )
@@ -71,8 +71,7 @@ function contextSchema(
 
   const regexSchema = regex
     ? choiceSchema.refine((val) => (val ? regex.test(val) : true), {
-        message:
-          regexMessage ?? `Invalid format for ${key}: '${String(value)}'.`,
+        error: regexMessage ?? `Invalid format for ${key}: '${String(value)}'.`,
         path: [key],
       })
     : choiceSchema;
@@ -89,7 +88,7 @@ function contextSchema(
       );
     },
     {
-      message: `Value for ${key} cannot be empty.`,
+      error: `Value for ${key} cannot be empty.`,
       path: [key],
     },
   );
