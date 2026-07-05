@@ -1,5 +1,11 @@
 # dkcutter
 
+## 6.1.3
+
+### Patch Changes
+
+- [`2b0aedc`](https://github.com/ncontiero/dkcutter/commit/2b0aedc0e5be372ae944ce8ef49b92a26a6dd812) - fix: ensure hooks run with tsx via node runtime
+
 ## 6.1.2
 
 ### Patch Changes
