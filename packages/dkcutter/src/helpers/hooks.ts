@@ -1,9 +1,10 @@
 import type { DKCutterContext } from "./getConfig";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { dim } from "ansis";
 import { x } from "tinyexec";
-import { HOOKS_FOLDER, PKG_ROOT, RENDERED_HOOKS_FOLDER } from "@/consts";
+import { HOOKS_FOLDER, RENDERED_HOOKS_FOLDER } from "@/consts";
 import { clackSpinner, emptyDir, getUserPkgManager, pathExists } from "@/utils";
 import { structureRender } from "./structureRender";
 
@@ -62,10 +63,11 @@ export async function runHook({ dir = process.cwd(), hook }: RunHook) {
     const hookPath = path.join(renderedHooksFolder, hookFile);
 
     const isBun = pkgManager === "bun";
-    const isTs = hookFile.endsWith(".ts");
-    const tsx = path.join(PKG_ROOT, "node_modules", ".bin", "tsx");
-    const file = isBun ? "bun" : isTs ? tsx : "node";
-    const args = isBun ? ["run", hookPath] : [hookPath];
+    const file = isBun ? "bun" : process.execPath;
+    const tsxEntryPath = fileURLToPath(import.meta.resolve("tsx"));
+    const args = isBun
+      ? ["run", hookPath]
+      : ["--import", tsxEntryPath, hookPath];
 
     const hookMessage =
       hook === "preGenProject"
