@@ -45,7 +45,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@clack/prompts": "^1.6.0",
+    "@clack/prompts": "^1.7.0",
     "ansis": "^4.3.1",
     "cac": "^7.0.0",
     "colorette": "2.0.20",
@@ -56,19 +56,19 @@
     "picospinner": "^3.0.0",
     "prompts": "^2.4.2",
     "tinyexec": "^1.2.4",
-    "tsx": "^4.22.4",
+    "tsx": "^4.23.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@ncontiero/eslint-config": "8.3.3",
-    "@types/node": "26.1.0",
+    "@types/node": "26.1.1",
     "@types/nunjucks": "3.2.6",
     "@types/prompts": "2.4.9",
     "eslint": "10.6.0",
-    "tsdown": "0.22.3",
-    "type-fest": "5.7.0",
+    "tsdown": "0.22.4",
+    "type-fest": "5.8.0",
     "typescript": "6.0.3",
-    "vitest": "4.1.9"
+    "vitest": "4.1.10"
   },
   "engines": {
     "node": "^22.3.0 || >=24.0.0"
