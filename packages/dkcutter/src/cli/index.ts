@@ -45,7 +45,6 @@ async function cli(): Promise<void> {
         options,
         extraContext: {},
       });
-      p.outro("All done! Happy coding!");
       return;
     }
 
@@ -54,7 +53,6 @@ async function cli(): Promise<void> {
       options,
       extraContext: {},
     });
-    p.outro("All done! Happy coding!");
   } catch (error) {
     handleError(error);
   }

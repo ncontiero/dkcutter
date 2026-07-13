@@ -14,7 +14,7 @@ import { structureRender } from "@/helpers/structureRender";
 import { type DKCutter, type OptionsSchema, optionsSchema } from "@/types";
 import { cleanFiles, emptyDir, pathExists } from "@/utils/files";
 import { handleError } from "@/utils/handleError";
-import { colorize, logger } from "@/utils/logger";
+import { logger } from "@/utils/logger";
 import { renderer, setRendererContext } from "@/utils/renderer";
 import { clackSpinner } from "@/utils/spinner";
 
@@ -163,7 +163,7 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
 
     await cleanFiles({ isLocalProject, templateFolder });
 
-    clackSpinner.stop(colorize("success", "Project created!"));
+    clackSpinner.stop("All done! Happy coding!");
     return context.dkcutter;
   } catch (error) {
     clackSpinner.stop();
