@@ -25,5 +25,41 @@ export function createCliOptions(context: ContextProps): Record<string, any> {
     delete parsed.options["--"];
   }
 
+  // cac might parse options as numbers if they look like numbers.
+  // But we want to keep them as strings.
+  // This loop attempts to retrieve the original string.
+  const rawArgs = program.rawArgs.slice(2);
+  for (const [key, value] of Object.entries(parsed.options)) {
+    if (
+      typeof value !== "number" &&
+      (!isArray(value) || value.some((v) => typeof v !== "number"))
+    ) {
+      continue;
+    }
+
+    const kebabKey = key.replaceAll(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
+    const matchKey = `--${key}`;
+    const matchKebab = `--${kebabKey}`;
+    const vals: string[] = [];
+
+    for (let i = 0; i < rawArgs.length; i++) {
+      const arg = rawArgs[i];
+      if (arg === matchKey || arg === matchKebab) {
+        const rawValue = rawArgs[++i];
+        if (!rawValue || rawValue.startsWith("-")) continue;
+        vals.push(rawValue);
+        continue;
+      }
+
+      if (arg.startsWith(`${matchKey}=`) || arg.startsWith(`${matchKebab}=`)) {
+        vals.push(arg.slice(arg.indexOf("=") + 1));
+      }
+    }
+
+    if (vals.length > 0) {
+      parsed.options[key] = isArray(value) ? vals : vals.at(-1);
+    }
+  }
+
   return parsed.options;
 }
