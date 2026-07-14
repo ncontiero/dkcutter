@@ -1,0 +1,12 @@
+{
+  "_dkcutter": {
+    "engines": {
+      "dkcutter": ">=999.0.0"
+    }
+  },
+  "projectName": "My App",
+  "projectSlug": {
+    "value": "{{ projectName|lower|replace(' ', '-')|trim }}"
+  },
+  "author": "John Doe"
+}

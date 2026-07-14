@@ -172,6 +172,16 @@ describe("Integration: Fixtures", () => {
     await validateInvalidCase("simple", { projectName: "" });
   });
 
+  describe("Engine Validation", () => {
+    it("should fail to process fixture with invalid engine range", async () => {
+      await validateInvalidCase("invalid-engine-range");
+    });
+
+    it("should fail to process fixture with unsatisfied engine requirement", async () => {
+      await validateInvalidCase("unsatisfied-engine");
+    });
+  });
+
   describe("Complex Fixture", () => {
     it("should process complex fixture correctly using default config", async () => {
       await validateValidCase("complex", "default-app");

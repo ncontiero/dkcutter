@@ -24,6 +24,18 @@ vi.mock("lilconfig", () => {
             },
           });
         }
+        if (cwd === "/valid-with-dkcutter") {
+          return Promise.resolve({
+            config: {
+              projectName: "My App",
+              _dkcutter: {
+                engines: {
+                  dkcutter: ">=6.0.0",
+                },
+              },
+            },
+          });
+        }
         if (cwd === "/invalid") {
           return Promise.resolve({
             config: {
@@ -50,16 +62,28 @@ describe("helpers/getConfig", () => {
   it("should parse and return valid configuration", async () => {
     const config = await getConfig("/valid");
     expect(config).not.toBeNull();
-    expect(config?.projectName).toBe("My Project");
-    expect(config?.useTypescript).toBe(true);
+    expect(config?.templateConfig?.projectName).toBe("My Project");
+    expect(config?.templateConfig?.useTypescript).toBe(true);
 
     // Ensure nested object is preserved
-    const framework = config?.framework as {
+    const framework = config?.templateConfig?.framework as {
       value: string;
       choicesType: string;
     };
     expect(framework.value).toBe("react");
     expect(framework.choicesType).toBe("select");
+  });
+
+  it("should parse and return valid configuration with _dkcutter", async () => {
+    const config = await getConfig("/valid-with-dkcutter");
+    expect(config).not.toBeNull();
+    expect(config?.templateConfig?.projectName).toBe("My App");
+
+    // Ensure _dkcutter is removed from templateConfig
+    expect(config?.templateConfig).not.toHaveProperty("_dkcutter");
+
+    // Ensure dkcutterConfig is correctly parsed
+    expect(config?.dkcutterConfig?.engines?.dkcutter).toBe(">=6.0.0");
   });
 
   it("should throw an error for invalid configuration schema", async () => {

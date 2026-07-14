@@ -1,0 +1,6 @@
+{
+  "name": "{{ dkcutter.projectSlug }}",
+  "version": "1.0.0",
+  "private": true,
+  "author": "{{ dkcutter.author }}"
+}

@@ -1,0 +1,12 @@
+{
+  "_dkcutter": {
+    "engines": {
+      "dkcutter": "invalid-range"
+    }
+  },
+  "projectName": "My App",
+  "projectSlug": {
+    "value": "{{ projectName|lower|replace(' ', '-')|trim }}"
+  },
+  "author": "John Doe"
+}
