@@ -37,18 +37,33 @@ const configObjectSchema = z
   })
   .or(configObjectValueSchema);
 export const configSchema = z.record(z.string(), configObjectSchema);
+export const dkcutterConfigSchema = z.object({
+  engines: z
+    .object({
+      dkcutter: z.string().optional(),
+    })
+    .optional(),
+});
 
 export type ConfigObjectValue = z.infer<typeof configObjectValueSchema>;
 export type ConfigChoiceProps = z.infer<typeof configChoiceSchema>;
 export type ConfigObjectProps = z.infer<typeof configObjectSchema>;
 export type ChoicesTypeEnumProps = z.infer<typeof choicesTypeEnum>;
 export type ConfigProps = z.infer<typeof configSchema>;
+export type DKCutterConfigProps = z.infer<typeof dkcutterConfigSchema>;
 export type ContextProps = Record<string, string | string[] | boolean>;
 export interface DKCutterContext {
   dkcutter: ContextProps;
 }
 
-export async function getConfig(cwd: string): Promise<ConfigProps | null> {
+interface GetConfigResponse {
+  templateConfig: ConfigProps;
+  dkcutterConfig: DKCutterConfigProps;
+}
+
+export async function getConfig(
+  cwd: string,
+): Promise<GetConfigResponse | null> {
   try {
     const configResult = await explorer.search(cwd);
 
@@ -56,7 +71,16 @@ export async function getConfig(cwd: string): Promise<ConfigProps | null> {
       return null;
     }
 
-    return configSchema.parse(configResult.config);
+    const { _dkcutter, ...templateConfigRaw } = configResult.config as Record<
+      string,
+      unknown
+    >;
+
+    const dkcutterConfig =
+      _dkcutter != null ? dkcutterConfigSchema.parse(_dkcutter) : {};
+    const templateConfig = configSchema.parse(templateConfigRaw);
+
+    return { templateConfig, dkcutterConfig };
   } catch {
     throw new Error(
       `Invalid configuration found in ${cwd}/${CONFIG_FILE_NAME}.`,

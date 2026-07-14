@@ -196,3 +196,24 @@ Each object within the `choices` array can have the following properties:
   }
 }
 ```
+
+## DKCutter Specific Configuration (`_dkcutter`)
+
+You can define a special `_dkcutter` object in your configuration file to specify settings related to the DKCutter CLI itself. This object is entirely internal and does not prompt the user or inject variables into the template context.
+
+### Specifying Engine Versions
+
+You can use the `engines` property within `_dkcutter` to specify the version of the DKCutter CLI required to use the template. This helps prevent compatibility issues by ensuring users are running a compatible version of DKCutter.
+
+```json title="dkcutter.json"
+{
+  "_dkcutter": {
+    "engines": {
+      "dkcutter": ">=6.0.0"
+    }
+  },
+  "projectName": "My Awesome Project"
+}
+```
+
+In this example, the template requires DKCutter version 6.0.0 or higher.

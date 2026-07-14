@@ -55,6 +55,7 @@
     "nunjucks": "^3.2.4",
     "picospinner": "^3.0.0",
     "prompts": "^2.4.2",
+    "semver": "^7.8.5",
     "tinyexec": "^1.2.4",
     "tsx": "^4.23.0",
     "zod": "^4.4.3"
@@ -64,6 +65,7 @@
     "@types/node": "26.1.1",
     "@types/nunjucks": "3.2.6",
     "@types/prompts": "2.4.9",
+    "@types/semver": "7.7.1",
     "eslint": "10.6.0",
     "tsdown": "0.22.4",
     "type-fest": "5.8.0",
@@ -74,6 +76,6 @@
     "node": "^22.3.0 || >=24.0.0"
   },
   "inlinedDependencies": {
-    "type-fest": "5.7.0"
+    "type-fest": "5.8.0"
   }
 }

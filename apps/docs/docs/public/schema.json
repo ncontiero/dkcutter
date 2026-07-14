@@ -3,7 +3,31 @@
   "title": "dkcutter.json schema",
   "description": "The schema for the dkcutter.json file.",
   "type": "object",
+  "properties": {
+    "_dkcutter": {
+      "type": "object",
+      "description": "DKCutter specific configuration.",
+      "properties": {
+        "engines": {
+          "type": "object",
+          "description": "Specify the versions of engines that the template requires.",
+          "properties": {
+            "dkcutter": {
+              "type": "string",
+              "description": "The DKCutter version required by the template."
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
   "patternProperties": {
+    "^(?!_dkcutter$)_.*$": {
+      "type": "string",
+      "description": "Internal DKCutter variables. These are not prompted to the user."
+    },
     "^[a-zA-Z0-9_]+$": {
       "type": ["string", "boolean", "array", "object"],
       "description": "The value of the input. This can be a string, a boolean, an array of strings, or an object.",

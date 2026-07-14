@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import { join, resolve } from "node:path";
+import semver from "semver";
 
 import { DKCUTTER_PATTERN, PKG_ROOT, PKG_TEMPLATE } from "@/consts";
 import {
@@ -17,6 +18,7 @@ import { handleError } from "@/utils/handleError";
 import { logger } from "@/utils/logger";
 import { renderer, setRendererContext } from "@/utils/renderer";
 import { clackSpinner } from "@/utils/spinner";
+import pkg from "../package.json" with { type: "json" };
 
 interface SetupPathsResult {
   output: string;
@@ -131,10 +133,27 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
     const config = await getConfig(paths.projectRoot);
     if (!config) throw new Error("No configuration found. Please try again.");
 
+    const { dkcutterConfig, templateConfig } = config;
+
+    const currentDKCutterVersion = pkg.version;
+    const requiredVersion = dkcutterConfig.engines?.dkcutter;
+    if (
+      requiredVersion &&
+      !semver.satisfies(currentDKCutterVersion, requiredVersion)
+    ) {
+      throw new Error(
+        `Your DKCutter version (${currentDKCutterVersion}) does not satisfy the template's required version (${requiredVersion}).`,
+      );
+    }
+
     clackSpinner.stop();
 
     const context = setRendererContext(
-      await getContext({ config, skip: options.default, extraContext }),
+      await getContext({
+        config: templateConfig,
+        skip: options.default,
+        extraContext,
+      }),
     );
 
     clackSpinner.start("Generating project...");
