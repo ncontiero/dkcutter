@@ -71,6 +71,21 @@ async function prepareTemplate(
   }
 }
 
+function validateEngines(requiredVersion?: string): void {
+  if (!requiredVersion) return;
+  if (!semver.validRange(requiredVersion)) {
+    throw new Error(
+      `The template specifies an invalid DKCutter version range: ${requiredVersion}`,
+    );
+  }
+
+  if (!semver.satisfies(dkcutterVersion, requiredVersion)) {
+    throw new Error(
+      `Your DKCutter version (${dkcutterVersion}) does not satisfy the template's required version (${requiredVersion}).`,
+    );
+  }
+}
+
 async function resolveProjectRoot(
   output: string,
   templateFolder: string,
@@ -139,15 +154,7 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
 
     const { dkcutterConfig, templateConfig } = config;
 
-    const requiredVersion = dkcutterConfig.engines?.dkcutter;
-    if (
-      requiredVersion &&
-      !semver.satisfies(dkcutterVersion, requiredVersion)
-    ) {
-      throw new Error(
-        `Your DKCutter version (${dkcutterVersion}) does not satisfy the template's required version (${requiredVersion}).`,
-      );
-    }
+    validateEngines(dkcutterConfig.engines?.dkcutter);
 
     clackSpinner.stop();
 
