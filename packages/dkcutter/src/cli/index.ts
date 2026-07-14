@@ -1,9 +1,9 @@
 import type { CLIOptions } from "@/types";
 import * as p from "@clack/prompts";
 import { bgCyan, black, cyan, dim } from "ansis";
+import { dkcutterVersion } from "@/consts";
 import { handleError } from "@/utils/handleError";
 import { dkcutter } from "..";
-import pkg from "../../package.json" with { type: "json" };
 import { program } from "./program";
 
 process.on("SIGINT", handleError);
@@ -36,7 +36,7 @@ async function cli(): Promise<void> {
       return;
     }
 
-    p.intro(`${bgCyan(black(" DKCutter "))} ${dim(`v${pkg.version}`)}`);
+    p.intro(`${bgCyan(black(" DKCutter "))} ${dim(`v${dkcutterVersion}`)}`);
     p.note(cyan("Let's create something amazing!"), "DKCutter");
 
     if (options.init) {

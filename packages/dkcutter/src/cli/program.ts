@@ -1,11 +1,11 @@
 import { cac } from "cac";
-import pkg from "../../package.json" with { type: "json" };
+import { dkcutterVersion } from "@/consts";
 
 export const program = cac("dkcutter");
 
 program
   .usage("[template] [options] [extra-context-options]...")
-  .version(pkg.version || "6.0.2")
+  .version(dkcutterVersion)
   .help();
 
 program

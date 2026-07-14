@@ -2,7 +2,12 @@ import fs from "node:fs/promises";
 import { join, resolve } from "node:path";
 import semver from "semver";
 
-import { DKCUTTER_PATTERN, PKG_ROOT, PKG_TEMPLATE } from "@/consts";
+import {
+  DKCUTTER_PATTERN,
+  dkcutterVersion,
+  PKG_ROOT,
+  PKG_TEMPLATE,
+} from "@/consts";
 import {
   type ContextProps,
   type DKCutterContext,
@@ -18,7 +23,6 @@ import { handleError } from "@/utils/handleError";
 import { logger } from "@/utils/logger";
 import { renderer, setRendererContext } from "@/utils/renderer";
 import { clackSpinner } from "@/utils/spinner";
-import pkg from "../package.json" with { type: "json" };
 
 interface SetupPathsResult {
   output: string;
@@ -135,14 +139,13 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
 
     const { dkcutterConfig, templateConfig } = config;
 
-    const currentDKCutterVersion = pkg.version;
     const requiredVersion = dkcutterConfig.engines?.dkcutter;
     if (
       requiredVersion &&
-      !semver.satisfies(currentDKCutterVersion, requiredVersion)
+      !semver.satisfies(dkcutterVersion, requiredVersion)
     ) {
       throw new Error(
-        `Your DKCutter version (${currentDKCutterVersion}) does not satisfy the template's required version (${requiredVersion}).`,
+        `Your DKCutter version (${dkcutterVersion}) does not satisfy the template's required version (${requiredVersion}).`,
       );
     }
 

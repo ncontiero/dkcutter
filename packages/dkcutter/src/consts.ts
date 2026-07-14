@@ -28,3 +28,8 @@ export const HOOKS_FOLDER_ID = generateRandomString(6);
 export const HOOKS_FOLDER = (dir: string = PKG_ROOT) => path.join(dir, "hooks");
 export const RENDERED_HOOKS_FOLDER = (id: string = HOOKS_FOLDER_ID) =>
   path.join(PKG_ROOT, `${id}-rendered-hooks`);
+
+export {
+  version as dkcutterVersion,
+  name as packageName,
+} from "../package.json" with { type: "json" };
