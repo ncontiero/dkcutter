@@ -1,5 +1,13 @@
 # dkcutter
 
+## 6.1.4
+
+### Patch Changes
+
+- [`5a85086`](https://github.com/ncontiero/dkcutter/commit/5a850867a6701dec8fa68617142ad231ac0fb773) - chore(cli): unify completion messaging via central spinner output
+
+- [`5d1ad02`](https://github.com/ncontiero/dkcutter/commit/5d1ad02453eda7e69924750ad1bbc7e4fd7359fe) - fix: preserve original string values for numeric-looking CLI options
+
 ## 6.1.3
 
 ### Patch Changes
