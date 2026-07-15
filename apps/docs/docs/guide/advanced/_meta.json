@@ -6,7 +6,7 @@
   "hooks",
   {
     "type": "file",
-    "name": "calling-dkcutter-function.md",
+    "name": "calling-dkcutter-function",
     "label": "Calling DKCutter function from JS/TS"
   },
   "utils"

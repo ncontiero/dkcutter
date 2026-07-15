@@ -1,3 +1,5 @@
+import { Badge } from "@rspress/core/theme";
+
 # DKCutter Hooks
 
 DKCutter hooks empower you to customize and automate tasks during project generation. These hooks are JavaScript or TypeScript scripts that execute at specific points in the generation process, allowing you to perform actions like data validation, pre-processing, and post-processing.
@@ -61,18 +63,18 @@ DKCutter exposes several internal utilities that you can use in your hooks. Thes
 
 You can use some libraries that are made available at hooks runtime, see which ones they are:
 
-- [@clack/prompts](https://github.com/natemoo-re/clack) - Effortlessly build beautiful command-line apps;
-- [ansis](https://github.com/webdiscus/ansis) - 🌈 The Node.js library for formatting text in terminal with ANSI colors & styles;
-- [cac](https://github.com/cacjs/cac) - Simple yet powerful framework for building command-line apps;
+- [@clack/prompts](https://github.com/natemoo-re/clack) - Effortlessly build beautiful command-line apps (<Badge text="DKCutter v6.1.0+" type="info" />);
+- [ansis](https://github.com/webdiscus/ansis) - 🌈 The Node.js library for formatting text in terminal with ANSI colors & styles (<Badge text="DKCutter v6.1.0+" type="info" />);
+- [cac](https://github.com/cacjs/cac) - Simple yet powerful framework for building command-line apps (<Badge text="DKCutter v6.1.0+" type="info" />);
 - [colorette](https://github.com/jorgebucaran/colorette) - 🌈Easily set your terminal text color & styles (**Deprecated: will be removed in the next major version. Use `ansis` instead**);
 - [commander](https://github.com/tj/commander.js) - Node.js command-line interfaces made easy (**Deprecated: will be removed in the next major version. Use `cac` instead**);
-- [isbinaryfile](https://github.com/gjtorikian/isBinaryFile) - Detects if a file is binary in Node.js;
-- [lilconfig](https://github.com/antonk52/lilconfig) - Zero-dependency nodejs config seeker;
+- [isbinaryfile](https://github.com/gjtorikian/isBinaryFile) - Detects if a file is binary in Node.js (<Badge text="DKCutter v6.1.0+" type="info" />);
+- [lilconfig](https://github.com/antonk52/lilconfig) - Zero-dependency nodejs config seeker (<Badge text="DKCutter v6.0.0+" type="info" />);
 - [nunjucks](https://github.com/mozilla/nunjucks) - A powerful templating engine with inheritance, asynchronous control, and more (jinja2 inspired);
 - [picospinner](https://github.com/tinylibs/picospinner) - A lightweight, no dependency, pluggable CLI spinner library (**Deprecated: will be removed in the next major version. Use `@clack/prompts` spinner instead**);
 - [prompts](https://github.com/terkelg/prompts) - ❯ Lightweight, beautiful and user-friendly interactive prompts (**Deprecated: will be removed in the next major version. Use `@clack/prompts` instead**);
-- [semver](https://github.com/npm/node-semver) - The semantic version parser used by npm;
-- [tinyexec](https://github.com/tinylibs/tinyexec) - 📟 A tiny, higher level interface around child_process
+- [semver](https://github.com/npm/node-semver) - The semantic version parser used by npm (<Badge text="DKCutter v6.2.0+" type="info" />);
+- [tinyexec](https://github.com/tinylibs/tinyexec) - 📟 A tiny, higher level interface around child_process (<Badge text="DKCutter v6.0.0+" type="info" />);
 - [tsx](https://github.com/privatenumber/tsx) - ⚡️ TypeScript Execute | The easiest way to run TypeScript in Node.js;
 - [zod](https://github.com/colinhacks/zod) - TypeScript-first schema validation with static type inference.
 

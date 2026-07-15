@@ -1,3 +1,5 @@
+import { Badge } from "@rspress/core/theme";
+
 # Internal Utilities
 
 DKCutter exposes several internal utilities that you can use in your hooks or when using DKCutter programmatically. These utilities are available via the `dkcutter/utils` entrypoint.
@@ -51,7 +53,7 @@ logger.info(`Status: ${coloredText}`);
 
 The `spinner` is used to display a loading animation in the terminal. Below is the documentation for both the old (deprecated) utility and the new recommended approach.
 
-### New Approach: `clackSpinner` (Recommended)
+### New Approach: `clackSpinner` (Recommended) <Badge text="DKCutter v6.1.0+" type="info" />
 
 The `clackSpinner` provides a clean, standard loading indicator that integrates perfectly with other `dkcutter` prompt visual aesthetics.
 
