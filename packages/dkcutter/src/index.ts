@@ -1,5 +1,7 @@
 import fs from "node:fs/promises";
 import { join, resolve } from "node:path";
+import * as p from "@clack/prompts";
+import { bgCyan, black, cyan, dim } from "ansis";
 import semver from "semver";
 
 import {
@@ -154,6 +156,9 @@ async function renderProject(
  * @returns {Promise<ContextProps>} - The context props.
  */
 export async function dkcutter(props: DKCutter): Promise<ContextProps> {
+  p.intro(`${bgCyan(black(" DKCutter "))} ${dim(`v${dkcutterVersion}`)}`);
+  p.note(cyan("Let's create something amazing!"), "DKCutter");
+
   const { template, extraContext = {}, options: opts = {} } = props;
 
   let generatedProjectRoot: string | undefined;
@@ -162,8 +167,6 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
   let keepProjectOnFailure = false;
 
   try {
-    clackSpinner.start("Initializing...");
-
     if (!template || template.trim().length === 0) {
       throw new DKCutterError(
         "No template specified. Please specify a template.",
@@ -187,8 +190,6 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
     const { dkcutterConfig, templateConfig } = config;
 
     validateEngines(dkcutterConfig.engines);
-
-    clackSpinner.stop();
 
     const context = setRendererContext(
       await getContext({

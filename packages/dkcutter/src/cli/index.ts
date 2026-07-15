@@ -1,7 +1,4 @@
 import type { CLIOptions } from "@/types";
-import * as p from "@clack/prompts";
-import { bgCyan, black, cyan, dim } from "ansis";
-import { dkcutterVersion } from "@/consts";
 import { handleError } from "@/helpers/errors";
 import { dkcutter } from "..";
 import { program } from "./program";
@@ -35,9 +32,6 @@ async function cli(): Promise<void> {
       program.outputHelp();
       return;
     }
-
-    p.intro(`${bgCyan(black(" DKCutter "))} ${dim(`v${dkcutterVersion}`)}`);
-    p.note(cyan("Let's create something amazing!"), "DKCutter");
 
     if (options.init) {
       await dkcutter({

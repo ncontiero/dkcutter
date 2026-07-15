@@ -75,7 +75,7 @@ export async function getTemplate({
   directoryOpt = "",
   checkout,
 }: GetTemplateProps): Promise<void> {
-  clackSpinner.message("Downloading template...");
+  clackSpinner.start("Downloading template...");
   const output = resolve(outputDir);
 
   try {
