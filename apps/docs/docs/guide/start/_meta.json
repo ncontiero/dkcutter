@@ -1,6 +1,7 @@
 [
   "introduction",
-  "v6-migration-guide",
   "getting-started",
-  "create-from-scratch"
+  "create-from-scratch",
+  "security",
+  "v6-migration-guide"
 ]

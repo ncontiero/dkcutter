@@ -54,3 +54,6 @@ my-new-project/    # The name you provided for `projectSlug`.
 ```
 
 This allows you to quickly bootstrap new projects with your desired structure and configuration.
+
+> [!IMPORTANT]
+> Please refer to our [Security and Official Templates](./security.mdx) page before using third-party templates. DKCutter hooks can execute arbitrary code on your system, so you should always verify templates from unknown sources.
