@@ -43,9 +43,9 @@ export const configSchema = z.record(z.string(), configObjectSchema);
 const engineVersionSchema = z.string().refine((val) => semver.validRange(val), {
   message: `"Invalid semver range. Please use a valid semver range (e.g., '^1.0.0', '>=1.0.0')."`,
 });
-export const dkcutterConfigSchema = z.object({
+export const dkcutterConfigSchema = z.looseObject({
   engines: z
-    .object({
+    .looseObject({
       dkcutter: engineVersionSchema.optional(),
       node: engineVersionSchema.optional(),
       bun: engineVersionSchema.optional(),
