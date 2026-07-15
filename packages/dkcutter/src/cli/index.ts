@@ -2,7 +2,7 @@ import type { CLIOptions } from "@/types";
 import * as p from "@clack/prompts";
 import { bgCyan, black, cyan, dim } from "ansis";
 import { dkcutterVersion } from "@/consts";
-import { handleError } from "@/utils/handleError";
+import { handleError } from "@/helpers/errors";
 import { dkcutter } from "..";
 import { program } from "./program";
 

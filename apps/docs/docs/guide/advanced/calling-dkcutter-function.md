@@ -66,6 +66,38 @@ const context = await dkcutter({
 console.log("Final project context:", context);
 ```
 
+## Error Handling
+
+DKCutter exports specific custom errors that represent different failure states during the execution. However, **currently, these errors are not thrown back to the caller** during programmatic usage (the `dkcutter` function handles them internally, prints to the console, and returns an empty context `{}`).
+
+This behavior will change in the **next major release**, where these errors will be passed forward, allowing you to catch them with `try/catch` and handle them programmatically.
+
+You can import and check against these errors:
+
+```ts
+import {
+  ConfigError,
+  DKCutterError,
+  EngineError,
+  HookConfigError,
+  HookExecutionError,
+  RenderError,
+  TemplateError,
+  ValidationError,
+} from "dkcutter";
+
+// Example of future usage (Next Major):
+try {
+  await dkcutter({ template: "invalid-template" });
+} catch (error) {
+  if (error instanceof TemplateError) {
+    console.error("Template could not be loaded!");
+  } else if (error instanceof ConfigError) {
+    console.error("Invalid configuration:", error.zodError);
+  }
+}
+```
+
 By incorporating DKCutter into your JavaScript/TypeScript projects, you can automate project creation tasks and streamline your development workflow.
 
 For more information on using DKCutter's internal utilities, see the [Internal Utilities](./utils.md) section.

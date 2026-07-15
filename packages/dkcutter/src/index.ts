@@ -9,6 +9,13 @@ import {
   PKG_TEMPLATE,
 } from "@/consts";
 import {
+  ConfigError,
+  DKCutterError,
+  EngineError,
+  handleError,
+  TemplateError,
+} from "@/helpers/errors";
+import {
   type ContextProps,
   type DKCutterContext,
   type EnginesProps,
@@ -21,7 +28,6 @@ import { structureRender } from "@/helpers/structureRender";
 import { type DKCutter, type OptionsSchema, optionsSchema } from "@/types";
 import { cleanFiles, emptyDir, pathExists } from "@/utils/files";
 import { getUserPkgManager } from "@/utils/getUserPkgManager";
-import { handleError } from "@/utils/handleError";
 import { logger } from "@/utils/logger";
 import { renderer, setRendererContext } from "@/utils/renderer";
 import { clackSpinner } from "@/utils/spinner";
@@ -40,7 +46,7 @@ async function setupPaths(
   const output = resolve(options.output);
 
   if (!(await pathExists(output))) {
-    throw new Error(`Output path ${output} does not exist.`);
+    throw new DKCutterError(`Output path ${output} does not exist.`);
   }
 
   const isLocalProject = (await pathExists(template))
@@ -69,7 +75,9 @@ async function prepareTemplate(
       checkout: options.checkout,
     });
   } else if (!(await pathExists(templateFolder))) {
-    throw new Error("No template found. Please specify a valid url or path!");
+    throw new TemplateError(
+      "No template found. Please specify a valid url or path!",
+    );
   }
 }
 
@@ -80,7 +88,7 @@ function validateEngines(engines: EnginesProps): void {
     engines.dkcutter &&
     !semver.satisfies(dkcutterVersion, engines.dkcutter)
   ) {
-    throw new Error(
+    throw new EngineError(
       `Your DKCutter version (${dkcutterVersion}) does not satisfy the template's required version (${engines.dkcutter}).`,
     );
   }
@@ -90,7 +98,7 @@ function validateEngines(engines: EnginesProps): void {
   if (pkgManager === "bun" && engines.bun) {
     const bunVersion = process.versions.bun;
     if (bunVersion && !semver.satisfies(bunVersion, engines.bun)) {
-      throw new Error(
+      throw new EngineError(
         `Your Bun version (${bunVersion}) does not satisfy the template's required version (${engines.bun}).`,
       );
     }
@@ -99,7 +107,7 @@ function validateEngines(engines: EnginesProps): void {
   if (pkgManager !== "bun" && engines.node) {
     const nodeVersion = process.version;
     if (!semver.satisfies(nodeVersion, engines.node)) {
-      throw new Error(
+      throw new EngineError(
         `Your Node version (${nodeVersion}) does not satisfy the template's required version (${engines.node}).`,
       );
     }
@@ -116,7 +124,7 @@ async function resolveProjectRoot(
     DKCUTTER_PATTERN.test(file),
   );
   if (!generatedProjectRoot) {
-    throw new Error("No template project found. Please try again.");
+    throw new TemplateError("No template project found. Please try again.");
   }
   generatedProjectRoot = renderer.renderString(generatedProjectRoot, context);
   return resolve(output, generatedProjectRoot);
@@ -157,7 +165,9 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
     clackSpinner.start("Initializing...");
 
     if (!template || template.trim().length === 0) {
-      throw new Error("No template specified. Please specify a template.");
+      throw new DKCutterError(
+        "No template specified. Please specify a template.",
+      );
     }
 
     const options = optionsSchema.parse(opts);
@@ -170,7 +180,9 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
     await prepareTemplate(template, isLocalProject, templateFolder, options);
 
     const config = await getConfig(paths.projectRoot);
-    if (!config) throw new Error("No configuration found. Please try again.");
+    if (!config) {
+      throw new ConfigError("No configuration found. Please try again.");
+    }
 
     const { dkcutterConfig, templateConfig } = config;
 
@@ -197,7 +209,7 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
     if ((await pathExists(generatedProjectRoot)) && !options.overwrite) {
       const path = generatedProjectRoot;
       generatedProjectRoot = undefined; // prevent deletion in catch block
-      throw new Error(
+      throw new DKCutterError(
         `Project already exists at ${path}.\nPlease try again with a different output path or enable overwrite option.`,
       );
     }
@@ -226,4 +238,5 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
   }
 }
 
+export * from "@/helpers/errors";
 export type { DKCutter, Options } from "@/types";

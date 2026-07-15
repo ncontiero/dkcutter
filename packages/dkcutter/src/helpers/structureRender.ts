@@ -5,6 +5,7 @@ import { join, resolve } from "node:path";
 
 import { isBinaryFile } from "isbinaryfile";
 import { IGNORE_FILE_PATTERN } from "@/consts";
+import { RenderError } from "@/helpers/errors";
 import { mkdir } from "@/utils";
 import { renderer } from "@/utils/renderer";
 
@@ -76,12 +77,12 @@ async function processTemplateFile(
       await fs.chmod(outputFilePath, fileMode);
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error(
+        throw new RenderError(
           `Error processing file ${filePath}:\n${error.message}`,
           { cause: error },
         );
       } else {
-        throw new Error(`Unknown error processing file ${filePath}`, {
+        throw new RenderError(`Unknown error processing file ${filePath}`, {
           cause: error,
         });
       }

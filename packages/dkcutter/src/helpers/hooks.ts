@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { dim } from "ansis";
 import { x } from "tinyexec";
 import { HOOKS_FOLDER, RENDERED_HOOKS_FOLDER } from "@/consts";
+import { HookExecutionError } from "@/helpers/errors";
 import { clackSpinner, emptyDir, getUserPkgManager, pathExists } from "@/utils";
 import { structureRender } from "./structureRender";
 
@@ -87,9 +88,11 @@ export async function runHook({ dir = process.cwd(), hook }: RunHook) {
   } catch (error) {
     const msg = `Failed to run hook: ${hook}.`;
     if (error instanceof Error) {
-      throw new TypeError(`${msg}\n${error.message}`);
+      throw new HookExecutionError(`${msg}\n${error.message}`, {
+        cause: error,
+      });
     } else {
-      throw new TypeError(msg);
+      throw new HookExecutionError(msg, { cause: error });
     }
   }
 }

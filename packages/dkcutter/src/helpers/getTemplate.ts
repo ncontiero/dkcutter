@@ -8,7 +8,15 @@ import {
   PKG_ROOT,
   REPO_PREFIXES,
 } from "@/consts";
-import { clackSpinner, colorize, copy, pathExists, remove } from "@/utils";
+import { TemplateError } from "@/helpers/errors";
+import {
+  clackSpinner,
+  colorize,
+  copy,
+  logger,
+  pathExists,
+  remove,
+} from "@/utils";
 
 type RepoType = "hg" | "git";
 interface GetTemplateProps {
@@ -73,7 +81,7 @@ export async function getTemplate({
   try {
     const repoType = identifyRepoType(url);
     if (!(await isVCSInstalled(repoType))) {
-      throw new Error(`${repoType} is not installed`);
+      throw new TemplateError(`${repoType} is not installed`);
     }
 
     const cloneOutput = join(output, "output");
@@ -105,13 +113,13 @@ export async function getTemplate({
     }
 
     if (!(await pathExists(resolvedDirectoryOpt))) {
-      throw new Error(`Directory ${directoryOpt} not found.`);
+      throw new TemplateError(`Directory ${directoryOpt} not found.`);
     }
     if (!(await pathExists(templateOutput))) {
-      throw new Error(`Template folder not found.`);
+      throw new TemplateError(`Template folder not found.`);
     }
     if (!(await pathExists(templateConfig))) {
-      throw new Error(`Config ${CONFIG_FILE_NAME} file not found.`);
+      throw new TemplateError(`Config ${CONFIG_FILE_NAME} file not found.`);
     }
 
     if (await pathExists(hooksFolder)) {
@@ -126,11 +134,12 @@ export async function getTemplate({
   } catch (error) {
     const msg = "Failed to download template.";
     if (error instanceof Error) {
-      throw new Error(`${msg}\n${error.message}`);
+      throw new TemplateError(`${msg}\n${error.message}`, { cause: error });
     } else {
-      console.error(error);
-      throw new Error(
+      logger.error(error);
+      throw new TemplateError(
         `${msg}\nUnknown error. Check the console for more details.`,
+        { cause: error },
       );
     }
   }

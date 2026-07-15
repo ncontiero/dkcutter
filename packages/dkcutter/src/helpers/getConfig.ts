@@ -3,6 +3,7 @@ import semver from "semver";
 import { z } from "zod";
 
 import { CONFIG_FILE_NAME } from "@/consts";
+import { ConfigError } from "@/helpers/errors";
 
 const explorer = lilconfig("dkcutter", {
   searchPlaces: [CONFIG_FILE_NAME],
@@ -89,9 +90,10 @@ export async function getConfig(
     const templateConfig = configSchema.parse(templateConfigRaw);
 
     return { templateConfig, dkcutterConfig };
-  } catch {
-    throw new Error(
+  } catch (error) {
+    throw new ConfigError(
       `Invalid configuration found in ${cwd}/${CONFIG_FILE_NAME}.`,
+      { zodError: error instanceof z.ZodError ? error : undefined },
     );
   }
 }
