@@ -71,6 +71,7 @@ You can use some libraries that are made available at hooks runtime, see which o
 - [nunjucks](https://github.com/mozilla/nunjucks) - A powerful templating engine with inheritance, asynchronous control, and more (jinja2 inspired);
 - [picospinner](https://github.com/tinylibs/picospinner) - A lightweight, no dependency, pluggable CLI spinner library (**Deprecated: will be removed in the next major version. Use `@clack/prompts` spinner instead**);
 - [prompts](https://github.com/terkelg/prompts) - ❯ Lightweight, beautiful and user-friendly interactive prompts (**Deprecated: will be removed in the next major version. Use `@clack/prompts` instead**);
+- [semver](https://github.com/npm/node-semver) - The semantic version parser used by npm;
 - [tinyexec](https://github.com/tinylibs/tinyexec) - 📟 A tiny, higher level interface around child_process
 - [tsx](https://github.com/privatenumber/tsx) - ⚡️ TypeScript Execute | The easiest way to run TypeScript in Node.js;
 - [zod](https://github.com/colinhacks/zod) - TypeScript-first schema validation with static type inference.
