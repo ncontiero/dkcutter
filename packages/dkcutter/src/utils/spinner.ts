@@ -1,9 +1,13 @@
 import { log, spinner as promptSpinner } from "@clack/prompts";
 
+/**
+ * A spinner instance from `@clack/prompts`.
+ * @deprecated Will be renamed to `spinner` in the next major version (v7).
+ */
 export const clackSpinner = promptSpinner();
 
 /**
- * @deprecated Use `@clack/prompts` directly or import `clackSpinner` from `dkcutter/utils`. Will be removed in v7.
+ * @deprecated Use `@clack/prompts` directly or import `clackSpinner` from `dkcutter/utils` (which will be renamed to `spinner` in v7). Will be removed in v7.
  */
 export class Spinner {
   s: ReturnType<typeof promptSpinner>;
@@ -24,7 +28,7 @@ export class Spinner {
 }
 
 /**
- * @deprecated Use `@clack/prompts` directly or import `clackSpinner` from `dkcutter/utils`. Will be removed in v7.
+ * @deprecated Use `@clack/prompts` directly or import `clackSpinner` from `dkcutter/utils` (which will be renamed to `spinner` in v7). Will be removed in v7.
  */
 export class SpinnerWrapper extends Spinner {
   public running: boolean = false;
@@ -70,6 +74,6 @@ export class SpinnerWrapper extends Spinner {
 }
 
 /**
- * @deprecated Use `@clack/prompts` directly or import `clackSpinner` from `dkcutter/utils`. Will be removed in v7.
+ * @deprecated Use `@clack/prompts` directly or import `clackSpinner` from `dkcutter/utils` (which will be renamed to `spinner` in v7). Will be replaced by `clackSpinner` in v7.
  */
 export const spinner = new SpinnerWrapper();

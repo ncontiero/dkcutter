@@ -43,7 +43,9 @@ logger.info(`Status: ${coloredText}`);
 ## Spinner
 
 > [!WARNING]
-> The old `spinner` utility (which mimics `picospinner`) is **deprecated** and will be removed in the next major version (v7). It is highly recommended to migrate to the new `clackSpinner` utility, which is powered by `@clack/prompts` and replaces the old implementation.
+> The old `spinner` utility (which mimics `picospinner`) is **deprecated** and will be replaced in the next major version (v7). It is highly recommended to migrate to the new `clackSpinner` utility, which is powered by `@clack/prompts`.
+>
+> Note that in **v7**, `clackSpinner` will be renamed to `spinner`, replacing the deprecated utility.
 >
 > You can import the new spinner via `import { clackSpinner } from "dkcutter/utils"` or use `@clack/prompts` directly.
 
