@@ -1,4 +1,5 @@
 import { lilconfig } from "lilconfig";
+import semver from "semver";
 import { z } from "zod";
 
 import { CONFIG_FILE_NAME } from "@/consts";
@@ -37,10 +38,16 @@ const configObjectSchema = z
   })
   .or(configObjectValueSchema);
 export const configSchema = z.record(z.string(), configObjectSchema);
+
+const engineVersionSchema = z.string().refine((val) => semver.validRange(val), {
+  message: `"Invalid semver range. Please use a valid semver range (e.g., '^1.0.0', '>=1.0.0')."`,
+});
 export const dkcutterConfigSchema = z.object({
   engines: z
     .object({
-      dkcutter: z.string().optional(),
+      dkcutter: engineVersionSchema.optional(),
+      node: engineVersionSchema.optional(),
+      bun: engineVersionSchema.optional(),
     })
     .optional(),
 });
@@ -51,6 +58,7 @@ export type ConfigObjectProps = z.infer<typeof configObjectSchema>;
 export type ChoicesTypeEnumProps = z.infer<typeof choicesTypeEnum>;
 export type ConfigProps = z.infer<typeof configSchema>;
 export type DKCutterConfigProps = z.infer<typeof dkcutterConfigSchema>;
+export type EnginesProps = DKCutterConfigProps["engines"];
 export type ContextProps = Record<string, string | string[] | boolean>;
 export interface DKCutterContext {
   dkcutter: ContextProps;

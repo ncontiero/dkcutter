@@ -15,6 +15,14 @@
             "dkcutter": {
               "type": "string",
               "description": "The DKCutter version required by the template."
+            },
+            "node": {
+              "type": "string",
+              "description": "The Node.js version required by the template."
+            },
+            "bun": {
+              "type": "string",
+              "description": "The Bun version required by the template."
             }
           },
           "additionalProperties": false

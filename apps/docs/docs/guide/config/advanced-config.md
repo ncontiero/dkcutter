@@ -203,17 +203,19 @@ You can define a special `_dkcutter` object in your configuration file to specif
 
 ### Specifying Engine Versions
 
-You can use the `engines` property within `_dkcutter` to specify the version of the DKCutter CLI required to use the template. This helps prevent compatibility issues by ensuring users are running a compatible version of DKCutter.
+You can use the `engines` property within `_dkcutter` to specify the version of the DKCutter CLI, Node.js, or Bun required to use the template. This helps prevent compatibility issues by ensuring users are running compatible versions of these tools. The validation of `node` or `bun` versions is dynamically checked according to the package manager you use to run DKCutter.
 
 ```json title="dkcutter.json"
 {
   "_dkcutter": {
     "engines": {
-      "dkcutter": ">=6.0.0"
+      "dkcutter": ">=6.0.0",
+      "node": ">=24.0.0",
+      "bun": ">=1.3.0"
     }
   },
   "projectName": "My Awesome Project"
 }
 ```
 
-In this example, the template requires DKCutter version 6.0.0 or higher.
+In this example, the template requires DKCutter version 6.0.0 or higher. If you're running it with a Node-based package manager (like `npm`, `yarn`, or `pnpm`), it will enforce Node >= 24.0.0. If you're running it with `bun`, it will enforce Bun >= 1.3.0.

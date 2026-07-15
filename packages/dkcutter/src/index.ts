@@ -11,6 +11,7 @@ import {
 import {
   type ContextProps,
   type DKCutterContext,
+  type EnginesProps,
   getConfig,
 } from "@/helpers/getConfig";
 import { getContext } from "@/helpers/getContext";
@@ -19,6 +20,7 @@ import { configureHooks, runHook } from "@/helpers/hooks";
 import { structureRender } from "@/helpers/structureRender";
 import { type DKCutter, type OptionsSchema, optionsSchema } from "@/types";
 import { cleanFiles, emptyDir, pathExists } from "@/utils/files";
+import { getUserPkgManager } from "@/utils/getUserPkgManager";
 import { handleError } from "@/utils/handleError";
 import { logger } from "@/utils/logger";
 import { renderer, setRendererContext } from "@/utils/renderer";
@@ -71,18 +73,36 @@ async function prepareTemplate(
   }
 }
 
-function validateEngines(requiredVersion?: string): void {
-  if (!requiredVersion) return;
-  if (!semver.validRange(requiredVersion)) {
+function validateEngines(engines: EnginesProps): void {
+  if (!engines) return;
+
+  if (
+    engines.dkcutter &&
+    !semver.satisfies(dkcutterVersion, engines.dkcutter)
+  ) {
     throw new Error(
-      `The template specifies an invalid DKCutter version range: ${requiredVersion}`,
+      `Your DKCutter version (${dkcutterVersion}) does not satisfy the template's required version (${engines.dkcutter}).`,
     );
   }
 
-  if (!semver.satisfies(dkcutterVersion, requiredVersion)) {
-    throw new Error(
-      `Your DKCutter version (${dkcutterVersion}) does not satisfy the template's required version (${requiredVersion}).`,
-    );
+  const pkgManager = getUserPkgManager();
+
+  if (pkgManager === "bun" && engines.bun) {
+    const bunVersion = process.versions.bun;
+    if (bunVersion && !semver.satisfies(bunVersion, engines.bun)) {
+      throw new Error(
+        `Your Bun version (${bunVersion}) does not satisfy the template's required version (${engines.bun}).`,
+      );
+    }
+  }
+
+  if (pkgManager !== "bun" && engines.node) {
+    const nodeVersion = process.version;
+    if (!semver.satisfies(nodeVersion, engines.node)) {
+      throw new Error(
+        `Your Node version (${nodeVersion}) does not satisfy the template's required version (${engines.node}).`,
+      );
+    }
   }
 }
 
@@ -154,7 +174,7 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
 
     const { dkcutterConfig, templateConfig } = config;
 
-    validateEngines(dkcutterConfig.engines?.dkcutter);
+    validateEngines(dkcutterConfig.engines);
 
     clackSpinner.stop();
 
