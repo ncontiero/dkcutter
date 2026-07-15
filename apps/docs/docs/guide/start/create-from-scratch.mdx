@@ -34,9 +34,9 @@ This file is the heart of your template. It defines the variables that the user 
 
 **Explanation:**
 
--   `"$schema"`: (Optional) Specifies the schema for editor autocompletion and validation.
--   `"projectName"`: A variable that the user will be prompted for. We've given it a default value of `"My Simple Website"`.
--   `"projectSlug"`: A variable that is *derived* from `projectName`. It uses a template that converts the project name to lowercase, replaces spaces with hyphens, and removes any leading or trailing whitespace.
+- `"$schema"`: (Optional) Specifies the schema for editor autocompletion and validation.
+- `"projectName"`: A variable that the user will be prompted for. We've given it a default value of `"My Simple Website"`.
+- `"projectSlug"`: A variable that is _derived_ from `projectName`. It uses a template that converts the project name to lowercase, replaces spaces with hyphens, and removes any leading or trailing whitespace.
 
 ### Create the Template Files
 
@@ -51,10 +51,10 @@ This command creates a `template` directory, and inside it, a directory with a d
 Inside that directory, create an `index.html` file:
 
 ```html title="template/{{dkcutter.projectSlug}}/index.html"
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>{{ dkcutter.projectName }}</title>
   </head>
   <body>
