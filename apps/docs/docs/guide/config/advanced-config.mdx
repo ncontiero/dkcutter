@@ -1,3 +1,5 @@
+import { Badge } from "@rspress/core/theme"
+
 # Advanced Configuration
 
 While you can define variables with just a value, the object format offers more flexibility. It allows you to:
@@ -197,7 +199,7 @@ Each object within the `choices` array can have the following properties:
 }
 ```
 
-## DKCutter Specific Configuration (`_dkcutter`)
+## DKCutter Specific Configuration (`_dkcutter`) <Badge text="DKCutter v6.2.0+" type="info" />
 
 You can define a special `_dkcutter` object in your configuration file to specify settings related to the DKCutter CLI itself. This object is entirely internal and does not prompt the user or inject variables into the template context.
 
@@ -219,3 +221,36 @@ You can use the `engines` property within `_dkcutter` to specify the version of 
 ```
 
 In this example, the template requires DKCutter version 6.0.0 or higher. If you're running it with a Node-based package manager (like `npm`, `yarn`, or `pnpm`), it will enforce Node >= 24.0.0. If you're running it with `bun`, it will enforce Bun >= 1.3.0.
+
+### Copying Files Without Rendering
+
+By default, DKCutter will try to render all files in the template directory. If you have files that should not be rendered (e.g., specific text files containing raw Jinja/Nunjucks syntax), you can use the `copyWithoutRender` property to copy them directly without processing.
+
+> [!NOTE]
+> You don't need to add binary files (like `.png`, `.jpg`, `.ico`, etc.) to this list! Under the hood, DKCutter automatically uses the [isbinaryfile](https://github.com/gjtorikian/isBinaryFile) library to identify binary files and just copies them without rendering.
+
+This property accepts an array of strings containing glob patterns. Under the hood, DKCutter uses [tinyglobby](https://github.com/SuperchupuDev/tinyglobby) to match the files.
+
+```json title="dkcutter.json"
+{
+  "_dkcutter": {
+    "copyWithoutRender": ["templates/**/*.html", "scripts/**/*.sh"]
+  },
+  "projectName": "My Awesome Project"
+}
+```
+
+### Ignoring Files
+
+If you have files or directories in your template that you do not want to be copied or rendered in the generated project, you can use the `ignore` property.
+
+Like `copyWithoutRender`, this property accepts an array of strings containing glob patterns and is evaluated using [tinyglobby](https://github.com/SuperchupuDev/tinyglobby).
+
+```json title="dkcutter.json"
+{
+  "_dkcutter": {
+    "ignore": [".github/workflows/internal.yml", "docs/**", "temp_*"]
+  },
+  "projectName": "My Awesome Project"
+}
+```

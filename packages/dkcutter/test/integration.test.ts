@@ -146,6 +146,10 @@ describe("Integration: Fixtures", () => {
     await validateValidCase("simple", "my-app");
   });
 
+  it("should process ignore and copyWithoutRender fixture correctly", async () => {
+    await validateValidCase("ignore-and-copy", "my-ignored-project");
+  });
+
   it("should process simple fixture with custom extraContext (projectName)", async () => {
     await validateValidCase("simple", "custom-app", {
       projectName: "Custom App",

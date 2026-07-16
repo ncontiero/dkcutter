@@ -35,6 +35,18 @@ vi.mock("isbinaryfile", () => ({
   }),
 }));
 
+vi.mock("tinyglobby", () => ({
+  glob: vi.fn((patterns: string[]) => {
+    if (patterns.includes("ignored.ts") || patterns.includes("ignored-dir")) {
+      return ["ignored.ts", "ignored-dir"];
+    }
+    if (patterns.includes("copy-me.ts")) {
+      return ["copy-me.ts"];
+    }
+    return [];
+  }),
+}));
+
 describe("helpers/structureRender", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -124,5 +136,66 @@ describe("helpers/structureRender", () => {
 
     expect(fs.mkdir).toHaveBeenCalled();
     expect(fs.readdir).toHaveBeenCalledTimes(2);
+  });
+
+  it("should skip files or directories matching ignore config", async () => {
+    vi.mocked(
+      fs.readdir as unknown as (path: string) => Promise<string[]>,
+    ).mockResolvedValue(["ignored.ts", "index.ts"]);
+
+    vi.mocked(
+      fs.lstat as unknown as (path: string) => Promise<Stats>,
+    ).mockResolvedValue({
+      isDirectory: () => false,
+      isFile: () => true,
+      mode: 0o777,
+    } as unknown as Stats);
+
+    await structureRender({
+      context: { dkcutter: {} },
+      directory: "/template",
+      output: "/output",
+      dkcutterConfig: { ignore: ["ignored.ts"] },
+    });
+
+    expect(fs.readFile).toHaveBeenCalledTimes(1);
+    expect(fs.writeFile).toHaveBeenCalledTimes(1);
+    expect(fs.writeFile).toHaveBeenCalledWith(
+      expect.stringContaining("index.ts"),
+      expect.any(String),
+    );
+  });
+
+  it("should copy without rendering files matching copyWithoutRender config", async () => {
+    vi.mocked(
+      fs.readdir as unknown as (path: string) => Promise<string[]>,
+    ).mockResolvedValue(["copy-me.ts", "index.ts"]);
+
+    vi.mocked(
+      fs.lstat as unknown as (path: string) => Promise<Stats>,
+    ).mockResolvedValue({
+      isDirectory: () => false,
+      isFile: () => true,
+      mode: 0o777,
+    } as unknown as Stats);
+
+    await structureRender({
+      context: { dkcutter: {} },
+      directory: "/template",
+      output: "/output",
+      dkcutterConfig: { copyWithoutRender: ["copy-me.ts"] },
+    });
+
+    expect(fs.copyFile).toHaveBeenCalledTimes(1);
+    expect(fs.copyFile).toHaveBeenCalledWith(
+      expect.stringContaining("copy-me.ts"),
+      expect.stringContaining("copy-me.ts"),
+    );
+    expect(fs.readFile).toHaveBeenCalledTimes(1);
+    expect(fs.writeFile).toHaveBeenCalledTimes(1);
+    expect(fs.writeFile).toHaveBeenCalledWith(
+      expect.stringContaining("index.ts"),
+      expect.any(String),
+    );
   });
 });

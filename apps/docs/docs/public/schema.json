@@ -26,6 +26,20 @@
             }
           },
           "additionalProperties": false
+        },
+        "copyWithoutRender": {
+          "type": "array",
+          "description": "An array of glob patterns to copy without rendering.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ignore": {
+          "type": "array",
+          "description": "An array of glob patterns to completely ignore.",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "additionalProperties": false

@@ -1,0 +1,7 @@
+{
+  "_dkcutter": {
+    "ignore": ["**/ignored_file.txt", "**/ignored_dir/**"],
+    "copyWithoutRender": ["**/copied_file.txt", "**/copied_dir/**"]
+  },
+  "projectName": "my-ignored-project"
+}

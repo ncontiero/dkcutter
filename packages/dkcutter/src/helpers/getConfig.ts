@@ -51,6 +51,8 @@ export const dkcutterConfigSchema = z.looseObject({
       bun: engineVersionSchema.optional(),
     })
     .optional(),
+  copyWithoutRender: z.array(z.string()).optional(),
+  ignore: z.array(z.string()).optional(),
 });
 
 export type ConfigObjectValue = z.infer<typeof configObjectValueSchema>;

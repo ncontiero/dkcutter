@@ -19,6 +19,7 @@ import {
 } from "@/helpers/errors";
 import {
   type ContextProps,
+  type DKCutterConfigProps,
   type DKCutterContext,
   type EnginesProps,
   getConfig,
@@ -138,13 +139,19 @@ async function renderProject(
   templateFolder: string,
   context: DKCutterContext,
   projectRoot: string,
+  dkcutterConfig: DKCutterConfigProps,
 ): Promise<void> {
   await emptyDir(generatedProjectRoot);
 
   await configureHooks(context, projectRoot);
   await runHook({ hook: "preGenProject", dir: generatedProjectRoot });
 
-  await structureRender({ context, directory: templateFolder, output });
+  await structureRender({
+    context,
+    directory: templateFolder,
+    output,
+    dkcutterConfig,
+  });
 
   await runHook({ hook: "postGenProject", dir: generatedProjectRoot });
 }
@@ -221,6 +228,7 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
       templateFolder,
       context,
       paths.projectRoot,
+      dkcutterConfig,
     );
 
     await cleanFiles({ isLocalProject, templateFolder });
