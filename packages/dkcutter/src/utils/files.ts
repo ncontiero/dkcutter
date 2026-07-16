@@ -5,7 +5,7 @@ import fsSync, {
   type RmOptions,
 } from "node:fs";
 import fs from "node:fs/promises";
-import path from "node:path";
+import { dirname, join } from "node:path";
 import {
   CONFIG_FILE_NAME,
   HOOKS_FOLDER,
@@ -171,7 +171,7 @@ export async function writeJsonFile<T = unknown>(
   data: T,
   options?: WriteJsonFileOptions,
 ): Promise<void> {
-  await mkdir(path.dirname(filePath));
+  await mkdir(dirname(filePath));
   await fs.writeFile(
     filePath,
     JSON.stringify(data, null, options?.spaces ?? 2),
@@ -198,7 +198,7 @@ export async function cleanFiles({
   }
 
   if (!isLocalProject) {
-    await remove(path.join(PKG_ROOT, CONFIG_FILE_NAME));
+    await remove(join(PKG_ROOT, CONFIG_FILE_NAME));
     await remove(templateFolder);
   }
 

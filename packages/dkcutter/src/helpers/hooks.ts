@@ -1,6 +1,6 @@
 import type { DKCutterContext } from "./getConfig";
 import fs from "node:fs/promises";
-import path from "node:path";
+import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { dim } from "ansis";
 import { x } from "tinyexec";
@@ -61,7 +61,7 @@ export async function runHook({ dir = process.cwd(), hook }: RunHook) {
     );
     if (!hookFile) return; // No hook found.
 
-    const hookPath = path.join(renderedHooksFolder, hookFile);
+    const hookPath = join(renderedHooksFolder, hookFile);
 
     const isBun = pkgManager === "bun";
     const file = isBun ? "bun" : process.execPath;

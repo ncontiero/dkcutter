@@ -1,6 +1,6 @@
 import type { PackageJson } from "type-fest";
 
-import path from "node:path";
+import { join } from "node:path";
 import { readJsonFile, readJsonFileSync } from "./files";
 
 export interface PackageInfo {
@@ -16,7 +16,7 @@ export interface PackageInfo {
  * @returns An object containing the packageJsonPath and the parsed packageJson contents.
  */
 export async function getPackageInfo(dir: string): Promise<PackageInfo> {
-  const packageJsonPath = path.join(dir, "package.json");
+  const packageJsonPath = join(dir, "package.json");
   const packageJson = await readJsonFile<PackageJson>(packageJsonPath);
 
   return { packageJsonPath, packageJson };
@@ -30,7 +30,7 @@ export async function getPackageInfo(dir: string): Promise<PackageInfo> {
  * @returns An object containing the packageJsonPath and the parsed packageJson contents.
  */
 export function getPackageInfoSync(dir: string): PackageInfo {
-  const packageJsonPath = path.join(dir, "package.json");
+  const packageJsonPath = join(dir, "package.json");
   const packageJson = readJsonFileSync<PackageJson>(packageJsonPath);
 
   return { packageJsonPath, packageJson };
