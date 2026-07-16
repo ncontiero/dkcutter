@@ -82,6 +82,7 @@ export interface CLIOptions extends Options {
    *
    * @See https://dkcutter.ncontiero.com/guide/advanced/cli#--init
    * @default false
+   * @deprecated `Use the init command`
    */
   init: boolean;
 }

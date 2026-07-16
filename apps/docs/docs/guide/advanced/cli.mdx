@@ -17,6 +17,14 @@ dkcutter [template] [options] [extra-context-options]...
 - `[options]`: Optional flags that modify DKCutter's behavior (see details below).
 - `[extra-context-options]...`: (Optional) Additional key-value pairs to provide context that overrides values in the template's `dkcutter.json` file (see [Injecting Extra Context](#injecting-extra-context) for more information).
 
+## Commands
+
+### `init`
+
+Create a base DKCutter template project. This will bootstrap a new template structure in your current directory, including a `dkcutter.json` file, a `template/` and a `hooks/` folder.
+
+<PackageManagerTabs command="dkcutter@latest init" dlx />
+
 ## Options
 
 Here's a breakdown of the available DKCutter command-line options:
@@ -27,7 +35,10 @@ Show the version and exit.
 
 ### `--init`
 
-Create a base DKCutter template project. This will bootstrap a new template structure in your current directory, including a `dkcutter.json` file and a `template/` folder.
+Create a base DKCutter template project. This will bootstrap a new template structure in your current directory, including a `dkcutter.json` file, a `template/` and a `hooks/` folder.
+
+> [!WARNING]
+> The `--init` option is deprecated and will be removed in the next major version (v7). Please use the `init` command instead.
 
 ### `-y, --default`
 
