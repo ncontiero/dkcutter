@@ -1,5 +1,41 @@
 # dkcutter
 
+## 6.2.0
+
+### Minor Changes
+
+- [`4fb7325`](https://github.com/ncontiero/dkcutter/commit/4fb7325e01ebe7036e5d60361562a460dcf5fb6c) - feat: add custom error classes for better error handling
+
+  - Added specific error classes: `ConfigError`, `EngineError`, `TemplateError`, `HookExecutionError`, `RenderError`, and `ValidationError`
+  - Improved `ConfigError` to include the original `ZodError` for easier debugging
+  - Documented error handling behavior for programmatic usage, noting that these errors will be propagated to the caller in the next major release
+
+- [`178fedc`](https://github.com/ncontiero/dkcutter/commit/178fedc47394634c270fcf68966cbe4b7e279e52) - feat: add `ignore` and `copyWithoutRender` to config
+
+  - Introduces two new properties in `_dkcutter` config to ignore files or copy them without rendering, utilizing `tinyglobby` for pattern matching.
+
+- [`c01dbde`](https://github.com/ncontiero/dkcutter/commit/c01dbdef61bb8400af03e5739cf9bd32b010cf92) - feat(cli): add `init` command and deprecate `--init` option
+
+  - The `--init` option is now deprecated and will be removed in the next major version (v7). Users are advised to transition to the new `init` command to bootstrap base templates.
+
+- [`9266b73`](https://github.com/ncontiero/dkcutter/commit/9266b738707d5e77d5ff2634756751604a17382e) - feat: change `dkcutterConfigSchema` to be a loose object
+
+  - Changed `z.object` to `z.looseObject` in `dkcutterConfigSchema` and its nested schemas (like `engines`). This prevents configuration validation errors when future versions of DKCutter introduce new options, ensuring better forward compatibility for templates.
+
+- [`0928df1`](https://github.com/ncontiero/dkcutter/commit/0928df1c391c626a7c1e1d5055dc71ba15918dd9) - feat: add engine version validation for node and bun
+
+- [`c32d811`](https://github.com/ncontiero/dkcutter/commit/c32d811b9bf441360f3f6b661218d80caad241a1) - feat: add template-specific DKCutter engine version configuration
+
+### Patch Changes
+
+- [`67f3047`](https://github.com/ncontiero/dkcutter/commit/67f304779c516c3eda17e6c896dd9aa4aa41ba6e) - docs: update spinner deprecation notices for upcoming v7 release
+
+  - Added a `@deprecated` doc-string to `clackSpinner` indicating it will be renamed to `spinner` in the next major version (v7).
+  - Updated the existing deprecated `spinner` utilities doc-strings to clarify they will be replaced by the renamed `clackSpinner`.
+  - Updated the internal utilities documentation (`utils.md`) to reflect this upcoming change.
+
+- [`20c92d2`](https://github.com/ncontiero/dkcutter/commit/20c92d286629274f5208a25d22d7ba42dee06e25) - chore: centralize intro messaging and improve template download feedback
+
 ## 6.1.4
 
 ### Patch Changes
