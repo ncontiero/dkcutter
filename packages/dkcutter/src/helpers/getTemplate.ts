@@ -172,5 +172,15 @@ const templateSchema = z
  * @returns {string} - The result of the validation, containing the parsed template if valid, or an error if invalid.
  */
 export function templateIsValid(template: string): string {
-  return templateSchema.parse(template);
+  try {
+    return templateSchema.parse(template);
+  } catch (error) {
+    throw new TemplateError(
+      "Invalid template. Please check the template format.",
+      {
+        zodError: error instanceof z.ZodError ? error : undefined,
+        cause: error,
+      },
+    );
+  }
 }
