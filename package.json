@@ -30,7 +30,6 @@
     "test:watch": "turbo test:watch",
     "release": "pnpm build:dkcutter && changeset publish",
     "prepare": "husky",
-    "commitlint": "commitlint --edit",
     "pre-commit": "lint-staged"
   },
   "devDependencies": {
