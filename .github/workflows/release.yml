@@ -47,9 +47,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build code
-        run: pnpm build:dkcutter
-
       - name: Check code
         run: pnpm check
 
