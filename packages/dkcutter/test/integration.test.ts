@@ -41,15 +41,6 @@ describe("Integration: Fixtures", () => {
   const fixturesDir = path.resolve(__dirname, "fixtures");
   const tempOutputsDir = path.join(os.tmpdir(), "dkcutter-fixtures");
 
-  afterAll(async () => {
-    // Cleanup the temporary outputs directory after all tests
-    try {
-      await fs.rm(tempOutputsDir, { recursive: true, force: true });
-    } catch {
-      // ignore
-    }
-  });
-
   beforeEach(() => {
     vi.spyOn(process, "exit").mockImplementation(() => {
       return undefined as never;
@@ -58,6 +49,15 @@ describe("Integration: Fixtures", () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
+  });
+
+  afterAll(async () => {
+    // Cleanup the temporary outputs directory after all tests
+    try {
+      await fs.rm(tempOutputsDir, { recursive: true, force: true });
+    } catch {
+      // ignore
+    }
   });
 
   // Helper to generate a project programmatically

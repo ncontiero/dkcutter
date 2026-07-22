@@ -8,3 +8,5 @@ allowBuilds:
   unrs-resolver: false
 
 minimumReleaseAge: 4320
+minimumReleaseAgeExclude:
+  - "@ncontiero/eslint-config"
