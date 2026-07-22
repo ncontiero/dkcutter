@@ -134,7 +134,7 @@ describe("Integration: Fixtures", () => {
     expect(result).toEqual({});
 
     // process.exit should have been called with 1
-    // eslint-disable-next-line ts/unbound-method
+
     expect(process.exit).toHaveBeenCalledWith(1);
 
     // The output directory should be empty (or not created)

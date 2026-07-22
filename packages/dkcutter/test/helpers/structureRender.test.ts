@@ -74,7 +74,7 @@ describe("helpers/structureRender", () => {
     });
 
     expect(fs.readFile).toHaveBeenCalledTimes(2);
-    // eslint-disable-next-line ts/unbound-method
+
     expect(renderer.renderString).toHaveBeenCalled();
     expect(fs.writeFile).toHaveBeenCalledTimes(2);
     expect(fs.writeFile).toHaveBeenCalledWith(
