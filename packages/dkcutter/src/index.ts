@@ -14,7 +14,6 @@ import {
   ConfigError,
   DKCutterError,
   EngineError,
-  handleError,
   TemplateError,
 } from "@/helpers/errors";
 import {
@@ -242,8 +241,7 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
       logger.warn("Project creation failed. Keeping project dir.");
     }
     await cleanFiles({ generatedProjectRoot, isLocalProject, templateFolder });
-    handleError(error);
-    return {};
+    throw error;
   }
 }
 
