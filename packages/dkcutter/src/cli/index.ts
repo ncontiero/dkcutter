@@ -1,6 +1,5 @@
 import type { CLIOptions } from "@/types";
 import { handleError } from "@/helpers/errors";
-import { logger } from "@/utils/logger";
 import { dkcutter } from "..";
 import { program } from "./program";
 
@@ -34,20 +33,8 @@ async function cli(): Promise<void> {
       return;
     }
 
-    if (!template && !options.init) {
+    if (!template) {
       program.outputHelp();
-      return;
-    }
-
-    if (options.init) {
-      logger.warn(
-        "The `--init` option is deprecated and will be removed in the next major version (v7). Please use the `init` command instead (`dkcutter init`).",
-      );
-      await dkcutter({
-        template: "gh:ncontiero/dkcutter",
-        options,
-        extraContext: {},
-      });
       return;
     }
 
