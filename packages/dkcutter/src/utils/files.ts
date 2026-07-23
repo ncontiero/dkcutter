@@ -1,8 +1,8 @@
-import fsSync, {
-  type CopyOptions,
-  type MakeDirectoryOptions,
-  type PathLike,
-  type RmOptions,
+import type {
+  CopyOptions,
+  MakeDirectoryOptions,
+  PathLike,
+  RmOptions,
 } from "node:fs";
 import fs from "node:fs/promises";
 import { dirname, join } from "node:path";
@@ -134,18 +134,6 @@ export async function rename(oldPath: string, newPath: string): Promise<void> {
  */
 export async function readJsonFile<T = unknown>(filePath: string): Promise<T> {
   const fileContent = await fs.readFile(filePath, "utf-8");
-  return JSON.parse(fileContent) as T;
-}
-
-/**
- * Reads a JSON file from the given path and synchronously parses its contents into a JavaScript value.
- * This function provides a typed interface to read and deserialize JSON files in a blocking manner.
- *
- * @param filePath The path to the JSON file to read.
- * @returns The parsed JSON content typed as `T`.
- */
-export function readJsonFileSync<T = unknown>(filePath: string): T {
-  const fileContent = fsSync.readFileSync(filePath, "utf-8");
   return JSON.parse(fileContent) as T;
 }
 
