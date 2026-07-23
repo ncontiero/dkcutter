@@ -4,6 +4,7 @@ import { z } from "zod";
 import { formatKeyMessage } from "@/utils";
 import { isArray, isObject } from "@/utils/dataHandler";
 import { renderer } from "@/utils/renderer";
+import { PromptCancelledError } from "./errors";
 
 type NormalizedConfig = Exclude<ConfigObjectProps, string | boolean | string[]>;
 
@@ -180,7 +181,7 @@ export async function createPromptObjects(
   const answers = await p.group(promptGroup, {
     onCancel: () => {
       p.cancel("Installation aborted by user.");
-      process.exit(1);
+      throw new PromptCancelledError("Installation aborted by user.");
     },
   });
 
