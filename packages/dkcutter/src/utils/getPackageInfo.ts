@@ -1,5 +1,4 @@
-import type { PackageJson } from "type-fest";
-
+import type { PackageJson } from "@/types/packageJson";
 import { join } from "node:path";
 import { readJsonFile, readJsonFileSync } from "./files";
 
