@@ -6,7 +6,7 @@ import { dim } from "ansis";
 import { x } from "tinyexec";
 import { HOOKS_FOLDER, RENDERED_HOOKS_FOLDER } from "@/consts";
 import { HookExecutionError } from "@/helpers/errors";
-import { clackSpinner, emptyDir, getUserPkgManager, pathExists } from "@/utils";
+import { emptyDir, getUserPkgManager, pathExists, spinner } from "@/utils";
 import { structureRender } from "./structureRender";
 
 /**
@@ -74,7 +74,7 @@ export async function runHook({ dir = process.cwd(), hook }: RunHook) {
       hook === "preGenProject"
         ? dim("Executing pre-generation hook...")
         : dim("Executing post-generation hook...");
-    clackSpinner.stop(hookMessage);
+    spinner.stop(hookMessage);
     await x(file, args, {
       stdin: "inherit",
       nodeOptions: {
@@ -84,7 +84,7 @@ export async function runHook({ dir = process.cwd(), hook }: RunHook) {
       throwOnError: true,
     }); // Run hook.
 
-    clackSpinner.start("Generating project...");
+    spinner.start("Generating project...");
   } catch (error) {
     const msg = `Failed to run hook: ${hook}.`;
     if (error instanceof Error) {

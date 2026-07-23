@@ -9,14 +9,7 @@ import {
   REPO_PREFIXES,
 } from "@/consts";
 import { TemplateError } from "@/helpers/errors";
-import {
-  clackSpinner,
-  colorize,
-  copy,
-  logger,
-  pathExists,
-  remove,
-} from "@/utils";
+import { colorize, copy, logger, pathExists, remove, spinner } from "@/utils";
 
 type RepoType = "hg" | "git";
 interface GetTemplateProps {
@@ -75,7 +68,7 @@ export async function getTemplate({
   directoryOpt = "",
   checkout,
 }: GetTemplateProps): Promise<void> {
-  clackSpinner.start("Downloading template...");
+  spinner.start("Downloading template...");
   const output = resolve(outputDir);
 
   try {
@@ -91,12 +84,12 @@ export async function getTemplate({
     const templateConfig = join(resolvedDirectoryOpt, CONFIG_FILE_NAME);
 
     if (url.startsWith("git") || url.startsWith("ssh")) {
-      clackSpinner.stop();
+      spinner.stop();
     }
     await x(repoType, ["clone", url, cloneOutput]);
-    // clackSpinner is restarted if stopped
+    // spinner is restarted if stopped
     if (url.startsWith("git") || url.startsWith("ssh")) {
-      clackSpinner.start("Downloading template...");
+      spinner.start("Downloading template...");
     }
 
     if (checkout) {
@@ -130,7 +123,7 @@ export async function getTemplate({
     await copy(templateOutput, output);
     await remove(cloneOutput);
 
-    clackSpinner.stop(colorize("success", "Template downloaded successfully."));
+    spinner.stop(colorize("success", "Template downloaded successfully."));
   } catch (error) {
     const msg = "Failed to download template.";
     if (error instanceof Error) {
