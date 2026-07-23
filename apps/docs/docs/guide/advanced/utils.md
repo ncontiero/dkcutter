@@ -1,5 +1,3 @@
-import { Badge } from "@rspress/core/theme";
-
 # Internal Utilities
 
 DKCutter exposes several internal utilities that you can use in your hooks or when using DKCutter programmatically. These utilities are available via the `dkcutter/utils` entrypoint.
@@ -44,42 +42,14 @@ logger.info(`Status: ${coloredText}`);
 
 ## Spinner
 
-> [!WARNING]
-> The old `spinner` utility (which mimics `picospinner`) is **deprecated** and will be replaced in the next major version (v7). It is highly recommended to migrate to the new `clackSpinner` utility, which is powered by `@clack/prompts`.
->
-> Note that in **v7**, `clackSpinner` will be renamed to `spinner`, replacing the deprecated utility.
->
-> You can import the new spinner via `import { clackSpinner } from "dkcutter/utils"` or use `@clack/prompts` directly.
+The `spinner` is used to display a loading indicator in the terminal. It is powered by `@clack/prompts` and integrates perfectly with other `dkcutter` prompt visual aesthetics.
 
-The `spinner` is used to display a loading animation in the terminal. Below is the documentation for both the old (deprecated) utility and the new recommended approach.
-
-### New Approach: `clackSpinner` (Recommended) <Badge text="DKCutter v6.1.0+" type="info" />
-
-The `clackSpinner` provides a clean, standard loading indicator that integrates perfectly with other `dkcutter` prompt visual aesthetics.
-
-```javascript
-import { clackSpinner } from "dkcutter/utils";
-
-clackSpinner.start("Downloading files...");
-// ... perform async task
-clackSpinner.stop("Files downloaded successfully!");
-```
-
-### Old Approach: `spinner` (Deprecated)
-
-- `spinner.start(text)`: Starts the spinner with the given text.
-- `spinner.stop()`: Stops the spinner.
-- `spinner.setText(text)`: Changes the text of the spinner.
-- `spinner.succeed(text)`: Stops the spinner and displays a success message.
-- `spinner.info(text)`: Stops the spinner and displays an info message.
-- `spinner.fail(text)`: Stops the spinner and displays a failure message.
-
-```javascript
+```ts
 import { spinner } from "dkcutter/utils";
 
-spinner.start("Processing...");
-// ... perform task
-spinner.succeed("Done!");
+spinner.start("Downloading files...");
+// ... perform async task
+spinner.stop("Files downloaded successfully!");
 ```
 
 ## File Utilities

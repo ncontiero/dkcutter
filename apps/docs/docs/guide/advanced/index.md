@@ -35,10 +35,10 @@ Various advanced topics regarding dkcutter usage.
 - [Accessing the Final Context](./calling-dkcutter-function.mdx#accessing-the-final-context)
 - [Using Shared Utilities](./calling-dkcutter-function.mdx#using-shared-utilities)
 
-## [Internal Utilities](./utils.mdx)
+## [Internal Utilities](./utils.md)
 
-- [Importing Utilities](./utils.mdx#importing-utilities)
-- [Logger](./utils.mdx#logger)
-- [Spinner](./utils.mdx#spinner)
-- [File Utilities](./utils.mdx#file-utilities)
-- [Other Utilities](./utils.mdx#other-utilities)
+- [Importing Utilities](./utils.md#importing-utilities)
+- [Logger](./utils.md#logger)
+- [Spinner](./utils.md#spinner)
+- [File Utilities](./utils.md#file-utilities)
+- [Other Utilities](./utils.md#other-utilities)
