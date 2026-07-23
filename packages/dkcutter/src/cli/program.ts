@@ -12,11 +12,6 @@ program
 
 program
   .option(
-    "--init",
-    "[DEPRECATED: Use the init command] Initialize a base DKCutter template.",
-    { default: false },
-  )
-  .option(
     "-y, --default",
     "Do not prompt for parameters and/or use the template's default values.",
     { default: false },
