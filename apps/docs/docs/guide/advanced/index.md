@@ -39,6 +39,7 @@ Various advanced topics regarding dkcutter usage.
 
 - [Importing Utilities](./utils.md#importing-utilities)
 - [Logger](./utils.md#logger)
+- [Colorize](./utils.md#colorize)
 - [Spinner](./utils.md#spinner)
 - [File Utilities](./utils.md#file-utilities)
 - [Other Utilities](./utils.md#other-utilities)

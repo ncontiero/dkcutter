@@ -25,7 +25,7 @@ logger.info("Starting task...");
 logger.success("Task completed!");
 ```
 
-### `colorize`
+## Colorize
 
 A utility function to wrap strings with terminal colors without printing them immediately. Useful for styling parts of a message or for use with the `spinner`. It uses the same color scheme as the logger.
 
