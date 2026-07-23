@@ -43,8 +43,15 @@ export class RenderError extends DKCutterError {
 export class ValidationError extends DKCutterError {
   name = "ValidationError";
 }
+export class PromptCancelledError extends DKCutterError {
+  name = "PromptCancelledError";
+}
 
 export function handleError(error: unknown) {
+  if (error instanceof PromptCancelledError) {
+    process.exit(1);
+  }
+
   logger.error("An error occurred during project generation.");
 
   if (error instanceof DKCutterZodError && error.zodError) {
