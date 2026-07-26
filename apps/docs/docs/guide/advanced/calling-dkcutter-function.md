@@ -68,15 +68,14 @@ console.log("Final project context:", context);
 
 ## Error Handling
 
-DKCutter exports specific custom errors that represent different failure states during the execution. However, **currently, these errors are not thrown back to the caller** during programmatic usage (the `dkcutter` function handles them internally, prints to the console, and returns an empty context `{}`).
-
-This behavior will change in the **next major release**, where these errors will be passed forward, allowing you to catch them with `try/catch` and handle them programmatically.
+DKCutter exports specific custom errors that represent different failure states during the execution. These errors are thrown back to the caller during programmatic usage, allowing you to catch them with `try/catch` and handle them programmatically.
 
 You can import and check against these errors:
 
 ```ts
 import {
   ConfigError,
+  dkcutter,
   DKCutterError,
   EngineError,
   HookConfigError,
@@ -86,7 +85,6 @@ import {
   ValidationError,
 } from "dkcutter";
 
-// Example of future usage (Next Major):
 try {
   await dkcutter({ template: "invalid-template" });
 } catch (error) {
@@ -94,6 +92,13 @@ try {
     console.error("Template could not be loaded!");
   } else if (error instanceof ConfigError) {
     console.error("Invalid configuration:", error.zodError);
+  } else if (error instanceof DKCutterError) {
+    console.error(
+      "An error occurred during project generation:",
+      error.message,
+    );
+  } else {
+    console.error("Unknown error:", error);
   }
 }
 ```

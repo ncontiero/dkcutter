@@ -1,0 +1,44 @@
+export interface PackageJson {
+  name?: string;
+  version?: string;
+  description?: string;
+  keywords?: string[];
+  homepage?: string;
+  bugs?: string | { url?: string; email?: string };
+  license?: string;
+  author?: string | { name: string; email?: string; url?: string };
+  contributors?: string[] | { name: string; email?: string; url?: string }[];
+  files?: string[];
+  browser?: string | Record<string, string | false>;
+  bin?: string | Record<string, string>;
+  man?: string | string[];
+  directories?: {
+    lib?: string;
+    bin?: string;
+    man?: string;
+    doc?: string;
+    example?: string;
+    test?: string;
+  };
+  repository?: string | { type: string; url: string; directory?: string };
+  scripts?: Record<string, string>;
+  config?: Record<string, unknown>;
+  dependencies?: Record<string, string>;
+  devDependencies?: Record<string, string>;
+  peerDependencies?: Record<string, string>;
+  peerDependenciesMeta?: Record<string, { optional?: boolean }>;
+  bundleDependencies?: string[] | boolean;
+  optionalDependencies?: Record<string, string>;
+  overrides?: Record<string, string | Record<string, string>>;
+  engines?: Record<string, string>;
+  os?: string[];
+  cpu?: string[];
+  workspaces?: string[] | { packages?: string[]; nohoist?: string[] };
+  private?: boolean;
+  publishConfig?: Record<string, unknown>;
+  types?: string;
+  typings?: string;
+  exports?: Record<string, unknown>;
+  type?: "commonjs" | "module";
+  [key: string]: unknown;
+}

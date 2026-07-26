@@ -8,7 +8,6 @@ export {
   mkdir,
   pathExists,
   readJsonFile,
-  readJsonFileSync,
   remove,
   rename,
   writeJsonFile,

@@ -124,18 +124,11 @@ describe("Integration: Fixtures", () => {
     extraContext?: ContextProps,
   ) {
     const uniqueOutputName = `${fixtureName}-invalid-${Date.now()}`;
-    const { testOutputDir, result } = await generateProject(
-      fixtureName,
-      uniqueOutputName,
-      extraContext,
-    );
+    const testOutputDir = path.join(tempOutputsDir, uniqueOutputName);
 
-    // Should return empty context on failure
-    expect(result).toEqual({});
-
-    // process.exit should have been called with 1
-
-    expect(process.exit).toHaveBeenCalledWith(1);
+    await expect(
+      generateProject(fixtureName, uniqueOutputName, extraContext),
+    ).rejects.toThrow();
 
     // The output directory should be empty (or not created)
     const actualContents = await readDirectoryContents(testOutputDir);

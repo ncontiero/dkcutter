@@ -76,15 +76,6 @@ export interface CLIOptions extends Options {
    * @default false
    */
   version?: boolean;
-
-  /**
-   * Initialize a base DKCutter template.
-   *
-   * @See https://dkcutter.ncontiero.com/guide/advanced/cli#--init
-   * @default false
-   * @deprecated `Use the init command`
-   */
-  init: boolean;
 }
 
 export interface DKCutter {

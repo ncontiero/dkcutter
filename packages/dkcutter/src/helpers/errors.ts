@@ -9,9 +9,9 @@ export class DKCutterError extends Error {
   }
 }
 
-export class ConfigError extends DKCutterError {
+export abstract class DKCutterZodError extends DKCutterError {
   public readonly zodError?: ZodError;
-  name = "ConfigError";
+  name = "DKCutterZodError";
 
   constructor(
     message: string,
@@ -22,11 +22,14 @@ export class ConfigError extends DKCutterError {
   }
 }
 
+export class ConfigError extends DKCutterZodError {
+  name = "ConfigError";
+}
+export class TemplateError extends DKCutterZodError {
+  name = "TemplateError";
+}
 export class EngineError extends DKCutterError {
   name = "EngineError";
-}
-export class TemplateError extends DKCutterError {
-  name = "TemplateError";
 }
 export class HookConfigError extends DKCutterError {
   name = "HookConfigError";
@@ -40,11 +43,18 @@ export class RenderError extends DKCutterError {
 export class ValidationError extends DKCutterError {
   name = "ValidationError";
 }
+export class PromptCancelledError extends DKCutterError {
+  name = "PromptCancelledError";
+}
 
 export function handleError(error: unknown) {
+  if (error instanceof PromptCancelledError) {
+    process.exit(1);
+  }
+
   logger.error("An error occurred during project generation.");
 
-  if (error instanceof ConfigError && error.zodError) {
+  if (error instanceof DKCutterZodError && error.zodError) {
     logger.error(error.message);
     logger.error(z.prettifyError(error.zodError));
   } else if (error instanceof DKCutterError) {

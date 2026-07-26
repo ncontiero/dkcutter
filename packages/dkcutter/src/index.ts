@@ -14,7 +14,6 @@ import {
   ConfigError,
   DKCutterError,
   EngineError,
-  handleError,
   TemplateError,
 } from "@/helpers/errors";
 import {
@@ -33,7 +32,7 @@ import { cleanFiles, emptyDir, pathExists } from "@/utils/files";
 import { getUserPkgManager } from "@/utils/getUserPkgManager";
 import { logger } from "@/utils/logger";
 import { renderer, setRendererContext } from "@/utils/renderer";
-import { clackSpinner } from "@/utils/spinner";
+import { spinner } from "@/utils/spinner";
 
 interface SetupPathsResult {
   output: string;
@@ -206,7 +205,7 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
       }),
     );
 
-    clackSpinner.start("Generating project...");
+    spinner.start("Generating project...");
 
     generatedProjectRoot = await resolveProjectRoot(
       paths.output,
@@ -233,17 +232,16 @@ export async function dkcutter(props: DKCutter): Promise<ContextProps> {
 
     await cleanFiles({ isLocalProject, templateFolder });
 
-    clackSpinner.stop("All done! Happy coding!");
+    spinner.stop("All done! Happy coding!");
     return context.dkcutter;
   } catch (error) {
-    clackSpinner.stop();
+    spinner.stop();
     if (keepProjectOnFailure) {
       generatedProjectRoot = undefined;
       logger.warn("Project creation failed. Keeping project dir.");
     }
     await cleanFiles({ generatedProjectRoot, isLocalProject, templateFolder });
-    handleError(error);
-    return {};
+    throw error;
   }
 }
 
