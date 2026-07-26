@@ -5,7 +5,7 @@
 Tired of manually setting up the same boilerplate for every new project? DKCutter solves this by using project templates. You can create your own or use templates shared by others.
 
 > [!TIP]
-> Coming from v5? Check out our [v6 Migration Guide](./v6-migration-guide.md) to learn about the breaking changes and new features.
+> Coming from v6? Check out our [v7 Migration Guide](./v7-migration-guide.md) to learn about the breaking changes and new features.
 
 ## Key Features
 
