@@ -4,6 +4,12 @@
 
 ### Major Changes
 
+- [#911](https://github.com/ncontiero/dkcutter/pull/911) [`e9cf458`](https://github.com/ncontiero/dkcutter/commit/e9cf458a89c25b307d6c54519a3ba8c7df7efb98) - feat!: v7 release and migration guide
+
+  Version 7 introduces several major architectural improvements, including programmatic error handling, updated dependencies, and the removal of deprecated features.
+
+  Please read the full [v7 Migration Guide](https://dkcutter.ncontiero.com/guide/start/v7-migration-guide) for detailed instructions on how to update your templates, hooks, and programmatic usage.
+
 - [#911](https://github.com/ncontiero/dkcutter/pull/911) [`3d54b62`](https://github.com/ncontiero/dkcutter/commit/3d54b62235684ba7be20401526dfe1596e285264) - feat!: throw errors programmatically instead of swallowing them
 
   This change allows developers to catch and handle errors when using the `dkcutter` function programmatically.
@@ -19,12 +25,6 @@
     }
   }
   ```
-
-- [#911](https://github.com/ncontiero/dkcutter/pull/911) [`e9cf458`](https://github.com/ncontiero/dkcutter/commit/e9cf458a89c25b307d6c54519a3ba8c7df7efb98) - feat!: v7 release and migration guide
-
-  Version 7 introduces several major architectural improvements, including programmatic error handling, updated dependencies, and the removal of deprecated features.
-
-  Please read the full [v7 Migration Guide](https://dkcutter.ncontiero.com/guide/start/v7-migration-guide) for detailed instructions on how to update your templates, hooks, and programmatic usage.
 
 - [#911](https://github.com/ncontiero/dkcutter/pull/911) [`ced5238`](https://github.com/ncontiero/dkcutter/commit/ced523844bbabc0f90f178fea07a8f793ff9cae7) - feat!: remove deprecated hook dependencies
 
