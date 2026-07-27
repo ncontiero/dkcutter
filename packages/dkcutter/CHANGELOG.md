@@ -1,5 +1,92 @@
 # dkcutter
 
+## 7.0.0
+
+### Major Changes
+
+- [#911](https://github.com/ncontiero/dkcutter/pull/911) [`e9cf458`](https://github.com/ncontiero/dkcutter/commit/e9cf458a89c25b307d6c54519a3ba8c7df7efb98) - feat!: v7 release and migration guide
+
+  Version 7 introduces several major architectural improvements, including programmatic error handling, updated dependencies, and the removal of deprecated features.
+
+  Please read the full [v7 Migration Guide](https://dkcutter.ncontiero.com/guide/start/v7-migration-guide) for detailed instructions on how to update your templates, hooks, and programmatic usage.
+
+- [#911](https://github.com/ncontiero/dkcutter/pull/911) [`3d54b62`](https://github.com/ncontiero/dkcutter/commit/3d54b62235684ba7be20401526dfe1596e285264) - feat!: throw errors programmatically instead of swallowing them
+
+  This change allows developers to catch and handle errors when using the `dkcutter` function programmatically.
+
+  ```ts
+  import { dkcutter, DKCutterError } from "dkcutter";
+
+  try {
+    await dkcutter({ template: "invalid-template" });
+  } catch (error) {
+    if (error instanceof DKCutterError) {
+      console.error("Project generation failed:", error.message);
+    }
+  }
+  ```
+
+- [#911](https://github.com/ncontiero/dkcutter/pull/911) [`ced5238`](https://github.com/ncontiero/dkcutter/commit/ced523844bbabc0f90f178fea07a8f793ff9cae7) - feat!: remove deprecated hook dependencies
+
+  Removed the following previously deprecated libraries from the runtime hook context:
+
+  - `colorette` (use `ansis` instead)
+  - `commander` (use `cac` instead)
+  - `picospinner` (use `@clack/prompts` instead)
+  - `prompts` (use `@clack/prompts` instead)
+
+- [#911](https://github.com/ncontiero/dkcutter/pull/911) [`436511f`](https://github.com/ncontiero/dkcutter/commit/436511fc0d8523f0e6669736c97f02b1a51f0963) - feat!: remove deprecated `spinner` utility and rename `clackSpinner` to `spinner`
+
+  The old `spinner` utility classes (`Spinner` and `SpinnerWrapper`) have been entirely removed in favor of the `@clack/prompts` based spinner.
+  The utility previously available as `clackSpinner` has been renamed to `spinner`.
+
+  If you were previously using `clackSpinner`:
+
+  ```diff
+  - import { clackSpinner } from "dkcutter/utils"
+  + import { spinner } from "dkcutter/utils"
+
+  - clackSpinner.start("Processing...")
+  + spinner.start("Processing...")
+  ```
+
+- [#911](https://github.com/ncontiero/dkcutter/pull/911) [`007b4d4`](https://github.com/ncontiero/dkcutter/commit/007b4d4a70e17cb97d02787dfd5471d5b9bd9472) - feat!: remove deprecated `--init` flag
+
+  The `--init` CLI flag was deprecated in v6 and has been completely removed in v7.
+  To initialize a base DKCutter template, please use the dedicated `init` command instead:
+
+  ```bash
+  dkcutter init
+  ```
+
+- [#911](https://github.com/ncontiero/dkcutter/pull/911) [`d8f41b5`](https://github.com/ncontiero/dkcutter/commit/d8f41b5f8e25fc5587dd6ab682116d0ef63fcad0) - feat!: remove synchronous filesystem utilities
+
+  To enforce a performant, async-first architectural pattern in `dkcutter`, the synchronous filesystem utility functions have been completely removed. Node.js' `fsSync` calls can block the main thread and degrade CLI responsiveness.
+
+  Removed functions:
+
+  - `readJsonFileSync` (use `await readJsonFile()` instead)
+  - `getPackageInfoSync` (use `await getPackageInfo()` instead)
+
+  If you were importing these from `dkcutter/utils` in your programmatic scripts or hooks, please migrate to their Promise-based counterparts.
+
+- [#911](https://github.com/ncontiero/dkcutter/pull/911) [`ebe196c`](https://github.com/ncontiero/dkcutter/commit/ebe196c2ba65a9004dd886b9788ff776f7354cff) - feat!: throw `PromptCancelledError` on interactive prompt cancellation
+
+  When the user aborts an interactive prompt (e.g. by pressing `Ctrl+C`), `dkcutter` will now throw a `PromptCancelledError` instead of forcefully exiting the process via `process.exit(1)`.
+  This allows consumers using `dkcutter` programmatically to elegantly catch and handle user cancellations without having the Node.js process terminated abruptly.
+
+### Minor Changes
+
+- [#911](https://github.com/ncontiero/dkcutter/pull/911) [`2d5b734`](https://github.com/ncontiero/dkcutter/commit/2d5b7343f8466cb603722baaa02b103a0958fc40) - feat: add `zodError` support to `TemplateError` using new `DKCutterZodError` base class
+
+  This change refactors `ConfigError` and `TemplateError` to extend a new abstract base class called `DKCutterZodError`. This allows both configuration and template validation errors to consistently capture and expose `ZodError` instances for programmatic usage and formatted CLI error logging.
+
+### Patch Changes
+
+- [#911](https://github.com/ncontiero/dkcutter/pull/911) [`521721a`](https://github.com/ncontiero/dkcutter/commit/521721aa231a45c4e99dfe5c700086267b6ce58b) - chore(deps): remove `type-fest` dependency
+
+  Replaced the `PackageJson` type imported from `type-fest` with an internal type definition.
+
 ## 6.2.0
 
 ### Minor Changes
