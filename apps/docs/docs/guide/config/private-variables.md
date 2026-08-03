@@ -47,5 +47,3 @@ Private variables are useful for:
 - **Derived Values:** Calculating values based on user input or other configuration settings, as demonstrated in the example above (generating a slug from a project name).
 - **Internal State:** Storing temporary or intermediate values used by your templates or hooks that shouldn't be directly modified by the user.
 - **Avoiding Clutter:** Keeping user prompts focused on essential information, preventing the user interface from becoming overly complex.
-
-By using private variables, you can create more sophisticated and streamlined DKCutter templates, improving the user experience and automating complex configuration tasks.

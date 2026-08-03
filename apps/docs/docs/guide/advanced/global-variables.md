@@ -80,8 +80,6 @@ The `colors` variable provides access to color functionality for styling prompts
 
 In this example, the `promptMessage` uses the `colors.blue('license')` expression to style the word "license" in blue, enhancing the readability and user experience of the prompt.
 
-By effectively utilizing these global variables, you can streamline your DKCutter project.
-
 ## Nunjucks Filters
 
 DKCutter includes custom Nunjucks filters to help you manipulate strings within your templates.

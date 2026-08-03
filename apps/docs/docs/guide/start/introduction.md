@@ -4,9 +4,7 @@ description: DKCutter is a powerful command-line utility that automates and stan
 
 # Introduction
 
-**DKCutter** is a command-line utility that creates projects from templates. It's a powerful tool for developers looking to automate and standardize project creation, saving time and effort.
-
-Tired of manually setting up the same boilerplate for every new project? DKCutter solves this by using project templates. You can create your own or use templates shared by others.
+**DKCutter** is a powerful command-line utility designed to automate and standardize project creation. Instead of manually setting up the same boilerplate for every new project, you can use DKCutter to instantly scaffold applications from customizable templates, whether you build your own or use those shared by the community.
 
 > [!TIP]
 > Coming from v6? Check out our [v7 Migration Guide](./v7-migration-guide.md) to learn about the breaking changes and new features.

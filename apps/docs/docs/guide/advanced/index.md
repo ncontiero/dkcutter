@@ -4,7 +4,7 @@ description: Explore advanced DKCutter topics including CLI options, dynamic tem
 
 # Advanced Usage
 
-Various advanced topics regarding dkcutter usage.
+Various advanced topics regarding DKCutter usage.
 
 ## [CLI - Command Line Options](./cli.mdx)
 

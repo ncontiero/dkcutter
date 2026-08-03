@@ -14,7 +14,7 @@ import { colorize, logger, pathExists, spinner } from "dkcutter/utils";
 
 ## Logger
 
-The `logger` provides a consistent way to print messages to the terminal with colors. It was previously built on top of `ansis` but now wraps `@clack/prompts`. It automatically applies terminal colors to the messages.
+The `logger` provides a consistent way to display colored messages in the terminal. It is built on top of `@clack/prompts` and uses `ansis` for colors.
 
 - `logger.info(...data)`: Prints an informative message (blue).
 - `logger.success(...data)`: Prints a success message (green).
