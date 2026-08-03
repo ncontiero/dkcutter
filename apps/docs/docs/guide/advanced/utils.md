@@ -1,3 +1,7 @@
+---
+description: Leverage DKCutter internal utilities like logger, spinner, colorize, and async file operations in your hooks and scripts
+---
+
 # Internal Utilities
 
 DKCutter exposes several internal utilities that you can use in your hooks or when using DKCutter programmatically. These utilities are available via the `dkcutter/utils` entrypoint.

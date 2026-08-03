@@ -1,3 +1,7 @@
+---
+description: Dynamically generate configuration values in dkcutter.json using Nunjucks templating based on user prompt answers
+---
+
 # Templates in Context Values
 
 DKCutter provides powerful templating capabilities within the _values_ (not the keys) of your `dkcutter.json` configuration file. This allows you to dynamically generate values based on user input, creating more intelligent and user-friendly project setups. By leveraging [Nunjucks templating](https://mozilla.github.io/nunjucks/templating.html), you can derive context values from previously answered prompts, significantly reducing repetitive user input and providing more sensible defaults.

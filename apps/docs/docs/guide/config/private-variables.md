@@ -1,3 +1,7 @@
+---
+description: Define internal state variables in dkcutter.json using an underscore prefix to manage template logic without user prompts
+---
+
 # Private Variables
 
 DKCutter supports the concept of _private variables_ within your `dkcutter.json` configuration. These variables are intended for internal use within your templates and hooks and are not exposed to the user as prompts during project generation.

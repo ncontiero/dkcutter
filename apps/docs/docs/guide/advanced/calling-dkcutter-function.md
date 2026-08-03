@@ -1,3 +1,7 @@
+---
+description: Generate and customize projects programmatically from JS/TS using the dkcutter function and handle custom execution errors
+---
+
 # Using DKCutter in Your JavaScript/TypeScript Projects
 
 This guide explains how to leverage DKCutter's project generation capabilities directly from your JavaScript or TypeScript code (available in versions 4.1.0 and higher).

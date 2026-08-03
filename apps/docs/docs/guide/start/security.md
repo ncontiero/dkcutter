@@ -1,3 +1,7 @@
+---
+description: Review security considerations when using third-party DKCutter templates and discover the list of official templates
+---
+
 # Security and Official Templates
 
 DKCutter is a powerful project generation tool, but with great power comes the responsibility to ensure security.

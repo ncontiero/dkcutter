@@ -1,3 +1,7 @@
+---
+description: Explore advanced DKCutter topics including CLI options, dynamic templates, global variables, custom hooks, and programmatic API
+---
+
 # Advanced Usage
 
 Various advanced topics regarding dkcutter usage.
@@ -12,7 +16,6 @@ Various advanced topics regarding dkcutter usage.
 
 - [How it Works](./templates-in-context.md#how-it-works)
 - [Basic Example: Dynamically Generating a Project Slug](./templates-in-context.md#basic-example-dynamically-generating-a-project-slug)
-- [Binary Files & Ignoring](./templates-in-context.md#binary-files--ignoring)
 
 ## [Global Variables](./global-variables.md)
 
@@ -28,12 +31,12 @@ Various advanced topics regarding dkcutter usage.
 - [Hook Execution Behavior](./hooks.mdx#hook-execution-behavior)
 - [Hook Examples](./hooks.mdx#hook-examples)
 
-## [Calling DKCutter function from JS/TS](./calling-dkcutter-function.mdx)
+## [Calling DKCutter function from JS/TS](./calling-dkcutter-function.md)
 
-- [Creating Projects with DKCutter](./calling-dkcutter-function.mdx#creating-projects-with-dkcutter)
-- [Customizing Project Generation](./calling-dkcutter-function.mdx#customizing-project-generation)
-- [Accessing the Final Context](./calling-dkcutter-function.mdx#accessing-the-final-context)
-- [Using Shared Utilities](./calling-dkcutter-function.mdx#using-shared-utilities)
+- [Creating Projects with DKCutter](./calling-dkcutter-function.md#creating-projects-with-dkcutter)
+- [Customizing Project Generation](./calling-dkcutter-function.md#customizing-project-generation)
+- [Accessing the Final Context](./calling-dkcutter-function.md#accessing-the-final-context)
+- [Using Shared Utilities](./calling-dkcutter-function.md#using-shared-utilities)
 
 ## [Internal Utilities](./utils.md)
 

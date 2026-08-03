@@ -1,3 +1,7 @@
+---
+description: Migrate your DKCutter projects and hooks from version 5 to version 6, including library replacements and native fs promises
+---
+
 # Migration to v6
 
 This guide will help you migrate your DKCutter projects and hooks from version 5 to version 6 (beta). Version 6 introduces several breaking changes, mostly related to library replacements and updated system requirements, to ensure a faster and more modern experience.

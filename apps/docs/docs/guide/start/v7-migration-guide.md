@@ -1,3 +1,7 @@
+---
+description: Migrate your templates, hooks, and programmatic API usage from DKCutter version 6 to version 7
+---
+
 # Migration to v7
 
 Welcome to DKCutter version 7! This major release brings a stronger programmatic foundation, cleaner error handling, modernized dependencies, and faster file operations.

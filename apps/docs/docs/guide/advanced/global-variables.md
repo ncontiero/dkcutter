@@ -1,3 +1,7 @@
+---
+description: Access DKCutter global variables, colors, and custom Nunjucks filters to enhance project templates and hooks
+---
+
 # Global Variables
 
 DKCutter provides several built-in variables that you can leverage within your project templates, hooks, and even the `dkcutter.json` configuration file. These variables offer dynamic information and functionalities to enhance your project generation process.

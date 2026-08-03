@@ -1,3 +1,7 @@
+---
+description: Configure DKCutter template variables using dkcutter.json to define strings, booleans, and lists for project generation
+---
+
 # Basic Configuration
 
 DKCutter relies on a configuration file named `dkcutter.json` located in the root directory of your DKCutter project. It defines the variables that will be used in your project, allowing for dynamic and powerful customization.
