@@ -29,14 +29,14 @@ DKCutter works by taking a template and rendering it into a new project.
 
 A DKCutter template is a directory with a specific structure. Here’s a basic example:
 
-```bash
-my-awesome-template/
+```tree
+my-awesome-template
 ├── dkcutter.json                  # Configuration file for variables and settings.
-├── hooks/                         # Optional directory for pre/post-generation scripts.
+├── hooks                          # Optional directory for pre/post-generation scripts.
 │   ├── preGenProject.ts           # Optional script run before generation.
-│   └── postGenProject.ts          # Optional script run after generation.
-└── template/
-    └── {{dkcutter.projectSlug}}/  # The actual project template files go here.
+│   ├── postGenProject.ts          # Optional script run after generation.
+└── template
+    ├── {{dkcutter.projectSlug}}/  # The actual project template files go here.
 ```
 
 The two key components are:
@@ -48,9 +48,9 @@ The two key components are:
 
 When you run `dkcutter` with a template, it will prompt you for the variables defined in `dkcutter.json`. After you provide them, it generates a new project in your current directory:
 
-```bash
-my-new-project/    # The name you provided for `projectSlug`.
-└── ...            # Your new project's files, rendered from the template.
+```tree
+my-new-project   # The name you provided for `projectSlug`.
+├── .../         # Your new project's files, rendered from the template.
 ```
 
 This allows you to quickly bootstrap new projects with your desired structure and configuration.
