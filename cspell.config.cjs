@@ -23,6 +23,7 @@ module.exports = {
     "/project-words.txt",
     "package.json",
     "pnpm-lock.yaml",
+    "skills-lock.json",
     "doc_build",
     "template-test",
     "dist",

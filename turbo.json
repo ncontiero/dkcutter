@@ -3,29 +3,37 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", "doc_build/**"]
+      "outputs": ["dist/**", "doc_build/**"],
+      "description": "Builds the project and generates documentation."
     },
     "clean": {
-      "dependsOn": ["^clean"]
+      "dependsOn": ["^clean"],
+      "description": "Cleans the project."
     },
     "typecheck": {
-      "dependsOn": ["^typecheck"]
+      "dependsOn": ["^typecheck"],
+      "description": "Runs TypeScript type checking."
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^lint"],
+      "description": "Runs linting."
     },
     "lint:fix": {
-      "dependsOn": ["^lint:fix"]
+      "dependsOn": ["^lint:fix"],
+      "description": "Runs linting and fixes issues."
     },
     "dev": {
       "persistent": true,
-      "cache": false
+      "cache": false,
+      "description": "Runs the development server."
     },
     "test": {
-      "dependsOn": ["^test"]
+      "dependsOn": ["^test"],
+      "description": "Runs tests."
     },
     "test:watch": {
-      "dependsOn": ["^test:watch"]
+      "dependsOn": ["^test:watch"],
+      "description": "Runs tests in watch mode."
     },
   }
 }
