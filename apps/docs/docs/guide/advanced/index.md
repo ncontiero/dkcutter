@@ -52,4 +52,4 @@ Various advanced topics regarding DKCutter usage.
 - [Template Directory Structure](./best-practices.mdx#1-template-directory-structure)
 - [Using schema.json](./best-practices.mdx#2-using-schemajson)
 - [Variable Naming Conventions](./best-practices.mdx#3-variable-naming-conventions)
-- [Writing Hooks in TypeScript](./best-practices.mdx#4-writing-hooks-in-typescript)
+- [Writing Hooks in TypeScript](./best-practices.mdx#5-writing-hooks-in-typescript)

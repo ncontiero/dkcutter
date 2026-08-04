@@ -50,11 +50,32 @@ Using camelCase avoids unexpected issues and formatting inconsistencies when use
 }
 ```
 
-## 4. Writing Hooks in TypeScript
+## 4. Prefer Object Syntax for Prompts
+
+When defining public variables in your `dkcutter.json`, always prefer the object syntax instead of plain string or boolean values. This allows you to utilize the `promptMessage` property, ensuring you present a clear and user-friendly question to the person using your template.
+
+**Good:**
+```json title="dkcutter.json"
+{
+  "projectName": {
+    "value": "My Project",
+    "promptMessage": "What is the name of your new project?"
+  }
+}
+```
+
+**Avoid:**
+```json title="dkcutter.json"
+{
+  "projectName": "My Project" // Relies on the default, often vague, prompt message
+}
+```
+
+## 5. Writing Hooks in TypeScript
 
 Always prefer TypeScript (`.ts`) over JavaScript when creating hooks. TypeScript allows you to define the shape of your context, ensuring type safety, better autocompletion, and preventing runtime errors when accessing variables.
 
-## 5. Defining the Context Object in Hooks
+## 6. Defining the Context Object in Hooks
 
 In your hooks, it is highly recommended to define the DKCutter context in a strongly-typed object. This allows you to access variables using standard property access (e.g., `context.projectName`) without breaking the JavaScript/TypeScript syntax.
 
@@ -107,7 +128,7 @@ If a context value comes from a single or multiple-choice prompt (like the `data
 type DatabaseOption = "PostgreSQL" | "MySQL" | "SQLite";
 ```
 
-## 6. Prefer `async/await` in Hooks
+## 7. Prefer `async/await` in Hooks
 
 DKCutter supports asynchronous hooks out of the box. Always prefer using `async/await` along with the asynchronous utilities provided by DKCutter (like `import { copy, remove } from "dkcutter/utils"`). This prevents blocking the main thread and results in faster, more reliable template generation.
 
