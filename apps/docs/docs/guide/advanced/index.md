@@ -36,7 +36,7 @@ Various advanced topics regarding DKCutter usage.
 - [Creating Projects with DKCutter](./calling-dkcutter-function.md#creating-projects-with-dkcutter)
 - [Customizing Project Generation](./calling-dkcutter-function.md#customizing-project-generation)
 - [Accessing the Final Context](./calling-dkcutter-function.md#accessing-the-final-context)
-- [Using Shared Utilities](./calling-dkcutter-function.md#using-shared-utilities)
+- [Error Handling](./calling-dkcutter-function.md#error-handling)
 
 ## [Internal Utilities](./utils.md)
 
@@ -46,3 +46,10 @@ Various advanced topics regarding DKCutter usage.
 - [Spinner](./utils.md#spinner)
 - [File Utilities](./utils.md#file-utilities)
 - [Other Utilities](./utils.md#other-utilities)
+
+## [Best Practices](./best-practices.mdx)
+
+- [Template Directory Structure](./best-practices.mdx#1-template-directory-structure)
+- [Using schema.json](./best-practices.mdx#2-using-schemajson)
+- [Variable Naming Conventions](./best-practices.mdx#3-variable-naming-conventions)
+- [Writing Hooks in TypeScript](./best-practices.mdx#4-writing-hooks-in-typescript)

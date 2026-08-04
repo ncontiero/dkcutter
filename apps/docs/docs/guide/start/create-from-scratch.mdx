@@ -44,13 +44,18 @@ This file is the heart of your template. It defines the variables that the user 
 
 ### Create the Template Files
 
-Now, let's create the files that will be part of the generated project. Create the following directory structure:
+Now, let's create the files that will be part of the generated project. It is **mandatory** that all your project files are placed inside a subdirectory within the `template` folder.
+
+Create the following directory structure:
 
 ```bash
 mkdir -p template/{{dkcutter.projectSlug}}
 ```
 
-This command creates a `template` directory, and inside it, a directory with a dynamic name `{{dkcutter.projectSlug}}`.
+This command creates a `template` directory, and inside it, a mandatory wrapper directory with a dynamic name `{{dkcutter.projectSlug}}`.
+
+> [!NOTE]
+> While we use `{{dkcutter.projectSlug}}` here, you can use any variable defined in your `dkcutter.json` for this directory name. Just ensure its evaluated value is safe to be used as a directory name across different operating systems (e.g., avoiding special characters, slashes, or spaces).
 
 Inside that directory, create an `index.html` file:
 
@@ -97,3 +102,7 @@ Congratulations! You've just created and used your first `dkcutter` template.
 Instead of creating a template entirely from scratch, you can use the `init` command to generate a boilerplate template structure. This is a great starting point.
 
 <PackageManagerTabs command="dkcutter@latest init" dlx />
+
+## Next Steps
+
+To take your template to the next level and avoid common pitfalls, be sure to read our [Best Practices and Recommendations](../advanced/best-practices.mdx) guide!

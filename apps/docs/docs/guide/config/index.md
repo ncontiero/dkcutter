@@ -28,6 +28,9 @@ To ensure your `dkcutter.json` is valid and to get features like autocompletion 
 
 This helps prevent errors and ensures consistency.
 
+> [!TIP]
+> We strongly recommend following our [Variable Naming Conventions](../advanced/best-practices.mdx#3-variable-naming-conventions) (like using `camelCase`) to avoid unexpected issues when passing variables via the CLI.
+
 ## Simple Variables
 
 The most basic variables you can define are text (string), boolean (true/false), and lists of strings.

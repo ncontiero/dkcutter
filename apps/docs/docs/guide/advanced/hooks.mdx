@@ -44,6 +44,9 @@ dkcutter-something
 
 You can have multiple files inside the `hooks` folder and import them into your main hook files (`preGenProject` or `postGenProject`), provided you use relative imports (e.g., `import { myHelper } from "./utils";`). All files inside the hooks directory will be processed and rendered by Nunjucks just like your hooks.
 
+> [!TIP]
+> We highly recommend following our [Best Practices](./best-practices.mdx#4-writing-hooks-in-typescript) when writing hooks (e.g., using TypeScript, defining a typed Context object, and preferring `async/await`).
+
 ## Hook Execution Behavior
 
 It's essential for hooks to be robust and handle potential errors gracefully. If a hook exits with a non-zero status code, DKCutter will halt the project generation process and remove any partially generated project directory to ensure a clean slate.

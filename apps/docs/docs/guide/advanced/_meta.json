@@ -9,5 +9,6 @@
     "name": "calling-dkcutter-function",
     "label": "Calling DKCutter function from JS/TS"
   },
-  "utils"
+  "utils",
+  "best-practices"
 ]

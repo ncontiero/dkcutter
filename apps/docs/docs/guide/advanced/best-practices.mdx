@@ -1,0 +1,122 @@
+---
+description: Learn the best practices and recommendations for building robust DKCutter templates, configuring variables, and writing TypeScript hooks
+---
+
+import { Badge } from "@rspress/core/theme";
+
+# Best Practices and Recommendations
+
+When building and maintaining DKCutter templates, following a set of best practices ensures that your templates remain robust, secure, and easy to use. Here are our top recommendations:
+
+## 1. Template Directory Structure
+
+It is **mandatory** to place your template contents inside a folder within the `template` directory. DKCutter uses this structure to properly resolve paths and variable names during scaffolding.
+
+**Correct Structure:**
+
+```tree
+my-template
+├── dkcutter.json
+├── hooks/
+└── template/
+    └── {{dkcutter.projectSlug}}/  # The actual files go inside this folder!
+```
+
+> [!WARNING]
+> Never place your template files directly inside the `template/` folder. Always wrap them in a parent directory, usually named dynamically using a variable like `{{dkcutter.projectSlug}}`. You can use any variable defined in your `dkcutter.json`, provided its final value is cross-platform safe for directory names (e.g., no special characters, slashes, or spaces).
+
+## 2. Using `schema.json`
+
+Always include the `$schema` property in your `dkcutter.json`. This enables editor autocompletion, type checking, and real-time validation when editing your configuration file.
+
+```json title="dkcutter.json"
+{
+  "$schema": "https://dkcutter.ncontiero.com/schema.json",
+  "projectName": "My Project"
+}
+```
+
+## 3. Variable Naming Conventions
+
+When defining public variables in your `dkcutter.json`, always use **camelCase** (e.g., `projectName`, `useTypescript`).
+
+Using camelCase avoids unexpected issues and formatting inconsistencies when users pass variables via CLI flags (extra-context). For example, `projectName` translates smoothly to `--projectName` in the CLI.
+
+```json title="dkcutter.json"
+{
+  "projectName": "My Project",  // Good
+  "project_name": "My Project", // Avoid
+  "ProjectName": "My Project"   // Avoid
+}
+```
+
+## 4. Writing Hooks in TypeScript
+
+Always prefer TypeScript (`.ts`) over JavaScript when creating hooks. TypeScript allows you to define the shape of your context, ensuring type safety, better autocompletion, and preventing runtime errors when accessing variables.
+
+## 5. Defining the Context Object in Hooks
+
+In your hooks, it is highly recommended to define the DKCutter context in a strongly-typed object. This allows you to access variables using standard property access (e.g., `context.projectName`) without breaking the JavaScript/TypeScript syntax.
+
+Use Nunjucks templating to inject the values into this object when the hook runs:
+
+```ts title="hooks/postGenProject.ts"
+// Type for a choice variable
+type DatabaseOption = "PostgreSQL" | "MySQL" | "SQLite";
+
+// Define the shape of your context
+interface Context {
+  projectName: string;
+  projectSlug: string;
+  useTypescript: boolean;
+  database: DatabaseOption;
+}
+
+// Helper function to safely convert boolean strings
+const parseBool = (val: string) => val === "true";
+
+// Inject DKCutter variables into the object
+const context: Context = {
+  projectName: "{{ dkcutter.projectName }}",
+  projectSlug: "{{ dkcutter.projectSlug }}",
+  useTypescript: parseBool("{{ dkcutter.useTypescript }}"),
+  database: "{{ dkcutter.database }}" as DatabaseOption,
+};
+
+// Now you can safely use the context!
+if (context.useTypescript) {
+  console.log(`Setting up TypeScript for ${context.projectName}...`);
+}
+```
+
+### Boolean Conversions
+
+Notice how we converted the boolean value using a helper function:
+
+```ts
+const parseBool = (val: string) => val === "true";
+```
+
+While it is entirely possible to use Nunjucks tags directly for conditionals (e.g., `{% if dkcutter.useTypescript %}`), we highly recommend mapping these values into native JavaScript/TypeScript booleans first via a helper function. This keeps your hook files clean, preserves standard JS/TS syntax, and allows you to write standard `if/else` statements without heavily mixing Nunjucks logic inside your scripts.
+
+### Typing Choice Variables
+
+If a context value comes from a single or multiple-choice prompt (like the `database` example above), create a specific type for it. This helps ensure you only compare against valid options:
+
+```ts
+type DatabaseOption = "PostgreSQL" | "MySQL" | "SQLite";
+```
+
+## 6. Prefer `async/await` in Hooks
+
+DKCutter supports asynchronous hooks out of the box. Always prefer using `async/await` along with the asynchronous utilities provided by DKCutter (like `import { copy, remove } from "dkcutter/utils"`). This prevents blocking the main thread and results in faster, more reliable template generation.
+
+```ts title="hooks/postGenProject.ts"
+import { remove } from "dkcutter/utils";
+
+async function cleanup() {
+  await remove("unnecessary-file.txt");
+}
+
+cleanup();
+```
