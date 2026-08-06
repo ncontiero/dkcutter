@@ -1,29 +1,19 @@
 # DKCutter
 
-## Project overview
+CLI project scaffolding utility in TypeScript (monorepo).
 
-DKCutter is a powerful command-line project scaffolding utility. It allows users to create new projects from templates interactively, heavily inspired by Cookiecutter but built in TypeScript. It supports dynamic variables, hooks, and native VCS templates.
+- `packages/dkcutter`: CLI logic.
+- `apps/docs`: Documentation (Rspress).
 
-## Project architecture
+## Verification
 
-- **Monorepo Structure:** We use a `pnpm` workspace.
-- `packages/dkcutter`: The core CLI logic and implementation.
-- `apps/docs`: The official documentation built with [Rspress](https://rspress.rs).
+Run these to verify changes before completing a task:
 
-## Essential Commands
+- `pnpm typecheck`
+- `pnpm lint:fix`
+- `pnpm test`
 
-Always run these commands from the root directory after making code changes:
+## Reference Pointers
 
-- `pnpm install` - Install dependencies (do NOT use npm/yarn).
-- `pnpm build` - Build the project.
-- `pnpm typecheck` - Run TypeScript compilation checks.
-- `pnpm lint:fix` - Run ESLint and Prettier to automatically fix styling issues.
-- `pnpm check:spell` - Check for spelling errors.
-- `pnpm check:case` - Check for casing errors.
-- `pnpm test` - Run the Vitest test suite.
-
-## AI Instructions & Skills
-
-Before writing code, please read the detailed code style guidelines:
-
-- [Code Style Guidelines](./.agents/CODE_STYLE.md)
+- **Code style**: read [CODE_STYLE.md](./.agents/CODE_STYLE.md) when writing or modifying TypeScript code.
+- **Changesets**: read [CHANGESET.md](./.agents/CHANGESET.md) when you modify library behavior, fix a bug, or break a public API.
