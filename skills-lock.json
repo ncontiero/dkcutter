@@ -7,6 +7,11 @@
       "skillPath": "skills/cac/SKILL.md",
       "computedHash": "135ab59eb9f6e22a2fa3038ab77fcf7daf0de3ae27a145b07e9a9dd3f0ac4bbc"
     },
+    "dkcutter": {
+      "source": "/home/dkshs/codes/libs/dkcutter",
+      "sourceType": "local",
+      "computedHash": "95c1805a5be1da749d813ca4ba186a8a3d2bad82190b19fb448079269497d3d8"
+    },
     "rspress-best-practices": {
       "source": "rstackjs/agent-skills",
       "sourceType": "github",
