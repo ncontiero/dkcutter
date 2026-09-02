@@ -15,11 +15,11 @@
   },
   "devDependencies": {
     "@ncontiero/eslint-config": "8.4.5",
-    "@rspress/core": "2.0.19",
-    "@types/node": "26.2.0",
+    "@rspress/core": "2.0.21",
+    "@types/node": "26.4.0",
     "@types/react": "19.2.18",
     "@typescript/native": "npm:typescript@7.0.2",
-    "eslint": "10.8.1",
+    "eslint": "10.9.1",
     "rspress-plugin-file-tree": "1.0.5",
     "rspress-plugin-font-open-sans": "1.0.4",
     "typescript": "npm:@typescript/typescript6@6.0.2"
