@@ -16,7 +16,7 @@
   "devDependencies": {
     "@ncontiero/eslint-config": "8.4.5",
     "@rspress/core": "2.0.21",
-    "@types/node": "26.4.0",
+    "@types/node": "26.4.1",
     "@types/react": "19.2.18",
     "@typescript/native": "npm:typescript@7.0.2",
     "eslint": "10.9.1",
