@@ -2,7 +2,15 @@
   "$schema": "https://unpkg.com/@changesets/config@4.0.0/schema.json",
   "changelog": [
     "@ncontiero/changelog-github",
-    { "repo": "ncontiero/dkcutter", "exclude": { "user": true } }
+    {
+      "repo": "ncontiero/dkcutter",
+      "ignoreUsers": [
+        "ncontiero",
+        "renovate[bot]",
+        "dependabot[bot]",
+        "github-actions[bot]"
+      ]
+    }
   ],
   "commit": false,
   "fixed": [],
