@@ -48,6 +48,6 @@
     "typescript": "npm:@typescript/typescript6@6.0.2"
   },
   "lint-staged": {
-    "*": "pnpm check:spell && pnpm check:case && eslint . --fix"
+    "*": ["pnpm check:spell lint --file", "pnpm check:case", "eslint --fix"]
   }
 }
