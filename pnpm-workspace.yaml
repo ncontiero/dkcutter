@@ -8,3 +8,5 @@ allowBuilds:
   unrs-resolver: false
 
 minimumReleaseAge: 4320
+minimumReleaseAgeExclude:
+  - "@ncontiero/changelog-github@3.1.0"
