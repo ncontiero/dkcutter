@@ -1,5 +1,13 @@
 # dkcutter
 
+## 7.0.1
+
+### Patch Changes
+
+- [`de17a35`](https://github.com/ncontiero/dkcutter/commit/de17a35deefcaa62d484e7549db4d0ec46ac17cb) - fix: use resolved tsx module URL for hook execution
+
+- [`99c0a86`](https://github.com/ncontiero/dkcutter/commit/99c0a86a7326289d42a2b5c7fcad4ea6e05b1d1b) - chore(deps): update tsdown to v0.23.0
+
 ## 7.0.0
 
 ### Major Changes
