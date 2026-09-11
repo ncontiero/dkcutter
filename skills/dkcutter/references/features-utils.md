@@ -14,7 +14,7 @@ DKCutter provides utilities at `dkcutter/utils` that you can import within your 
 - **`spinner`**: Easy loading indicators for async tasks.
 
 ```ts
-import { logger, spinner, colorize } from "dkcutter/utils";
+import { colorize, logger, spinner } from "dkcutter/utils";
 
 logger.info("Initializing...");
 spinner.start("Downloading files...");
@@ -28,7 +28,7 @@ Wrappers around Node's `fs/promises` that simplify file system tasks in hooks.
 Available functions: `pathExists`, `copy`, `remove`, `mkdir`, `emptyDir`, `rename`, `readJsonFile`, `writeJsonFile`.
 
 ```ts
-import { remove, pathExists } from "dkcutter/utils";
+import { pathExists, remove } from "dkcutter/utils";
 
 async function cleanup() {
   if (await pathExists("./temp")) {

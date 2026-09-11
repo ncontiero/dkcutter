@@ -6,6 +6,7 @@ description: Automate tasks before and after generating projects using JS/TS hoo
 # Hooks
 
 Hooks are scripts executed at specific points during project generation. Place them in a `hooks` folder at the template root.
+
 - `preGenProject.ts`: Runs after prompts, before templating. Good for validation.
 - `postGenProject.ts`: Runs after project generation. Good for cleanup or installing dependencies.
 
@@ -19,7 +20,7 @@ Map DKCutter Nunjucks variables to a native TypeScript object before using them,
 
 ```ts
 // hooks/postGenProject.ts
-import { remove, logger } from "dkcutter/utils";
+import { logger, remove } from "dkcutter/utils";
 
 type DatabaseOption = "postgres" | "sqlite";
 
@@ -41,7 +42,7 @@ async function run() {
   if (context.useTypescript) {
     logger.info(`Setting up TypeScript for ${context.projectName}...`);
   }
-  
+
   if (context.database === "sqlite") {
     // Remove postgres-specific files
     await remove("docker-compose.yml");

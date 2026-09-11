@@ -5,7 +5,7 @@ description: Configure dkcutter.json for user prompts and internal variables.
 
 # Configuration
 
-The root `dkcutter.json` defines variables and their prompts. 
+The root `dkcutter.json` defines variables and their prompts.
 
 ## Basics
 

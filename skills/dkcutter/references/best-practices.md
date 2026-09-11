@@ -10,6 +10,7 @@ description: Core conventions and best practices for creating DKCutter templates
 Template content must be wrapped in a directory within the `template/` folder. This wrapper directory should be dynamically named using a configuration variable (usually the project slug).
 
 **Correct Structure:**
+
 ```tree
 my-template
 ├── dkcutter.json
@@ -17,6 +18,7 @@ my-template
 └── template/
     └── {{dkcutter.projectSlug}}/  # Actual project files go here
 ```
+
 Never place project files directly in the `template/` folder.
 
 ## Naming Variables

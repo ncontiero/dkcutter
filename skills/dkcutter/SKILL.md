@@ -13,21 +13,21 @@ DKCutter is a powerful, customizable, and scalable project scaffolding tool buil
 
 ## Core References
 
-| Topic | Description | Reference |
-|-------|-------------|-----------|
+| Topic         | Description                                      | Reference                                              |
+| ------------- | ------------------------------------------------ | ------------------------------------------------------ |
 | Configuration | Variable definitions, prompts, and config schema | [core-configuration](references/core-configuration.md) |
-| Templating | Nunjucks contexts and global variables | [core-templating](references/core-templating.md) |
+| Templating    | Nunjucks contexts and global variables           | [core-templating](references/core-templating.md)       |
 
 ## Features
 
-| Topic | Description | Reference |
-|-------|-------------|-----------|
-| Hooks | Running TS/JS scripts before and after generation | [features-hooks](references/features-hooks.md) |
-| Internal Utilities | Built-in CLI and file utilities for hooks | [features-utils](references/features-utils.md) |
+| Topic              | Description                                       | Reference                                      |
+| ------------------ | ------------------------------------------------- | ---------------------------------------------- |
+| Hooks              | Running TS/JS scripts before and after generation | [features-hooks](references/features-hooks.md) |
+| Internal Utilities | Built-in CLI and file utilities for hooks         | [features-utils](references/features-utils.md) |
 
 ## Best Practices & Advanced
 
-| Topic | Description | Reference |
-|-------|-------------|-----------|
-| Programmatic API | Calling DKCutter from JS/TS code | [advanced-programmatic](references/advanced-programmatic.md) |
-| Best Practices | Directory structure and naming conventions | [best-practices](references/best-practices.md) |
+| Topic            | Description                                | Reference                                                    |
+| ---------------- | ------------------------------------------ | ------------------------------------------------------------ |
+| Programmatic API | Calling DKCutter from JS/TS code           | [advanced-programmatic](references/advanced-programmatic.md) |
+| Best Practices   | Directory structure and naming conventions | [best-practices](references/best-practices.md)               |

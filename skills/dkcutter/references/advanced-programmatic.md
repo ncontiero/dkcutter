@@ -31,12 +31,7 @@ console.log("Resolved context variables:", context);
 DKCutter exports specific custom errors that you can catch when calling it programmatically.
 
 ```ts
-import {
-  dkcutter,
-  TemplateError,
-  ConfigError,
-  DKCutterError
-} from "dkcutter";
+import { ConfigError, dkcutter, DKCutterError, TemplateError } from "dkcutter";
 
 try {
   await dkcutter({ template: "invalid-template" });
