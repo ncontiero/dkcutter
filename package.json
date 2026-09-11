@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@11.25.0",
+  "packageManager": "pnpm@12.3.4",
   "description": "A command-line utility that creates projects from templates.",
   "author": {
     "name": "Nicolas Contiero",
@@ -41,9 +41,9 @@
     "@typescript/native": "npm:typescript@7.0.2",
     "cspell-ban-words": "0.0.4",
     "dkcutter": "workspace:*",
-    "eslint": "10.9.1",
+    "eslint": "10.10.0",
     "husky": "9.1.7",
-    "lint-staged": "17.4.1",
+    "lint-staged": "17.5.0",
     "turbo": "2.10.12",
     "typescript": "npm:@typescript/typescript6@6.0.2"
   },

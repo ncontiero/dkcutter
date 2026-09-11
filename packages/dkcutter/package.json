@@ -45,7 +45,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@clack/prompts": "^1.7.0",
+    "@clack/prompts": "^1.8.0",
     "ansis": "^4.3.1",
     "cac": "^7.0.0",
     "isbinaryfile": "^6.0.0",
@@ -59,11 +59,11 @@
   },
   "devDependencies": {
     "@ncontiero/eslint-config": "8.4.5",
-    "@types/node": "26.4.1",
+    "@types/node": "26.5.0",
     "@types/nunjucks": "3.2.6",
     "@types/semver": "7.8.0",
     "@typescript/native": "npm:typescript@7.0.2",
-    "eslint": "10.9.1",
+    "eslint": "10.10.0",
     "tsdown": "0.22.14",
     "typescript": "npm:@typescript/typescript6@6.0.2",
     "vitest": "4.1.11"
