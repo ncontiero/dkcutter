@@ -6,6 +6,7 @@
       "repo": "ncontiero/dkcutter",
       "ignoreUsers": [
         "ncontiero",
+        "renovate",
         "renovate[bot]",
         "dependabot[bot]",
         "github-actions[bot]"
