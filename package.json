@@ -28,7 +28,6 @@
     "check": "pnpm lint && pnpm typecheck && pnpm check:spell && pnpm check:case",
     "test": "turbo test",
     "test:watch": "turbo test:watch",
-    "release": "pnpm build:dkcutter && changeset publish",
     "prepare": "husky",
     "pre-commit": "lint-staged"
   },
