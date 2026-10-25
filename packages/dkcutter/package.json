@@ -58,7 +58,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@ncontiero/eslint-config": "8.6.0",
+    "@ncontiero/eslint-config": "8.6.1",
     "@types/node": "26.6.5",
     "@types/nunjucks": "3.2.6",
     "@types/semver": "7.8.0",
