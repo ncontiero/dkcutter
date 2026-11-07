@@ -11,10 +11,6 @@ export default defineConfig({
   logo: "/dkcutter-icon.png",
   logoText: "DKCutter",
   globalStyles: path.join(__dirname, "theme", "index.css"),
-  llms: true,
-  route: {
-    cleanUrls: true,
-  },
   plugins: [pluginFontOpenSans(), pluginFileTree()],
   themeConfig: {
     enableScrollToTop: true,
@@ -38,10 +34,5 @@ export default defineConfig({
         content: "https://www.npmjs.com/package/dkcutter",
       },
     ],
-  },
-  markdown: {
-    link: {
-      checkAnchors: true,
-    },
   },
 });
