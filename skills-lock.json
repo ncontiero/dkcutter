@@ -5,7 +5,7 @@
       "source": "cacjs/cac",
       "sourceType": "github",
       "skillPath": "skills/cac/SKILL.md",
-      "computedHash": "135ab59eb9f6e22a2fa3038ab77fcf7daf0de3ae27a145b07e9a9dd3f0ac4bbc"
+      "computedHash": "6715eafbf13737b8d49613c98f95b4e3ba6a7ac1486123170b04bcfcd12fecd4"
     },
     "dkcutter": {
       "source": ".",
@@ -16,25 +16,25 @@
       "source": "rstackjs/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/rspress-best-practices/SKILL.md",
-      "computedHash": "d0022a5ede2f8c8a228a14dfa8bd8c1d03b83a09e6447ded7408d459e2c4930d"
+      "computedHash": "6aa7f74c6f1d0ae1f000d412c068a17023269192a056c84f8ffcae561c2e2a12"
     },
     "rspress-description-generator": {
       "source": "rstackjs/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/rspress-description-generator/SKILL.md",
-      "computedHash": "0e22059b170e09395e5d95513f17dc133b257f5bba7f16d8bc852b1923edbec9"
+      "computedHash": "9110d9e13d1e9ebb4a6a09fcbf07c97afa5af92bcc58440bb13b54728a3c8192"
     },
     "rspress-docs-generator": {
       "source": "rstackjs/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/rspress-docs-generator/SKILL.md",
-      "computedHash": "2d77b4f744eca32684609cc0a593ce42733f6c5dff1129a58a4fa3d0e59d7d2d"
+      "computedHash": "ac15a47048425a68fc671cf3754eef2b857e41db08354d09deb98f3bed1d6a1d"
     },
     "turborepo": {
       "source": "vercel/turborepo",
       "sourceType": "github",
       "skillPath": "skills/turborepo/SKILL.md",
-      "computedHash": "f7487f4d517f617ed6f161289e613478b32c6c86f11e44aa6abd15ff28b25bfe"
+      "computedHash": "c83a6ff75c62092f71da91408164ed3426f11749b032fd23ecc855e27c2fb538"
     },
     "vitest": {
       "source": "pproenca/dot-skills",

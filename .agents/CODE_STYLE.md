@@ -1,8 +1,0 @@
-- **Async First**: Use async/await and `node:fs/promises`. Never use synchronous I/O operations (e.g., `readFileSync`).
-- **Errors**: Throw semantic custom errors (`DKCutterZodError`, `ConfigError`, `TemplateError`) rather than using `process.exit()`.
-- **Validation**: Avoid `any`. Use `unknown` for opaque types and validate with `zod`.
-- **CLI UI**: Use `@clack/prompts` for spinners/prompts and `ansis` for terminal colors.
-- **File Naming**:
-  - TS/JS: Match main export (`camelCase.ts` or `PascalCase.ts`).
-  - MD/MDX: `kebab-case.md`.
-- **Testing**: Co-locate Vitest tests in the `packages/dkcutter/test/` folder.
