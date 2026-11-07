@@ -10,7 +10,7 @@
     "dkcutter": {
       "source": ".",
       "sourceType": "local",
-      "computedHash": "95c1805a5be1da749d813ca4ba186a8a3d2bad82190b19fb448079269497d3d8"
+      "computedHash": "5a5c0f38ee59099f4d996178bf7097bf6ed15ec1d8d512bd4e911db5efed5b19"
     },
     "rspress-best-practices": {
       "source": "rstackjs/agent-skills",
