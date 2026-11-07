@@ -40,7 +40,7 @@ export class HookExecutionError extends DKCutterError {
 export class RenderError extends DKCutterError {
   name = "RenderError";
 }
-export class ValidationError extends DKCutterError {
+export class ValidationError extends DKCutterZodError {
   name = "ValidationError";
 }
 export class PromptCancelledError extends DKCutterError {

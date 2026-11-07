@@ -6,16 +6,17 @@ import type {
   ContextProps,
 } from "./getConfig";
 
-import { z } from "zod";
+import { z, ZodError } from "zod";
 import { createCliOptions } from "@/cli/options";
 import { NUNJUCKS_PATTERN } from "@/consts";
+import { ValidationError } from "@/helpers/errors";
 import {
   getDefaultValue,
   isArray,
   isMultiselect as isMultiselectFunc,
   isObject,
 } from "@/utils/dataHandler";
-import { renderer } from "@/utils/renderer";
+import { renderer, renderUnescaped } from "@/utils/renderer";
 import { createPromptObjects } from "./prompts";
 
 /**
@@ -134,6 +135,99 @@ function handleValuesDisabled(
   }
 }
 
+/**
+ * Validates and normalizes a single context value against its configuration.
+ * @param {string} key - The key of the value to validate.
+ * @param {unknown} value - The value to validate.
+ * @param {ConfigProps} config - The template configuration.
+ * @param {ContextProps} context - The current context (used for error messages and choice conditions).
+ * @returns {ContextProps[string]} - The validated value.
+ * @throws {ValidationError} - If the value is invalid.
+ */
+function validateValue(
+  key: string,
+  value: unknown,
+  config: ConfigProps,
+  context: ContextProps,
+): ContextProps[string] {
+  const configValue = config[key];
+  const regex =
+    !isArray(configValue) && isObject(configValue)
+      ? configValue.validateRegex?.regex
+      : undefined;
+  const regexMessage =
+    !isArray(configValue) && isObject(configValue)
+      ? configValue.validateRegex?.message
+      : undefined;
+  const choices = isArray(configValue)
+    ? configValue.map((val) => ({ value: val }))
+    : isObject(configValue)
+      ? isArray(configValue.value)
+        ? configValue.value.map((val) => ({ value: val }))
+        : configValue.choices
+      : undefined;
+  const choicesType = isMultiselectFunc(configValue) ? "multiselect" : "select";
+
+  try {
+    return contextSchema(
+      key,
+      { ...context, [key]: value as ContextProps[string] },
+      regex,
+      choices,
+      choicesType,
+      regexMessage,
+    ).parse(value);
+  } catch (error) {
+    if (error instanceof ZodError) {
+      throw new ValidationError(`Invalid value for "${key}".`, {
+        cause: error,
+        zodError: error,
+      });
+    }
+    throw error;
+  }
+}
+
+/**
+ * Validates values that were derived from templates (e.g. `"{{ projectName|lower }}"`)
+ * after they have been rendered, since they cannot be validated beforehand.
+ * @param {ContextProps} context - The rendered context.
+ * @param {ConfigProps} config - The template configuration.
+ * @param {Set<string>} keys - The keys whose values were derived from templates.
+ * @returns {ContextProps} - The validated context.
+ */
+function validateDerivedValues(
+  context: ContextProps,
+  config: ConfigProps,
+  keys: Set<string>,
+): ContextProps {
+  for (const key of keys) {
+    const value = context[key];
+    if (value == null || NUNJUCKS_PATTERN.test(String(value))) continue;
+    context[key] = validateValue(key, value, config, context);
+  }
+  return context;
+}
+
+/**
+ * Returns the public keys whose values are still Nunjucks templates.
+ * @param {ContextProps} context - The context to inspect.
+ * @returns {Set<string>} - The keys with template values.
+ */
+function getDerivedKeys(context: ContextProps): Set<string> {
+  const keys = new Set<string>();
+  for (const [key, value] of Object.entries(context)) {
+    if (
+      !key.startsWith("_") &&
+      typeof value === "string" &&
+      NUNJUCKS_PATTERN.test(value)
+    ) {
+      keys.add(key);
+    }
+  }
+  return keys;
+}
+
 interface HandleContextReturn {
   fullContext: ContextProps;
   cliOptions: ContextProps;
@@ -165,35 +259,8 @@ function handleContext(
     const isDynamic = typeof value === "string" && NUNJUCKS_PATTERN.test(value);
     if (key.startsWith("_") || isDynamic) continue;
 
-    const configValue = config[key];
-    const regex =
-      !isArray(configValue) && isObject(configValue)
-        ? configValue.validateRegex?.regex
-        : undefined;
-    const regexMessage =
-      !isArray(configValue) && isObject(configValue)
-        ? configValue.validateRegex?.message
-        : undefined;
-    const choices = isArray(configValue)
-      ? configValue.map((val) => ({ value: val }))
-      : isObject(configValue)
-        ? isArray(configValue.value)
-          ? configValue.value.map((val) => ({ value: val }))
-          : configValue.choices
-        : undefined;
-    const choicesType = isMultiselectFunc(configValue)
-      ? "multiselect"
-      : "select";
-
-    mergedContext[key] = contextSchema(
-      key,
-      mergedContext,
-      regex,
-      choices,
-      choicesType,
-      regexMessage,
-    ).parse(value);
-    handleValuesDisabled(key, configValue, mergedContext);
+    mergedContext[key] = validateValue(key, value, config, mergedContext);
+    handleValuesDisabled(key, config[key], mergedContext);
   }
 
   return { fullContext: mergedContext, cliOptions };
@@ -239,7 +306,7 @@ function createContext(config: ConfigProps): {
 export function renderContext(context: ContextProps): ContextProps {
   for (const [key, value] of Object.entries(context)) {
     if (typeof value === "string") {
-      context[key] = renderer.renderString(value, context);
+      context[key] = renderUnescaped(value, context);
     }
   }
   return context;
@@ -280,7 +347,12 @@ export async function getContext({
   );
 
   if (skip) {
-    return renderContext(fullContext);
+    const derivedKeys = getDerivedKeys(fullContext);
+    return validateDerivedValues(
+      renderContext(fullContext),
+      config,
+      derivedKeys,
+    );
   }
   const answers = await createPromptObjects(config, {
     ...extraContext,
@@ -298,5 +370,6 @@ export async function getContext({
   }
   context = { ...answers, ...internal }; // Re-assign context with answers
 
-  return renderContext(context);
+  const derivedKeys = getDerivedKeys(context);
+  return validateDerivedValues(renderContext(context), config, derivedKeys);
 }

@@ -7,7 +7,7 @@ import { isBinaryFile } from "isbinaryfile";
 import { glob } from "tinyglobby";
 import { RenderError } from "@/helpers/errors";
 import { mkdir } from "@/utils";
-import { renderer } from "@/utils/renderer";
+import { renderer, renderUnescaped } from "@/utils/renderer";
 
 interface RenderOptions {
   /**
@@ -59,7 +59,7 @@ async function processTemplateFile(
   rootDirectory?: string,
 ) {
   const filePath = join(templatePath, file);
-  const treatedName = renderer.renderString(file, context);
+  const treatedName = renderUnescaped(file, context);
   const outputFilePath = join(outputFolder, treatedName);
 
   const itemStat = await fs.lstat(filePath);

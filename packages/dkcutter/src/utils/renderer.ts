@@ -11,6 +11,34 @@ import { getUserPkgManager } from ".";
  */
 export const renderer = nunjucks.configure({ autoescape: true });
 
+type EnvironmentWithOpts = nunjucks.Environment & {
+  opts: { autoescape: boolean };
+};
+
+/**
+ * Renders a template string without HTML autoescaping.
+ *
+ * Use it for values that are not HTML: `dkcutter.json` values, prompt texts,
+ * and file or directory names. File contents keep using `renderer.renderString`.
+ *
+ * @param {string} template - The template string to render.
+ * @param {object} [context] - The context to render the template with.
+ * @returns {string} - The rendered string.
+ */
+export function renderUnescaped(
+  template: string,
+  context: object = {},
+): string {
+  const env = renderer as EnvironmentWithOpts;
+  const previous = env.opts.autoescape;
+  env.opts.autoescape = false;
+  try {
+    return renderer.renderString(template, context);
+  } finally {
+    env.opts.autoescape = previous;
+  }
+}
+
 /**
  * Sets the context for the renderer by updating the DKCutter context with the provided data.
  * @param {ContextProps} ctx - The context data to set for the renderer.
@@ -71,7 +99,7 @@ function setContextField(
     );
   }
 
-  dkcutter[field] = verifyBoolean(renderer.renderString(value, dkcutter));
+  dkcutter[field] = verifyBoolean(renderUnescaped(value, dkcutter));
   if (returnV) return dkcutter[field];
 }
 

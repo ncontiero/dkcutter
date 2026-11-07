@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { renderer, setRendererContext } from "@/utils/renderer";
+import {
+  renderer,
+  renderUnescaped,
+  setRendererContext,
+} from "@/utils/renderer";
 
 describe("utils/renderer", () => {
   describe("setRendererContext", () => {
@@ -75,6 +79,17 @@ describe("utils/renderer", () => {
 
       const result2 = renderer.renderString(`{{ "hello" | wordCount }}`, {});
       expect(result2).toBe("5"); // length is 5
+    });
+  });
+
+  describe("renderUnescaped", () => {
+    it("should render without HTML-escaping and keep autoescape for files", () => {
+      const ctx = { name: "Bob's <App> & Co" };
+
+      expect(renderUnescaped("{{ name }}", ctx)).toBe("Bob's <App> & Co");
+      expect(renderer.renderString("{{ name }}", ctx)).toBe(
+        "Bob&#39;s &lt;App&gt; &amp; Co",
+      );
     });
   });
 });

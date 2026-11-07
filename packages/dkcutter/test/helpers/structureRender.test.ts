@@ -17,13 +17,13 @@ vi.mock("node:fs/promises", () => ({
   },
 }));
 
-vi.mock("@/utils/renderer", () => ({
-  renderer: {
-    renderString: vi.fn((str: string) =>
-      str.replace("{{projectName}}", "MockProject"),
-    ),
-  },
-}));
+vi.mock("@/utils/renderer", () => {
+  const render = (str: string) => str.replace("{{projectName}}", "MockProject");
+  return {
+    renderer: { renderString: vi.fn(render) },
+    renderUnescaped: vi.fn(render),
+  };
+});
 
 vi.mock("isbinaryfile", () => ({
   isBinaryFile: vi.fn((filePath: string) => {

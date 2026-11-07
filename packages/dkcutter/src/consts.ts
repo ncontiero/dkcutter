@@ -11,7 +11,7 @@ export const PKG_TEMPLATE = join(PKG_ROOT, "template");
 
 export const CONFIG_FILE_NAME = "dkcutter.json";
 export const DKCUTTER_PATTERN = /\{\{(\s?dkcutter)\.(.*?)\}\}/;
-export const NUNJUCKS_PATTERN = /(\{\{|\{%)[\s\w"'(),.=|-]*(%\}|\}\})/;
+export const NUNJUCKS_PATTERN = /\{\{|\{%/;
 
 // Templates
 export const REPO_PREFIXES = {

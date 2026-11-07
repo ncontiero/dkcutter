@@ -3,7 +3,7 @@ import * as p from "@clack/prompts";
 import { z } from "zod";
 import { formatKeyMessage } from "@/utils";
 import { isArray, isObject } from "@/utils/dataHandler";
-import { renderer } from "@/utils/renderer";
+import { renderer, renderUnescaped } from "@/utils/renderer";
 import { PromptCancelledError } from "./errors";
 
 type NormalizedConfig = Exclude<ConfigObjectProps, string | boolean | string[]>;
@@ -65,8 +65,8 @@ function getPromptChoices(
 
     return {
       value: choice.value,
-      label: renderer.renderString(choice.title || choice.value, answers),
-      hint: hint ? renderer.renderString(hint, answers) : undefined,
+      label: renderUnescaped(choice.title || choice.value, answers),
+      hint: hint ? renderUnescaped(hint, answers) : undefined,
       disabled,
       selected: choice.selected
         ? renderer.renderString(choice.selected, answers) === "true"
@@ -121,11 +121,11 @@ export async function createPromptObjects(
 
       const renderedInitial =
         typeof initialValue === "string"
-          ? renderer.renderString(initialValue, answers)
+          ? renderUnescaped(initialValue, answers)
           : initialValue;
 
       const message = normalizedValues.promptMessage
-        ? renderer.renderString(normalizedValues.promptMessage, answers)
+        ? renderUnescaped(normalizedValues.promptMessage, answers)
         : formatKeyMessage(key);
 
       if (type === "text") {

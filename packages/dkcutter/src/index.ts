@@ -31,7 +31,7 @@ import { type DKCutter, type OptionsSchema, optionsSchema } from "@/types";
 import { cleanFiles, emptyDir, pathExists } from "@/utils/files";
 import { getUserPkgManager } from "@/utils/getUserPkgManager";
 import { logger } from "@/utils/logger";
-import { renderer, setRendererContext } from "@/utils/renderer";
+import { renderUnescaped, setRendererContext } from "@/utils/renderer";
 import { spinner } from "@/utils/spinner";
 
 interface SetupPathsResult {
@@ -128,7 +128,7 @@ async function resolveProjectRoot(
   if (!generatedProjectRoot) {
     throw new TemplateError("No template project found. Please try again.");
   }
-  generatedProjectRoot = renderer.renderString(generatedProjectRoot, context);
+  generatedProjectRoot = renderUnescaped(generatedProjectRoot, context);
   return resolve(output, generatedProjectRoot);
 }
 

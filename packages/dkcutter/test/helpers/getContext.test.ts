@@ -1,9 +1,11 @@
 import type { ConfigProps } from "@/helpers/getConfig";
 import { describe, expect, it } from "vitest";
+import { ValidationError } from "@/helpers/errors";
 import { getContext, renderContext } from "@/helpers/getContext";
 import { renderer } from "@/utils/renderer";
 
 const LOWERCASE_REGEX = /^[a-z]+$/;
+const SLUG_REGEX = /^[a-z0-9-]+$/;
 
 describe("helpers/getContext", () => {
   describe("renderContext", () => {
@@ -113,6 +115,56 @@ describe("helpers/getContext", () => {
 
       process.argv = originalArgv;
       delete process.env.DKCUTTER_IS_CLI;
+    });
+
+    it("should throw a ValidationError for an invalid choice", async () => {
+      const config: ConfigProps = {
+        database: { value: "mysql", choices: [{ value: "postgres" }] },
+      };
+
+      await expect(getContext({ config, skip: true })).rejects.toBeInstanceOf(
+        ValidationError,
+      );
+    });
+
+    it("should not HTML-escape values derived from other variables", async () => {
+      const config: ConfigProps = {
+        projectName: "Bob's App & Co",
+        title: "{{ projectName }} <beta>",
+      };
+
+      const context = await getContext({ config, skip: true });
+
+      expect(context.title).toBe("Bob's App & Co <beta>");
+    });
+
+    it("should validate derived values after rendering them", async () => {
+      const config: ConfigProps = {
+        projectName: "Bob's App!",
+        projectSlug: {
+          value:
+            "{{ projectName|lower|replace(r/[^a-z0-9]+/g, '-')|replace(r/^-+|-+$/g, '') }}",
+          validateRegex: { regex: SLUG_REGEX },
+        },
+      };
+
+      const context = await getContext({ config, skip: true });
+
+      expect(context.projectSlug).toBe("bob-s-app");
+    });
+
+    it("should reject derived values that fail validation", async () => {
+      const config: ConfigProps = {
+        projectName: "Bob's App",
+        projectSlug: {
+          value: "{{ projectName|lower }}",
+          validateRegex: { regex: SLUG_REGEX, message: "Invalid slug" },
+        },
+      };
+
+      await expect(getContext({ config, skip: true })).rejects.toBeInstanceOf(
+        ValidationError,
+      );
     });
   });
 });
