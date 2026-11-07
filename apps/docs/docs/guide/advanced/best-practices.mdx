@@ -141,3 +141,39 @@ async function cleanup() {
 
 cleanup();
 ```
+
+## 8. Escaping in Template Files
+
+Template files and hooks are rendered with Nunjucks autoescaping enabled, so `{{ dkcutter.projectName }}` turns `Tom's & Co` into `Tom&#39;s &amp; Co`. This is correct for HTML, but not for code, JSON, YAML, or Markdown:
+
+- Use `{{ dkcutter.projectName | safe }}` to output the raw value.
+- Inside a JavaScript or JSON string, use `{{ dkcutter.projectName | dump | safe }}`, which outputs a correctly quoted string (no surrounding quotes needed).
+
+```json title="template/{{dkcutter.projectSlug}}/package.json"
+{
+  "name": "{{ dkcutter.projectSlug }}",
+  "description": {{ dkcutter.description | dump | safe }}
+}
+```
+
+Files that contain their own `{{ }}` or `{% %}` syntax, such as GitHub Actions workflows (`${{ github.sha }}`) or Vue templates, must be protected, otherwise those expressions are rendered (usually to an empty string). Wrap them in `{% raw %}...{% endraw %}` (the whitespace-trimming `{%- raw %}` form is not supported), or list the files in [`copyWithoutRender`](../config/advanced-config.mdx#copying-files-without-rendering).
+
+```yaml title="template/{{dkcutter.projectSlug}}/.github/workflows/ci.yml"
+steps:
+  - run: echo "Deploying {% raw %}${{ github.sha }}{% endraw %}"
+```
+
+## 9. Removing Optional Files in Hooks
+
+File and directory names cannot render to an empty string, so there are no conditional files. Include optional files in the template and remove them in `postGenProject` based on the user's answers:
+
+```ts title="hooks/postGenProject.ts"
+import { remove } from "dkcutter/utils";
+
+const useDocker = "{{ dkcutter.useDocker }}" === "true";
+
+if (!useDocker) {
+  await remove("Dockerfile");
+  await remove(".dockerignore");
+}
+```

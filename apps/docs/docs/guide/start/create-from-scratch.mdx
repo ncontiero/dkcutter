@@ -32,7 +32,7 @@ This file is the heart of your template. It defines the variables that the user 
 {
   "$schema": "https://dkcutter.ncontiero.com/schema.json",
   "projectName": "My Simple Website",
-  "projectSlug": "{{ dkcutter.projectName|lower|replace(' ', '-')|trim }}"
+  "projectSlug": "{{ projectName|lower|replace(' ', '-')|trim }}"
 }
 ```
 
@@ -40,7 +40,7 @@ This file is the heart of your template. It defines the variables that the user 
 
 - `"$schema"`: (Optional) Specifies the schema for editor autocompletion and validation.
 - `"projectName"`: A variable that the user will be prompted for. We've given it a default value of `"My Simple Website"`.
-- `"projectSlug"`: A variable that is _derived_ from `projectName`. It uses a template that converts the project name to lowercase, replaces spaces with hyphens, and removes any leading or trailing whitespace.
+- `"projectSlug"`: A variable that is _derived_ from `projectName`. It uses a template that converts the project name to lowercase, replaces spaces with hyphens, and removes any leading or trailing whitespace. Inside `dkcutter.json`, previous variables are referenced by their bare name (`projectName`), not with the `dkcutter.` prefix used in template files.
 
 ### Create the Template Files
 

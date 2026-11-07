@@ -40,3 +40,24 @@ Here's how this works in practice:
   The resulting `projectSlug` is `yet-another-new-project`.
 
 This simple example demonstrates how you can automatically generate a URL-friendly project slug based on the project name, saving the user from having to manually enter it. This approach can be extended to more complex scenarios, further enhancing the user experience and streamlining project setup.
+
+## Referencing Variables
+
+Inside `dkcutter.json`, reference previously defined variables by their bare name (`{{ projectName }}`). The `dkcutter.` prefix (`{{ dkcutter.projectName }}`) is only for template files and hooks; inside `dkcutter.json` it only gives access to [global variables](./global-variables.md) such as `dkcutter.now`.
+
+Variables are resolved in the order they are declared, so a value can only reference variables declared before it.
+
+## Escaping
+
+Values rendered inside `dkcutter.json`, prompt messages, and file or directory names are not HTML-escaped (DKCutter v7.0.2+), so `Bob's App` stays `Bob's App`. Template file contents are still HTML-escaped by default; see [Escaping in Template Files](./best-practices.mdx#8-escaping-in-template-files).
+
+To generate a slug that is always safe for folder and package names, keep only allowed characters with a regular expression:
+
+```json title="dkcutter.json"
+{
+  "projectName": "Bob's App!",
+  "projectSlug": "{{ projectName|lower|replace(r/[^a-z0-9]+/g, '-')|replace(r/^-+|-+$/g, '') }}"
+}
+```
+
+Here `projectSlug` becomes `bob-s-app`.

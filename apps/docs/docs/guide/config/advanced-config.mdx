@@ -119,6 +119,8 @@ Enforce a specific format for user input.
 
 The `validateRegex` object contains a `regex` pattern and a `message` to display on validation failure.
 
+When the default value is derived from other variables (e.g. `"{{ projectName|lower }}"`), it is validated after being rendered <Badge text="DKCutter v7.0.2+" type="info" />. An invalid value stops the generation with a `ValidationError`.
+
 ---
 
 ### The "choicesType" property

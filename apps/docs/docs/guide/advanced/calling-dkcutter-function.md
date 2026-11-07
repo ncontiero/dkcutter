@@ -98,6 +98,9 @@ try {
     console.error("Template could not be loaded!");
   } else if (error instanceof ConfigError) {
     console.error("Invalid configuration:", error.zodError);
+  } else if (error instanceof ValidationError) {
+    // A context value is not one of the choices or does not match `validateRegex`
+    console.error("Invalid value:", error.zodError);
   } else if (error instanceof DKCutterError) {
     console.error(
       "An error occurred during project generation:",
