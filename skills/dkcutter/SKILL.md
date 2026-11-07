@@ -79,4 +79,4 @@ Read only what the task needs:
 - [references/hooks.md](references/hooks.md) — hook lifecycle, typed context pattern, `dkcutter/utils`, libraries available at hook runtime, failure behavior.
 - [references/cli-and-api.md](references/cli-and-api.md) — CLI flags, passing answers via flags, multi-template repos, `dkcutter()` options and exported error classes.
 
-Official docs: <https://dkcutter.ncontiero.com>
+Official docs: <https://dkcutter.ncontiero.com> (for LLMs: <https://dkcutter.ncontiero.com/llms.txt>)
