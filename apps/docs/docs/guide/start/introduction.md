@@ -7,7 +7,7 @@ description: DKCutter is a powerful command-line utility that automates and stan
 **DKCutter** is a powerful command-line utility designed to automate and standardize project creation. Instead of manually setting up the same boilerplate for every new project, you can use DKCutter to instantly scaffold applications from customizable templates, whether you build your own or use those shared by the community.
 
 > [!TIP]
-> Coming from v6? Check out our [v7 Migration Guide](./v7-migration-guide.md) to learn about the breaking changes and new features.
+> Coming from v6? Check out our [v7 Migration Guide](../migration/v7.md) to learn about the breaking changes and new features.
 
 ## Key Features
 
@@ -21,7 +21,9 @@ description: DKCutter is a powerful command-line utility that automates and stan
 
 - **Programmatic API:** Use DKCutter directly in your Node.js applications and tools with a simple and flexible API.
 
-- **Shared Utilities:** Utilize built-in utilities like logger, spinner, and file manipulation functions to build more powerful and consistent hooks. See [Internal Utilities](../advanced/utils.md) for more details.
+- **Shared Utilities:** Utilize built-in utilities like logger, spinner, and file manipulation functions to build more powerful and consistent hooks. See [Hook Utilities](../templates/utils.md) for more details.
+
+- **AI-Ready:** Give AI assistants the docs as `llms.txt` and install the DKCutter Agent Skill to create and fix templates with them. See [AI & LLMs](./ai.mdx).
 
 ## How It Works
 
@@ -58,4 +60,4 @@ my-new-project   # The name you provided for `projectSlug`.
 This allows you to quickly bootstrap new projects with your desired structure and configuration.
 
 > [!IMPORTANT]
-> Please refer to our [Security and Official Templates](./security.mdx) page before using third-party templates. DKCutter hooks can execute arbitrary code on your system, so you should always verify templates from unknown sources.
+> Please refer to our [Security and Official Templates](./security.md) page before using third-party templates. DKCutter hooks can execute arbitrary code on your system, so you should always verify templates from unknown sources.

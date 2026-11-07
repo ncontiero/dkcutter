@@ -1,0 +1,144 @@
+---
+description: Run JavaScript or TypeScript hooks before and after DKCutter generates a project to validate answers, remove optional files, and automate setup
+---
+
+import { Badge } from "@rspress/core/theme";
+
+# Hooks
+
+Hooks are JavaScript or TypeScript scripts that run during project generation. Use them for what plain templating can't do: validating answers, removing optional files, editing `package.json`, or running commands in the new project.
+
+| Hook             | Runs                                                 | Typical use                                                      |
+| ---------------- | ---------------------------------------------------- | ---------------------------------------------------------------- |
+| `preGenProject`  | After the prompts, before the template is rendered   | Validate answers, [add variables](./global-variables.md#adding-and-updating-variables) |
+| `postGenProject` | After all files are generated                        | Remove optional files, edit files, run commands                  |
+
+Hooks live in the `hooks` directory at the template root, as `preGenProject.{ts,js}` and `postGenProject.{ts,js}`:
+
+```tree
+my-template
+├── dkcutter.json
+├── hooks
+│   ├── preGenProject.ts
+│   ├── postGenProject.ts
+│   └── utils.ts              # Helpers imported by the hooks
+└── template
+    └── {{dkcutter.projectSlug}}
+```
+
+## How Hooks Run
+
+1. The whole `hooks` directory, helper files included, is rendered with Nunjucks into a temporary folder. Every `{{ ... }}` is resolved at this point, before any hook code runs. `preGenProject` is rendered first, so [`dkcutter.add()`](./global-variables.md#adding-and-updating-variables) calls in it affect everything rendered after it.
+2. `preGenProject` runs.
+3. The template is rendered into the project folder.
+4. `postGenProject` runs.
+
+Both hooks run with the **generated project folder as the working directory**, so relative paths such as `"README.md"` point into the new project.
+
+- TypeScript works without configuration: hooks run with Node.js and [tsx](https://tsx.is), or with Bun when DKCutter is launched with `bunx`. Top-level `await` is supported.
+- Hooks can import each other with relative paths (`import { helper } from "./utils"`).
+- Packages are resolved from DKCutter's installation, not from the generated project, so only the [libraries listed below](#available-libraries) can be imported.
+- If a hook throws or exits with a non-zero code, the generation stops and the project folder is removed (unless `--keep-project-on-failure` is used).
+
+## Accessing Variables
+
+Hooks are rendered like template files, so variables are inserted with `{{ dkcutter.<variable> }}`. Collect them once, at the top of the hook, in a typed object; the rest of the file is then plain TypeScript:
+
+```ts title="hooks/postGenProject.ts"
+type Database = "postgres" | "sqlite" | "none";
+
+interface Context {
+  projectName: string;
+  useDocker: boolean;
+  database: Database;
+  tools: string[];
+}
+
+const toBoolean = (value: string) => value === "true";
+
+const context: Context = {
+  projectName: {{ dkcutter.projectName | dump | safe }},
+  useDocker: toBoolean("{{ dkcutter.useDocker }}"),
+  database: "{{ dkcutter.database }}" as Database,
+  tools: {{ dkcutter.tools | dump | safe }},
+};
+```
+
+- `| dump | safe` outputs a correctly quoted string or array, so names with quotes or apostrophes don't break the code. Hook files are HTML-escaped like any other file; see [Escaping](./structure.md#escaping).
+- Booleans are inserted as the text `true` or `false`; converting them with a helper keeps the file valid TypeScript before rendering.
+
+## Removing Optional Files
+
+A file name can't render to an empty string, so files that depend on an answer are included in the template and removed in `postGenProject`:
+
+```ts title="hooks/postGenProject.ts"
+import { remove } from "dkcutter/utils";
+
+const useDocker = "{{ dkcutter.useDocker }}" === "true";
+const database = "{{ dkcutter.database }}";
+
+const optionalFiles: [include: boolean, paths: string[]][] = [
+  [useDocker, ["Dockerfile", ".dockerignore"]],
+  [useDocker && database === "postgres", ["docker-compose.yml"]],
+  [database !== "none", ["src/db"]],
+];
+
+for (const [include, paths] of optionalFiles) {
+  if (!include) await Promise.all(paths.map((path) => remove(path)));
+}
+```
+
+Dependencies and scripts for optional features are easier to handle in the template itself, with `{% if %}` blocks in `package.json`; see [File Contents](./structure.md#file-contents).
+
+## Validating Answers
+
+`preGenProject` can stop the generation before any file is written:
+
+```ts title="hooks/preGenProject.ts"
+const slug = "{{ dkcutter.projectSlug }}";
+
+if (!/^[a-z][\da-z-]*$/.test(slug)) {
+  console.error(`"${slug}" is not a valid package name.`);
+  process.exit(1);
+}
+```
+
+For simple formats, [`validateRegex`](./prompts.mdx#validation) is usually enough and gives a better experience, since the user can fix the answer in the prompt.
+
+## Running Commands
+
+Use [tinyexec](https://github.com/tinylibs/tinyexec) to run commands in the new project:
+
+```ts title="hooks/postGenProject.ts"
+import { getUserPkgManager, spinner } from "dkcutter/utils";
+import { x } from "tinyexec";
+
+const runInstall = "{{ dkcutter.runInstall }}" === "true";
+
+if (runInstall) {
+  const pkgManager = getUserPkgManager();
+  spinner.start(`Installing dependencies with ${pkgManager}...`);
+  await x(pkgManager, ["install"], { throwOnError: true });
+  spinner.stop("Dependencies installed.");
+}
+```
+
+Make slow or network-dependent steps, such as installing dependencies or initializing Git, optional through a prompt, so the template also works offline and in CI.
+
+## Available Libraries
+
+DKCutter exposes [internal utilities](./utils.md) at `dkcutter/utils`, and these libraries can be imported in hooks:
+
+- [@clack/prompts](https://github.com/bombshell-dev/clack) - Prompts and spinners for command-line apps (<Badge text="DKCutter v6.1.0+" type="info" />)
+- [ansis](https://github.com/webdiscus/ansis) - Terminal colors and styles (<Badge text="DKCutter v6.1.0+" type="info" />)
+- [cac](https://github.com/cacjs/cac) - Command-line argument parsing (<Badge text="DKCutter v6.1.0+" type="info" />)
+- [isbinaryfile](https://github.com/gjtorikian/isBinaryFile) - Detects binary files (<Badge text="DKCutter v6.1.0+" type="info" />)
+- [lilconfig](https://github.com/antonk52/lilconfig) - Configuration file loader (<Badge text="DKCutter v6.0.0+" type="info" />)
+- [nunjucks](https://github.com/mozilla/nunjucks) - Templating engine
+- [semver](https://github.com/npm/node-semver) - Semantic version parser (<Badge text="DKCutter v6.2.0+" type="info" />)
+- [tinyexec](https://github.com/tinylibs/tinyexec) - Runs child processes (<Badge text="DKCutter v6.0.0+" type="info" />)
+- [tinyglobby](https://github.com/SuperchupuDev/tinyglobby) - Glob matching (<Badge text="DKCutter v6.2.0+" type="info" />)
+- [tsx](https://github.com/privatenumber/tsx) - Runs TypeScript in Node.js
+- [zod](https://github.com/colinhacks/zod) - Schema validation
+
+Node.js built-in modules (`node:fs/promises`, `node:path`, etc.) are also available.

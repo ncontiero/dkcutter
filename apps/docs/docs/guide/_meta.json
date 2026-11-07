@@ -1,17 +1,6 @@
 [
-  {
-    "type": "dir",
-    "name": "start",
-    "label": "Getting Started"
-  },
-  {
-    "type": "dir",
-    "name": "config",
-    "label": "DKCutter Configuration"
-  },
-  {
-    "type": "dir",
-    "name": "advanced",
-    "label": "Advanced"
-  }
+  { "type": "dir", "name": "start", "label": "Getting Started" },
+  { "type": "dir", "name": "templates", "label": "Writing Templates" },
+  { "type": "dir", "name": "usage", "label": "Usage" },
+  { "type": "dir", "name": "migration", "label": "Migration" }
 ]

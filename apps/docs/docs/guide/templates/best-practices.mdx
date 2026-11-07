@@ -1,0 +1,90 @@
+---
+description: Recommendations for building robust DKCutter templates - configuration, naming, escaping, hooks, and testing
+---
+
+# Best Practices
+
+A checklist for templates that are easy to use and hard to break.
+
+## Configuration
+
+### Use the Schema
+
+Add `$schema` to `dkcutter.json` for autocompletion and validation in your editor:
+
+```json title="dkcutter.json"
+{
+  "$schema": "https://dkcutter.ncontiero.com/schema.json"
+}
+```
+
+### Name Variables in camelCase
+
+Use camelCase (`projectName`, `useTypescript`) for variable names. Each variable becomes a CLI flag with the same name (`--projectName`), and other styles can be converted unexpectedly.
+
+```json title="dkcutter.json"
+{
+  "projectName": "My Project", // Good
+  "project_name": "My Project", // Avoid
+  "ProjectName": "My Project" // Avoid
+}
+```
+
+### Write Clear Questions
+
+Prefer the [object syntax](./prompts.mdx) with a `promptMessage`. The question generated from the key (`projectName` → "Project name?") is often too vague.
+
+```json title="dkcutter.json"
+{
+  "projectName": {
+    "value": "My Project",
+    "promptMessage": "What is the name of your new project?"
+  }
+}
+```
+
+### Derive Instead of Asking Twice
+
+Compute values such as slugs from previous answers with [derived values](./derived-values.md), and keep only safe characters in values used as folder or package names ([example](./derived-values.md#generating-a-safe-slug)).
+
+### Declare the Required Versions
+
+If the template relies on recent features, set [`_dkcutter.engines`](./settings.mdx#engine-versions), so users get a clear error instead of a broken project.
+
+## Template Files
+
+### Wrap Files in a Project Directory
+
+Place all project files inside a single directory named with a variable, such as `template/{{dkcutter.projectSlug}}/`. This is required; see [Template Structure](./structure.md#the-project-directory).
+
+### Choose the Right Escaping
+
+File contents are HTML-escaped. In code, JSON, YAML, and Markdown, output text values with `| safe`, or with `| dump | safe` for quoted strings. See [Escaping](./structure.md#escaping).
+
+### Protect Literal Braces
+
+Wrap `${{ }}` (GitHub Actions) and other brace syntaxes in `{% raw %}`, or list those files in `copyWithoutRender`. See [Literal Braces](./structure.md#literal-braces).
+
+## Hooks
+
+### Write Hooks in TypeScript
+
+Hooks run TypeScript without configuration. Collect the variables in a [typed context object](./hooks.mdx#accessing-variables) at the top of the hook and write the rest as plain TypeScript, instead of mixing Nunjucks tags into the logic.
+
+### Prefer `async`/`await`
+
+Use the asynchronous [utilities](./utils.md) from `dkcutter/utils` (`remove`, `copy`, `readJsonFile`, etc.) instead of synchronous Node.js APIs.
+
+```ts title="hooks/postGenProject.ts"
+import { remove } from "dkcutter/utils";
+
+await remove("unnecessary-file.txt");
+```
+
+### Keep Templates Declarative
+
+Use `{% if %}` blocks in template files for content that depends on answers, and hooks only for what templating can't do, such as [removing optional files](./hooks.mdx#removing-optional-files) or running commands.
+
+## Testing
+
+Generate the template with every important combination of answers before publishing it, using `-y` and [flags](../usage/cli.mdx#injecting-extra-context). Then run the generated project's own build, lint, and tests. See [Testing a Template](./structure.md#testing-a-template).

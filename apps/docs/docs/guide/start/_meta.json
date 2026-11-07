@@ -1,8 +1,1 @@
-[
-  "introduction",
-  "getting-started",
-  "create-from-scratch",
-  "security",
-  "v7-migration-guide",
-  "v6-migration-guide"
-]
+["introduction", "getting-started", "create-from-scratch", "security", "ai"]

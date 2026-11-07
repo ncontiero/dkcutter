@@ -1,0 +1,190 @@
+---
+description: Customize DKCutter prompts with the object syntax - prompt messages, regex validation, conditional prompts, select and multiselect choices
+---
+
+import { Badge } from "@rspress/core/theme";
+
+# Prompts
+
+Every public variable in `dkcutter.json` becomes a prompt. The [shorthand values](./variables.md) are enough for simple cases; the object syntax lets you customize the question, validate the answer, skip the prompt conditionally, and describe each choice.
+
+```json title="dkcutter.json"
+{
+  "projectName": {
+    "value": "My Awesome Project",
+    "promptMessage": "What is the name of your new project?"
+  }
+}
+```
+
+## Object Properties
+
+| Property        | Type                            | Description                                                                                        |
+| --------------- | ------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `value`         | `string \| boolean \| string[]` | Default value. An array of strings turns the prompt into a choice prompt (first item = default).   |
+| `promptMessage` | `string`                        | Question shown to the user. Without it, DKCutter builds one from the key (`projectName` → "Project name?"). |
+| `validateRegex` | `{ regex, message? }`           | Validates the answer with a regular expression.                                                    |
+| `disabled`      | `string`                        | Nunjucks expression; when it renders `"true"`, the prompt is skipped and the default is used.      |
+| `choicesType`   | `"select" \| "multiselect"`     | Single or multiple choice. Defaults to `"select"`.                                                 |
+| `choices`       | `object[]`                      | Detailed options for a choice prompt (see [Choices](#choices)).                                    |
+
+All string properties are [Nunjucks templates](./derived-values.md), so they can reference variables declared before them.
+
+## Prompt Message
+
+Besides referencing previous answers, `promptMessage` can use the [`colors`](./global-variables.md#colors) global to highlight words:
+
+```json title="dkcutter.json"
+{
+  "postgresqlVersion": {
+    "value": ["17", "16", "15"],
+    "promptMessage": "Which {{ colors.blue('PostgreSQL') }} version would you like to use?"
+  }
+}
+```
+
+## Validation
+
+`validateRegex` checks the answer, whether it is typed in the prompt, passed as a [CLI flag](../usage/cli.mdx#injecting-extra-context), or given in [`extraContext`](../usage/programmatic-api.md).
+
+```json title="dkcutter.json"
+{
+  "projectSlug": {
+    "value": "my-awesome-project",
+    "promptMessage": "Project slug (lowercase letters, numbers and hyphens):",
+    "validateRegex": {
+      "regex": "^[a-z0-9-]+$",
+      "message": "Use only lowercase letters, numbers and hyphens."
+    }
+  }
+}
+```
+
+Remember to escape backslashes in JSON (`"\\d+"`).
+
+When the default value is derived from other variables (e.g. `"{{ projectName|lower }}"`), it is validated after being rendered <Badge text="DKCutter v7.0.2+" type="info" />. An invalid value stops the generation with a `ValidationError`.
+
+## Conditional Prompts
+
+Use `disabled` to skip a prompt. The default `value` is used instead (a value passed via CLI for a disabled variable is also reset to the default).
+
+Set it to `"true"` to never ask, which is useful for values that should be overridable from the CLI or code but not prompted:
+
+```json title="dkcutter.json"
+{
+  "internalToolVersion": {
+    "value": "1.2.3",
+    "disabled": "true"
+  }
+}
+```
+
+Or use a Nunjucks expression based on previous answers. Here `useTailwind` is only asked when `projectType` is `web`:
+
+```json title="dkcutter.json"
+{
+  "projectType": {
+    "value": ["web", "cli"],
+    "promptMessage": "What type of project is this?"
+  },
+  "useTailwind": {
+    "value": false,
+    "promptMessage": "Add Tailwind CSS?",
+    "disabled": "{{ projectType != 'web' }}"
+  }
+}
+```
+
+## Choices
+
+### Single Choice
+
+An array as `value` (or as the whole variable) is the simplest way to offer options. The first item is the default.
+
+```json title="dkcutter.json"
+{
+  "license": {
+    "value": ["MIT", "BSD-3", "GNU GPL v3.0"],
+    "promptMessage": "Which license would you like to use?"
+  }
+}
+```
+
+```bash
+◆  Which license would you like to use?
+│  ● MIT
+│  ○ BSD-3
+│  ○ GNU GPL v3.0
+```
+
+For labels, hints, or disabled options, use `choices`. In that case, `value` is the default choice's `value`:
+
+```json title="dkcutter.json"
+{
+  "database": {
+    "value": "postgres",
+    "promptMessage": "Which database would you like to use?",
+    "choices": [
+      {
+        "title": "PostgreSQL",
+        "value": "postgres",
+        "description": "Recommended for most projects"
+      },
+      { "title": "SQLite", "value": "sqlite" },
+      {
+        "title": "MySQL",
+        "value": "mysql",
+        "disabled": "true",
+        "helpTextForDisabled": "Coming soon"
+      }
+    ]
+  }
+}
+```
+
+Each choice accepts:
+
+| Property              | Type     | Description                                                                   |
+| --------------------- | -------- | ----------------------------------------------------------------------------- |
+| `value`               | `string` | **Required.** The value stored in the context when selected.                  |
+| `title`               | `string` | Label shown to the user. Defaults to `value`.                                 |
+| `description`         | `string` | Hint shown next to the option.                                                |
+| `disabled`            | `string` | Nunjucks expression; `"true"` makes the option unselectable.                  |
+| `helpTextForDisabled` | `string` | Hint shown instead of `description` when the option is disabled.             |
+| `selected`            | `string` | Nunjucks expression; `"true"` pre-selects the option (mostly for multiselect). |
+
+### Multiple Choice
+
+Set `choicesType` to `"multiselect"`. The default `value` is a comma-separated string, and the answer is an **array of strings**.
+
+```json title="dkcutter.json"
+{
+  "tools": {
+    "value": "eslint,prettier",
+    "promptMessage": "Which tools do you want to include?",
+    "choicesType": "multiselect",
+    "choices": [
+      { "value": "eslint", "selected": "true" },
+      { "value": "prettier", "selected": "true" },
+      { "value": "vitest" }
+    ]
+  }
+}
+```
+
+```bash
+◆  Which tools do you want to include?
+│  ◼ eslint
+│  ◼ prettier
+│  ◻ vitest
+```
+
+In templates, check whether an option was selected with `in`:
+
+```txt
+{% if 'vitest' in dkcutter.tools %}
+"test": "vitest"
+{% endif %}
+```
+
+From the CLI, pass a comma-separated list: `--tools eslint,vitest`.

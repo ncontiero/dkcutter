@@ -40,6 +40,16 @@ If the user accepts the default value for `projectName` ("Really cool project"),
 }
 ```
 
+## Using Private Variables
+
+Private variables are used like any other variable, keeping the underscore:
+
+```md title="template/{{dkcutter.projectSlug}}/README.md"
+Package: {{ dkcutter._privateSlug }}
+```
+
+Because they are never prompted, they are also not available as [CLI flags](../usage/cli.mdx#injecting-extra-context).
+
 ## Use Cases for Private Variables
 
 Private variables are useful for:

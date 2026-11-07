@@ -23,25 +23,25 @@ features:
   - title: Dynamic Scaffolding
     details: Create complex project structures effortlessly using powerful Nunjucks-powered templates with full context awareness.
     icon: 🏗️
-    link: guide/advanced/templates-in-context
+    link: guide/templates/structure
   - title: Type-Safe & Scalable
     details: Write your project hooks in TypeScript and leverage a robust set of built-in libraries for advanced automation.
     icon: 🛡️
-    link: guide/advanced/hooks
-  - title: Shared Utilities
-    details: Utilize built-in utilities like logger, spinner, and file manipulation functions to build more powerful and consistent hooks.
-    icon: 🛠️
-    link: guide/advanced/utils
+    link: guide/templates/hooks
+  - title: AI-Ready
+    details: Feed the docs to your AI assistant with llms.txt and install the DKCutter Agent Skill to write and debug templates faster.
+    icon: 🤖
+    link: guide/start/ai
   - title: Interactive Prompts
     details: Fully customizable prompts with regex validation, conditional disabling, and multiselect support for the best UX.
     icon: ⚙️
-    link: guide/config/advanced-config
+    link: guide/templates/prompts
   - title: Native VCS Integration
     details: Instantly use templates from GitHub, GitLab, or Bitbucket with built-in abbreviations and version support.
     icon: 🌍
-    link: guide/start/getting-started#template-abbreviations
+    link: guide/usage/cli#template-sources
   - title: Programmatic Power
     details: Integrate DKCutter's core logic directly into your own Node.js applications and tools with a simple, flexible API.
     icon: 🚀
-    link: guide/advanced/calling-dkcutter-function
+    link: guide/usage/programmatic-api
 ---

@@ -1,0 +1,79 @@
+---
+description: Use the _dkcutter object in dkcutter.json to require DKCutter, Node.js or Bun versions and to ignore or copy files without rendering
+---
+
+import { Badge } from "@rspress/core/theme";
+
+# DKCutter Settings
+
+The reserved `_dkcutter` key in `dkcutter.json` holds settings for DKCutter itself <Badge text="DKCutter v6.2.0+" type="info" />. It is never prompted and does not become a template variable.
+
+```json title="dkcutter.json"
+{
+  "$schema": "https://dkcutter.ncontiero.com/schema.json",
+  "_dkcutter": {
+    "engines": {
+      "dkcutter": ">=7.0.0"
+    },
+    "ignore": ["**/.DS_Store"],
+    "copyWithoutRender": ["**/.github/workflows/**"]
+  },
+  "projectName": "My Awesome Project"
+}
+```
+
+## Engine Versions
+
+`engines` declares the versions of DKCutter, Node.js, or Bun the template supports, as [semver ranges](https://github.com/npm/node-semver#ranges). They are checked before any prompt, and the generation stops with an `EngineError` when they are not satisfied.
+
+```json title="dkcutter.json"
+{
+  "_dkcutter": {
+    "engines": {
+      "dkcutter": ">=7.0.0",
+      "node": ">=24.0.0",
+      "bun": ">=1.3.0"
+    }
+  }
+}
+```
+
+The runtime check depends on how DKCutter was launched: with npm, pnpm, or Yarn the `node` range is enforced; with Bun (`bunx`) the `bun` range is enforced.
+
+## Glob Patterns
+
+`ignore` and `copyWithoutRender` take glob patterns, matched with [tinyglobby](https://github.com/SuperchupuDev/tinyglobby) (dotfiles included) against paths relative to the `template/` folder. Those paths start with the wrapper directory, whose literal name is something like `{{dkcutter.projectSlug}}`, so start patterns with `**/`:
+
+```json
+"ignore": ["**/docs/internal/**"]
+```
+
+## Ignoring Files
+
+Files and directories matching `ignore` are not copied to the generated project at all.
+
+```json title="dkcutter.json"
+{
+  "_dkcutter": {
+    "ignore": ["**/.github/workflows/internal.yml", "**/docs/**", "**/temp_*"]
+  }
+}
+```
+
+To include a file only for some answers, ship it and remove it in a hook instead; see [Removing Optional Files](./hooks.mdx#removing-optional-files).
+
+## Copying Files Without Rendering
+
+By default, every text file is rendered with Nunjucks. Files matching `copyWithoutRender` are copied as they are, which is the simplest way to handle files that contain their own `{{ }}` syntax, such as GitHub Actions workflows or Vue templates. Their names are still rendered.
+
+```json title="dkcutter.json"
+{
+  "_dkcutter": {
+    "copyWithoutRender": ["**/.github/workflows/**", "**/*.hbs"]
+  }
+}
+```
+
+Binary files (images, fonts, archives, etc.) don't need to be listed: DKCutter detects them with [isbinaryfile](https://github.com/gjtorikian/isBinaryFile) and copies them without rendering.
+
+If a file needs both variables and literal braces, use `{% raw %}` instead; see [Literal Braces](./structure.md#literal-braces).

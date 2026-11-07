@@ -1,0 +1,74 @@
+---
+description: Use DKCutter with AI assistants - llms.txt and Markdown versions of the docs, the DKCutter Agent Skill, AGENTS.md, and running DKCutter from coding agents
+---
+
+import { PackageManagerTabs } from "@rspress/core/theme";
+
+# AI & LLMs
+
+AI assistants and coding agents work better with DKCutter when they have accurate, up-to-date information about it. These docs are published in machine-readable formats, and an Agent Skill packs the essentials of writing templates for coding agents.
+
+## llms.txt
+
+Following the [llms.txt](https://llmstxt.org/) standard, the documentation is available as plain text files that you can give to any AI tool:
+
+| File                                                              | Content                                                      |
+| ----------------------------------------------------------------- | ------------------------------------------------------------ |
+| [`/llms.txt`](https://dkcutter.ncontiero.com/llms.txt)           | Index of every page, with its title, link, and description. |
+| [`/llms-full.txt`](https://dkcutter.ncontiero.com/llms-full.txt) | Full content of every page in a single file.                 |
+
+Use `llms.txt` when the tool can follow links (it fetches only the pages it needs), and `llms-full.txt` to paste the whole documentation into a chat or a project knowledge base.
+
+## Markdown Pages
+
+Every page also has a Markdown version: add `.md` to its URL, for example [`/guide/templates/hooks.md`](https://dkcutter.ncontiero.com/guide/templates/hooks.md).
+
+Below the title of each page, you can:
+
+- **Copy Markdown:** copy the page content to paste into a chat.
+- **Open the menu next to it:** copy the link to the Markdown version, or open the page directly in ChatGPT or Claude.
+
+## Agent Skill
+
+[Agent Skills](https://agentskills.io/) are instructions and references that coding agents load when a task needs them. The **DKCutter skill** teaches agents how to create, convert, debug, and run DKCutter templates, including the details that most often cause bugs: where each variable syntax works, escaping, literal braces in workflows, optional files, and hooks.
+
+Install it with the [skills](https://skills.sh/) CLI, which supports Claude Code, Cursor, Codex, GitHub Copilot, and other agents:
+
+<PackageManagerTabs command="skills add ncontiero/dkcutter --skill dkcutter" dlx />
+
+Then ask your agent for DKCutter tasks in plain language, for example:
+
+- "Turn this project into a DKCutter template that asks for the project name and whether to include Docker."
+- "Generation of my template fails with a render error in the GitHub workflow. Fix it."
+- "Add a hook that removes the database files when the user picks `none`."
+
+The skill source is in the [DKCutter repository](https://github.com/ncontiero/dkcutter/tree/main/skills/dkcutter).
+
+## AGENTS.md
+
+If you maintain a template, add an [AGENTS.md](https://agents.md/) file to its repository, so agents working on it know it is a DKCutter template and where to find the docs:
+
+````md title="AGENTS.md"
+# My Template
+
+This repository is a [DKCutter](https://dkcutter.ncontiero.com) template.
+
+- Variables and prompts: `dkcutter.json`
+- Project files: `template/{{dkcutter.projectSlug}}/` (rendered with Nunjucks)
+- Hooks: `hooks/preGenProject.ts`, `hooks/postGenProject.ts`
+- DKCutter docs for LLMs: https://dkcutter.ncontiero.com/llms.txt
+
+## Testing
+
+Generate the template without prompts and check the output:
+
+```bash
+npx dkcutter@latest . -y -f -o /tmp/dkcutter-test
+```
+````
+
+## Running DKCutter from an Agent
+
+Agents run commands in a non-interactive shell, so they can't answer prompts. Ask them to use `-y` and pass answers as flags; see [Non-Interactive Usage](../usage/cli.mdx#non-interactive-usage).
+
+Templates can run arbitrary code through hooks. Before an agent generates a project from an unfamiliar template, make sure it reviews the template's `hooks/` directory, as described in [Security](./security.md).

@@ -1,0 +1,80 @@
+---
+description: DKCutter command-line reference - template sources, the init command, options, and passing answers as flags for non-interactive generation
+---
+
+import { PackageManagerTabs } from "@rspress/core/theme";
+
+# CLI
+
+```bash
+dkcutter [template] [options] [--variable value ...]
+```
+
+- `template`: the template to generate from, as a [Git repository or local path](#template-sources).
+- `options`: [options](#options) that change how DKCutter runs.
+- `--variable value`: [answers](#injecting-extra-context) for the template's variables.
+
+The recommended way to run DKCutter is through your package manager, which always uses the latest version:
+
+<PackageManagerTabs command="dkcutter@latest gh:ncontiero/dkcutter-nextjs" dlx />
+
+## Template Sources
+
+| Source                    | Example                                                              |
+| ------------------------- | -------------------------------------------------------------------- |
+| GitHub shorthand          | `gh:user/repo`                                                       |
+| GitLab shorthand          | `gl:user/repo`                                                       |
+| Bitbucket shorthand       | `bb:user/repo`                                                       |
+| Git URL                   | `https://github.com/user/repo.git`, `git@github.com:user/repo.git`   |
+| Local directory           | `./my-template`, `.`                                                 |
+
+Remote templates are cloned before generating. Use `--checkout` to pick a branch, tag, or commit, and `--directory` when the repository contains several templates.
+
+## Commands
+
+### `init`
+
+Creates a starter template (`dkcutter.json`, `hooks/`, and `template/`) in the current directory.
+
+<PackageManagerTabs command="dkcutter@latest init" dlx />
+
+## Options
+
+| Option                           | Description                                                                                         | Default       |
+| -------------------------------- | --------------------------------------------------------------------------------------------------- | ------------- |
+| `-y, --default`                  | Don't prompt; use the default values (and any value passed as a flag).                              | `false`       |
+| `-o, --output <path>`            | Directory where the project folder is created. It must already exist.                               | Current dir   |
+| `-d, --directory <path>`         | Directory inside the repository that contains `dkcutter.json`, for repositories with several templates. |           |
+| `-c, --checkout <checkout>`      | Branch, tag, or commit to check out after cloning.                                                   |               |
+| `-f, --overwrite`                | Replace the project folder if it already exists. Without it, the generation fails.                  | `false`       |
+| `-k, --keep-project-on-failure`  | Keep the project folder when the generation fails, which helps debugging hooks.                      | `false`       |
+| `-h, --help`                     | Show the help.                                                                                       |               |
+| `-v, --version`                  | Show the version.                                                                                    |               |
+
+## Injecting Extra Context
+
+Every public variable of the template can be set with a flag of the same name. Answers given this way are not prompted:
+
+<PackageManagerTabs
+  command="dkcutter@latest gh:ncontiero/dkcutter-nextjs --projectName 'My Project' -y"
+  dlx
+/>
+
+- **Text:** `--projectName "My Project"`
+- **Yes/no:** `--useTypescript false`, or just `--useTypescript` for `true`
+- **Multiple choice:** a comma-separated list, `--tools eslint,vitest`
+
+Values are validated like answers typed in the prompts: a value that is not one of the choices, or that doesn't match `validateRegex`, stops the generation with an error. Variables whose prompt is [disabled](../templates/prompts.mdx#conditional-prompts) keep their default value.
+
+## Non-Interactive Usage
+
+In CI, scripts, or when an AI agent runs DKCutter, prompts can't be answered. Combine `-y` with flags for every answer that differs from the default:
+
+```bash
+npx dkcutter@latest gh:user/template -y -o ./apps \
+  --projectName "Billing API" \
+  --database postgres \
+  --useDocker false
+```
+
+For more control, such as handling errors in code, use the [programmatic API](./programmatic-api.md).

@@ -1,0 +1,12 @@
+[
+  "structure",
+  "variables",
+  "prompts",
+  "settings",
+  "private-variables",
+  "derived-values",
+  "global-variables",
+  "hooks",
+  "utils",
+  "best-practices"
+]
